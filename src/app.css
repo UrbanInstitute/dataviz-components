@@ -1,0 +1,574 @@
+/* Font loading borrowed from: https://github.com/UI-Research/lyndon/blob/dev/src/global/global.css */
+
+/* Import Lato font from Google fonts */
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,400&display=swap');
+/* Import Futura PT font from typekit */
+@import url('//use.typekit.net/lqo0ftp.css');
+
+/*
+ * Font family defaults taken from : https://github.com/UI-Research/lyndon/blob/97dab753e4a0adebe000d5dfb409b776333d07d2/src/tailwind/tokens/font-family.json
+*/
+:root {
+	--font-family-sans: Lato, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+		'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+		'Segoe UI Symbol', 'Noto Color Emoji';
+	--font-family-sans-alt: 'futura-pt', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+		Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+		'Segoe UI Symbol', 'Noto Color Emoji';
+	--font-family-serif: Georgia, Cambria, 'Times New Roman', Times, serif;
+	--font-family-mono: Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+	--font-size-normal: 1rem;
+	--font-size-small: 0.875rem;
+	--font-size-large: 1.125rem;
+	--font-size-xl: 1.25rem;
+	--font-size-2xl: 1.5rem;
+	--font-size-3xl: 1.875rem;
+	--font-size-4xl: 2.25rem;
+	--font-size-5xl: 3rem;
+	--font-size-6xl: 3.75rem;
+	--font-weight-light: 300;
+	--font-weight-normal: 400;
+	--font-weight-medium: 500;
+	--font-weight-bold: 700;
+	--line-height-normal: 1.5;
+	--line-height-relaxed: 1.625;
+	--line-height-snug: 1.375;
+	--line-height-tight: 1.25;
+	--color-black: #000000;
+	--color-white: #ffffff;
+	--color-blue-shade-darkest: #062635;
+	--color-blue-shade-darker: #0a4c6a;
+	--color-blue-shade-dark: #12719e;
+	--color-blue: #1696d2;
+	--color-blue-shade-medium: #46abdb;
+	--color-blue-shade-light: #73bfe2;
+	--color-blue-shade-lighter: #a2d4ec;
+	--color-blue-shade-lightest: #cfe8f3;
+	--color-gray-shade-darkest: #353535;
+	--color-gray-shade-darker: #696969;
+	--color-gray-shade-dark: #9d9d9d;
+	--color-gray: #d2d2d2;
+	--color-gray-shade-medium: #dcdbdb;
+	--color-gray-shade-light: #e3e3e3;
+	--color-gray-shade-lighter: #ececec;
+	--color-gray-shade-lightest: #f5f5f5;
+	--color-yellow-shade-darkest: #843215;
+	--color-yellow-shade-darker: #ca5800;
+	--color-yellow-shade-dark: #e88e2d;
+	--color-yellow: #fdbf11;
+	--color-yellow-shade-medium: #fccb41;
+	--color-yellow-shade-light: #fdd870;
+	--color-yellow-shade-lighter: #fce39e;
+	--color-yellow-shade-lightest: #fff2cf;
+	--color-magenta-shade-darkest: #351123;
+	--color-magenta-shade-darker: #761548;
+	--color-magenta-shade-dark: #12719e;
+	--color-magenta: #ec00bb;
+	--color-magenta-shade-medium: #e54096;
+	--color-magenta-shade-light: #e46aa7;
+	--color-magenta-shade-lighter: #eb99c2;
+	--color-magenta-shade-lightest: #f5cbdf;
+	--color-green-shade-darkest: #1a2e19;
+	--color-green-shade-darker: #2c5c2d;
+	--color-green-shade-dark: #408941;
+	--color-green: #ffb748;
+	--color-green-shade-medium: #78c26d;
+	--color-green-shade-light: #98cf90;
+	--color-green-shade-lighter: #bcdeb4;
+	--color-green-shade-lightest: #dcedd9;
+	--color-red-shade-darkest: #1a2e19;
+	--color-red-shade-darker: #6e1614;
+	--color-red-shade-dark: #a4201d;
+	--color-red: #db2b27;
+	--color-red-shade-medium: #e25552;
+	--color-red-shade-light: #e9807d;
+	--color-red-shade-lighter: #f1aaa9;
+	--color-red-shade-lightest: #f8d5d4;
+	--color-space-gray-shade-darkest: #0e0c0d;
+	--color-space-gray-shade-darker: #1a1717;
+	--color-space-gray-shade-dark: #262223;
+	--color-space-gray-shade-medium-dark: #332d2f;
+	--color-space-gray: #5c5859;
+	--color-space-gray-shade-light: #848081;
+	--color-space-gray-shade-lighter: #adabac;
+	--color-space-gray-shade-lightest: #d5d5d4;
+	--spacing-1: 0.25rem;
+	--spacing-2: 0.5rem;
+	--spacing-3: 0.75rem;
+	--spacing-4: 1rem;
+	--spacing-5: 1.25rem;
+	--spacing-6: 1.5rem;
+	--spacing-7: 1.75rem;
+	--spacing-8: 2rem;
+	--spacing-9: 2.25rem;
+	--spacing-10: 2.5rem;
+	--spacing-11: 2.75rem;
+	--spacing-12: 3rem;
+	--spacing-16: 4rem;
+	--spacing-20: 5rem;
+	font-family: var(--font-family-sans);
+	line-height: 1.5;
+	font-weight: 400;
+	font-size: 16px;
+	color-scheme: light dark;
+	color: #000000;
+	background-color: #ffffff;
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-text-size-adjust: 100%;
+	box-sizing: border-box;
+}
+
+html,
+body,
+div,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+li {
+	margin: 0;
+	padding: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-family: inherit;
+}
+
+/*
+ * Typography
+ * Classes are based on Figma: https://www.figma.com/file/Tnl8cmQL64BXvjykHDm4lR/Urban-Styles-%26-Components?node-id=8%3A21&t=tj4wqp9e6su2pu69-1
+ */
+
+/*
+ * Font sizes
+ */
+
+.text-base {
+	font-size: var(--font-size-normal);
+}
+
+.text-sm {
+	font-size: var(--font-size-small);
+}
+
+.text-lg {
+	font-size: var(--font-size-large);
+}
+
+.text-xl {
+	font-size: var(--font-size-xl);
+}
+
+.text-2xl {
+	font-size: var(--font-size-2xl);
+}
+
+.text-3xl {
+	font-size: var(--font-size-3xl);
+}
+
+.text-4xl {
+	font-size: var(--font-size-4xl);
+}
+
+.text-5xl {
+	font-size: var(--font-size-5xl);
+}
+
+.text-6xl {
+	font-size: var(--font-size-6xl);
+}
+
+/*
+ * Font weights
+ */
+
+.font-normal {
+	font-weight: var(--font-weight-normal);
+}
+
+.font-light {
+	font-weight: var(--font-weight-light);
+}
+
+.font-medium {
+	font-weight: var(--font-weight-medium);
+}
+
+.font-bold {
+	font-weight: var(--font-weight-bold);
+}
+
+/*
+ * Font families
+ */
+
+.font-sans {
+	font-family: var(--font-family-sans);
+}
+
+.font-serif {
+	font-family: var(--font-family-serif);
+}
+
+.font-sans-alt {
+	font-family: var(--font-family-sans-alt);
+}
+
+.font-mono {
+	font-family: var(--font-family-mono);
+}
+
+/*
+ * Leading
+ */
+
+.leading-normal {
+	line-height: var(--line-height-normal);
+}
+
+.leading-relaxed {
+	line-height: var(--line-height-relaxed);
+}
+
+.leading-snug {
+	line-height: var(--line-height-snug);
+}
+
+.leading-tight {
+	line-height: var(--line-height-tight);
+}
+
+/*
+ * Cases
+ */
+
+.normal-case {
+	text-transform: none;
+}
+
+.uppercase {
+	text-transform: uppercase;
+}
+
+.lowercase {
+	text-transform: lowercase;
+}
+
+/*
+ * Underlines
+ */
+
+.underline {
+	text-decoration: underline;
+}
+
+.no-underline {
+	text-decoration: none;
+}
+
+/*
+ * Italics
+ */
+
+.italic {
+	font-style: italic;
+}
+
+/*
+ * Default type styles
+ */
+
+/*
+ * Headings
+ */
+
+h1 {
+	color: var(--color-black);
+	font-family: var(--font-family-sans);
+	font-size: var(--font-size-4xl);
+	font-weight: var(--font-weight-bold);
+	line-height: var(--line-height-tight);
+	text-transform: none;
+}
+
+h2 {
+	color: var(--color-black);
+	font-family: var(--font-family-sans);
+	font-size: var(--font-size-3xl);
+	font-weight: var(--font-weight-bold);
+	line-height: var(--line-height-snug);
+	text-transform: none;
+}
+
+h3 {
+	color: var(--color-black);
+	font-family: var(--font-family-sans);
+	font-size: var(--font-size-2xl);
+	font-weight: var(--font-weight-light);
+	line-height: var(--line-height-normal);
+	text-transform: uppercase;
+}
+
+h4 {
+	color: var(--color-black);
+	font-family: var(--font-family-sans);
+	font-size: var(--font-size-xl);
+	font-weight: var(--font-weight-bold);
+	line-height: var(--line-height-normal);
+	text-transform: none;
+}
+
+h5 {
+	color: var(--color-black);
+	font-family: var(--font-family-sans);
+	font-size: var(--font-size-large);
+	font-weight: var(--font-weight-bold);
+	line-height: var(--line-height-normal);
+	text-transform: none;
+}
+
+h6 {
+	color: var(--color-black);
+	font-family: var(--font-family-sans);
+	font-size: var(--font-size-base);
+	font-weight: var(--font-weight-bold);
+	line-height: var(--line-height-normal);
+	text-transform: none;
+}
+
+.sub-head {
+	color: var(--color-black);
+	font-family: var(--font-family-sans-alt);
+	font-size: var(--font-size-2xl);
+	font-weight: var(--font-weight-medium);
+	line-height: auto;
+	text-transform: uppercase;
+}
+
+/*
+ * Paragraphs
+ */
+
+p,
+.text-paragraph {
+	font-family: var(--font-family-sans);
+	font-size: var(--font-size-large);
+	font-weight: var(--font-weight-normal);
+	line-height: var(--line-height-normal);
+	color: var(--color-gray-shade-darkest);
+}
+
+strong,
+.text-paragraph--bold {
+	font-weight: var(--font-weight-bold);
+}
+
+em,
+.text-paragraph--italic {
+	font-style: italic;
+}
+
+/*
+ * Misc.
+ */
+
+.text-date {
+	color: var(--color-gray-shade-darker);
+	font-size: var(--font-size-small);
+	font-family: var(--font-family-sans);
+	font-weight: var(--font-weight-normal);
+	line-height: var(--line-height-normal);
+}
+
+.text-caption {
+	color: var(--color-gray-shade-darkest);
+	font-size: var(--font-size-small);
+	font-family: var(--font-family-sans);
+	font-weight: var(--font-weight-normal);
+	line-height: var(--line-height-normal);
+	font-style: italic;
+}
+
+.text-eyebrow {
+	color: var(--color-gray-shade-darker);
+	font-size: var(--font-size-small);
+	font-family: var(--font-family-sans);
+	font-weight: var(--font-weight-normal);
+	font-style: italic;
+	line-height: var(--line-height-normal);
+	text-transform: none;
+}
+
+/*
+ * Display
+ */
+
+.text-display {
+	font-size: var(--font-size-5xl);
+}
+
+/*
+ * Links
+ */
+
+.text-link {
+	color: var(--color-blue);
+	font-weight: var(--font-weight-bold);
+	text-decoration: none;
+}
+
+.text-link:hover {
+	color: var(--color-blue-shade-dark);
+}
+
+.text-link--state-disabled {
+	opacity: 0.5;
+}
+
+/*
+ * Main Navigation
+ */
+
+.text-nav-main {
+	color: var(--color-black);
+	font-family: var(--font-family-sans-alt);
+	font-size: var(--font-size-xl);
+	text-decoration: none;
+	text-transform: uppercase;
+}
+
+.text-nav-main--state-active {
+	color: var(--color-blue);
+	border-bottom: solid 2px var(--color-blue);
+}
+
+.text-nav-main--state-disabled {
+	color: var(--color-black);
+	opacity: 0.5;
+	text-decoration: none;
+}
+
+.text-footer-nav {
+	color: var(--color-white);
+	font-size: var(--font-size-small);
+	font-family: var(--font-family-sans);
+	font-weight: var(--font-weight-normal);
+	line-height: var(--line-height-normal);
+	text-decoration: none;
+}
+
+.text-footer-nav--state-disabled {
+	opacity: 0.5;
+}
+
+/*
+ * Sub Navigation
+ */
+
+.text-sub-nav {
+	font-size: var(--font-size-large);
+	font-family: var(--font-family-sans);
+	font-weight: var(--font-weight-bold);
+	line-height: auto;
+}
+
+.text-sub-nav--dark {
+	color: var(--color-black);
+}
+
+.text-sub-nav--dark:hover,
+.text-sub-nav--dark--state-active {
+	color: var(--color-blue);
+	border-bottom: solid 4px var(--color-blue);
+}
+
+.text-sub-nav--bumblebee {
+	color: var(--color-black);
+}
+
+.text-sub-nav--bumblebee:hover,
+.text-sub-nav--bumblebee--state-active {
+	border-bottom: solid 4px var(--color-yellow);
+}
+
+.text-sub-nav--state-disabled {
+	opacity: 0.5;
+}
+
+.text-button {
+	color: var(--color-white);
+	font-size: var(--font-size-large);
+	font-family: var(--font-family-sans);
+	font-weight: var(--font-weight-bold);
+	line-height: auto;
+	text-transform: uppercase;
+}
+
+/*
+ * Lists
+ */
+
+ol,
+ul {
+	padding-left: 1em;
+}
+
+p,
+li {
+	margin-bottom: var(--spacing-2);
+}
+
+/*
+ * Larger screens
+ */
+
+@media (min-width: 769px) {
+	/*
+   * Headings
+   */
+
+	h1 {
+		font-size: var(--font-size-5xl);
+	}
+
+	h2 {
+		font-size: var(--font-size-4xl);
+	}
+
+	h3 {
+		font-size: var(--font-size-3xl);
+	}
+
+	h4 {
+		font-size: var(--font-size-2xl);
+	}
+
+	h5 {
+		font-size: var(--font-size-xl);
+	}
+
+	h6 {
+		font-size: var(--font-size-large);
+	}
+
+	.shead {
+		font-size: var(--font-size-3xl);
+	}
+
+	p {
+		font-size: var(--font-size-xl);
+		line-height: var(--line-height-relaxed);
+	}
+
+	.text-display {
+		font-size: var(--font-size-6xl);
+	}
+}
