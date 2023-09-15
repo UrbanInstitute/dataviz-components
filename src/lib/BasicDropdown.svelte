@@ -1,5 +1,6 @@
 <script>
 	import { createEventDispatcher } from "svelte";
+	import "../app.css";
 
 	// define arguments
 	/** @type {String} The current value for the dropdown */
