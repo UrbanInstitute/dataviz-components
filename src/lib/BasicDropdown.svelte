@@ -6,11 +6,8 @@
 	/** @type {String} The current value for the dropdown */
 	export let value;
 
-	/** @type {Array} The data values for the dropdown */
+	/** @type {{ value: string, label: string}[]} source data as array of objects (value and label attributes)*/
 	export let data;
-
-	/** @type {Array} The data labels for the dropdown */
-	export let data_labels;
 
 	/** @type {String} The label for the dropdown (currently hidden)*/
 	export let inline_label;
@@ -29,8 +26,8 @@
 	<label aria-hidden="true" hidden for="opts">{inline_label}</label>
 	<select
 		bind:value
-		name="opts"
-		id="opts"
+		name="dropdown-select"
+		class="dropdown-select"
 		style={`--bg-img: url("${arrow}"); width: ${dropdown_width}px;`}
 		aria-label={inline_label}
 		on:change={(e) => {
@@ -38,9 +35,9 @@
 		}}
 	>
 		<!-- options -->
-		{#each data as col, i (col)}
-			{#if col !== ""}
-				<option value={col}>{data_labels[i]}</option>
+		{#each data as d (d.value)}
+			{#if d !== ""}
+				<option value={d.value}>{d.label}</option>
 			{/if}
 		{/each}
 	</select>
@@ -52,7 +49,7 @@
 		align-items: center;
 	}
 
-	#opts {
+	.dropdown-select {
 		color: var(--color-gray-shade-darker);
 		padding: var(--spacing-2) var(--spacing-3);
 		font-size: var(--font-size-normal);

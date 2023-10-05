@@ -9,8 +9,12 @@
 	<h2>BasicDropdown.svelte</h2>
 	<BasicDropdown
 		value="rachel"
-		data={["rachel", "ben", "mitchell", "aleszu"]}
-		data_labels={["Rachel", "Ben", "Mitchell", "Aleszu"]}
+		data={[
+			{ value: "rachel", label: "Rachel" },
+			{ value: "ben", label: "Ben" },
+			{ value: "mitchell", label: "Mitchell" },
+			{ value: "aleszu", label: "Aleszu" }
+		]}
 		inline_label="Select a value"
 	/>
 </main>
