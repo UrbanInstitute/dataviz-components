@@ -3,19 +3,22 @@
 	import "../app.css";
 
 	// define arguments
-	/** @type {String} The current value for the dropdown */
+	/** @type {String} Dropdown id */
+	export let id;
+
+	/** @type {String} Current value for the dropdown (data.value) */
 	export let value;
 
-	/** @type {{ value: string, label: string}[]} source data as array of objects (value and label attributes)*/
+	/** @type {{ value: string, label: string}[]} Source data as an array of objects (value and label attributes)*/
 	export let data;
 
-	/** @type {String} The label for the dropdown (currently hidden)*/
+	/** @type {String} Label for the dropdown (currently hidden)*/
 	export let inline_label;
 
-	/** @type {Number} The width of the dropdown */
+	/** @type {Number} Width (px) of the dropdown */
 	export let dropdown_width = 260;
 
-	/** @type {String} hex color for arrow fill */
+	/** @type {String} Hex color for arrow fill */
 	export let arrow_fill_color = "#1696D1";
 
 	// create dispatcher
@@ -28,10 +31,11 @@
 </script>
 
 <div class="dropdown-container">
-	<label aria-hidden="true" hidden for="opts">{inline_label}</label>
+	<label aria-hidden="true" hidden for={id}>{inline_label}</label>
 	<select
 		bind:value
-		name="dropdown-select"
+		name={id}
+		{id}
 		class="dropdown-select"
 		style={`--bg-img: url("${arrow}"); width: ${dropdown_width}px;`}
 		aria-label={inline_label}
@@ -41,7 +45,7 @@
 	>
 		<!-- options -->
 		{#each data as d (d.value)}
-			{#if d !== ""}
+			{#if d.value !== ""}
 				<option value={d.value}>{d.label}</option>
 			{/if}
 		{/each}
@@ -59,7 +63,6 @@
 		padding: var(--spacing-2) var(--spacing-3);
 		font-size: var(--font-size-normal);
 		font-family: Lato, helvetica, sans-serif;
-		font-style: normal;
 		border: 1px solid var(--color-gray-shade-medium);
 		cursor: pointer;
 		background-color: var(--color-white);
@@ -67,9 +70,6 @@
 		background-size: var(--spacing-4) var(--spacing-4);
 		background-repeat: no-repeat;
 		background-position: 95% center;
-		z-index: 2;
-		position: relative;
-		overflow: hidden;
 		-webkit-appearance: none;
 		-moz-appearance: none;
 		appearance: none;

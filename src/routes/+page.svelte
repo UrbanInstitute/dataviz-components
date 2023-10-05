@@ -16,6 +16,7 @@
 			{ value: "aleszu", label: "Aleszu" }
 		]}
 		inline_label="Select a value"
+		id="names"
 	/>
 </main>
 
