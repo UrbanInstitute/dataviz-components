@@ -1,5 +1,6 @@
 <script>
 	import BasicDropdown from "$lib/BasicDropdown.svelte";
+	import Scorecard from "$lib/Scorecard.svelte";
 	import "../app.css";
 </script>
 
@@ -18,6 +19,9 @@
 		inline_label="Select a value"
 		id="names"
 	/>
+	<br />
+	<h2>Scorecard.svelte</h2>
+	<Scorecard value="9,001" label="Visualizations" />
 </main>
 
 <style>
