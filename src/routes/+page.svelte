@@ -1,3 +1,31 @@
-<h1>Welcome to your library project</h1>
-<p>Create your package using @sveltejs/package and preview/showcase your work with SvelteKit</p>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script>
+	import BasicDropdown from "$lib/BasicDropdown.svelte";
+	import Scorecard from "$lib/Scorecard.svelte";
+	import "../app.css";
+</script>
+
+<main>
+	<h1>Svelte Data Visualization Components for Urban Institute</h1>
+	<br />
+	<h2>BasicDropdown.svelte</h2>
+	<BasicDropdown
+		value="rachel"
+		data={[
+			{ value: "rachel", label: "Rachel" },
+			{ value: "ben", label: "Ben" },
+			{ value: "mitchell", label: "Mitchell" },
+			{ value: "aleszu", label: "Aleszu" }
+		]}
+		inline_label="Select a value"
+		id="names"
+	/>
+	<br />
+	<h2>Scorecard.svelte</h2>
+	<Scorecard value="9,001" label="Visualizations" />
+</main>
+
+<style>
+	main {
+		padding: 1rem;
+	}
+</style>
