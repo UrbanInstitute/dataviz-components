@@ -1,6 +1,6 @@
 <script>
 	import { createEventDispatcher } from "svelte";
-	import "../app.css";
+	// import "../app.css";
 
 	// define arguments
 	/** @type {String} Dropdown id */
