@@ -1,7 +1,7 @@
 <script>
 	import BasicDropdown from "$lib/BasicDropdown.svelte";
 	import Scorecard from "$lib/Scorecard.svelte";
-	import "../app.css";
+	import "$lib/style/app.css";
 </script>
 
 <main>
