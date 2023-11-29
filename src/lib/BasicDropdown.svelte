@@ -3,22 +3,39 @@
 	import "$lib/style/app.css";
 
 	// define arguments
-	/** @type {String} Dropdown id */
+
+	/**
+	 * @type {string} Dropdown id
+	 */
 	export let id;
 
-	/** @type {String} Current value for the dropdown (data.value) */
+	/**
+	 * @type {string} Current value for the dropdown (data.value)
+	 */
 	export let value;
 
-	/** @type {{ value: string, label: string}[]} Source data as an array of objects (value and label attributes)*/
+	/**
+	 * @type {{ value: string, label: string}[]} Source data as an array of objects (value and label attributes)
+	 */
 	export let data;
 
-	/** @type {String} Label for the dropdown (currently hidden)*/
+	/**
+	 * @type {string} Label for the dropdown (currently hidden)
+	 */
 	export let inline_label;
 
-	/** @type {Number} Width (px) of the dropdown */
+	/**
+	 * @type {string} [placeholder="Select..."] placeholder for when no option is selected
+	 */
+	export let placeholder = "Select...";
+
+	/**
+	 * @type {number} Width (px) of the dropdown
+	 */
 	export let dropdown_width = 260;
 
-	/** @type {String} Hex color for arrow fill */
+	/**
+	 * @type {string} Hex color for arrow fill */
 	export let arrow_fill_color = "#1696D1";
 
 	// create dispatcher
@@ -44,6 +61,7 @@
 		}}
 	>
 		<!-- options -->
+		<option value={null}>{placeholder}</option>
 		{#each data as d (d.value)}
 			{#if d.value !== ""}
 				<option value={d.value}>{d.label}</option>
