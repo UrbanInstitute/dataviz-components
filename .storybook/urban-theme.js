@@ -4,7 +4,7 @@ export default create({
 	base: "light",
 	brandTitle: "Urban Institute dataviz components",
 	brandUrl: "https://www.urban.org",
-	brandImage: "/urban-logo.svg",
+	brandImage: "urban-logo.svg",
 	brandTarget: "_blank",
 	// Typography
   fontBase: 'Lato, Helvetica, Arial, sans-serif',

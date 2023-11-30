@@ -18,9 +18,9 @@ jobs:
           node-version: '20.x'
           registry-url: 'https://registry.npmjs.org'
       - name: Install and Build
-        run: |
-          npm ci
-          npm run build-storybook
+        run: 
+          - npm ci
+          - npm run build-storybook
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
