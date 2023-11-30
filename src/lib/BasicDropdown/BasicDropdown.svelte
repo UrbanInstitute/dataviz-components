@@ -5,37 +5,45 @@
 	// define arguments
 
 	/**
-	 * @type {string} Dropdown id
+   * Unique id given to the dropdown DOM node
+	 * @type {string}
 	 */
 	export let id;
 
 	/**
-	 * @type {string} Current value for the dropdown (data.value)
+   * Binds to the current value for the dropdown (data.value)
+	 * @type {string} 
 	 */
 	export let value;
 
 	/**
-	 * @type {{ value: string, label: string}[]} Source data as an array of objects (value and label attributes)
+   * Source data as an array of objects (value and label attributes)
+	 * @type {{ value: string, label: string}[]} 
 	 */
 	export let data;
 
 	/**
-	 * @type {string} Label for the dropdown (currently hidden)
+   * Label for the dropdown (currently hidden)
+	 * @type {string} 
 	 */
 	export let inline_label;
 
 	/**
-	 * @type {string} [placeholder="Select..."] placeholder for when no option is selected
+   * placeholder for when no option is selected
+	 * @type {string} [placeholder="Select..."] 
 	 */
 	export let placeholder = "Select...";
 
 	/**
-	 * @type {number} Width (px) of the dropdown
+   * Width (px) of the dropdown
+	 * @type {number}
 	 */
 	export let dropdown_width = 260;
 
 	/**
-	 * @type {string} Hex color for arrow fill */
+   * Hex color for arrow fill 
+	 * @type {string}
+   */
 	export let arrow_fill_color = "#1696D1";
 
 	// create dispatcher
