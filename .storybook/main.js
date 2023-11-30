@@ -11,10 +11,10 @@ const config = {
 		name: "@storybook/sveltekit",
 		options: {}
 	},
-  core: { disableTelemetry: true },
+	core: { disableTelemetry: true },
 	docs: {
 		autodocs: "tag"
 	},
-  staticDirs: ["../static/"]
+	staticDirs: ["../static/"]
 };
 export default config;
