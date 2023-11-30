@@ -1,6 +1,6 @@
 <script>
-	import BasicDropdown from "$lib/BasicDropdown.svelte";
-	import Scorecard from "$lib/Scorecard.svelte";
+	import BasicDropdown from "$lib/BasicDropdown/BasicDropdown.svelte";
+	import Scorecard from "$lib/Scorecard/Scorecard.svelte";
 	import "$lib/style/app.css";
 </script>
 

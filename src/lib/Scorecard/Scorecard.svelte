@@ -1,5 +1,12 @@
 <script>
+  import "$lib/style/app.css";
+	/**
+	 * @type {string} Scorecard value
+	 */
 	export let value;
+	/**
+	 * @type {string} Scorecard label
+	 */
 	export let label;
 </script>
 
