@@ -2,6 +2,39 @@ import { Meta } from "@storybook/blocks";
 
 <Meta title="Introduction" />
 
-# Dataviz components
+# @UrbanInstitute/dataviz-components
+
+[![github](https://badgen.net/badge/icon/GitHub?icon=github&label)](https://github.com/UrbanInstitute/dataviz-components)
+[![npm version](https://badge.fury.io/js/@urbaninstitute%2Fdataviz-components.svg)](https://badge.fury.io/js/@urbaninstitute%2Fdataviz-components)
+![tests](https://github.com/UrbanInstitute/dataviz-components/actions/workflows/storybook-tests.yml/badge.svg)
 
 Welcome to the documentation for the [Urban Institute](https://www.urban.org)'s data visualization component library. This library contains [Svelte](https://svelte.dev/) components for building custom data visualization projects.
+
+## Getting started
+
+1. Install
+
+```bash
+npm install @urbaninstitute/dataviz-components
+```
+
+
+2. Import components, and use them in your projects
+
+```html
+<script>
+  import { BasicDropdown } from "@UrbanInstitute/dataviz-components";
+
+  const data = [
+    { value: "Ohio", label: "Ohio" },
+    { value: "Pennsylvania", label: "Pennsylvania" },
+    { value: "New York", label: "New York" },
+    { value: "Maryland", label: "Maryland" }
+  ];
+</script>
+<BasicDropdown
+  {data}
+  inline_label="Select a state"
+  id="state-select"
+/>
+```
