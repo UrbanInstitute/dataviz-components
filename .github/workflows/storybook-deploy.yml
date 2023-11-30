@@ -20,7 +20,7 @@ jobs:
       - name: Install and Build
         run: |
           npm ci
-          npm run storybook-build
+          npm run build-storybook
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
