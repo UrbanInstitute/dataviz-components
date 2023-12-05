@@ -1,5 +1,5 @@
-# Deploy Storybook to Github Pages
-name: Build and deploy storybook
+# Build Storybook for Github Pages
+name: Build storybook
 on: 
   push:
     branches:
