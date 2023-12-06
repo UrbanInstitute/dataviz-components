@@ -1,15 +1,15 @@
 <script>
-	import { createEventDispatcher } from "svelte";
+  import { createEventDispatcher } from "svelte";
   import { urbanColors } from "$lib/utils";
-	import "$lib/style/app.css";
+  import "$lib/style/app.css";
 
-	// define arguments
+  // define arguments
 
-	/**
+  /**
    * Unique id given to the dropdown DOM node
-	 * @type {string}
-	 */
-	export let id;
+   * @type {string}
+   */
+  export let id;
 
 	/**
    * Binds to the current value for the dropdown (data.value)

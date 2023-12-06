@@ -1,1 +1,1 @@
-export  {default as urbanColors} from "./colors.js";
+export { default as urbanColors } from "./colors.js";
