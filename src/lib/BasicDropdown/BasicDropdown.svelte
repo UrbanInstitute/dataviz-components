@@ -1,14 +1,15 @@
 <script>
-	import { createEventDispatcher } from "svelte";
-	import "$lib/style/app.css";
+  import { createEventDispatcher } from "svelte";
+  import { urbanColors } from "$lib/utils";
+  import "$lib/style/app.css";
 
-	// define arguments
+  // define arguments
 
-	/**
+  /**
    * Unique id given to the dropdown DOM node
-	 * @type {string}
-	 */
-	export let id;
+   * @type {string}
+   */
+  export let id;
 
 	/**
    * Binds to the current value for the dropdown (data.value)
@@ -44,7 +45,7 @@
    * Hex color for arrow fill 
 	 * @type {string}
    */
-	export let arrow_fill_color = "#1696D1";
+	export let arrow_fill_color = urbanColors.blue;
 
 	// create dispatcher
 	const dispatch = createEventDispatcher();

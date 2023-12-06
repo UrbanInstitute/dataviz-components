@@ -1,5 +1,10 @@
 # @UrbanInstitute/dataviz-components Changelog
 
+## 0.1.0
+
+- Update .prettierrc
+- Add color utility module
+- Add Storybook instance for documentation and testing
 - Simplify global styles, move to lib folder
 
 ## 0.0.2

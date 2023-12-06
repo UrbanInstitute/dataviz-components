@@ -1,0 +1,233 @@
+import { Meta, ColorPalette, ColorItem } from "@storybook/blocks";
+import { urbanColors } from "$lib/utils";
+
+<Meta title="utils/color" />
+
+# Colors
+
+The colors utility module provides easy access to the Urban Institute's brand colors. For best practices on selecting colors for data visualizations, see the [Urban Institute Data Visualizaton Styleguide](https://urbaninstitute.github.io/graphics-styleguide/#color).
+
+To use these, utilities, import the module like so:
+
+```js
+import { urbanColors } from "@urbaninstitute/dataviz-components/utils";
+```
+
+## Primary Colors
+
+<ColorPalette>
+  <ColorItem
+    title="Primary Colors"
+     subtitle=""
+     colors={{
+      "blue": urbanColors.blue,
+      "gray": urbanColors.gray,
+      "black": urbanColors.black,
+      "yellow": urbanColors.yellow,
+      "magenta": urbanColors.magenta,
+      "green": urbanColors.green,
+      "space_gray": urbanColors.space_gray,
+      "red": urbanColors.red,
+    }}
+  />
+
+</ColorPalette>
+
+
+Any color can be used directly from the `urbanColors` object:
+
+```js
+// equal to "#1696D2"
+const blue = urbanColors.blue;
+
+// equal to "#EC00BB"
+const magenta = urbanColors.magenta;
+```
+
+
+## Color shades
+
+Each of Urban's primary colors also comes in a range of different shades. These can be useful for different data visualization scenarios.
+
+
+<ColorPalette>
+  <ColorItem
+    title="Blue shades"
+     subtitle=""
+     colors={urbanColors.getBlues()}
+  />
+</ColorPalette>
+
+Usage:
+```js
+urbanColors.getBlues();
+```
+
+<ColorPalette>
+  <ColorItem
+    title="Gray shades"
+     subtitle=""
+     colors={urbanColors.getGrays()}
+  />
+</ColorPalette>
+
+Usage:
+```js
+urbanColors.getGrays();
+```
+
+<ColorPalette>
+  <ColorItem
+    title="Yellow shades"
+     subtitle=""
+     colors={urbanColors.getYellows()}
+  />
+</ColorPalette>
+
+Usage:
+```js
+urbanColors.getYellows();
+```
+
+<ColorPalette>
+  <ColorItem
+    title="Magenta shades"
+     subtitle=""
+     colors={urbanColors.getMagentas()}
+  />
+</ColorPalette>
+
+Usage:
+```js
+urbanColors.getMagentas();
+```
+
+<ColorPalette>
+  <ColorItem
+    title="Green shades"
+     subtitle=""
+     colors={urbanColors.getGreens()}
+  />
+</ColorPalette>
+
+Usage:
+```js
+urbanColors.getGreens();
+```
+
+<ColorPalette>
+  <ColorItem
+    title="Space gray shades"
+     subtitle=""
+     colors={urbanColors.getSpaceGrays()}
+  />
+</ColorPalette>
+
+Usage:
+```js
+urbanColors.getSpaceGrays();
+```
+
+## DataViz Helpers
+
+Below are a few helper functions to generate some useful default color palettes.
+
+
+<ColorPalette>
+  <ColorItem
+    title="Categorical colors"
+     subtitle=""
+     colors={urbanColors.getCategoricalColors()}
+  />
+</ColorPalette>
+
+Usage:
+```js
+urbanColors.getCategoricalColors();
+```
+
+This function generates a 6 color palette by default, but you can specify any number between 2 and 6.
+
+<ColorPalette>
+  <ColorItem
+    title="Categorical colors"
+     subtitle="2 colors"
+     colors={urbanColors.getCategoricalColors(2)}
+  />
+</ColorPalette>
+
+Usage:
+```js
+urbanColors.getCategoricalColors(2);
+```
+
+<ColorPalette>
+  <ColorItem
+    title="Categorical colors"
+     subtitle="3 colors"
+     colors={urbanColors.getCategoricalColors(3)}
+  />
+</ColorPalette>
+
+Usage:
+```js
+urbanColors.getCategoricalColors(3);
+```
+
+<ColorPalette>
+  <ColorItem
+    title="Categorical colors"
+     subtitle="4 colors"
+     colors={urbanColors.getCategoricalColors(4)}
+  />
+</ColorPalette>
+
+Usage:
+```js
+urbanColors.getCategoricalColors(4);
+```
+
+<ColorPalette>
+  <ColorItem
+    title="Categorical colors"
+     subtitle="5 colors"
+     colors={urbanColors.getCategoricalColors(5)}
+  />
+</ColorPalette>
+
+Usage:
+```js
+urbanColors.getCategoricalColors(5);
+```
+
+## Diverging colors
+
+<ColorPalette>
+  <ColorItem
+    title="Diverging colors"
+     subtitle="Useful for maps with diverging data"
+     colors={urbanColors.getDivergingColors()}
+  />
+</ColorPalette>
+
+Usage:
+```js
+urbanColors.getDivergingColors();
+```
+
+## Blues for maps
+
+The style guide specifies a specific set of colors for usage in choropleth maps.
+
+<ColorPalette>
+  <ColorItem
+    title="Blue colors for maps"
+     subtitle=""
+     colors={urbanColors.getMapBlues()}
+  />
+</ColorPalette>
+
+Usage:
+```js
+urbanColors.getMapBlues();
+```
