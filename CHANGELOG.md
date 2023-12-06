@@ -1,7 +1,8 @@
 # @UrbanInstitute/dataviz-components Changelog
 
-## Next
+## 0.1.0
 
+- Add color utility module
 - Add Storybook instance for documentation and testing
 - Simplify global styles, move to lib folder
 

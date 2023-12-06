@@ -24,7 +24,7 @@
     "utils": {
       "types": "./dist/utils/index.d.ts",
       "svelte": "./dist/utils/index.js"
-    },
+    }
   },
   "files": [
     "dist",
