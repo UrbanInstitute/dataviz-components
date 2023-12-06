@@ -1,5 +1,6 @@
 <script>
 	import { createEventDispatcher } from "svelte";
+  import { urbanColors } from "$lib/utils";
 	import "$lib/style/app.css";
 
 	// define arguments
@@ -44,7 +45,7 @@
    * Hex color for arrow fill 
 	 * @type {string}
    */
-	export let arrow_fill_color = "#1696D1";
+	export let arrow_fill_color = urbanColors.blue;
 
 	// create dispatcher
 	const dispatch = createEventDispatcher();

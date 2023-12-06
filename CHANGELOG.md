@@ -1,5 +1,8 @@
 # @UrbanInstitute/dataviz-components Changelog
 
+## Next
+
+- Add Storybook instance for documentation and testing
 - Simplify global styles, move to lib folder
 
 ## 0.0.2
