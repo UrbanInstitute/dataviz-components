@@ -1,6 +1,4 @@
 <script>
-  import logo from "./tpc-logo.png";
-
   const naturalWidth = 100;
   const naturalHeight = 85;
   export let width = 100;

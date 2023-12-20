@@ -23,11 +23,9 @@
     </a>
   </div>
   {#if title}
-    <div class="project-title layout-container--article-width">
-      <a href="{projectUrl}/">
-        <p class="nav--page-title">{title}</p>
-      </a>
-    </div>
+    <a href="{projectUrl}/">
+      <p class="nav--page-title">{title}</p>
+    </a>
   {/if}
 </nav>
 
@@ -36,6 +34,7 @@
     background: var(--color-white);
     color: var(--color-white, #ffffff);
     display: flex;
+    align-items: center;
     border-bottom: solid 1px var(--color-gray);
     padding: var(--spacing-2) 0;
     position: relative;
