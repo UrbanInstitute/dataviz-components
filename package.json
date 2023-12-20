@@ -21,7 +21,7 @@
       "types": "./dist/index.d.ts",
       "svelte": "./dist/index.js"
     },
-    "utils": {
+    "./utils": {
       "types": "./dist/utils/index.d.ts",
       "svelte": "./dist/utils/index.js"
     }
