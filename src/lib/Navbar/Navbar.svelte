@@ -1,0 +1,66 @@
+<script>
+  import "$lib/style/app.css";
+  import UrbanLogo from "$lib/UrbanLogoBadge/UrbanLogoBadge.svelte";
+  import TPCLogo from "$lib/TPCLogoBadge/TPCLogoBadge.svelte";
+
+  export let title = "";
+  /**@type {string} */
+  export let projectUrl;
+  /**@type {"urban" | "tpc"} */
+  export let brand = "urban";
+
+  $: homeURL = brand == "tpc" ? "https://www.taxpolicycenter.org" : "https://www.urban.org";
+</script>
+
+<nav>
+  <div class="logo">
+    <a href={homeURL}>
+      {#if brand === "urban"}
+        <UrbanLogo width={30} />
+      {:else if brand === "tpc"}
+        <TPCLogo width={47} />
+      {/if}
+    </a>
+  </div>
+  {#if title}
+    <div class="project-title layout-container--article-width">
+      <a href="{projectUrl}/">
+        <p class="nav--page-title">{title}</p>
+      </a>
+    </div>
+  {/if}
+</nav>
+
+<style>
+  nav {
+    background: var(--color-white);
+    color: var(--color-white, #ffffff);
+    display: flex;
+    border-bottom: solid 1px var(--color-gray);
+    padding: var(--spacing-2) 0;
+    position: relative;
+    min-height: 48px;
+  }
+  .logo {
+    margin-left: var(--spacing-2);
+  }
+  a {
+    text-decoration: none;
+  }
+  .nav--page-title {
+    margin-left: var(--spacing-8);
+    margin-bottom: 0;
+    margin-top: 0;
+    font-weight: var(--font-weight-regular);
+    font-size: var(--font-size-small);
+    color: var(--color-gray-shade-darkest);
+  }
+  .project-title {
+    width: 100%;
+  }
+  @media (min-width: 768px) {
+    .project-title {
+      align-self: center;
+    }
+  }
+</style>

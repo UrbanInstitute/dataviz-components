@@ -1,5 +1,15 @@
 # @UrbanInstitute/dataviz-components Changelog
 
+## 0.1.2
+
+- Add TextBlock component
+- Add ProjectCredits component
+- Add Navbar component
+
+## 0.1.1
+
+- Fix utls export in package.json
+
 ## 0.1.0
 
 - Update .prettierrc
