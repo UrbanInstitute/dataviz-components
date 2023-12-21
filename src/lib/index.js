@@ -8,3 +8,4 @@ export { default as Navbar } from './Navbar/Navbar.svelte';
 export { default as ProjectCredits } from './ProjectCredits/ProjectCredits.svelte';
 export { default as SocialShare } from './SocialShare/SocialShare.svelte';
 export { default as TextBlock } from './TextBlock/TextBlock.svelte';
+export { default as Block } from './Block/Block.svelte';
