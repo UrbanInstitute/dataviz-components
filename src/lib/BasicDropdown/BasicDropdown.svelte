@@ -1,7 +1,7 @@
 <script>
   import { createEventDispatcher } from "svelte";
   import { urbanColors } from "$lib/utils";
-  import "$lib/style/app.css";
+  import "../style/app.css";
 
   // define arguments
 

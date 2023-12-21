@@ -1,0 +1,64 @@
+import { Meta, ColorPalette, ColorItem } from "@storybook/blocks";
+import { tpcColors } from "../lib/utils";
+
+<Meta title="utils/tpcColors" />
+
+# Colors
+
+The colors utility module provides easy access to the Tax Policy Center's brand colors. For best practices on selecting colors for data visualizations, see the [Tax Policy Center data visualizaton styleguide](https://apps.urban.org/tpc-styleguide/public.html).
+
+To use these, utilities, import the module like so:
+
+```js
+import { tpcColors } from "@urbaninstitute/dataviz-components/utils";
+```
+
+## Primary Colors
+
+<ColorPalette>
+  <ColorItem
+    title="Primary Colors"
+     subtitle=""
+     colors={{
+      "blue_dark": tpcColors.blue_dark,
+      "blue": tpcColors.blue,
+      "orange": tpcColors.orange,
+      "yellow": tpcColors.yellow,
+      "gray": tpcColors.gray,
+      "black": tpcColors.black,
+    }}
+  />
+
+</ColorPalette>
+
+
+Any color can be used directly from the `tpcColors` object:
+
+```js
+// equal to "#008bb0"
+const blue = tpcColors.blue;
+
+// equal to "#fcb64b"
+const yellow = tpcColors.yellow;
+```
+
+
+## Color shades
+
+TPC Blue has an array of 6 shades for sequential usage.
+
+
+<ColorPalette>
+  <ColorItem
+    title="Blue shades"
+     subtitle=""
+     colors={tpcColors.getBlues()}
+  />
+</ColorPalette>
+
+Usage:
+```js
+// returns ["#cae0e7","#95c0cf","#60a1b6","#008bb0","#1d5669","#0e2b35"]
+tpcColors.getBlues();
+```
+
