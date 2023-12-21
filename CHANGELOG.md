@@ -1,10 +1,20 @@
 # @UrbanInstitute/dataviz-components Changelog
 
+## 0.1.3
+
+- Bugfix Add Block component to exports
+
 ## 0.1.2
 
 - Add TextBlock component
 - Add ProjectCredits component
 - Add Navbar component
+- Add Logo components
+- Add HeadingAlt component
+- Add Block layout component
+- Add social share component
+- Add ProjectCredits component
+- Add tpcColors utility module
 
 ## 0.1.1
 
