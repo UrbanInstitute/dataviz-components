@@ -1,5 +1,5 @@
 <script>
-  import "$lib/style/app.css";
+  import "../style/app.css";
   import LogoUrban from "$lib/LogoUrbanBadge/LogoUrbanBadge.svelte";
   import LogoTPC from "$lib/LogoTPCBadge/LogoTPCBadge.svelte";
 

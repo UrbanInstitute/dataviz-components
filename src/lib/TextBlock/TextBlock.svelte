@@ -1,5 +1,5 @@
 <script>
-  import "$lib/style/app.css";
+  import "../style/app.css";
   import Block from "$lib/Block/Block.svelte";
   /**
    * The text to display in the block. Allows HTML content.
