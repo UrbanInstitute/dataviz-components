@@ -1,8 +1,8 @@
 <script context="module">
-  import Logo from "./TPCLogoBadge.svelte";
+  import Logo from "./LogoTPCBadge.svelte";
 
   export const meta = {
-    title: "Components/TPCLogoBadge",
+    title: "Components/LogoTPCBadge",
     description: "A Tax Policy Center logo",
     component: Logo,
     tags: ["autodocs"]

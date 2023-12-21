@@ -1,8 +1,8 @@
 <script context="module">
-  import Logo from "./UrbanLogo.svelte";
+  import Logo from "./LogoUrban.svelte";
 
   export const meta = {
-    title: "Components/UrbanLogo",
+    title: "Components/LogoUrban",
     description: "An Urban Institute full logo",
     component: Logo,
     tags: ["autodocs"],

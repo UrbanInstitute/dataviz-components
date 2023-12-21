@@ -1,8 +1,8 @@
 <script context="module">
-  import Logo from "./UrbanLogoBadge.svelte";
+  import Logo from "./LogoUrbanBadge.svelte";
 
   export const meta = {
-    title: "Components/UrbanLogoBadge",
+    title: "Components/LogoUrbanBadge",
     description: "An Urban Institute badge logo",
     component: Logo,
     tags: ["autodocs"]

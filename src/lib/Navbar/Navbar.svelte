@@ -1,7 +1,7 @@
 <script>
   import "$lib/style/app.css";
-  import UrbanLogo from "$lib/UrbanLogoBadge/UrbanLogoBadge.svelte";
-  import TPCLogo from "$lib/TPCLogoBadge/TPCLogoBadge.svelte";
+  import LogoUrban from "$lib/LogoUrbanBadge/LogoUrbanBadge.svelte";
+  import LogoTPC from "$lib/LogoTPCBadge/LogoTPCBadge.svelte";
 
   export let title = "";
   /**@type {string} */
@@ -16,9 +16,9 @@
   <div class="logo">
     <a href={homeURL}>
       {#if brand === "urban"}
-        <UrbanLogo width={30} />
+        <LogoUrban width={30} />
       {:else if brand === "tpc"}
-        <TPCLogo width={47} />
+        <LogoTPC width={47} />
       {/if}
     </a>
   </div>
