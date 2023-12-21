@@ -106,6 +106,14 @@
 	--spacing-12: 3rem;
 	--spacing-16: 4rem;
 	--spacing-20: 5rem;
+  --body-max-width: 760px;
+  --color-text-primary: var(--color-gray-shade-darkest);
+  --color-text-secondary: var(--color-black);
+  --color-text-accent: var(--color-blue);
+  --color-text-reverse: var(--color-white);
+  --color-surface-primary: var(--color-white);
+  --color-accent-primrary: var(--color-blue);
+  --color-accent-highlight: var(--color-yellow);
 	font-family: var(--font-family-sans);
 	line-height: 1.5;
 	font-weight: 400;

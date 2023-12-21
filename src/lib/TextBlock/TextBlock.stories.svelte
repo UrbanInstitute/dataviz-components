@@ -6,6 +6,14 @@
 		description: "A basic text block",
 		component: TextBlock,
 		tags: ["autodocs"],
+    argTypes: {
+      width: {
+        default: "body",
+        options: ["body", "full"],
+        control: "select"
+      }
+    },
+      
 	};
 </script>
 
