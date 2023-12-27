@@ -39,4 +39,10 @@
     width: "full"
   }}
 />
+<Story
+	name="Wide"
+  args={{
+    width: "wide"
+  }}
+/>
 
