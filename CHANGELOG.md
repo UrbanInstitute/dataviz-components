@@ -3,6 +3,7 @@
 ## 0.2.0
 
 - Update props for TextBlock component to play better with ArchieML
+- Better spacing for Block component on mobile
 
 ## 0.1.3
 

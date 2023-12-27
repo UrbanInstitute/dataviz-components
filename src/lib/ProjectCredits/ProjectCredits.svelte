@@ -33,8 +33,8 @@
 <Block>
   <Heading content={heading} />
 </Block>
-{#each text as content}
-  <TextBlock {content} />
+{#each text as value}
+  <TextBlock {value} />
 {/each}
 <Block>
 <ul>
