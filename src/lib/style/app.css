@@ -107,6 +107,7 @@
 	--spacing-16: 4rem;
 	--spacing-20: 5rem;
   --body-max-width: 760px;
+  --wide-max-width: 1165px;
   --color-text-primary: var(--color-gray-shade-darkest);
   --color-text-secondary: var(--color-black);
   --color-text-accent: var(--color-blue);

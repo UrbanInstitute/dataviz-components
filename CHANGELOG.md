@@ -1,5 +1,11 @@
 # @UrbanInstitute/dataviz-components Changelog
 
+## 0.2.0
+
+- Update props for TextBlock component to play better with ArchieML
+- Better spacing for Block component on mobile
+- Add wide option for Block component
+
 ## 0.1.3
 
 - Bugfix Add Block component to exports

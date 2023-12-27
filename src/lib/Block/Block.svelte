@@ -1,6 +1,6 @@
 <script context="module">
   /**
-   * @typedef {"body" | "full"} blockWidth
+   * @typedef {"body" | "full" | "wide"} blockWidth
    */
 </script>
 
@@ -18,13 +18,29 @@
 
 <style>
   .layout-block {
-    margin: 0 auto;
-    width: 100%;
+    margin: 0 var(--spacing-4);
   }
   .layout-block.body {
     max-width: var(--body-max-width, 760px);
   }
   .layout-block.full {
     max-width: none;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .layout-block.wide {
+    max-width: var(--wide-max-width, 1165px);
+  }
+
+  @media screen and (min-width: 792px) {
+    .layout-block.body {
+      margin: 0 auto;
+    }
+  }
+  @media screen and (min-width: 1197px) {
+    .layout-block.wide {
+      margin: 0 auto;
+    }
   }
 </style>
