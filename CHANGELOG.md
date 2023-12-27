@@ -1,5 +1,9 @@
 # @UrbanInstitute/dataviz-components Changelog
 
+## 0.2.0
+
+- Update props for TextBlock component to play better with ArchieML
+
 ## 0.1.3
 
 - Bugfix Add Block component to exports

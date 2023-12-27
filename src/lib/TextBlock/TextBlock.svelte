@@ -3,9 +3,9 @@
   import Block from "$lib/Block/Block.svelte";
   /**
    * The text to display in the block. Allows HTML content.
-   * @type {string} [textBlock]
+   * @type {string} [value]
    */
-  export let content;
+  export let value;
 
   /**
    * The width of the text block. Defaults to "body" (max-width: 760px)
@@ -15,7 +15,7 @@
 </script>
 
 <Block {width}>
-  <p class="text-block">{@html content}</p>
+  <p class="text-block">{@html value}</p>
 </Block>
 
 <style>
