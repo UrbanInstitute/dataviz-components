@@ -38,6 +38,15 @@
 />
 
 <Story
+	name="Sticky"
+  args={{
+    title: "Project title",
+    projectUrl: "https://urban.org",
+    sticky: true
+  }}
+/>
+
+<Story
 	name="TPC"
   args={{
     title: "Project title",
