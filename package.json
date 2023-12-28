@@ -1,6 +1,6 @@
 {
   "name": "@urbaninstitute/dataviz-components",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "scripts": {
     "dev": "vite dev",
     "build": "vite build && npm run package",
@@ -14,7 +14,9 @@
     "format": "prettier --plugin-search-dir . --write .",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "test-storybook": "test-storybook"
+    "build-storybook:test": "storybook build --quiet --test",
+    "test-storybook": "test-storybook",
+    "test-storybook-run": "npx concurrently -k -s first -n 'SB,TEST' -c 'magenta,blue' 'npx http-server storybook-static --port 6006 --silent' 'npx wait-on tcp:6006 && npm run test-storybook -- --index-json'"
   },
   "exports": {
     ".": {
@@ -35,18 +37,18 @@
     "svelte": "^4.0.0"
   },
   "devDependencies": {
-    "@storybook/addon-a11y": "^7.6.2",
-    "@storybook/addon-essentials": "^7.6.1",
-    "@storybook/addon-interactions": "^7.6.1",
-    "@storybook/addon-links": "^7.6.1",
+    "@storybook/addon-a11y": "^7.6.6",
+    "@storybook/addon-essentials": "^7.6.6",
+    "@storybook/addon-interactions": "^7.6.6",
+    "@storybook/addon-links": "^7.6.6",
     "@storybook/addon-svelte-csf": "^4.0.13",
-    "@storybook/blocks": "^7.6.1",
-    "@storybook/manager-api": "^7.6.1",
-    "@storybook/svelte": "^7.6.1",
-    "@storybook/sveltekit": "^7.6.1",
-    "@storybook/test": "^7.6.1",
+    "@storybook/blocks": "^7.6.6",
+    "@storybook/manager-api": "^7.6.6",
+    "@storybook/svelte": "^7.6.6",
+    "@storybook/sveltekit": "^7.6.6",
+    "@storybook/test": "^7.6.6",
     "@storybook/test-runner": "^0.16.0",
-    "@storybook/theming": "^7.6.1",
+    "@storybook/theming": "^7.6.6",
     "@sveltejs/adapter-auto": "^2.0.0",
     "@sveltejs/kit": "^1.20.4",
     "@sveltejs/package": "^2.0.0",
@@ -57,7 +59,7 @@
     "publint": "^0.1.9",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "storybook": "^7.6.1",
+    "storybook": "^7.6.6",
     "svelte": "^4.0.5",
     "svelte-check": "^3.4.3",
     "tslib": "^2.4.1",

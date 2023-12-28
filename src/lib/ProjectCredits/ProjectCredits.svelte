@@ -1,7 +1,7 @@
 <script>
   import Heading from "$lib/HeadingAlt/HeadingAlt.svelte";
   import TextBlock from "$lib/TextBlock/TextBlock.svelte";
-  import Block from "$lib/Block/Block.svelte"
+  import Block from "$lib/Block/Block.svelte";
   import "../style/app.css";
 
   /**
@@ -24,10 +24,9 @@
 
   /**
    * An optional link to a Github repo to display
-   * @type {string}
+   * @type {string | null} [githubUrl=null]
    */
-  export let githubUrl;
-
+  export let githubUrl = null;
 </script>
 
 <Block>
@@ -37,17 +36,17 @@
   <TextBlock {value} />
 {/each}
 <Block>
-<ul>
-  {#each items as item}
-    <li>
-      <span class="label">{item.label}</span>
-      {@html item.content}
-    </li>
-  {/each}
-</ul>
+  <ul>
+    {#each items as item}
+      <li>
+        <span class="label">{item.label}</span>
+        {@html item.content}
+      </li>
+    {/each}
+  </ul>
 </Block>
 {#if githubUrl}
-  <TextBlock content="View the project on <a href='{githubUrl}' target='_blank'>Github</a>."/>
+  <TextBlock content="View the project on <a href='{githubUrl}' target='_blank'>Github</a>." />
 {/if}
 
 <style>
@@ -71,7 +70,7 @@
     color: var(--color-text-accent);
   }
 
-  @media(min-width: 769px) {
+  @media (min-width: 769px) {
     ul {
       font-size: var(--font-size-xl);
     }

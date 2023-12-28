@@ -3,16 +3,34 @@
   import LogoUrban from "$lib/LogoUrbanBadge/LogoUrbanBadge.svelte";
   import LogoTPC from "$lib/LogoTPCBadge/LogoTPCBadge.svelte";
 
+  /**
+   * Title to display in the navbar
+   * @type {string}
+   */
   export let title = "";
-  /**@type {string} */
+
+  /**
+   * URL to link to from the title
+   * @type {string}
+   */
   export let projectUrl;
-  /**@type {"urban" | "tpc"} */
+
+  /**
+   * Brand to use for the logo
+   * @type {"urban" | "tpc"}
+   */
   export let brand = "urban";
+
+  /**
+   * Option to make the navbar sticky
+   * @type {boolean} [sticky=false]
+   */
+  export let sticky = false;
 
   $: homeURL = brand == "tpc" ? "https://www.taxpolicycenter.org" : "https://www.urban.org";
 </script>
 
-<nav>
+<nav class:sticky>
   <div class="logo">
     <a href={homeURL}>
       {#if brand === "urban"}
@@ -39,6 +57,11 @@
     padding: var(--spacing-2) 0;
     position: relative;
     min-height: 48px;
+  }
+  nav.sticky {
+    position: sticky;
+    top: 0;
+    z-index: 100;
   }
   .logo {
     margin-left: var(--spacing-2);

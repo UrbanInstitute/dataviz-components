@@ -1,5 +1,12 @@
 # @UrbanInstitute/dataviz-components Changelog
 
+## 0.2.1
+
+- Make github URL in ProjectCredits an optional prop
+- Updates storybook to v7.6.6
+- Fixes TextBlock documentation
+- Adds sticky option to Navbar
+
 ## 0.2.0
 
 - Update props for TextBlock component to play better with ArchieML
