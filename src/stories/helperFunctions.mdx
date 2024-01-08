@@ -1,0 +1,26 @@
+import { Meta } from "@storybook/blocks";
+import { kebabCase, dollarFormat } from "../lib/utils";
+
+<Meta title="utils/helperFunctions" />
+
+# Helper Functions
+
+The helper functions are provided to save time during development. They can be for string/number formatting and more.
+
+To use these, utilities, import the module like so:
+
+```js
+import { kebabCase, dollarFormat } from "@urbaninstitute/dataviz-components/utils";
+```
+
+## kebabCase()
+
+```js
+kebabCase("Hello World"); // hello-world
+```
+
+## dollarFormat()
+
+```js
+dollarFormat(1000000); // $1,000,000
+```

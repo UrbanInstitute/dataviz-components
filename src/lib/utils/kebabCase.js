@@ -4,6 +4,6 @@
  * @param {string} x - The input string.
  * @returns {string} The lowercase, kebab-case string.
  */
-export function kebabCase(x) {
+export default function kebabCase(x) {
   return x.replace(/ /g, "-").toLowerCase();
 }
