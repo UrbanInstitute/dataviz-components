@@ -5,7 +5,7 @@ import { format } from "d3-format";
  * @param {number} x - The number to format.
  * @returns {string} The formatted dollar amount.
  */
-export default function dollar_format(x) {
+export default function dollarFormat(x) {
   const formatter = format("$,.0f");
   return formatter(x);
 }
