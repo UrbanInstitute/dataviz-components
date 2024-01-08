@@ -12,10 +12,29 @@
    * @type import("$lib/Block/Block.svelte").BlockWidth
    */
   export let width = "body";
+
+  /**
+   * The theme of the text block. Defaults to "primary"
+   * @type {"primary" | "reverse"}
+   */
+  export let variant = "primary";
+
+  /**
+   * Optional override of variant to specify a color for the text block
+   * @type {String | null} [color = null]
+   */
+  export let color = null;
 </script>
 
 <Block {width}>
-  <p class="text-block">{@html value}</p>
+  <p
+    class="text-block {variant}"
+    class:color-override={color}
+    style:color
+    style={`--color-override: ${color}`}
+  >
+    {@html value}
+  </p>
 </Block>
 
 <style>
@@ -28,8 +47,21 @@
     color: var(--color-text-primary);
     margin-bottom: var(--spacing-8);
   }
+
   p.text-block :global(a) {
     color: var(--color-text-accent);
+  }
+
+  p.text-block.color-override :global(a) {
+    color: var(--color-override);
+  }
+
+  p.text-block.reverse {
+    color: var(--color-text-reverse);
+  }
+
+  p.text-block.reverse :global(a) {
+    color: var(--color-text-reverse);
   }
 
   @media (min-width: 768px) {
