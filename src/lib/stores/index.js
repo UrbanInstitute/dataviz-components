@@ -1,2 +1,2 @@
 // Reexport your entry components here
-export { default as reducedMotion } from "./reducedMotion.js";
+export { reducedMotion } from "./reducedMotion.js";
