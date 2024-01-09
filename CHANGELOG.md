@@ -1,5 +1,10 @@
 # @UrbanInstitute/dataviz-components Changelog
 
+## Next
+
+- Add `dollarFormat` utility function
+- Add `kebabCase` utility function
+
 ## 0.2.1
 
 - Make github URL in ProjectCredits an optional prop
