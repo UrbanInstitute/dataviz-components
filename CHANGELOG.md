@@ -1,5 +1,9 @@
 # @UrbanInstitute/dataviz-components Changelog
 
+## Next
+
+- Add "Return to top" component
+
 ## 0.2.1
 
 - Make github URL in ProjectCredits an optional prop
