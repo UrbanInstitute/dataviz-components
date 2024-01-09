@@ -20,6 +20,6 @@
 <Story
   name="Default"
   args={{
-    id: "target-element"
+    elementId: "target-element"
   }}
 />
