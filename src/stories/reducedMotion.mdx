@@ -1,0 +1,37 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="stores/reducedMotion" />
+
+# Reduced Motion Svelte Store
+
+A Svelte store that tracks the user's preference for reduced motion, adapted from [Geoff Rich's Accessible Svelte Transitions article](https://geoffrich.net/posts/accessible-svelte-transitions/).
+
+Sometimes users may turn on "prefers-reduced-motion" in their accessibility settings. If this is this is the case, they expect to see no animations or transitions. This store tracks the user's preference for reduced motion and can be used for conditional rendering.
+
+## Usage
+
+In the example below, the tweened store can be used to animate a component position. If the user has reduced motion enabled, the animation duration is reduced to 0.
+
+```js
+import { reducedMotion } from "@urbaninstitute/dataviz-components/stores";
+import { tweened } from "svelte/motion";
+
+const tween = tweened(0, {
+  duration: $reducedMotion ? 0 : 500,
+  easing: cubicOut
+});
+```
+
+## Additional CSS for prefers-reduced-motion
+
+It's worth noting that some simple CSS like the following will disable most Svelte native transitions and animations. The store above is useful if an animation function is not covered by this media query.
+
+```css
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-delay: 0ms !important;
+    animation-duration: 1ms !important;
+    transition: none !important;
+  }
+}
+```
