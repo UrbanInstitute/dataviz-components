@@ -2,6 +2,7 @@
 
 ## Next
 
+- Add "Return to top" component
 - Add `dollarFormat` utility function
 - Add `kebabCase` utility function
 
