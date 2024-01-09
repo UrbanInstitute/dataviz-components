@@ -11,12 +11,6 @@
   export let heading;
 
   /**
-   * Paragraphs of text to display within credits block
-   * @type {string[]}
-   */
-  export let text;
-
-  /**
    * The credit items to display
    * @type {{label: string, content: string}[]}
    */
@@ -32,9 +26,7 @@
 <Block>
   <Heading content={heading} />
 </Block>
-{#each text as value}
-  <TextBlock {value} />
-{/each}
+<slot name="intro" />
 <Block>
   <ul>
     {#each items as item}
