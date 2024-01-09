@@ -1,11 +1,6 @@
 <script>
   import "../style/app.css";
   import Block from "$lib/Block/Block.svelte";
-  /**
-   * The text to display in the block. Allows HTML content.
-   * @type {string} [value]
-   */
-  export let value;
 
   /**
    * The width of the text block. Defaults to "body" (max-width: 760px)
@@ -33,7 +28,7 @@
     style:color
     style={`--color-override: ${color}`}
   >
-    {@html value}
+    <slot />
   </p>
 </Block>
 
