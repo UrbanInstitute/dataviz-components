@@ -11,12 +11,6 @@
   export let heading;
 
   /**
-   * Paragraphs of text to display within credits block
-   * @type {string[]}
-   */
-  export let text;
-
-  /**
    * The credit items to display
    * @type {{label: string, content: string}[]}
    */
@@ -32,9 +26,8 @@
 <Block>
   <Heading content={heading} />
 </Block>
-{#each text as value}
-  <TextBlock {value} />
-{/each}
+<!-- Content to render between the heading and the items -->
+<slot name="intro" />
 <Block>
   <ul>
     {#each items as item}
@@ -46,7 +39,7 @@
   </ul>
 </Block>
 {#if githubUrl}
-  <TextBlock content="View the project on <a href='{githubUrl}' target='_blank'>Github</a>." />
+  <TextBlock>View the project on <a href={githubUrl} target="_blank">Github</a>.</TextBlock>
 {/if}
 
 <style>
