@@ -28,6 +28,7 @@
     style:color
     style={`--color-override: ${color}`}
   >
+    <!-- HTML or text content to render inside of the component -->
     <slot />
   </p>
 </Block>

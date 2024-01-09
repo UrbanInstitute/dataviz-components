@@ -26,6 +26,7 @@
 <Block>
   <Heading content={heading} />
 </Block>
+<!-- Content to render between the heading and the items -->
 <slot name="intro" />
 <Block>
   <ul>
@@ -38,7 +39,7 @@
   </ul>
 </Block>
 {#if githubUrl}
-  <TextBlock content="View the project on <a href='{githubUrl}' target='_blank'>Github</a>." />
+  <TextBlock>View the project on <a href={githubUrl} target="_blank">Github</a>.</TextBlock>
 {/if}
 
 <style>
