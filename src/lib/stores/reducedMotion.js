@@ -2,11 +2,10 @@
 // Copied from Geoff Rich: https://geoffrich.net/posts/svelte-prefers-reduced-motion-store/
 // @ts-nocheck
 import { readable } from "svelte/store";
-import { browser } from "$app/environment";
 
 const reducedMotionQuery = "(prefers-reduced-motion: reduce)";
 const getInitialMotionPreference = () => {
-  if (browser) return window.matchMedia(reducedMotionQuery).matches;
+  if (typeof window !== "undefined") return window.matchMedia(reducedMotionQuery).matches;
 };
 
 export const reducedMotion = readable(getInitialMotionPreference(), (set) => {
@@ -14,7 +13,7 @@ export const reducedMotion = readable(getInitialMotionPreference(), (set) => {
     set(event.matches);
   };
 
-  if (browser) {
+  if (typeof window !== "undefined") {
     const mediaQueryList = window.matchMedia(reducedMotionQuery);
     mediaQueryList.addEventListener("change", updateMotionPreference);
 
