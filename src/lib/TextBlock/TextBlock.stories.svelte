@@ -34,64 +34,37 @@
   import { Story, Template } from "@storybook/addon-svelte-csf";
 </script>
 
-<!-- <Template let:args>
-  <TextBlock {...args} />
-</Template> -->
-
-<Story name="Default">
-  <TextBlock>
-    <svelte:fragment
-      >Enim id qui labore labore quis ut enim tempor sint quis proident voluptate ex. Duis nisi
-      minim et occaecat do ullamco nisi dolore ipsum proident tempor aute exercitation duis.
-      Proident pariatur consectetur tempor mollit Lorem deserunt. Ut laboris est cillum ut dolore
-      quis consectetur nostrud ut cupidatat enim ea cupidatat ipsum. Voluptate esse labore
-      incididunt sint eiusmod ullamco mollit consequat.</svelte:fragment
-    >
+<Template let:args>
+  <TextBlock {...args}>
+    Enim id qui labore labore quis ut enim tempor sint quis proident voluptate ex. Duis nisi minim
+    et occaecat do ullamco nisi dolore ipsum proident tempor aute exercitation duis. Proident
+    pariatur consectetur tempor mollit Lorem deserunt. Ut laboris est cillum ut dolore quis
+    consectetur nostrud ut cupidatat enim ea cupidatat ipsum. Voluptate esse labore incididunt sint
+    eiusmod ullamco mollit consequat.
   </TextBlock>
-</Story>
+</Template>
+
+<Story name="Default" />
 
 <Story name="With HTML content">
   <TextBlock>
-    <svelte:fragment
-      >Enim id qui <a href="https://urban.org" target="_blank">labore labore quis</a> ut enim tempor
-      sint quis proident voluptate ex. Duis nisi minim et occaecat do ullamco nisi dolore ipsum proident
-      tempor aute exercitation duis. Proident pariatur consectetur tempor mollit Lorem deserunt. Ut laboris
-      est cillum ut dolore quis consectetur nostrud ut cupidatat enim ea cupidatat ipsum. Voluptate esse
-      labore incididunt sint eiusmod ullamco mollit consequat.</svelte:fragment
-    >
+    Enim id qui <a href="https://urban.org" target="_blank">labore labore quis</a> ut enim tempor sint
+    quis proident voluptate ex. Duis nisi minim et occaecat do ullamco nisi dolore ipsum proident tempor
+    aute exercitation duis. Proident pariatur consectetur tempor mollit Lorem deserunt. Ut laboris est
+    cillum ut dolore quis consectetur nostrud ut cupidatat enim ea cupidatat ipsum. Voluptate esse labore
+    incididunt sint eiusmod ullamco mollit consequat.
   </TextBlock>
 </Story>
 
 <Story
   name="Reversed variant"
   parameters={{ backgrounds: { default: "dark" } }}
-  args={{
-    variant: "reverse"
-  }}
->
-  <TextBlock>
-    <svelte:fragment>
-      Enim id qui <a href="https://urban.org" target="_blank">labore labore quis</a> ut enim tempor sint
-      quis proident voluptate ex. Duis nisi minim et occaecat do ullamco nisi dolore ipsum proident tempor
-      aute exercitation duis. Proident pariatur consectetur tempor mollit Lorem deserunt. Ut laboris
-      est cillum ut dolore quis consectetur nostrud ut cupidatat enim ea cupidatat ipsum. Voluptate esse
-      labore incididunt sint eiusmod ullamco mollit consequat.
-    </svelte:fragment>
-  </TextBlock>
-</Story>
+  args={{ variant: "reverse" }}
+/>
 
 <Story
   name="With color override"
   args={{
     color: "#0a4c6a"
   }}
-  ><TextBlock
-    ><svelte:fragment
-      >Enim id qui <a href="https://urban.org" target="_blank">labore labore quis</a> ut enim tempor
-      sint quis proident voluptate ex. Duis nisi minim et occaecat do ullamco nisi dolore ipsum proident
-      tempor aute exercitation duis. Proident pariatur consectetur tempor mollit Lorem deserunt. Ut laboris
-      est cillum ut dolore quis consectetur nostrud ut cupidatat enim ea cupidatat ipsum. Voluptate esse
-      labore incididunt sint eiusmod ullamco mollit consequat.</svelte:fragment
-    ></TextBlock
-  ></Story
->
+/>
