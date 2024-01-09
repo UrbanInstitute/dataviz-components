@@ -1,6 +1,6 @@
 # @UrbanInstitute/dataviz-components Changelog
 
-## Next
+## 0.3.0
 
 - Add additional options to TextBlock component
 - Add "Return to top" component
