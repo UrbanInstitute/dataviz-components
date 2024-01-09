@@ -2,6 +2,7 @@
 
 ## Next
 
+- Add additional options to TextBlock component
 - Add "Return to top" component
 - Add `dollarFormat` utility function
 - Add `kebabCase` utility function
