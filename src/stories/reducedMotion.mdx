@@ -2,11 +2,11 @@ import { Meta } from "@storybook/blocks";
 
 <Meta title="stores/reducedMotion" />
 
-# Reduced Motion Svelte Store
+# prefers-reduced-motion Svelte Store
 
 A Svelte store that tracks the user's preference for reduced motion, adapted from [Geoff Rich's Accessible Svelte Transitions article](https://geoffrich.net/posts/accessible-svelte-transitions/).
 
-Sometimes users may turn on "prefers-reduced-motion" in their accessibility settings. If this is this is the case, they expect to see no animations or transitions. This store tracks the user's preference for reduced motion and can be used for conditional rendering.
+Sometimes users may turn on "prefers-reduced-motion" in their accessibility settings. If this is this is the case, they expect to see no animations or transitions. This store uses `window.matchMedia()` to track the user's preference for reduced motion and can be used for conditional rendering.
 
 ## Usage
 
@@ -24,7 +24,7 @@ const tween = tweened(0, {
 
 ## Additional CSS for prefers-reduced-motion
 
-It's worth noting that some simple CSS like the following will disable most Svelte native transitions and animations. The store above is useful if an animation function is not covered by this media query.
+It's worth noting that CSS like the following will disable most native Svelte transitions and animations. The `$reducedMotion` store above is useful if an animation function is not covered by this media query.
 
 ```css
 @media (prefers-reduced-motion: reduce) {
