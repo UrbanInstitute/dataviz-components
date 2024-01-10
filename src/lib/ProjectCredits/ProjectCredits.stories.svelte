@@ -5,7 +5,14 @@
     title: "Components/ProjectCredits",
     description: "A block for project credits",
     component: ProjectCredits,
-    tags: ["autodocs"]
+    tags: ["autodocs"],
+    parameters: {
+      docs: {
+        description: {
+          component: "A block for project credits"
+        }
+      }
+    }
   };
 </script>
 
