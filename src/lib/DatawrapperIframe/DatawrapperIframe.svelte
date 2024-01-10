@@ -1,6 +1,7 @@
 <script>
   import { createEventDispatcher } from "svelte";
   import datawrapper from "./events";
+  import datawrapperEventList from "./datawrapper-event-list.json";
 
   /*** @type {string} HTML title of the iframe */
   export let title;
@@ -27,14 +28,10 @@
   // more: https://developer.datawrapper.de/docs/listening-to-chart-interaction-events#visualization-events
   const dispatch = createEventDispatcher();
 
-  datawrapper.on("region.click", (e) => {
-    dispatch("regionclick", e);
-  });
-  datawrapper.on("region.mouseenter", (e) => {
-    dispatch("regionmouseenter", e);
-  });
-  datawrapper.on("region.mouseleave", (e) => {
-    dispatch("regionmouseleave", e);
+  datawrapperEventList.forEach((eventName) => {
+    datawrapper.on(eventName, (e) => {
+      dispatch(eventName.replace(".", ""), e);
+    });
   });
 
   // responsive iframe code form Datawrapper
