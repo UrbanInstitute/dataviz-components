@@ -1,5 +1,9 @@
 # @UrbanInstitute/dataviz-components Changelog
 
+## 0.3.1
+
+- Bugfix, add missing exports
+
 ## 0.3.0
 
 - Add additional options to TextBlock component
