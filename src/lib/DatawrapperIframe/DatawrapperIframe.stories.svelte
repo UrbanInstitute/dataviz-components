@@ -5,7 +5,15 @@
     title: "Components/DatawrapperIframe",
     description: "Datawrapper iframe",
     component: DatawrapperIframe,
-    tags: ["autodocs"]
+    tags: ["autodocs"],
+    parameters: {
+      docs: {
+        description: {
+          component:
+            "Datawrapper iframe with <a href='https://developer.datawrapper.de/docs/listening-to-chart-interaction-events' target='_blank'>event dispatching</a> enabled. All interaction events are accessible via <code>on:eventname</code> (<b>no periods</b>) on the `DatawrapperIframe` Svelte component itself.<br/><br/>The complete event list and associated descriptions can be found <a href='https://developer.datawrapper.de/docs/listening-to-chart-interaction-events#visualization-events' target='_blank'>here</a>."
+        }
+      }
+    }
   };
 </script>
 
