@@ -1,11 +1,15 @@
 // https://developer.datawrapper.de/docs/listening-to-chart-interaction-events
 
-if (typeof window.datawrapper === "undefined") window.datawrapper = {};
+if (typeof window !== "undefined") {
+  if (typeof window.datawrapper === "undefined") window.datawrapper = {};
+}
 
 var datawrapper = window.datawrapper;
 var listeners = {};
 
-window.addEventListener("message", receiveMessage, false);
+if (typeof window !== "undefined") {
+  window.addEventListener("message", receiveMessage, false);
+}
 
 function receiveMessage(event) {
   if (
