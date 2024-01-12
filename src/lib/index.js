@@ -1,6 +1,7 @@
 // Reexport your entry components here
 export { default as BasicDropdown } from "./BasicDropdown/BasicDropdown.svelte";
 export { default as Block } from "./Block/Block.svelte";
+export { default as DatawrapperIframe } from "./DatawrapperIframe/DatawrapperIframe.svelte";
 export { default as HeadingAlt } from "./HeadingAlt/HeadingAlt.svelte";
 export { default as LogoTPCBadge } from "./LogoTPCBadge/LogoTPCBadge.svelte";
 export { default as LogoUrbanBadge } from "./LogoUrbanBadge/LogoUrbanBadge.svelte";
