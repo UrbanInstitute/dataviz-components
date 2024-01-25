@@ -77,12 +77,4 @@
     font-size: var(--font-size-small);
     color: var(--color-gray-shade-darkest);
   }
-  .project-title {
-    width: 100%;
-  }
-  @media (min-width: 768px) {
-    .project-title {
-      align-self: center;
-    }
-  }
 </style>
