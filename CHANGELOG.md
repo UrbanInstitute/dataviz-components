@@ -1,5 +1,9 @@
 # @UrbanInstitute/dataviz-components Changelog
 
+## 0.3.2
+
+- Update `wide` Block width
+
 ## 0.3.1
 
 - Bugfix, add missing exports
