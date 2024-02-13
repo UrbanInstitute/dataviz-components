@@ -30,7 +30,7 @@
   }
 
   .layout-block.wide {
-    max-width: var(--wide-max-width, 1165px);
+    max-width: var(--wide-max-width, 1160px);
   }
 
   @media screen and (min-width: 792px) {
