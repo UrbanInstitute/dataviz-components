@@ -1,6 +1,6 @@
 <script context="module">
   import SocialShare from "./SocialShare.svelte";
-  import { fn, userEvent, within, expect } from '@storybook/test';
+  import { fn, userEvent, within, expect } from "@storybook/test";
 
   export const meta = {
     title: "Components/SocialShare",
@@ -8,7 +8,7 @@
     component: SocialShare,
     tags: ["autodocs"],
     args: {
-      shareUrl: "https://urban.org",
+      shareUrl: "https://urban.org"
     },
     argTypes: {
       variant: {
@@ -24,6 +24,11 @@
           { name: "light", value: "#ffffff" },
           { name: "dark", value: "#0A4C6A" }
         ]
+      },
+      docs: {
+        description: {
+          component: "Social share icons, available in light or dark mode."
+        }
       }
     }
   };
@@ -48,7 +53,8 @@
 <Story
   name="With custom onClick handler"
   args={{
-    onClick: fn()}}
+    onClick: fn()
+  }}
   play={async ({ args, canvasElement }) => {
     await userEvent.click(within(canvasElement).getByLabelText("email-share"));
     await expect(args.onClick).toHaveBeenCalled();

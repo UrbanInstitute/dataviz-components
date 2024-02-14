@@ -5,12 +5,20 @@
     title: "Components/LogoUrbanBadge",
     description: "An Urban Institute badge logo",
     component: Logo,
-    tags: ["autodocs"]
+    tags: ["autodocs"],
+    parameters: {
+      docs: {
+        description: {
+          component: "Urban Institute logo in square badge format."
+        }
+      }
+    }
   };
 </script>
 
 <script>
-  import { Story, Template } from "@storybook/addon-svelte-csf"; </script>
+  import { Story, Template } from "@storybook/addon-svelte-csf";
+</script>
 
 <Template let:args>
   <Logo {...args} />

@@ -5,7 +5,14 @@
     title: "Components/ReturnTop",
     description: "A button for moving the browser to a specified element ID",
     component: ReturnTop,
-    tags: ["autodocs"]
+    tags: ["autodocs"],
+    parameters: {
+      docs: {
+        description: {
+          component: "A button for moving the browser to a specified element ID."
+        }
+      }
+    }
   };
 </script>
 

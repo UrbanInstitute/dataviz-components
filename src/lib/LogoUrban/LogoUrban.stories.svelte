@@ -19,6 +19,11 @@
           { name: "light", value: "#ffffff" },
           { name: "dark", value: "#0A4C6A" }
         ]
+      },
+      docs: {
+        description: {
+          component: "Urban Institute logo in full width format."
+        }
       }
     }
   };
@@ -33,4 +38,8 @@
 </Template>
 
 <Story name="Default" />
-<Story name="Variant - white" args={{variant: "white"}} parameters={{backgrounds: {default: "dark"}}}/>
+<Story
+  name="Variant - white"
+  args={{ variant: "white" }}
+  parameters={{ backgrounds: { default: "dark" } }}
+/>

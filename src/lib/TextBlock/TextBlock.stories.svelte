@@ -25,6 +25,11 @@
           { name: "light", value: "#ffffff" },
           { name: "dark", value: "#0A4C6A" }
         ]
+      },
+      docs: {
+        description: {
+          component: "A basic text block."
+        }
       }
     }
   };
