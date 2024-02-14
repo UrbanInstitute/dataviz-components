@@ -1,5 +1,10 @@
 # @UrbanInstitute/dataviz-components Changelog
 
+## 0.3.3
+
+- Add descriptions to Storybook documentation
+- Bugfix: remove unchecked call to window in Datawrapper events
+
 ## 0.3.2
 
 - Update `wide` Block width
