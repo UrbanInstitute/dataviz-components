@@ -13,7 +13,7 @@
     parameters: {
       docs: {
         description: {
-          component: "Basic HTML dropdown."
+          component: "Basic HTML dropdown adhering to Urban styles."
         }
       }
     }

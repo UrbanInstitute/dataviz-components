@@ -5,7 +5,14 @@
     title: "Components/LogoTPCBadge",
     description: "A Tax Policy Center logo",
     component: Logo,
-    tags: ["autodocs"]
+    tags: ["autodocs"],
+    parameters: {
+      docs: {
+        description: {
+          component: "Tax Policy Center logo in square badge format."
+        }
+      }
+    }
   };
 </script>
 

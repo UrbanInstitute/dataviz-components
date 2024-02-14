@@ -9,7 +9,7 @@
     parameters: {
       docs: {
         description: {
-          component: "A block for project credits"
+          component: "A block for project credits."
         }
       }
     }
