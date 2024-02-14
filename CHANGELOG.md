@@ -1,6 +1,6 @@
 # @UrbanInstitute/dataviz-components Changelog
 
-## Next
+## 0.3.3
 
 - Add descriptions to Storybook documentation
 - Bugfix: remove unchecked call to window in Datawrapper events
