@@ -4,8 +4,11 @@ if (typeof window !== "undefined") {
   if (typeof window.datawrapper === "undefined") window.datawrapper = {};
 }
 
-var datawrapper = window.datawrapper;
-var listeners = {};
+let datawrapper = {};
+if (typeof window !== "undefined") {
+  datawrapper = window.datawrapper;
+}
+let listeners = {};
 
 if (typeof window !== "undefined") {
   window.addEventListener("message", receiveMessage, false);
