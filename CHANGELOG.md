@@ -2,6 +2,8 @@
 
 ## 0.3.3
 
+- Update urbanColors module to align more closely with the Urban Institute data visualization styleguide
+- Improve urbanColors documentation
 - Add descriptions to Storybook documentation
 - Bugfix: remove unchecked call to window in Datawrapper events
 
