@@ -186,7 +186,7 @@ function getReds() {
     colors.red_shade_darker,
     colors.red_shade_darkest
   ];
-  return shades.slice(0, numColors);
+  return shades.slice();
 }
 
 /**
@@ -226,21 +226,21 @@ function getCategoricalColors(numColors = 6) {
     return [colors.blue, colors.yellow];
   }
   if (numColors === 3) {
-    return [colors.blue, colors.yellow, colors.magenta];
+    return [colors.blue, colors.yellow, colors.black];
   }
   if (numColors === 4) {
-    return [colors.blue, colors.yellow, colors.magenta, colors.green];
+    return [colors.blue, colors.yellow, colors.black, colors.magenta];
   }
   if (numColors === 5) {
-    return [colors.blue, colors.yellow, colors.magenta, colors.green, colors.blue_shade_darker];
+    return [colors.blue, colors.yellow, colors.black, colors.magenta, colors.gray];
   }
   return [
     colors.blue,
     colors.yellow,
     colors.magenta,
-    colors.green,
-    colors.blue_shade_darker,
-    colors.space_gray
+    colors.black,
+    colors.gray,
+    colors.blue_shade_light
   ];
 }
 
