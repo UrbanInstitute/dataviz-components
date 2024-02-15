@@ -1,5 +1,6 @@
 <script>
   import twitterIcon from "./IconTwitter.svelte";
+  import xIcon from "./IconX.svelte";
   import facebookIcon from "./IconFacebook.svelte";
   import linkedinIcon from "./IconLinkedin.svelte";
   import mailIcon from "./IconMail.svelte";
@@ -30,29 +31,28 @@
    */
   export let iconSize = 24;
 
-  const base_share_url = "https://www.addtoany.com/add_to";
   $: encoded_url_to_share = encodeURIComponent(shareUrl);
 
   $: socials = [
     {
-      name: "twitter",
-      icon: twitterIcon,
-      url: `${base_share_url}/twitter?linkurl=${encoded_url_to_share}&linknote=`
-    },
-    {
       name: "facebook",
       icon: facebookIcon,
-      url: `${base_share_url}/facebook?linkurl=${encoded_url_to_share}&linknote=`
+      url: `https://www.facebook.com/sharer/sharer.php?u=${encoded_url_to_share}`
+    },
+    {
+      name: "X",
+      icon: xIcon,
+      url: `https://twitter.com/intent/tweet?text=&url=${encoded_url_to_share}`
     },
     {
       name: "linkedin",
       icon: linkedinIcon,
-      url: `${base_share_url}/linkedin?linkurl=${encoded_url_to_share}&linknote=`
+      url: `https://www.linkedin.com/sharing/share-offsite/?url=${encoded_url_to_share}`
     },
     {
       name: "email",
       icon: mailIcon,
-      url: `${base_share_url}/email?linkurl=${encoded_url_to_share}&linknote=`
+      url: `mailto: ?subject=&body=${encoded_url_to_share}`
     }
   ];
 </script>
