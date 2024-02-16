@@ -18,7 +18,7 @@
   export let accentColor = "#9d9d9d";
   /**
    * Font weight of the number
-   * @type { string } [fontWeight="var(--fknt-weight-light)"]
+   * @type { string } [fontWeight="var(--font-weight-light)"]
    **/
   export let fontWeight = "var(--font-weight-light)";
 </script>
