@@ -21,7 +21,7 @@
 </script>
 
 <Template let:args>
-  <ReturnTop args />
+  <ReturnTop args on:click on:keypress />
 </Template>
 
 <Story
