@@ -25,6 +25,9 @@
 <Template let:args>
   <DatawrapperIframe
     {...args}
+    on:regionclick
+    on:regionmouseenter
+    on:regionmouseleave
     on:regionclick={(e) => (test = e.detail.data.fips)}
     on:regionmouseenter={(e) => (test = e.detail.data.fips)}
     on:regionmouseleave={() => (test = "Hover over a region to change this text")}

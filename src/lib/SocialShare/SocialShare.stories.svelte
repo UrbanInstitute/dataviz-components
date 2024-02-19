@@ -39,7 +39,7 @@
 </script>
 
 <Template let:args>
-  <SocialShare {...args} />
+  <SocialShare {...args} on:click />
 </Template>
 
 <Story name="Default" />

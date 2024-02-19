@@ -33,7 +33,7 @@
 </script>
 
 <Template let:args>
-  <BasicDropdown {...args} />
+  <BasicDropdown {...args} on:change />
 </Template>
 
 <Story
