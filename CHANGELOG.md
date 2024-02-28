@@ -6,6 +6,10 @@
 - Update urbanColors module to align more closely with the Urban Institute data visualization styleguide
 - Improve urbanColors documentation
 - Add PR template for changelog reminder
+- Update urbanColors module to align more closely with the Urban Institute data visualization styleguide
+- Improve urbanColors documentation
+- Update SocialShare Twitter icon to new X logo
+- Simplify SocialShare dialogue URLs
 
 ## 0.3.3
 
