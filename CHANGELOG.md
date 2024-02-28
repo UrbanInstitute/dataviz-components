@@ -2,6 +2,8 @@
 
 ## Next
 
+## 0.4.0
+
 - Add SectionBreak component
 - Add PR template for changelog reminder
 - Update urbanColors module to align more closely with the Urban Institute data visualization styleguide
