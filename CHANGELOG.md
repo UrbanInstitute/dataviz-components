@@ -3,8 +3,6 @@
 ## Next
 
 - Add SectionBreak component
-- Update urbanColors module to align more closely with the Urban Institute data visualization styleguide
-- Improve urbanColors documentation
 - Add PR template for changelog reminder
 - Update urbanColors module to align more closely with the Urban Institute data visualization styleguide
 - Improve urbanColors documentation
