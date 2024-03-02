@@ -2,6 +2,8 @@
 
 ## Next
 
+- Add resizeObserver action
+
 ## 0.4.0
 
 - Add SectionBreak component
