@@ -31,7 +31,6 @@
 
 <script>
   import { Story, Template } from "@storybook/addon-svelte-csf";
-  import { fireEvent, within, expect } from "@storybook/test";
 </script>
 
 <Template let:args>
