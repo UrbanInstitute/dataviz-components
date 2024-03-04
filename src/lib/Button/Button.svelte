@@ -2,6 +2,7 @@
 <script>
   import "../style/app.css";
   import { urbanColors } from "../utils";
+  import { createEventDispatcher } from "svelte";
   /**
    * Which variant of button to use
    * @type {"primary" | "primary-black" | "secondary" | "secondary-black" | "tertiary"}
@@ -23,6 +24,8 @@
 
 
   let hovered = false;
+
+  let dispatch = createEventDispatcher();
 
   function getIconColor(_variant, _hovered) {
     // hovered colors
@@ -50,9 +53,18 @@
     return urbanColors.black;
   }
 
+  function onMouseEnter(e) {
+    hovered = true;
+    dispatch("mouseenter", e);
+  }
+  function onMouseLeave(e) {
+    hovered = false;
+    dispatch("mouseleave", e);
+  }
+
   $: iconColor = getIconColor(variant, hovered);
 </script>
-<button class="variant-{variant} size-{size}" on:click {disabled} on:mouseenter={(e) => hovered = true} on:mouseleave={(e) => hovered = false}>
+<button class="variant-{variant} size-{size}" on:click {disabled} on:mouseenter={onMouseEnter} on:mouseleave={onMouseLeave}>
   <slot>Default button text</slot>
   {#if $$slots.icon}
     <span class="button-icon"><slot name="icon" {iconColor}></slot></span>

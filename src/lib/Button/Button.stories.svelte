@@ -34,7 +34,7 @@
 </script>
 
 <Template let:args>
-  <Button {...args} on:click>Button text</Button>
+  <Button {...args} on:click on:mouseenter on:mouseleave>Button text</Button>
 </Template>
 
 <Story name="primary" args={{}} />
