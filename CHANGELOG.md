@@ -2,6 +2,8 @@
 
 ## Next
 
+- Updates Github action versions
+
 ## 0.4.0
 
 - Add SectionBreak component
