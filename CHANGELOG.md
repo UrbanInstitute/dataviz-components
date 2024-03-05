@@ -1,6 +1,7 @@
 # @UrbanInstitute/dataviz-components Changelog
 
 ## Next
+- Add ChartBlock component
 - Add Button component
 
 - Updates Github action versions
