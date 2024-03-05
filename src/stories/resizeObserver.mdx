@@ -1,0 +1,22 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="actions/resizeObserver" />
+
+# resizeObserver action
+
+An action you can use to easily to check when a DOM element's dimensions change using the Resize Observer API. Sometimes is more efficient and less bug prone than Svelte's built-in `bind:clientWidth` approach. This may change when [Svelte 5 switches to using resize observer instead of iframes under the hood](https://github.com/sveltejs/svelte/issues/7583#issuecomment-1905763916).
+
+## Usage
+
+```js
+<script>
+  import { resizeObserver } from '@urbaninstitute/dataviz-components/actions';
+
+  let width = 0;
+</script>
+
+<div use:resizeObserver="{(el) => (width = el.clientWidth)}">
+  My width is: {width}
+</div>
+```
+
