@@ -1,9 +1,8 @@
 # Build Storybook for Github Pages
-name: Build storybook
-on: 
-  push:
-    branches:
-      - main
+name: Build and publish storybook
+on:
+  release:
+    types: [published]
 permissions:
   contents: write
 jobs:
