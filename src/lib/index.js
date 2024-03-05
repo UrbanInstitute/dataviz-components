@@ -12,3 +12,4 @@ export { default as ReturnTop } from "./ReturnTop/ReturnTop.svelte";
 export { default as Scorecard } from "./Scorecard/Scorecard.svelte";
 export { default as SocialShare } from "./SocialShare/SocialShare.svelte";
 export { default as TextBlock } from "./TextBlock/TextBlock.svelte";
+export { default as Button } from "./Button/Button.svelte";

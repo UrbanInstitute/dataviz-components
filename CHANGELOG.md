@@ -1,6 +1,9 @@
 # @UrbanInstitute/dataviz-components Changelog
 
 ## Next
+- Add Button component
+
+- Updates Github action versions
 
 - Add resizeObserver action
 
