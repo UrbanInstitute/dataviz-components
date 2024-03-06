@@ -1,3 +1,5 @@
+import Theme from '../src/lib/Theme/Theme.svelte';
+
 /** @type { import('@storybook/svelte').Preview } */
 const preview = {
 	parameters: {
@@ -8,7 +10,8 @@ const preview = {
 				date: /Date$/i
 			}
 		}
-	}
+	},
+  decorators: [() => Theme],
 };
 
 export default preview;

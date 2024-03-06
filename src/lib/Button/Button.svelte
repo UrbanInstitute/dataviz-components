@@ -1,6 +1,5 @@
 <!-- @component Button a basic HTML button with Urban styling-->
 <script>
-  import "../style/app.css";
   import { createEventDispatcher } from "svelte";
   /**
    * Which variant of button to use

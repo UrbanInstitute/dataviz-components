@@ -21,7 +21,7 @@
     margin: 0 var(--spacing-4);
   }
   .layout-block.body {
-    max-width: var(--body-max-width, 760px);
+    max-width: var(--size-body-max-width, 760px);
   }
   .layout-block.full {
     max-width: none;
@@ -30,7 +30,7 @@
   }
 
   .layout-block.wide {
-    max-width: var(--wide-max-width, 1160px);
+    max-width: var(--size-wide-max-width, 1160px);
   }
 
   @media screen and (min-width: 792px) {

@@ -2,7 +2,6 @@
   import Heading from "$lib/HeadingAlt/HeadingAlt.svelte";
   import TextBlock from "$lib/TextBlock/TextBlock.svelte";
   import Block from "$lib/Block/Block.svelte";
-  import "../style/app.css";
 
   /**
    * Heading to display above credits block

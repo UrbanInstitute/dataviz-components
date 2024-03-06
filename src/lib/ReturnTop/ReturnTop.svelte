@@ -1,7 +1,6 @@
 <script>
   import { createEventDispatcher } from "svelte";
   const dispatch = createEventDispatcher();
-  import "../style/app.css";
 
   /**
    * Element ID to scroll to
