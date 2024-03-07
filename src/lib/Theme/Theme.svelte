@@ -1,4 +1,6 @@
-<script></script>
+<script>
+  export let theme = "urban";
+</script>
 
 <div class="theme">
   <slot />
@@ -129,4 +131,5 @@
     -webkit-text-size-adjust: 100%;
     box-sizing: border-box;
   }
+
 </style>

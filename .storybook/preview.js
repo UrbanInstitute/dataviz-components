@@ -1,4 +1,5 @@
 import Theme from '../src/lib/Theme/Theme.svelte';
+import "$lib/style/main.css";
 
 /** @type { import('@storybook/svelte').Preview } */
 const preview = {
