@@ -1,0 +1,18 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Fonts/Introduction" />
+
+# Font loading
+
+If you need to load the Urban brand fonts in your SvelteKit-powered project, you can use the font components included in this library.
+
+Import and use either `<FontsUrban />` or `<FontsWorkrise />` to add the necessary markup to the `<head>` of you html like so:
+
+```html
+<script>
+import { FontsUrban } from "@urbaninstitute/dataviz-components/fonts";
+</script>
+<FontsUrban />
+```
+
+Note: these components take advantage of [Svelte's built-in `<svelte:head>` component](https://svelte.dev/docs/special-elements#svelte-head) to include the markup in the correct place. If you aren't using SvelteKit or some form of server-side rendering, you may want to add these fonts to your project with a more traditional method.
