@@ -35,6 +35,10 @@
       "types": "./dist/actions/index.d.ts",
       "svelte": "./dist/actions/index.js"
     },
+    "./fonts": {
+      "types": "./dist/Fonts/index.d.ts",
+      "svelte": "./dist/Fonts/index.js"
+    },
     "./style/main": "./dist/style/main.css"
   },
   "files": [
