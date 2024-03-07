@@ -143,63 +143,6 @@
  * Default type styles
  */
 
-/*
- * Headings
- */
-
-h1 {
-  color: var(--color-black);
-  font-family: var(--font-family-sans);
-  font-size: var(--font-size-4xl);
-  font-weight: var(--font-weight-bold);
-  line-height: var(--line-height-tight);
-  text-transform: none;
-}
-
-h2 {
-  color: var(--color-black);
-  font-family: var(--font-family-sans);
-  font-size: var(--font-size-3xl);
-  font-weight: var(--font-weight-bold);
-  line-height: var(--line-height-snug);
-  text-transform: none;
-}
-
-h3 {
-  color: var(--color-black);
-  font-family: var(--font-family-sans);
-  font-size: var(--font-size-2xl);
-  font-weight: var(--font-weight-light);
-  line-height: var(--line-height-normal);
-  text-transform: uppercase;
-}
-
-h4 {
-  color: var(--color-black);
-  font-family: var(--font-family-sans);
-  font-size: var(--font-size-xl);
-  font-weight: var(--font-weight-bold);
-  line-height: var(--line-height-normal);
-  text-transform: none;
-}
-
-h5 {
-  color: var(--color-black);
-  font-family: var(--font-family-sans);
-  font-size: var(--font-size-large);
-  font-weight: var(--font-weight-bold);
-  line-height: var(--line-height-normal);
-  text-transform: none;
-}
-
-h6 {
-  color: var(--color-black);
-  font-family: var(--font-family-sans);
-  font-size: var(--font-size-base);
-  font-weight: var(--font-weight-bold);
-  line-height: var(--line-height-normal);
-  text-transform: none;
-}
 
 .sub-head {
   color: var(--color-black);
@@ -214,7 +157,6 @@ h6 {
  * Paragraphs
  */
 
-p,
 .text-paragraph {
   font-family: var(--font-family-sans);
   font-size: var(--font-size-large);
@@ -223,12 +165,10 @@ p,
   color: var(--color-gray-shade-darkest);
 }
 
-strong,
 .text-paragraph--bold {
   font-weight: var(--font-weight-bold);
 }
 
-em,
 .text-paragraph--italic {
   font-style: italic;
 }
@@ -370,54 +310,12 @@ em,
 }
 
 /*
- * Lists
- */
-
-ol,
-ul {
-  padding-left: 1em;
-}
-
-/*
  * Larger screens
  */
 
 @media (min-width: 769px) {
-  /*
-   * Headings
-   */
-
-  h1 {
-    font-size: var(--font-size-5xl);
-  }
-
-  h2 {
-    font-size: var(--font-size-4xl);
-  }
-
-  h3 {
-    font-size: var(--font-size-3xl);
-  }
-
-  h4 {
-    font-size: var(--font-size-2xl);
-  }
-
-  h5 {
-    font-size: var(--font-size-xl);
-  }
-
-  h6 {
-    font-size: var(--font-size-large);
-  }
-
   .shead {
     font-size: var(--font-size-3xl);
-  }
-
-  p {
-    font-size: var(--font-size-xl);
-    line-height: var(--line-height-relaxed);
   }
 
   .text-display {
