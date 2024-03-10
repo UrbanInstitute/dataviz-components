@@ -8,12 +8,11 @@
    */
   export let variant = "primary";
 
-
   /**
    * Which size of button to use
    * @type {"standard" | "small" }
    */
-  export let size = "standard"
+  export let size = "standard";
 
   /**
    * Is the button disabled?
@@ -29,7 +28,7 @@
 
   function getIconColor(_variant, _hovered, el) {
     if (!el) return;
-    let iconColor = getComputedStyle(el).getPropertyValue("--current-color");
+    let iconColor = getComputedStyle(el).getPropertyValue("--button-color");
     return iconColor;
   }
 
@@ -44,24 +43,33 @@
 
   $: iconColor = getIconColor(variant, hovered, el);
 </script>
-<button class="variant-{variant} size-{size}" bind:this={el} on:click {disabled} on:mouseenter={onMouseEnter} on:mouseleave={onMouseLeave}>
+
+<button
+  class="variant-{variant} size-{size}"
+  bind:this={el}
+  on:click
+  {disabled}
+  on:mouseenter={onMouseEnter}
+  on:mouseleave={onMouseLeave}
+>
   <slot>Default button text</slot>
   {#if $$slots.icon}
-    <span class="button-icon"><slot name="icon" {iconColor}></slot></span>
+    <span class="button-icon"><slot name="icon" {iconColor} /></span>
   {/if}
 </button>
+
 <style>
   button {
+    --border-size: 2px;
+    --button-color: var(--color-white);
     appearance: none;
     border: none;
     cursor: pointer;
-    --current-color: var(--color-white);
-    color: var(--current-color);
+    color: var(--button-color);
     font-family: var(--font-family-sans);
     font-size: var(--font-size-large);
     font-weight: var(--font-weight-bold);
     text-transform: uppercase;
-    --border-size: 2px;
   }
 
   .button-icon {
@@ -73,16 +81,18 @@
   button.size-standard {
     padding: calc(1rem - var(--border-size) * 2);
   }
+
   button.size-small {
     padding: calc(0.75rem - var(--border-size) * 2);
   }
 
   /* primary variant */
   button.variant-primary {
+    --button-color: var(--color-white);
     background-color: var(--color-blue);
     border: solid var(--border-size) var(--color-blue);
-    --current-color: var(--color-white);
   }
+
   button.variant-primary:hover {
     background-color: var(--color-blue-shade-dark);
     border: solid var(--border-size) var(--color-blue-shade-dark);
@@ -90,49 +100,53 @@
 
   /* primary-black variant */
   button.variant-primary-black {
+    --button-color: var(--color-white);
     background-color: var(--color-black);
     border: solid var(--border-size) var(--color-black);
-    --current-color: var(--color-white);
   }
+
   button.variant-primary-black:hover {
+    --button-color: var(--color-black);
     background-color: var(--color-white);
-    --current-color: var(--color-black);
     border: solid var(--border-size) var(--color-black);
   }
 
   /* secondary variant */
   button.variant-secondary {
+    --button-color: var(--color-blue);
     background-color: var(--color-white);
     border: solid var(--border-size) var(--color-blue);
-    --current-color: var(--color-blue);
   }
+
   button.variant-secondary:hover {
+    --button-color: var(--color-white);
     background-color: var(--color-blue);
-    --current-color: var(--color-white);
     border: solid var(--border-size) var(--color-blue);
   }
 
   /* secondary-black variant */
   button.variant-secondary-black {
+    --button-color: var(--color-black);
     background-color: var(--color-white);
     border: solid var(--border-size) var(--color-black);
-    --current-color: var(--color-black);
-  }
-  button.variant-secondary-black:hover {
-    background-color: var(--color-black);
-    --current-color: var(--color-white);
-    border: solid var(--border-size) var(--color-black);
-  }
-  /* tertiary variant */
-  button.variant-tertiary {
-    background-color: var(--color-yellow);
-    border: solid var(--border-size) var(--color-yellow);
-    --current-color: var(--color-black);
-  }
-  button.variant-tertiary:hover {
-    background-color: var(--color-black);
-    border: solid var(--border-size) var(--color-black);
-    --current-color: var(--color-white);
   }
 
+  button.variant-secondary-black:hover {
+    --button-color: var(--color-white);
+    background-color: var(--color-black);
+    border: solid var(--border-size) var(--color-black);
+  }
+
+  /* tertiary variant */
+  button.variant-tertiary {
+    --button-color: var(--color-black);
+    background-color: var(--color-yellow);
+    border: solid var(--border-size) var(--color-yellow);
+  }
+
+  button.variant-tertiary:hover {
+    --button-color: var(--color-white);
+    background-color: var(--color-black);
+    border: solid var(--border-size) var(--color-black);
+  }
 </style>
