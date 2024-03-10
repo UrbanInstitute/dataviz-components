@@ -1,7 +1,6 @@
 <!-- @component Button a basic HTML button with Urban styling-->
 <script>
   import "../style/app.css";
-  import { urbanColors } from "../utils";
   import { createEventDispatcher } from "svelte";
   /**
    * Which variant of button to use
@@ -22,35 +21,16 @@
    */
   export let disabled = false;
 
+  let el;
 
   let hovered = false;
 
   let dispatch = createEventDispatcher();
 
-  function getIconColor(_variant, _hovered) {
-    // hovered colors
-    if (!_hovered) {
-      if (_variant === "primary" || _variant === "primary-black") {
-        return urbanColors.white;
-      }
-      if (_variant === "secondary") {
-        return urbanColors.blue;
-      }
-      if (_variant === "secondary-black" || _variant === "tertiary") {
-        return urbanColors.black;
-      }
-    }
-    if (_variant === "primary") {
-      return urbanColors.white;
-    }
-    if (_variant === "primary-black") {
-      return urbanColors.black;
-    }
-    // not hovered colors
-    if (_variant === "secondary" || _variant == "secondary-black" || _variant === "tertiary") {
-      return urbanColors.white;
-    }
-    return urbanColors.black;
+  function getIconColor(_variant, _hovered, el) {
+    if (!el) return;
+    let iconColor = getComputedStyle(el).getPropertyValue("--current-color");
+    return iconColor;
   }
 
   function onMouseEnter(e) {
@@ -62,9 +42,9 @@
     dispatch("mouseleave", e);
   }
 
-  $: iconColor = getIconColor(variant, hovered);
+  $: iconColor = getIconColor(variant, hovered, el);
 </script>
-<button class="variant-{variant} size-{size}" on:click {disabled} on:mouseenter={onMouseEnter} on:mouseleave={onMouseLeave}>
+<button class="variant-{variant} size-{size}" bind:this={el} on:click {disabled} on:mouseenter={onMouseEnter} on:mouseleave={onMouseLeave}>
   <slot>Default button text</slot>
   {#if $$slots.icon}
     <span class="button-icon"><slot name="icon" {iconColor}></slot></span>
@@ -75,6 +55,8 @@
     appearance: none;
     border: none;
     cursor: pointer;
+    --current-color: var(--color-white);
+    color: var(--current-color);
     font-family: var(--font-family-sans);
     font-size: var(--font-size-large);
     font-weight: var(--font-weight-bold);
@@ -99,7 +81,7 @@
   button.variant-primary {
     background-color: var(--color-blue);
     border: solid var(--border-size) var(--color-blue);
-    color: var(--color-white);
+    --current-color: var(--color-white);
   }
   button.variant-primary:hover {
     background-color: var(--color-blue-shade-dark);
@@ -110,11 +92,11 @@
   button.variant-primary-black {
     background-color: var(--color-black);
     border: solid var(--border-size) var(--color-black);
-    color: var(--color-white);
+    --current-color: var(--color-white);
   }
   button.variant-primary-black:hover {
     background-color: var(--color-white);
-    color: var(--color-black);
+    --current-color: var(--color-black);
     border: solid var(--border-size) var(--color-black);
   }
 
@@ -122,11 +104,11 @@
   button.variant-secondary {
     background-color: var(--color-white);
     border: solid var(--border-size) var(--color-blue);
-    color: var(--color-blue);
+    --current-color: var(--color-blue);
   }
   button.variant-secondary:hover {
     background-color: var(--color-blue);
-    color: var(--color-white);
+    --current-color: var(--color-white);
     border: solid var(--border-size) var(--color-blue);
   }
 
@@ -134,23 +116,23 @@
   button.variant-secondary-black {
     background-color: var(--color-white);
     border: solid var(--border-size) var(--color-black);
-    color: var(--color-black);
+    --current-color: var(--color-black);
   }
   button.variant-secondary-black:hover {
     background-color: var(--color-black);
-    color: var(--color-white);
+    --current-color: var(--color-white);
     border: solid var(--border-size) var(--color-black);
   }
   /* tertiary variant */
   button.variant-tertiary {
     background-color: var(--color-yellow);
     border: solid var(--border-size) var(--color-yellow);
-    color: var(--color-black);
+    --current-color: var(--color-black);
   }
   button.variant-tertiary:hover {
     background-color: var(--color-black);
     border: solid var(--border-size) var(--color-black);
-    color: var(--color-white);
+    --current-color: var(--color-white);
   }
 
 </style>
