@@ -49,6 +49,7 @@
   bind:this={el}
   on:click
   {disabled}
+  aria-disabled={disabled}
   on:mouseenter={onMouseEnter}
   on:mouseleave={onMouseLeave}
 >
@@ -72,6 +73,10 @@
     text-transform: uppercase;
   }
 
+  button:disabled {
+    cursor: not-allowed;
+  }
+
   .button-icon {
     display: inline-block;
     margin-left: 0.5rem;
@@ -93,7 +98,7 @@
     border: solid var(--border-size) var(--color-blue);
   }
 
-  button.variant-primary:hover {
+  button.variant-primary:hover:not(:disabled) {
     background-color: var(--color-blue-shade-dark);
     border: solid var(--border-size) var(--color-blue-shade-dark);
   }
@@ -118,10 +123,16 @@
     border: solid var(--border-size) var(--color-blue);
   }
 
-  button.variant-secondary:hover {
+  button.variant-secondary:hover:not(:disabled) {
     --button-color: var(--color-white);
     background-color: var(--color-blue);
     border: solid var(--border-size) var(--color-blue);
+  }
+
+  button.variant-secondary:disabled,
+  button.variant-secondary-black:disabled {
+    --button-color: var(--color-gray);
+    border: solid var(--border-size) var(--color-gray);
   }
 
   /* secondary-black variant */
@@ -148,5 +159,20 @@
     --button-color: var(--color-white);
     background-color: var(--color-black);
     border: solid var(--border-size) var(--color-black);
+  }
+
+  /* disabled state */
+  button.variant-primary:disabled,
+  button.variant-primary-black:disabled,
+  button.variant-tertiary:disabled {
+    --button-color: var(--color-white);
+    background-color: var(--color-gray);
+    border: solid var(--border-size) var(--color-gray);
+  }
+
+  button.variant-secondary:disabled,
+  button.variant-secondary-black:disabled {
+    --button-color: var(--color-gray);
+    border: solid var(--border-size) var(--color-gray);
   }
 </style>
