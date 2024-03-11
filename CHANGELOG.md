@@ -1,13 +1,13 @@
 # @UrbanInstitute/dataviz-components Changelog
 
 ## Next
+
+## v0.5.0
+ 
 - Add ChartBlock component
 - Add Button component
-
 - Updates Github action versions
-
 - Add resizeObserver action
-
 - Change BasicDropdown programmatic dispatching to declarative event forwarding
 
 ## 0.4.0
