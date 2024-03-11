@@ -1,6 +1,5 @@
 <!-- @component ChartBlock - A basic chart wrapper that includes, title, description, source, and notes. -->
 <script>
-  import "../style/app.css";
   import Block from "../Block/Block.svelte";
 
   /**
@@ -39,7 +38,7 @@
 </script>
 
 <Block {width}>
-  <div class="chart-wrapper" style:color>
+  <div class="chart-wrapper" style:--current-color={color}>
     {#if title}
       <h4 class="chart-title">{title}</h4>
     {/if}
@@ -63,6 +62,9 @@
 <style>
   .chart-wrapper {
     line-height: var(--line-height-normal);
+  }
+  .chart-wrapper * {
+    color: var(--current-color);
   }
   /* chart text */
   .chart-title {
