@@ -7,6 +7,8 @@
 
 - Add resizeObserver action
 
+- Change BasicDropdown programmatic dispatching to declarative event forwarding
+
 ## 0.4.0
 
 - Add SectionBreak component
