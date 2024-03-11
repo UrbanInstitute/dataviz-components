@@ -28,7 +28,7 @@
 <!-- Content to render between the heading and the items -->
 <slot name="intro" />
 <Block>
-  <ul>
+  <ul class="credits-list">
     {#each items as item}
       <li>
         <span class="label">{item.label}</span>
@@ -42,7 +42,7 @@
 {/if}
 
 <style>
-  ul {
+  ul.credits-list {
     list-style-type: none;
     padding: 0;
     font-size: var(--font-size-large);
