@@ -68,6 +68,13 @@
 </Story>
 
 <Story
+  name="primary disabled"
+  args={{
+    disabled: true
+  }}
+/>
+
+<Story
   name="primary small"
   args={{
     size: "small"
@@ -78,6 +85,14 @@
   name="primary-black"
   args={{
     variant: "primary-black"
+  }}
+/>
+
+<Story
+  name="primary-black disabled"
+  args={{
+    variant: "primary-black",
+    disabled: true
   }}
 />
 
@@ -103,6 +118,15 @@
     variant: "secondary"
   }}
 />
+
+<Story
+  name="secondary disabled"
+  args={{
+    variant: "secondary",
+    disabled: true
+  }}
+/>
+
 <Story name="secondary with icon">
   <Button variant="secondary"
     >Button text <svelte:fragment slot="icon" let:iconColor
@@ -126,6 +150,14 @@
   }}
 />
 
+<Story
+  name="secondary-black disabled"
+  args={{
+    variant: "secondary-black",
+    disabled: true
+  }}
+/>
+
 <Story name="secondary-black with icon">
   <Button variant="secondary-black"
     >Button text <svelte:fragment slot="icon" let:iconColor
@@ -145,6 +177,14 @@
   name="tertiary"
   args={{
     variant: "tertiary"
+  }}
+/>
+
+<Story
+  name="tertiary disabled"
+  args={{
+    variant: "tertiary",
+    disabled: true
   }}
 />
 
