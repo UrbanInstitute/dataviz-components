@@ -13,3 +13,4 @@ export { default as Scorecard } from "./Scorecard/Scorecard.svelte";
 export { default as SocialShare } from "./SocialShare/SocialShare.svelte";
 export { default as TextBlock } from "./TextBlock/TextBlock.svelte";
 export { default as Button } from "./Button/Button.svelte";
+export { default as ChartBlock } from "./ChartBlock/ChartBlock.svelte";

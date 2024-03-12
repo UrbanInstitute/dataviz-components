@@ -2,6 +2,10 @@
 
 ## Next
 
+## v0.5.1
+
+- Bugfix: export ChartBlock
+
 ## v0.5.0
  
 - Add ChartBlock component
