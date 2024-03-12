@@ -2,6 +2,11 @@
 
 ## Next
 
+- Add Theme component and update styles of components accordingly
+- Add Font loading components to account for changes in styles
+- Export main stylesheet
+- Add normalize.css to exported stylesheet
+
 ## v0.5.1
 
 - Bugfix: export ChartBlock
