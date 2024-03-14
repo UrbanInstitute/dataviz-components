@@ -5,7 +5,6 @@
     title: "Components/Meta",
     description: "A component to manage meta tags for the HTML document.",
     component: Meta,
-    tags: ["autodocs"],
     argTypes: {
       authors: {
         control: {
@@ -40,9 +39,9 @@
   title: "",
   description: "",
   url: "",
-  site_name: "Urban Institute",
+  siteName: "Urban Institute",
   authors: ["Author Name", "Author Name"],
   keywords: ["keyword1", "keyword2"],
-  social_image: ""
+  socialImage: ""
 }}>Nothing to see here</Story>
 

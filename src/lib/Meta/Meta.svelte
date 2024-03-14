@@ -24,7 +24,7 @@
    * The site_name to be used for the og:site_name property for the page
    * @type {string}
    */
-  export let site_name = "Urban Institute";
+  export let siteName = "Urban Institute";
 
   /**
    * A list of author names to be included in the schema.org metadata for the page
@@ -42,16 +42,28 @@
    * URL path to an image to be used as the social media image for the HTML page
    * @type {string}
    */
-  export let social_image = "";
+  export let socialImage = "";
+
+  /**
+   * The publication date for the page in the format of 1968-01-01
+   * @type {string}
+   */
+  export let publishDate;
+
+  /**
+  * The section of the article for the schema.org metadata
+   * @type {string}
+   */
+  export let articleSection = "Data Tool";
 
   $: schema_meta = {
     "@context": "http://schema.org",
     "@type": "NewsArticle",
     headline: title,
     url: url,
-    thumbnailUrl: `${social_image}`,
-    dateCreated: "2023-10-25T05:00:00.000Z",
-    articleSection: "Data Tool",
+    thumbnailUrl: `${socialImage}`,
+    dateCreated: `${publishDate}T05:00:00.000Z`,
+    articleSection: articleSection,
     creator: authors,
     keywords: keywords
   };
@@ -66,13 +78,13 @@
   <meta name="author" content="" />
 
   <meta property="og:title" content={title} />
-  <meta property="og:site_name" content={site_name} />
+  <meta property="og:site_name" content={siteName} />
   <meta property="og:url" content={url} />
   <meta property="og:description" content={description} />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="en_US" />
 
-  <meta property="og:image" content={social_image} />
+  <meta property="og:image" content={socialImage} />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
 
@@ -80,7 +92,7 @@
   <meta name="twitter:site" content="@urbaninstitute" />
   <meta name="twitter:title" content={title} />
   <meta name="twitter:description" content={description} />
-  <meta name="twitter:image" content={social_image} />
+  <meta name="twitter:image" content={socialImage} />
 
   <meta name="robots" content="max-image-preview:large" />
 
