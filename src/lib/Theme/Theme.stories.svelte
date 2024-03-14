@@ -5,13 +5,17 @@
     title: "Theming/Theme",
     description: "A theme wrapper that provides styles for children components.",
     component: Theme,
-    tags: ["autodocs"],
+    // tags: ["autodocs"],
     argTypes: {
-      variant: {
+      theme: {
         default: "urban",
         options: ["urban"],
         control: "select"
+      },
+      slot_default: {
+        control: { type: "text" }
       }
+          
     },
     parameters: {
       backgrounds: {

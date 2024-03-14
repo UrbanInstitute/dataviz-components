@@ -10,7 +10,12 @@ const preview = {
 				color: /(background|color)$/i,
 				date: /Date$/i
 			}
-		}
+		},
+    options: {
+      storySort: {
+        order: ['Introduction', 'Theming/Theme', 'Theming', 'Components', 'Layout', 'Utils', 'Actions', 'Stores'],
+      }
+    }
 	},
   decorators: [() => Theme],
 };
