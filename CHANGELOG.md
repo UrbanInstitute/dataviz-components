@@ -6,6 +6,7 @@
 - Add Font loading components to account for changes in styles
 - Export main stylesheet
 - Add normalize.css to exported stylesheet
+- Re-organize documentation files for more consistency
 
 ## v0.5.1
 
