@@ -2,6 +2,7 @@
   "name": "@urbaninstitute/dataviz-components",
   "version": "0.5.1",
   "scripts": {
+    "dev": "npm run storybook",
     "build": "vite build && npm run package",
     "preview": "vite preview",
     "package": "svelte-kit sync && svelte-package && publint",
