@@ -1,10 +1,3 @@
-<script>
-  /** The theme to use. Currently the default and only theme is "urban".
-  * @type {"urban"} [theme="urban"]
-  */
-  export let theme = "urban";
-</script>
-
 <div class="theme">
   <slot />
 </div>
