@@ -1,6 +1,5 @@
 <!-- @component `SectionBreak` [Read the docs.](https://urbaninstitute.github.io/dataviz-components/?path=/docs/components-sectionbreak--docs) -->
 <script>
-  import "../style/app.css";
   /**
    * String to display as the "number" of the section
    * @type { string }

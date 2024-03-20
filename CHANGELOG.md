@@ -2,6 +2,10 @@
 
 ## Next
 
+- Add Theme component and update styles of components accordingly
+- Add Font loading components to account for changes in styles
+- Export main stylesheet
+- Add normalize.css to exported stylesheet
 - Cleanup: remove unused +page.svelte file and remove `dev` as a command in scripts
 
 ## v0.5.1

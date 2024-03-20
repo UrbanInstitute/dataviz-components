@@ -1,6 +1,5 @@
 <script>
   import { urbanColors } from "$lib/utils";
-  import "../style/app.css";
 
   // define arguments
 

@@ -1,5 +1,4 @@
 <script>
-  import "../style/app.css";
   import Block from "$lib/Block/Block.svelte";
 
   /**

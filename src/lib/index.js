@@ -14,3 +14,6 @@ export { default as SocialShare } from "./SocialShare/SocialShare.svelte";
 export { default as TextBlock } from "./TextBlock/TextBlock.svelte";
 export { default as Button } from "./Button/Button.svelte";
 export { default as ChartBlock } from "./ChartBlock/ChartBlock.svelte";
+export { default as Theme } from "./Theme/Theme.svelte";
+export { default as FontsUrban } from "./Fonts/FontsUrban.svelte";
+export { default as FontsWorkrise } from "./Fonts/FontsWorkrise.svelte";

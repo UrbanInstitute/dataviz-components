@@ -1,5 +1,4 @@
 <script>
-  import "../style/app.css";
   export let content = "";
 </script>
 

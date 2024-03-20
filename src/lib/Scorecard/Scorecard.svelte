@@ -1,5 +1,4 @@
 <script>
-  import "../style/app.css";
   /**
    * @type {string} Scorecard value
    */

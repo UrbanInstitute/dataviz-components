@@ -1,6 +1,5 @@
 <!-- @component Button a basic HTML button with Urban styling-->
 <script>
-  import "../style/app.css";
   import { createEventDispatcher } from "svelte";
   /**
    * Which variant of button to use
@@ -142,7 +141,7 @@
     border: solid var(--border-size) var(--color-black);
   }
 
-  button.variant-secondary-black:hover {
+  button.variant-secondary-black:hover:not(:disabled) {
     --button-color: var(--color-white);
     background-color: var(--color-black);
     border: solid var(--border-size) var(--color-black);

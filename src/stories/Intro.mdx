@@ -1,4 +1,5 @@
 import { Meta } from "@storybook/blocks";
+import DatawrapperIframe from "$lib/DatawrapperIframe/DatawrapperIframe.svelte";
 
 <Meta title="Introduction" />
 
@@ -12,18 +13,20 @@ Welcome to the documentation for the [Urban Institute](https://www.urban.org)'s 
 
 ## Getting started
 
-1. Install
+Install this library by running the following command in your own project:
 
 ```bash
 npm install @urbaninstitute/dataviz-components
 ```
 
+## Using components in your Svelte project
 
-2. Import components, and use them in your projects
+These components depend on a set of CSS styles to render as they are documented here. In order to use them in your own project, you'll need to import the components you want to use, along with the `<Theme />` component, which provides the necessary CSS defaults.
+
 
 ```html
 <script>
-  import { BasicDropdown } from "@UrbanInstitute/dataviz-components";
+  import { Theme, BasicDropdown } from "@UrbanInstitute/dataviz-components";
 
   const data = [
     { value: "Ohio", label: "Ohio" },
@@ -32,9 +35,15 @@ npm install @urbaninstitute/dataviz-components
     { value: "Maryland", label: "Maryland" }
   ];
 </script>
-<BasicDropdown
-  {data}
-  inline_label="Select a state"
-  id="state-select"
-/>
+<Theme>
+  <BasicDropdown
+    {data}
+    inline_label="Select a state"
+    id="state-select"
+  />
+</Theme>
 ```
+
+You can either wrap your entire page with a `<Theme>` instance, or you can wrap just the components you are using from this library to avoid conflicts with other project CSS.
+
+[Read more about the Theme component here.](/docs/theming-theme--docs)
