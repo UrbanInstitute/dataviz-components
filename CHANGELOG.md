@@ -7,13 +7,14 @@
 - Export main stylesheet
 - Add normalize.css to exported stylesheet
 - Update spacing on ChartBlock component
+- Cleanup: remove unused +page.svelte file and remove `dev` as a command in scripts
 
 ## v0.5.1
 
 - Bugfix: export ChartBlock
 
 ## v0.5.0
- 
+
 - Add ChartBlock component
 - Add Button component
 - Updates Github action versions
