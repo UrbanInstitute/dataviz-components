@@ -40,7 +40,9 @@
   "files": [
     "dist",
     "!dist/**/*.test.*",
-    "!dist/**/*.spec.*"
+    "!dist/**/*.spec.*",
+    "!dist/**/*.stories.*",
+    "!dist/**/*.mdx"
   ],
   "peerDependencies": {
     "svelte": "^4.0.0"
