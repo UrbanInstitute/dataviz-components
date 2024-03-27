@@ -39,11 +39,15 @@
 
 <Block {width}>
   <div class="chart-wrapper" style:--current-color={color}>
-    {#if title}
-      <h4 class="chart-title">{title}</h4>
-    {/if}
-    {#if description}
-      <p class="chart-description">{description}</p>
+    {#if title || description}
+      <div class="chart-header">
+        {#if title}
+          <h4 class="chart-title">{title}</h4>
+        {/if}
+        {#if description}
+          <p class="chart-description">{description}</p>
+        {/if}
+      </div>
     {/if}
     <slot />
     {#if source || notes}
@@ -68,7 +72,7 @@
   }
   /* chart text */
   .chart-title {
-    margin: 0 0 var(--spacing-2);
+    margin: 0 0 var(--spacing-1);
     font-size: var(--font-size-xl);
   }
 
@@ -77,12 +81,20 @@
     margin: 0;
   }
 
+  .chart-header {
+    margin-bottom: var(--spacing-2);
+  }
+
+  .chart-footer {
+    margin-top: var(--spacing-2);
+  }
+
   .chart-footer p {
-    font-size: var(--font-size-small);
+    font-size: 12px;
     margin: 0;
   }
   .chart-footer p:not(:last-child) {
-    margin-bottom: var(--spacing-2);
+    margin-bottom: var(--spacing-1);
   }
 
   @media (min-width: 769px) {
