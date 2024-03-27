@@ -2,6 +2,8 @@
 
 ## Next
 
+## v0.6.0
+
 - Add Theme component and update styles of components accordingly
 - Add Font loading components to account for changes in styles
 - Export main stylesheet
