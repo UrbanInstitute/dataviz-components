@@ -1,0 +1,62 @@
+import * as Stories from "./Meta.stories.svelte";
+import { Meta, Story, Stories as StoriesDocBlock, Canvas, Controls, Primary } from '@storybook/blocks';
+
+
+<Meta title="Components/Meta" of={Stories} />
+
+# Meta
+
+A component to manage meta tags for the HTML document. This component generates HTML to be rendered in the `<head>` of your current page, defining necessary page metadata, titles, descriptions and social images.
+
+Usage:
+
+```js
+import { Meta } from "@urban-institute/dataviz-components";
+```
+The generated HTML follows the following structure:
+
+```html
+<title>{title}</title>
+<meta name="description" content={description} />
+<meta name="author" content="" />
+
+<meta property="og:title" content={title} />
+<meta property="og:site_name" content={site_name} />
+<meta property="og:url" content={url} />
+<meta property="og:description" content={description} />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="en_US" />
+
+<meta property="og:image" content={social_image} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@urbaninstitute" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={social_image} />
+
+<meta name="robots" content="max-image-preview:large" />
+
+<link rel="canonical" href={url} />
+
+  <!-- schema.org metadata -->
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "NewsArticle",
+  headline: title,
+  url: url,
+  thumbnailUrl: `${social_image}`,
+  dateCreated: `${publish_date}T05:00:00.000Z`,
+  articleSection: "Data Tool",
+  creator: authors,
+  keywords: keywords
+} 
+</script>
+<!-- End shema.org metadata -->
+```
+
+<Controls />
+
