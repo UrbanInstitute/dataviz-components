@@ -6,6 +6,7 @@
 - Add Font loading components to account for changes in styles
 - Export main stylesheet
 - Add normalize.css to exported stylesheet
+- Update spacing on ChartBlock component
 - Cleanup: remove unused +page.svelte file and remove `dev` as a command in scripts
 
 ## v0.5.1
