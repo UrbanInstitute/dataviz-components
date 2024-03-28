@@ -25,10 +25,10 @@
    * Label for the dropdown (currently hidden)
    * @type {string}
    */
-  export let inline_label;
+  export let inlineLabel;
 
   /**
-   * placeholder for when no option is selected
+   * placeholder for when no option is selected (accepts a null value)
    * @type {string} [placeholder="Select..."]
    */
   export let placeholder = "Select...";
@@ -37,33 +37,35 @@
    * Width (px) of the dropdown
    * @type {number}
    */
-  export let dropdown_width = 260;
+  export let dropdownWidth = 260;
 
   /**
    * Hex color for arrow fill
    * @type {string}
    */
-  export let arrow_fill_color = urbanColors.blue;
+  export let arrowFillColor = urbanColors.blue;
 
   // define the svg arrow
   let arrow = `data:image/svg+xml;utf8,<svg width='16' height='10' viewBox='0 0 16 10' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M15.1313 0.666626C15.5179 0.666626 15.7794 0.846014 15.9272 1.20479C16.0749 1.56356 15.9954 1.85507 15.7111 2.09052L8.65117 9.12027C8.45791 9.26602 8.2419 9.33329 8.00316 9.33329C7.76442 9.33329 7.57115 9.26602 7.42335 9.12027L0.283802 2.09052C-0.000415318 1.85507 -0.0686276 1.55235 0.0677969 1.20479C0.21559 0.846014 0.477071 0.666626 0.863607 0.666626H15.1313Z' fill='${encodeURIComponent(
-    arrow_fill_color
+    arrowFillColor
   )}'/></svg>`;
 </script>
 
 <div class="dropdown-container">
-  <label aria-hidden="true" hidden for={id}>{inline_label}</label>
+  <label aria-hidden="true" hidden for={id}>{inlineLabel}</label>
   <select
     bind:value
     name={id}
     {id}
     class="dropdown-select"
-    style={`--bg-img: url("${arrow}"); width: ${dropdown_width}px;`}
-    aria-label={inline_label}
+    style={`--bg-img: url("${arrow}"); width: ${dropdownWidth}px;`}
+    aria-label={inlineLabel}
     on:change
   >
     <!-- options -->
-    <option value={null}>{placeholder}</option>
+    {#if placeholder}
+      <option value={null}>{placeholder}</option>
+    {/if}
     {#each data as d (d.value)}
       {#if d.value !== ""}
         <option value={d.value}>{d.label}</option>
