@@ -2,6 +2,8 @@
 
 ## Next
 
+- Add functionality to remove `placeholder` <option> in BasicDropdown component
+
 ## v0.6.0
 
 - Add Theme component and update styles of components accordingly
