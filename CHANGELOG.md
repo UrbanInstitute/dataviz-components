@@ -2,6 +2,8 @@
 
 ## Next
 
+- Add right padding and ellipsis on text overflow to BasicDropdown
+
 ## v0.6.0
 
 - Add Theme component and update styles of components accordingly

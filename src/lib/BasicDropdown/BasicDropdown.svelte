@@ -80,7 +80,7 @@
 
   .dropdown-select {
     color: var(--color-gray-shade-darker);
-    padding: var(--spacing-2) var(--spacing-3);
+    padding: var(--spacing-2) var(--spacing-8) var(--spacing-2) var(--spacing-3);
     font-size: var(--font-size-normal);
     font-family: Lato, helvetica, sans-serif;
     border: 1px solid var(--color-gray-shade-medium);
@@ -93,5 +93,6 @@
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+    text-overflow: ellipsis;
   }
 </style>
