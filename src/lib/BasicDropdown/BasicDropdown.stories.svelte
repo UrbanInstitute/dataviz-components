@@ -7,7 +7,7 @@
     component: BasicDropdown,
     tags: ["autodocs"],
     argTypes: {
-      arrow_fill_color: { control: "color" },
+      arrowFillColor: { control: "color" },
       data: { control: "object" }
     },
     parameters: {
@@ -40,9 +40,9 @@
   name="Default"
   args={{
     id: "dropdown-story",
-    dropdown_width: 260,
-    inline_label: "Dropdown label",
-    arrow_fill_color: "#1696D1",
+    dropdownWidth: 260,
+    inlineLabel: "Dropdown label",
+    arrowFillColor: "#1696D1",
     placeholder: "Select a state",
     data: sampleData
   }}
@@ -52,7 +52,7 @@
   name="With value specified"
   args={{
     id: "dropdown-story-2",
-    inline_label: "Dropdown with value",
+    inlineLabel: "Dropdown with value",
     placeholder: "Select a state",
     value: "Ohio",
     data: sampleData
@@ -62,8 +62,8 @@
 <Story
   name="With value selected"
   args={{
-    id: "dropdown-story-2",
-    inline_label: "Dropdown with selected value",
+    id: "dropdown-story-3",
+    inlineLabel: "Dropdown with selected value",
     placeholder: "Select a state",
     data: sampleData
   }}
@@ -76,5 +76,15 @@
     expect(selectEl.value).toBe(sampleData[1].value);
     await fireEvent.change(selectEl, { target: { value: sampleData[3].value } });
     expect(selectEl.value).toBe(sampleData[3].value);
+  }}
+/>
+
+<Story
+  name="With placeholder set to null and no value set"
+  args={{
+    id: "dropdown-story-4",
+    inlineLabel: "Dropdown without a value",
+    placeholder: null,
+    data: sampleData
   }}
 />
