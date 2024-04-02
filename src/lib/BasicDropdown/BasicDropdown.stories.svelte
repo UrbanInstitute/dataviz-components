@@ -62,7 +62,7 @@
 <Story
   name="With value selected"
   args={{
-    id: "dropdown-story-2",
+    id: "dropdown-story-3",
     inlineLabel: "Dropdown with selected value",
     placeholder: "Select a state",
     data: sampleData
@@ -76,5 +76,15 @@
     expect(selectEl.value).toBe(sampleData[1].value);
     await fireEvent.change(selectEl, { target: { value: sampleData[3].value } });
     expect(selectEl.value).toBe(sampleData[3].value);
+  }}
+/>
+
+<Story
+  name="With placeholder set to null and no value set"
+  args={{
+    id: "dropdown-story-4",
+    inlineLabel: "Dropdown without a value",
+    placeholder: null,
+    data: sampleData
   }}
 />
