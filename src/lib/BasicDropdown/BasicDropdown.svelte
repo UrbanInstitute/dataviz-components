@@ -29,7 +29,7 @@
 
   /**
    * placeholder for when no option is selected (accepts a null value)
-   * @type {string} [placeholder="Select..."]
+   * @type {string | null} [placeholder="Select..."]
    */
   export let placeholder = "Select...";
 
