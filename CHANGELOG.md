@@ -4,6 +4,7 @@
 
 - Add functionality to remove `placeholder` <option> in BasicDropdown component
 - Turn off interaction events `onDestroy` of DatawrapperIframe
+- Add Toggle component
 
 ## v0.6.0
 
