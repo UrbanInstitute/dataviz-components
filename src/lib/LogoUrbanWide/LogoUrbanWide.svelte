@@ -1,36 +1,22 @@
 <script>
-  const naturalWidth = 172.88;
-  const naturalHeight = 6.58;
-
-  /** @type {number} */
-  export let width = naturalWidth;
   /** @type {"color" | "white"} */
   export let variant = "color";
 
-  $: height = width * (naturalHeight / naturalWidth);
+  export let width = 172.88;
+  $: height = 172.88 * (1 / 26.27); //equal to 6.58
 
   $: accentColor = variant == "color" ? "#1696D2" : "#ffffff";
   $: midColor = variant == "color" ? "#9D9FA2" : "#ffffff";
-  $: darkColor = variant == "color" ? "#231F20" : "#ffffff";
 </script>
 
 <svg
   {width}
   {height}
-  viewBox="0 0 {naturalWidth} {naturalHeight}"
+  viewBox="0 0 172.88 6.58"
   fill="none"
   xmlns="http://www.w3.org/2000/svg"
   role="img"
   aria-label="Urban Institute logo"
-  ><defs
-    ><style>
-      .cls-1 {
-        fill: {midColor};
-      }
-      .cls-2 {
-        fill: {accentColor};
-      }
-    </style></defs
   ><g id="Layer_1-2"
     ><path d="M73.58,.1h2.32V6.48h-2.32V.1Z" /><path
       d="M83.65,.1h2.22l2.08,3.53h.07c-.09-.53-.19-1.08-.19-1.62V.1h2.21V6.48h-2.21l-2.04-3.35h-.07c.08,.44,.14,.85,.14,1.28v2.07h-2.21V.1Z"
@@ -39,24 +25,24 @@
     /><path d="M108.63,.1h4.87V2.17l-1.28-.06V6.48h-2.32V2.11l-1.28,.06V.1Z" /><path
       d="M121.58,.1h2.32V6.48h-2.32V.1Z"
     /><path
-      class="cls-2"
+      fill={accentColor}
       d="M5.9,.1V3.87c0,1.86-1.17,2.71-2.95,2.71S0,5.73,0,3.87V.1H2.32V3.65c0,.5,.02,.94,.63,.94s.63-.44,.63-.94V.1h2.32Z"
     /><path
-      class="cls-2"
+      fill={accentColor}
       d="M11.88,.1h2.8c1.44,0,2.65,.61,2.65,2.21,0,.96-.37,1.37-1.23,1.66v.05c.12,.09,.26,.19,.39,.38l1.39,2.07h-2.67l-1.01-2.05h-.04v2.05h-2.27V.1Zm2.27,2.82h.16c.38,0,.76-.06,.76-.53s-.35-.55-.74-.55h-.18v1.08Z"
     /><path
-      class="cls-2"
+      fill={accentColor}
       d="M24.56,.1h2.7c1.23,0,2.49,.3,2.49,1.77,0,.56-.28,1.11-.84,1.28v.05c.69,.25,1.13,.75,1.13,1.51,0,1.31-1.22,1.76-2.33,1.76h-3.15V.1Zm2.36,2.45c.34,0,.72-.03,.72-.47,0-.47-.43-.44-.77-.44h-.16v.91h.21Zm-.21,2.4h.26c.38,0,.93,0,.93-.53s-.59-.52-.96-.52h-.23v1.06Z"
     /><path
-      class="cls-2"
+      fill={accentColor}
       d="M37.96,6.48h-2.45L37.72,.1h2.56l2.27,6.37h-2.45l-.21-.79h-1.75l-.19,.79Zm1.53-2.31l-.27-1.12c-.07-.27-.11-.55-.15-.82h-.08l-.42,1.94h.93Z"
     /><path
-      class="cls-2"
+      fill={accentColor}
       d="M48,.1h2.22l2.08,3.53h.07c-.09-.53-.19-1.08-.19-1.62V.1h2.21V6.48h-2.21l-2.04-3.35h-.07c.08,.44,.14,.85,.14,1.28v2.07h-2.21V.1Z"
     /><path d="M132.13,.1h4.87V2.17l-1.28-.06V6.48h-2.32V2.11l-1.28,.06V.1Z" /><path
       d="M149.93,.1V3.87c0,1.86-1.17,2.71-2.95,2.71s-2.95-.85-2.95-2.71V.1h2.32V3.65c0,.5,.02,.94,.63,.94s.63-.44,.63-.94V.1h2.32Z"
     /><path d="M156.13,.1h4.87V2.17l-1.28-.06V6.48h-2.32V2.11l-1.28,.06V.1Z" /><path
       d="M168.53,.1h4.29V1.84h-1.95v.61h1.78v1.66h-1.78v.63h2.02v1.74h-4.35V.1Z"
-    /><rect class="cls-1" x="62.04" y="2.48" width="2" height="2" /></g
+    /><rect fill={midColor} x="62.04" y="2.48" width="2" height="2" /></g
   ></svg
 >
