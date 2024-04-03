@@ -3,6 +3,7 @@
 ## Next
 
 - Add functionality to remove `placeholder` <option> in BasicDropdown component
+- Upgrade Storybook to version 8
 
 ## v0.6.0
 
