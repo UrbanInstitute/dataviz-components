@@ -3,7 +3,7 @@
 ## Next
 
 - Add functionality to remove `placeholder` <option> in BasicDropdown component
-- Upgrade Storybook to version 8
+- Upgrade Storybook to version 8 and update Svelte dependencies
 
 ## v0.6.0
 
