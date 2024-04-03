@@ -2,7 +2,7 @@
   import Logo from "./LogoUrbanWide.svelte";
 
   export const meta = {
-    title: "Components/LogoUrbanWide",
+    title: "Logos/LogoUrbanWide",
     description: "An Urban Institute wide logo",
     component: Logo,
     tags: ["autodocs"],
