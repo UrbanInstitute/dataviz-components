@@ -24,7 +24,11 @@
   export let disabled = false;
 </script>
 
-<button class="container {labelPosition}" {disabled} aria-pressed={active} on:click
+<button
+  class="container {labelPosition}"
+  {disabled}
+  aria-pressed={active}
+  on:click={() => (active = !active)}
   ><p class="label {labelPosition}">{label}</p>
   <span class="toggle" aria-hidden="true"><span class="circle" /></span>
 </button>
