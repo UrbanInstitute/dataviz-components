@@ -3,6 +3,7 @@
 ## Next
 
 - Add functionality to remove `placeholder` <option> in BasicDropdown component
+- Add Toggle component
 
 ## v0.6.0
 
