@@ -3,7 +3,7 @@
 ## Next
 
 - Add functionality to remove `placeholder` <option> in BasicDropdown component
-- Add LogoUrbanWide
+- Add LogoUrbanWide and create Logos story folder
 
 ## v0.6.0
 
