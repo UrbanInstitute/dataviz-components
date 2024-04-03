@@ -19,3 +19,4 @@ export { default as Theme } from "./Theme/Theme.svelte";
 export { default as FontsUrban } from "./Fonts/FontsUrban.svelte";
 export { default as FontsWorkrise } from "./Fonts/FontsWorkrise.svelte";
 export { default as Meta } from "./Meta/Meta.svelte";
+export { default as Toggle } from "./Toggle/Toggle.svelte";
