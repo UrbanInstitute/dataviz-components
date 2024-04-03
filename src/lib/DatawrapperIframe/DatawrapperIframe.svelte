@@ -1,5 +1,5 @@
 <script>
-  import { createEventDispatcher } from "svelte";
+  import { createEventDispatcher, onDestroy } from "svelte";
   import datawrapper from "./events";
   import datawrapperEventList from "./datawrapper-event-list.json";
 
@@ -48,6 +48,16 @@
       }
     });
   }
+
+  // turn off interaction events on destroy
+  // (prevents multiple events when loading multiple iframes)
+  onDestroy(() => {
+    if (typeof window !== "undefined") {
+      datawrapperEventList.forEach((eventName) => {
+        datawrapper.off(eventName);
+      });
+    }
+  });
 </script>
 
 <iframe
