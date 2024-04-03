@@ -1,9 +1,9 @@
 <script context="module">
-  import Logo from "./LogoUrban.svelte";
+  import Logo from "./LogoUrbanWide.svelte";
 
   export const meta = {
-    title: "Logos/LogoUrban",
-    description: "An Urban Institute full logo",
+    title: "Logos/LogoUrbanWide",
+    description: "An Urban Institute wide logo",
     component: Logo,
     tags: ["autodocs"],
     argTypes: {
@@ -22,7 +22,7 @@
       },
       docs: {
         description: {
-          component: "Urban Institute logo in full width format."
+          component: "Urban Institute logo in wide format."
         }
       }
     }

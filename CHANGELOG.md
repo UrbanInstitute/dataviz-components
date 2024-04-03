@@ -3,6 +3,7 @@
 ## Next
 
 - Add functionality to remove `placeholder` <option> in BasicDropdown component
+- Add LogoUrbanWide and create Logos story folder
 - Turn off interaction events `onDestroy` of DatawrapperIframe
 - Add Toggle component
 - Upgrade Storybook to version 8 

@@ -6,6 +6,7 @@ export { default as HeadingAlt } from "./HeadingAlt/HeadingAlt.svelte";
 export { default as LogoTPCBadge } from "./LogoTPCBadge/LogoTPCBadge.svelte";
 export { default as LogoUrbanBadge } from "./LogoUrbanBadge/LogoUrbanBadge.svelte";
 export { default as LogoUrban } from "./LogoUrban/LogoUrban.svelte";
+export { default as LogoUrbanWide } from "./LogoUrbanWide/LogoUrbanWide.svelte";
 export { default as Navbar } from "./Navbar/Navbar.svelte";
 export { default as ProjectCredits } from "./ProjectCredits/ProjectCredits.svelte";
 export { default as ReturnTop } from "./ReturnTop/ReturnTop.svelte";

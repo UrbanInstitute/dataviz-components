@@ -2,7 +2,7 @@
   import Logo from "./LogoTPCBadge.svelte";
 
   export const meta = {
-    title: "Components/LogoTPCBadge",
+    title: "Logos/LogoTPCBadge",
     description: "A Tax Policy Center logo",
     component: Logo,
     tags: ["autodocs"],
