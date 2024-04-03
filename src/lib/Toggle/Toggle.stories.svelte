@@ -7,7 +7,10 @@
     component: Toggle,
     tags: ["autodocs"],
     argTypes: {
-      labelPosition: { options: ["left", "right"], control: { type: "radio" } },
+      labelPosition: {
+        options: ["left", "right"],
+        control: "select"
+      },
       active: { control: "boolean" },
       disabled: { control: "boolean" }
     },
