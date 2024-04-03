@@ -3,6 +3,7 @@
 ## Next
 
 - Add right padding and ellipsis on text overflow to BasicDropdown
+- Add functionality to remove `placeholder` <option> in BasicDropdown component
 
 ## v0.6.0
 
