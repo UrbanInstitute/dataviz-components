@@ -78,7 +78,7 @@
   const innerHeight = writable(0);
 
   $: context = { index: index, offset: offset, progress: progress, slideHeight, slideWidth };
-  $: setContext("scroller", context);
+  $: setContext("scrolly", context);
 </script>
 
 <svelte:window

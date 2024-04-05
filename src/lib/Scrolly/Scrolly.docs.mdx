@@ -28,9 +28,31 @@ Basic usage:
 <Story of={Stories.Default} />
 <Controls />
 
-## Creating custom backgrounds
+## Background components
 
-Custom background information TK.
+While this component provides much of what you need to get started with a scrolly segment, you'll need to create your own backgound component. This can range from a very simple component that displays and image or a chart, to something highly complex with bespoke animations and transitions. The sky is the limit and how you build this is up to you and the needs of your project, but there are a few core pieces of functionality this component provides that will help you out. The `scrolly` component provides key information about the current state of the scrolly via [Svelte's context api](https://svelte.dev/docs/svelte#setcontext) with a key of `scrolly` as stores, so you don't need to worry about bindings or passing the correct props to your slotted `background` component. The following stores can be accessed from inside your background component:
+
+<Markdown>
+{`| store  | Description                                                                                   |
+| ----------- | --------------------------------------------------------------------------------------------- |
+| index       | The index of the current slide. This variable can be used to determine what content should be displayed in the \`background\`|
+| offset      | how far the section has scrolled past the threshold, as a value between 0 and 1 |
+| progress |   how far the foreground has travelled, where 0 is the top of the foreground crossing \`top\`, and 1 is the bottom crossing \`bottom\`|
+| slideHeight | The height in pixels of the current slide based on browser conditions. Can be used for sizing content in the background.|
+| slideWidth | The width in pixels of the current slide based on browser conditions. Can be used for sizing content in the background.|
+`}
+</Markdown>
+
+Since these variables are stores, they can be used in your background component like so:
+
+```JavaScript
+// access stores from scrolly context
+const { index, offset, progress, slideHeight, slideWidth } = getContext("scrolly");
+
+// use stores in your component
+console.log("The current index is", $index);
+
+```
 
 ## Custom foregrounds
 
