@@ -1,12 +1,11 @@
-<!-- @component Scroller - A component for making scroller segments -->
 <script>
   import Scroller from "@sveltejs/svelte-scroller";
   import { writable } from "svelte/store";
   import { setContext } from "svelte";
 
   /**
-   * An array of content blocks with text or HTML to use in the foreground of the scroller component
-   * @type {string[]}
+   * An array of content blocks with text or HTML to use in the foreground of the scroller component. For default behaviour, this should be an array of strings, but if you are using a custom `foreground` slot, you can use any type of data structure your project requires
+   * @type {any[]}
    */
   export let slides = [];
 
@@ -98,9 +97,12 @@
     bind:offset={$offset}
     bind:progress={$progress}
   >
-    <div slot="background">
-      <slot name="background" />
-    </div>
+    <svelte:fragment slot="background">
+      <!-- 
+        The background component that will render behind the foreground slides.
+         -->
+      <slot name="background"></slot>
+    </svelte:fragment>
     <div slot="foreground" class="foreground">
       {#each slides as slide, i}
         {@const firstSlide = i === 0}
@@ -109,6 +111,10 @@
           style:margin-top="{firstSlide ? $slideHeight * startOffset : 0}px"
           style:margin-bottom="{lastSlide ? $slideHeight * endOffset : $slideHeight * spacing}px"
         >
+          <!-- 
+            Optional custom foreground component or markup, renders once for each `slide`.
+            @param prop slide
+           -->
           <slot {slide} name="foreground">
             <div class="scroller-text-box">
               <p>{@html slide}</p>
