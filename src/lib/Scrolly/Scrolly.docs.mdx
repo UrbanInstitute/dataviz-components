@@ -30,27 +30,28 @@ Basic usage:
 
 ## Background components
 
-While this component provides much of what you need to get started with a scrolly segment, you'll need to create your own backgound component. This can range from a very simple component that displays and image or a chart, to something highly complex with bespoke animations and transitions. The sky is the limit and how you build this is up to you and the needs of your project, but there are a few core pieces of functionality this component provides that will help you out. The `scrolly` component provides key information about the current state of the scrolly via [Svelte's context api](https://svelte.dev/docs/svelte#setcontext) with a key of `scrolly` as stores, so you don't need to worry about bindings or passing the correct props to your slotted `background` component. The following stores can be accessed from inside your background component:
+While this component provides much of what you need to get started with a scrolly segment, you'll need to create your own backgound component. This can range from a very simple component that displays an image or a chart, to something highly complex with bespoke animations and transitions. The sky is the limit, and how you build your background component is up to you and the needs of your project. There are a few core pieces of functionality this component provides that will help you out. The `<Scrolly>` component provides key information about the current state of the scrolly via [Svelte's context api](https://svelte.dev/docs/svelte#setcontext), with a key of `scrolly`, in the form of Svelte stores. This means you don't need to worry about `let` bindings or passing the correct props to your slotted `background` component inside your app. The following stores can be accessed from inside your background component:
 
 <Markdown>
-{`| store  | Description                                                                                   |
+{`| store  | description                                                                                   |
 | ----------- | --------------------------------------------------------------------------------------------- |
 | index       | The index of the current slide. This variable can be used to determine what content should be displayed in the \`background\`|
-| offset      | how far the section has scrolled past the threshold, as a value between 0 and 1 |
-| progress |   how far the foreground has travelled, where 0 is the top of the foreground crossing \`top\`, and 1 is the bottom crossing \`bottom\`|
+| offset      | How far the section has scrolled past the threshold, as a value between 0 and 1. |
+| progress |   How far the foreground has travelled, where 0 is the top of the foreground crossing \`top\`, and 1 is the bottom crossing \`bottom\`.|
 | slideHeight | The height in pixels of the current slide based on browser conditions. Can be used for sizing content in the background.|
 | slideWidth | The width in pixels of the current slide based on browser conditions. Can be used for sizing content in the background.|
 `}
 </Markdown>
 
-Since these variables are stores, they can be used in your background component like so:
+Since these values are passed as stores, they can should be referenced using Svelte's `$` store syntax:
 
 ```JavaScript
 // access stores from scrolly context
-const { index, offset, progress, slideHeight, slideWidth } = getContext("scrolly");
+const { index, slideWidth } = getContext("scrolly");
 
-// use stores in your component
+// use $ store syntax in your component
 console.log("The current index is", $index);
+console.log("The slideWidth is", $slideWidth);
 
 ```
 
