@@ -1,7 +1,7 @@
 <script context="module">
 
   export const meta = {
-    title: "Examples/BasicPage",
+    title: "Examples",
     description: "An example of collecting several components into a basic page",
     parameters: {
       docs: {
@@ -21,20 +21,20 @@
 <Template let:args>
 </Template>
 
-<Story name="Default" args={{}} >
-  <Navbar />
+<Story name="BasicPage" args={{}} >
+  <Navbar sticky={true}/>
   <Block>
     <h1 style="text-align: center;">Basic Page example headline</h1>
     <SocialShare />
   </Block>
-  <div style="margin-bottom: var(--spacing-8);"></div>
+  <div style="margin-bottom: var(--spacing-12);"></div>
   <TextBlock>
    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ultricies sit amet ex eget accumsan. Morbi vel libero dolor. Phasellus ipsum leo, rhoncus sed ipsum quis, finibus porttitor sem. Vestibulum luctus turpis sed nibh porttitor, id malesuada ex fringilla. Sed ac nisl porta, congue lacus non, convallis metus. In a dolor efficitur, scelerisque felis vitae, vulputate libero. Mauris tristique purus lectus, ut convallis libero volutpat ac. In nec scelerisque ipsum. Sed luctus lacus nibh, nec rutrum erat faucibus consectetur. Nullam tempor condimentum leo et consequat. Ut finibus arcu ex, quis congue risus imperdiet vitae. Sed rhoncus, lectus vitae gravida faucibus, urna leo dictum neque, eu semper dolor dolor ut leo. Donec id malesuada nisi. Aliquam lobortis egestas sollicitudin. Nullam ut tempus nisl.
   </TextBlock>
   <ChartBlock title="Example Chart" source="Chart source example" notes="Chart notes example">
     <DatawrapperIframe datawrapperId="xff5j" />
   </ChartBlock>
-  <div style="margin-bottom: var(--spacing-4);"></div>
+  <div style="margin-bottom: var(--spacing-8);"></div>
   <TextBlock>
 Vestibulum quis eros ipsum. In finibus risus nec felis tincidunt placerat. Fusce eu egestas tortor, ac porttitor tortor. Vestibulum vestibulum, diam vitae cursus ullamcorper, enim risus luctus purus, id porttitor ex quam imperdiet arcu. Nunc mollis, elit ut accumsan dictum, est enim facilisis eros, in malesuada quam augue vitae nibh. Duis sed mi ut nisi facilisis fringilla a eget purus. Nunc finibus velit augue, et convallis sapien ultricies sit amet.
 
