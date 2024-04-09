@@ -59,6 +59,12 @@
   export let parallax = false;
 
   /**
+   * The foreground is wrapped in a layout `Block` component. This property allows you to adjust the width of the layout block for the foreground text.
+   * @type {import("../Block/Block.svelte").blockWidth} [foregroundWidth="wide"]
+   */
+  export let foregroundWidth = "wide";
+
+  /**
    * The layout of the foreground text
    * @type {"center" | "left" | "right"}
    */
@@ -74,7 +80,7 @@
    * The max width of the foreground text box
    * @type {number}
    */
-  export let textMaxWidth = 595;
+  export let textMaxWidth = 580;
 
   /**
    * The color to use for the background of the text box
@@ -87,6 +93,12 @@
    * @type {string}
    */
   export let textColor = "var(--color-gray-darker)";
+
+  /**
+   * Should the text box include a box shadow?
+   * @type {boolean} [boxShadow=true]
+   */
+  export let boxShadow = true;
 
   // setup stores to add to context
 
@@ -140,7 +152,7 @@
          -->
       <slot name="background" />
     </svelte:fragment>
-    <Block width="wide" slot="foreground">
+    <Block width={foregroundWidth} slot="foreground">
       <div class="foreground layout-{textLayout}">
         {#each slides as slide, i}
           {@const firstSlide = i === 0}
@@ -154,7 +166,7 @@
                   @param prop slide
                  -->
             <slot {slide} name="foreground">
-              <div class="scrolly-text-box">
+              <div class="scrolly-text-box" class:box-shadow={boxShadow}>
                 <p>{@html slide}</p>
               </div>
             </slot>
@@ -168,13 +180,16 @@
 <style>
   .scrolly-text-box {
     background-color: var(--text-background);
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     color: var(--text-color);
     padding: 2rem;
     text-align: var(--text-align, center);
   }
+  .scrolly-text-box.box-shadow {
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  }
   .scrolly-text-box p {
     color: var(--text-color);
+    margin: 0;
   }
   section {
     max-width: var(--text-max-width);
@@ -193,7 +208,7 @@
   }
   @media (min-width: 768px) {
     .scrolly-text-box {
-      padding: 4rem 3rem;
+      padding: var(--spacing-12) var(--spacing-12);
     }
     .foreground.layout-left {
       align-items: flex-start;
@@ -205,6 +220,7 @@
     .foreground.layout-right section {
       margin-left: 0;
       margin-right: 0;
+      width: 50%;
     }
   }
 </style>

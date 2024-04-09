@@ -6,6 +6,10 @@
     component: Scrolly,
     argTypes: {
       slides: { control: "array" },
+      foregroundWidth: {
+        options: ["body", "wide", "full"],
+        control: { type: "select" }
+      },
       textLayout: {
         options: ["center", "left", "right"],
         control: { type: "select" }
