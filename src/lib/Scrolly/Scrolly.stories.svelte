@@ -3,7 +3,18 @@
 
   export const meta = {
     title: "Components/Scrolly",
-    component: Scrolly
+    component: Scrolly,
+    argTypes: {
+      slides: { control: "array" },
+      textLayout: {
+        options: ["center", "left", "right"],
+        control: { type: "select" }
+      },
+      textAlign: {
+        options: ["center", "left", "right"],
+        control: { type: "select" }
+      }
+    }
   };
 </script>
 

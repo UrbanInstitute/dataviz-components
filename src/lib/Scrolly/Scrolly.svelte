@@ -1,5 +1,6 @@
 <script>
   import Scroller from "@sveltejs/svelte-scroller";
+  import Block from "../Block/Block.svelte";
   import { writable } from "svelte/store";
   import { setContext } from "svelte";
 
@@ -57,6 +58,36 @@
    */
   export let parallax = false;
 
+  /**
+   * The layout of the foreground text
+   * @type {"center" | "left" | "right"}
+   */
+  export let textLayout = "center";
+
+  /**
+   * The text alignment of the foreground text
+   * @type {"center" | "left" | "right"}
+   */
+  export let textAlign = "center";
+
+  /**
+   * The max width of the foreground text box
+   * @type {number}
+   */
+  export let textMaxWidth = 595;
+
+  /**
+   * The color to use for the background of the text box
+   * @type {string}
+   */
+  export let textBackground = "var(--color-white)";
+
+  /**
+   * The color to use for the foreground text
+   * @type {string}
+   */
+  export let textColor = "var(--color-gray-darker)";
+
   // setup stores to add to context
 
   // index of the current slide
@@ -86,7 +117,13 @@
   bind:outerHeight={$slideHeight}
   bind:innerWidth={$slideWidth}
 />
-<div class="scroller-wrapper">
+<div
+  class="scroller-wrapper"
+  style:--text-align={textAlign}
+  style:--text-max-width="{textMaxWidth}px"
+  style:--text-background={textBackground}
+  style:--text-color={textColor}
+>
   <Scroller
     {top}
     {bottom}
@@ -101,40 +138,48 @@
       <!-- 
         The background component that will render behind the foreground slides.
          -->
-      <slot name="background"></slot>
+      <slot name="background" />
     </svelte:fragment>
-    <div slot="foreground" class="foreground">
-      {#each slides as slide, i}
-        {@const firstSlide = i === 0}
-        {@const lastSlide = i === slides.length - 1}
-        <section
-          style:margin-top="{firstSlide ? $slideHeight * startOffset : 0}px"
-          style:margin-bottom="{lastSlide ? $slideHeight * endOffset : $slideHeight * spacing}px"
-        >
-          <!-- 
-            Optional custom foreground component or markup, renders once for each `slide`.
-            @param prop slide
-           -->
-          <slot {slide} name="foreground">
-            <div class="scroller-text-box">
-              <p>{@html slide}</p>
-            </div>
-          </slot>
-        </section>
-      {/each}
-    </div>
+    <Block width="wide" slot="foreground">
+      <div class="foreground layout-{textLayout}">
+        {#each slides as slide, i}
+          {@const firstSlide = i === 0}
+          {@const lastSlide = i === slides.length - 1}
+          <section
+            style:margin-top="{firstSlide ? $slideHeight * startOffset : 0}px"
+            style:margin-bottom="{lastSlide ? $slideHeight * endOffset : $slideHeight * spacing}px"
+          >
+            <!-- 
+                  Optional custom foreground component or markup, renders once for each `slide`.
+                  @param prop slide
+                 -->
+            <slot {slide} name="foreground">
+              <div class="scroller-text-box">
+                <p>{@html slide}</p>
+              </div>
+            </slot>
+          </section>
+        {/each}
+      </div>
+    </Block>
   </Scroller>
 </div>
 
 <style>
   .scroller-text-box {
-    background-color: rgba(255, 255, 255, 0.95);
+    background-color: var(--text-background);
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    color: var(--text-color);
     padding: 2rem;
-    max-width: 595px;
-    width: 80%;
+    text-align: var(--text-align, center);
+  }
+  .scroller-text-box p {
+    color: var(--text-color);
+  }
+  section {
+    max-width: var(--text-max-width);
     margin: 0 auto;
-    text-align: center;
+    width: 100%;
   }
   .scroller-text-box p:last-child {
     margin-bottom: 0;
@@ -146,13 +191,20 @@
   .scroller-wrapper {
     margin-bottom: var(--spacing-8);
   }
-  :global(.annotation-highlight) {
-    background-color: #b0d0db;
-    padding: var(--spacing-1) 0.25rem;
-  }
   @media (min-width: 768px) {
     .scroller-text-box {
       padding: 4rem 3rem;
+    }
+    .foreground.layout-left {
+      align-items: flex-start;
+    }
+    .foreground.layout-right {
+      align-items: flex-end;
+    }
+    .foreground.layout-left section,
+    .foreground.layout-right section {
+      margin-left: 0;
+      margin-right: 0;
     }
   }
 </style>
