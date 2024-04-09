@@ -5,7 +5,7 @@
   import { setContext } from "svelte";
 
   /**
-   * An array of content blocks with text or HTML to use in the foreground of the scroller component. For default behaviour, this should be an array of strings, but if you are using a custom `foreground` slot, you can use any type of data structure your project requires
+   * An array of content blocks with text or HTML to use in the foreground of the scrolly component. For default behaviour, this should be an array of strings, but if you are using a custom `foreground` slot, you can use any type of data structure your project requires
    * @type {any[]}
    */
   export let slides = [];
@@ -118,7 +118,7 @@
   bind:innerWidth={$slideWidth}
 />
 <div
-  class="scroller-wrapper"
+  class="scrolly-wrapper"
   style:--text-align={textAlign}
   style:--text-max-width="{textMaxWidth}px"
   style:--text-background={textBackground}
@@ -154,7 +154,7 @@
                   @param prop slide
                  -->
             <slot {slide} name="foreground">
-              <div class="scroller-text-box">
+              <div class="scrolly-text-box">
                 <p>{@html slide}</p>
               </div>
             </slot>
@@ -166,14 +166,14 @@
 </div>
 
 <style>
-  .scroller-text-box {
+  .scrolly-text-box {
     background-color: var(--text-background);
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     color: var(--text-color);
     padding: 2rem;
     text-align: var(--text-align, center);
   }
-  .scroller-text-box p {
+  .scrolly-text-box p {
     color: var(--text-color);
   }
   section {
@@ -181,18 +181,18 @@
     margin: 0 auto;
     width: 100%;
   }
-  .scroller-text-box p:last-child {
+  .scrolly-text-box p:last-child {
     margin-bottom: 0;
   }
   .foreground {
     display: flex;
     flex-direction: column;
   }
-  .scroller-wrapper {
+  .scrolly-wrapper {
     margin-bottom: var(--spacing-8);
   }
   @media (min-width: 768px) {
-    .scroller-text-box {
+    .scrolly-text-box {
       padding: 4rem 3rem;
     }
     .foreground.layout-left {

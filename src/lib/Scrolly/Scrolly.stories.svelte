@@ -30,7 +30,7 @@
       slot="background"
       style="width: 100%; height: 100vh; color: var(--color-white); font-weight: var(--font-weight-bold); background: var(--color-blue); display: flex; align-items: center; justify-content: center;"
     >
-      Scroller background
+      Scrolly background
     </div>
   </Scrolly>
 </Template>
