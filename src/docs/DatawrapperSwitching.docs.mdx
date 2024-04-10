@@ -1,4 +1,4 @@
-import { Meta, Story, Canvas } from "@storybook/blocks";
+import { Meta, Story, Canvas, Source } from "@storybook/blocks";
 import * as stories from "./stories/DatawrapperSwitching.stories.svelte";
 
 <Meta title="Examples/Datawrapper Switching" />
@@ -9,55 +9,8 @@ It's useful to switch between Datawrapper iframes. Below, we demonstrate two use
 
 ### Switching with a dropdown
 
-#### Code
-
-```html
-<script>
-  let selectedChart;
-
-  const dropdownData = [
-    { value: "AHpJL", label: "Chart #1" },
-    { value: "91Q0t", label: "Chart #2" },
-    { value: "eaD2D", label: "Chart #3" }
-  ];
-</script>
-<BasicDropdown
-  id="dropdown"
-  data="{dropdownData}"
-  inlineLabel="Dropdown"
-  bind:value="{selectedChart}"
-  placeholder="{null}"
-/>
-
-{#key selectedChart}
-<DatawrapperIframe datawrapperId="{selectedChart}" />
-{/key}
-```
-
-#### Rendered components
-
-<Canvas of={stories.Dropdown}></Canvas>
-<hr />
+<Canvas of={stories.Dropdown} sourceState="shown" />
 
 ### Switching with buttons
 
-#### Code
-
-```html
-<script>
-  let selectedChart;
-</script>
-
-<!-- added quotes are a symptom of code block formatting -->
-<button on:click="{()" ="">(selectedChart = "AHpJL")}>Chart #1</button>
-<button on:click="{()" ="">(selectedChart = "91Q0t")}>Chart #2</button>
-<button on:click="{()" ="">(selectedChart = "eaD2D")}>Chart #3</button>
-
-{#key selectedChart}
-<DatawrapperIframe datawrapperId="{selectedChart}" />
-{/key}
-```
-
-#### Rendered components
-
-<Canvas of={stories.Buttons} />
+<Canvas of={stories.Buttons} sourceState="shown" />

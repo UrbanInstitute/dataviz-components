@@ -20,7 +20,33 @@
   ];
 </script>
 
-<Story name="Dropdown">
+<Story
+  name="Dropdown"
+  source={`
+<script>
+  import { BasicDropdown, DatawrapperIframe } from "@urbaninstitute/dataviz-components";
+  let selectedChart;
+
+  const dropdownData = [
+    { value: "AHpJL", label: "Chart #1" },
+    { value: "91Q0t", label: "Chart #2" },
+    { value: "eaD2D", label: "Chart #3" }
+  ];
+</script>
+
+<BasicDropdown
+  id="dropdown"
+  data="{dropdownData}"
+  inlineLabel="Dropdown"
+  bind:value="{selectedChart}"
+  placeholder="{null}"
+/>
+
+{#key selectedChart}
+  <DatawrapperIframe datawrapperId="{selectedChart}" />
+{/key}
+`}
+>
   <BasicDropdown
     id="dropdown"
     data={dropdownData}
@@ -33,7 +59,23 @@
   {/key}
 </Story>
 
-<Story name="Buttons">
+<Story
+  name="Buttons"
+  source={`
+<script>
+  import { Button, DatawrapperIframe } from "@urbaninstitute/dataviz-components";
+  let selectedChart;
+</script>
+
+<Button on:click={() => (selectedChart = "AHpJL")}>Chart #1</Button>
+<Button on:click={() => (selectedChart = "91Q0t")}>Chart #2</Button>
+<Button on:click={() => (selectedChart = "eaD2D")}>Chart #3</Button>
+
+{#key selectedChart}
+  <DatawrapperIframe datawrapperId="{selectedChart}" />
+{/key}
+  `}
+>
   <Button on:click={() => (selectedChart = "AHpJL")}>Chart #1</Button>
   <Button on:click={() => (selectedChart = "91Q0t")}>Chart #2</Button>
   <Button on:click={() => (selectedChart = "eaD2D")}>Chart #3</Button>
