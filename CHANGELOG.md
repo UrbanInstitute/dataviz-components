@@ -6,9 +6,10 @@
 - Add LogoUrbanWide and create Logos story folder
 - Turn off interaction events `onDestroy` of DatawrapperIframe
 - Add Toggle component
-- Upgrade Storybook to version 8 
+- Upgrade Storybook to version 8
 - Upgrade SvelteKit to version 2 and update other Svelte-related dependencies
 - Upgrade to Vite version 5
+- Create Examples section and add examples of swithcing Datawrapper iframes
 
 ## v0.6.0
 
