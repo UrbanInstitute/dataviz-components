@@ -1,24 +1,23 @@
 <script context="module">
-  import DatawrapperIframe from "./DatawrapperIframe.svelte";
-  import Button from "../Button/Button.svelte";
   export const meta = {
-    title: "Components/DatawrapperIframe/SwitchExamples",
-    tags: ["autodocs"],
-    description: "Sit laborum nisi sunt."
+    title: "Examples/Stories/Datawrapper Switching",
+    description: "Examples of switching between Datawrapper Iframes"
   };
 </script>
 
 <script>
   import { Story } from "@storybook/addon-svelte-csf";
+  import DatawrapperIframe from "$lib/DatawrapperIframe/DatawrapperIframe.svelte";
+  import Button from "$lib/Button/Button.svelte";
 </script>
 
-<Story name="Default">
+<Story name="Dropdown">
   <DatawrapperIframe datawrapperId="RMnkX" title="test" />
 
   <Button>Click me</Button>
 </Story>
 
-<Story name="Another">
+<Story name="Buttons">
   <DatawrapperIframe datawrapperId={"4BsZm"} title="another test" />
 
   <Button>Click me</Button>

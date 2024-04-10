@@ -1,15 +1,21 @@
 import { Meta, Story } from "@storybook/blocks";
-import * as TestStories from "../lib/DatawrapperIframe/SwitchExamples.stories.svelte";
+import * as stories from "./stories/DatawrapperSwitching.stories.svelte";
 
-<Meta title="Datawrapper Switching" />
+<Meta title="Examples/Datawrapper Switching" />
 
 # Datawrapper Switching
 
 Laborum labore non excepteur occaecat ea exercitation occaecat in exercitation dolor est consequat reprehenderit fugiat. Eu sint mollit elit. Labore ea dolor voluptate fugiat nostrud tempor est dolor. Quis ullamco qui eiusmod proident ad voluptate tempor enim. Culpa dolor ut ipsum aliqua est Lorem aute ut fugiat exercitation sunt commodo cupidatat.
 
+```html
+<Component>
+  <AnotherComponent />
+</Component>
+```
+
 ### Default Story
 
-<Story of={TestStories.Default} />
+<Story of={stories.Dropdown} />
 
 Dolore ullamco pariatur esse voluptate id nulla velit eiusmod ex quis commodo est proident cupidatat proident. Culpa non aute amet ipsum minim. Veniam id laboris sunt sit officia ea ipsum mollit consectetur anim adipisicing ipsum voluptate. Ex aliqua fugiat id. Dolore elit laborum voluptate.
 
@@ -17,4 +23,4 @@ Dolore ullamco pariatur esse voluptate id nulla velit eiusmod ex quis commodo es
 
 <br />
 
-<Story of={TestStories.Another} />
+<Story of={stories.Buttons} />
