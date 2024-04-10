@@ -2,6 +2,7 @@
 
 ## Next
 
+- Add right padding and ellipsis on text overflow to BasicDropdown
 - Add functionality to remove `placeholder` <option> in BasicDropdown component
 - Add LogoUrbanWide and create Logos story folder
 - Turn off interaction events `onDestroy` of DatawrapperIframe
