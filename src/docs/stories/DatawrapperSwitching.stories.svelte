@@ -36,14 +36,14 @@
 
 <BasicDropdown
   id="dropdown"
-  data="{dropdownData}"
+  data={dropdownData}
   inlineLabel="Dropdown"
-  bind:value="{selectedChart}"
-  placeholder="{null}"
+  bind:value={selectedChart}
+  placeholder={null}
 />
 
 {#key selectedChart}
-  <DatawrapperIframe datawrapperId="{selectedChart}" />
+  <DatawrapperIframe datawrapperId={selectedChart} />
 {/key}
 `}
 >
@@ -72,7 +72,7 @@
 <Button on:click={() => (selectedChart = "eaD2D")}>Chart #3</Button>
 
 {#key selectedChart}
-  <DatawrapperIframe datawrapperId="{selectedChart}" />
+  <DatawrapperIframe datawrapperId={selectedChart} />
 {/key}
   `}
 >
