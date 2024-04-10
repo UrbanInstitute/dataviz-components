@@ -12,10 +12,11 @@ const preview = {
     },
     options: {
       storySort: {
+        method: 'alphabetical',
         order: [
           "Introduction",
-          "Theming/Theme",
           "Theming",
+          ["Theme", "Fonts"],
           "Examples",
           "Components",
           "Layout",
