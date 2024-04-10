@@ -9,6 +9,7 @@
 - Upgrade Storybook to version 8 
 - Upgrade SvelteKit to version 2 and update other Svelte-related dependencies
 - Upgrade to Vite version 5
+- Add Scrolly component
 - Update story ordering config
 
 ## v0.6.0
