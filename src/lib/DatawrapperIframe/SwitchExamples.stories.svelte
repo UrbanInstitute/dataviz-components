@@ -1,8 +1,8 @@
 <script context="module">
-  import DatawrapperIframe from "../DatawrapperIframe/DatawrapperIframe.svelte";
+  import DatawrapperIframe from "./DatawrapperIframe.svelte";
   import Button from "../Button/Button.svelte";
   export const meta = {
-    title: "TestStory",
+    title: "Components/DatawrapperIframe/SwitchExamples",
     tags: ["autodocs"],
     description: "Sit laborum nisi sunt."
   };
@@ -10,12 +10,16 @@
 
 <script>
   import { Story } from "@storybook/addon-svelte-csf";
-  import { CodeOrSourceMdx } from "@storybook/blocks";
 </script>
 
 <Story name="Default">
-  <DatawrapperIframe datawrapperId="WAssZ" title="test" />
+  <DatawrapperIframe datawrapperId="RMnkX" title="test" />
 
   <Button>Click me</Button>
 </Story>
-<!-- <CodeOrSourceMdx>Test</CodeOrSourceMdx> -->
+
+<Story name="Another">
+  <DatawrapperIframe datawrapperId={"4BsZm"} title="another test" />
+
+  <Button>Click me</Button>
+</Story>
