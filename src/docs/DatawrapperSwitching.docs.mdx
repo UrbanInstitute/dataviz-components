@@ -1,4 +1,4 @@
-import { Meta, Story } from "@storybook/blocks";
+import { Meta, Story, Canvas } from "@storybook/blocks";
 import * as stories from "./stories/DatawrapperSwitching.stories.svelte";
 
 <Meta title="Examples/Datawrapper Switching" />
@@ -8,6 +8,8 @@ import * as stories from "./stories/DatawrapperSwitching.stories.svelte";
 It's useful to switch between Datawrapper iframes. Below, we demonstrate two use cases: switching with a dropdown and switching with buttons.
 
 ### Switching with a dropdown
+
+#### Code
 
 ```html
 <script>
@@ -32,10 +34,14 @@ It's useful to switch between Datawrapper iframes. Below, we demonstrate two use
 {/key}
 ```
 
-<Story of={stories.Dropdown} />
+#### Rendered components
+
+<Canvas of={stories.Dropdown}></Canvas>
 <hr />
 
 ### Switching with buttons
+
+#### Code
 
 ```html
 <script>
@@ -52,4 +58,6 @@ It's useful to switch between Datawrapper iframes. Below, we demonstrate two use
 {/key}
 ```
 
-<Story of={stories.Buttons} />
+#### Rendered components
+
+<Canvas of={stories.Buttons} />
