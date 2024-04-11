@@ -2,6 +2,8 @@
 
 ## Next
 
+- Adds Basic page layout example
+
 ## v0.7.0
 
 - Add right padding and ellipsis on text overflow to BasicDropdown
