@@ -2,6 +2,8 @@
 
 ## Next
 
+- Move Block documentation to main component section
+
 ## v0.7.0
 
 - Add right padding and ellipsis on text overflow to BasicDropdown
