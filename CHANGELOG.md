@@ -3,6 +3,7 @@
 ## Next
 
 - Move Block documentation to main component section
+- Adds Basic page layout example
 
 ## v0.7.0
 
