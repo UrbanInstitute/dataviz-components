@@ -2,6 +2,8 @@
 
 ## Next
 
+## v0.7.0
+
 - Add right padding and ellipsis on text overflow to BasicDropdown
 - Add functionality to remove `placeholder` <option> in BasicDropdown component
 - Add LogoUrbanWide and create Logos story folder
