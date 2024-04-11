@@ -2,6 +2,8 @@
 
 ## Next
 
+- Add Analytics component
+
 ## v0.7.0
 
 - Add right padding and ellipsis on text overflow to BasicDropdown
