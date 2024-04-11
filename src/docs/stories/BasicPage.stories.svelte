@@ -25,11 +25,10 @@
   } from "$lib";
 </script>
 
-<Template let:args></Template>
+<Template></Template>
 
 <Story
   name="BasicPage"
-  args={{}}
   source={`
 <script>
   import { Navbar, Block, ChartBlock, DatawrapperIframe, TextBlock, SocialShare, ProjectCredits } from "@urbaninstitute/dataviz-components";
