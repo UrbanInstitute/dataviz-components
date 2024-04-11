@@ -3,6 +3,7 @@
 ## Next
 
 - Add Analytics component
+- Adds Basic page layout example
 
 ## v0.7.0
 
