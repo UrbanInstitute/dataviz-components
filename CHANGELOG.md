@@ -4,6 +4,7 @@
 
 - Move Block documentation to main component section
 - Adds Basic page layout example
+- Update Storybook favicon to Urban logo
 
 ## v0.7.0
 
