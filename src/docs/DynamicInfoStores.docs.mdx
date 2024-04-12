@@ -1,0 +1,10 @@
+import { Meta, Canvas } from "@storybook/blocks";
+import * as stories from "./stories/DynamicInfoStores.stories.svelte";
+
+<Meta title="Examples/Dynamic Info With Stores" />
+
+# Dynamic Info With Stores
+
+Here is a basic writable/derived Svelte store setup for displaying dynamic information, based on source data.
+
+<Canvas of={stories.Default} sourceState="shown" />

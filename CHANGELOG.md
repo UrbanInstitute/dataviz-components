@@ -4,6 +4,7 @@
 
 - Move Block documentation to main component section
 - Adds Basic page layout example
+- Adds example writable/derived store setup for dynamic information display
 
 ## v0.7.0
 
