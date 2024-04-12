@@ -2,6 +2,7 @@
 
 ## Next
 
+- Add Analytics component
 - Move Block documentation to main component section
 - Adds Basic page layout example
 - Update Storybook favicon to Urban logo
