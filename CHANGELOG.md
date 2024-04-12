@@ -2,6 +2,8 @@
 
 ## Next
 
+## v0.7.1
+
 - Add Analytics component
 - Move Block documentation to main component section
 - Adds Basic page layout example
