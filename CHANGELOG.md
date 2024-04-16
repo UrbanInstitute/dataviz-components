@@ -2,6 +2,8 @@
 
 ## Next
 
+- Set example code block language to html
+
 ## v0.7.1
 
 - Add Analytics component
