@@ -66,7 +66,7 @@
   });
 </script>
 
-// dropdown to control selected item
+<!-- dropdown to control selected item -->
 <BasicDropdown
     id="dropdown"
     data={dropdownData}
@@ -75,7 +75,7 @@
     placeholder={null}
   />
 
-// access data of selected using selectedData
+<!-- access data of selected using selectedData -->
 {#each Object.keys($selectedData) as field}
   <p>{field}: {$selectedData[field]}</p>
 {/each}
