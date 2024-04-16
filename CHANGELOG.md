@@ -2,6 +2,8 @@
 
 ## Next
 
+- Adds example writable/derived store setup for dynamic information display
+
 ## v0.7.1
 
 - Add Analytics component
