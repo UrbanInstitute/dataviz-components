@@ -2,6 +2,8 @@
 
 ## Next
 
+- Add Svelte syntax highlighting for code blocks (thanks to Axios team for the tip here!)
+
 ## v0.7.1
 
 - Add Analytics component
