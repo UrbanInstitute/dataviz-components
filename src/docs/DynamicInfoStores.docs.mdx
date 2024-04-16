@@ -36,15 +36,15 @@ import { writable, derived } from "svelte/store";
 import data from "$data/data.json";
 
 // use key to access object (instead of .find())
-data.reduce((map, d) => {
+const dataLookup = data.reduce((map, d) => {
   map[d.value] = d;
   return map;
-}, data);
+}, {});
 
 // create writable and derived stores
 export const selected = writable("barChart"); // initial value set to bar Chart
 export const selectedData = derived(selected, ($selected) => {
-  return data[$selected]; // access source data using key
+  return dataLookup[$selected]; // access source data using key
 });
 ```
 
