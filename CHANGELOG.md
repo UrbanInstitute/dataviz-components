@@ -2,12 +2,13 @@
 
 ## Next
 
+- Adds example writable/derived store setup for dynamic information display
+
 ## v0.7.1
 
 - Add Analytics component
 - Move Block documentation to main component section
 - Adds Basic page layout example
-- Adds example writable/derived store setup for dynamic information display
 - Update Storybook favicon to Urban logo
 
 ## v0.7.0
