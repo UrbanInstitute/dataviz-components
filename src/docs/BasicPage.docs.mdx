@@ -1,10 +1,10 @@
-import { Meta, Canvas } from "@storybook/blocks"
-import * as stories from "./stories/BasicPage.stories.svelte"
+import { Meta, Canvas } from "@storybook/blocks";
+import * as stories from "./stories/BasicPage.stories.svelte";
 
-<Meta title="Examples/BasicPage"/>
+<Meta title="Examples/BasicPage" />
+
 # Basic Page example
 
 Here is an example that pieces together parts of this library into a basic page layout. Example source code is below.
 
-<Canvas of={stories.BasicPage} sourceState="shown"/>
-
+<Canvas of={stories.BasicPage} sourceState="shown" source={{ language: "html" }} />
