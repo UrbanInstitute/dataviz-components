@@ -1,5 +1,9 @@
 import Theme from "../src/lib/Theme/Theme.svelte";
 import "$lib/style/main.css";
+import { SyntaxHighlighter } from "@storybook/components";
+import svelte from "./svelte-highlighting";
+
+SyntaxHighlighter.registerLanguage("svelte", svelte);
 
 /** @type { import('@storybook/svelte').Preview } */
 const preview = {
@@ -12,7 +16,7 @@ const preview = {
     },
     options: {
       storySort: {
-        method: 'alphabetical',
+        method: "alphabetical",
         order: [
           "Introduction",
           "Theming",
@@ -26,6 +30,9 @@ const preview = {
           "Stores"
         ]
       }
+    },
+    docs: {
+      source: { language: "svelte" }
     }
   },
   decorators: [() => Theme]
