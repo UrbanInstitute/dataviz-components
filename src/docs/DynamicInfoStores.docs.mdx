@@ -7,4 +7,47 @@ import * as stories from "./stories/DynamicInfoStores.stories.svelte";
 
 Here is a basic writable/derived Svelte store setup for displaying dynamic information, based on source data.
 
+## src/data/data.json
+
+```json
+[
+  {
+    "label": "Bar Chart",
+    "value": "barChart",
+    "metric": 100
+  },
+  {
+    "label": "Column Chart",
+    "value": "columnChart",
+    "metric": 200
+  },
+  {
+    "label": "Heatmap",
+    "value": "heatmap",
+    "metric": 300
+  }
+]
+```
+
+## src/lib/stores/selected.js
+
+```js
+import { writable, derived } from "svelte/store";
+import data from "$data/data.json";
+
+// use key to access object (instead of .find())
+data.reduce((map, d) => {
+  map[d.value] = d;
+  return map;
+}, data);
+
+// create writable and derived stores
+export const selected = writable("barChart"); // initial value set to bar Chart
+export const selectedData = derived(selected, ($selected) => {
+  return data[$selected]; // access source data using key
+});
+```
+
+## src/lib/components/DataDisplay.svelte
+
 <Canvas of={stories.Default} sourceState="shown" />

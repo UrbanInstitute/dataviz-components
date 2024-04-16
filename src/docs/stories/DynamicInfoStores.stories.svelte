@@ -53,33 +53,9 @@
   name="Default"
   source={`
 <script>
-  import { writable, derived } from "svelte/store";
-  import BasicDropdown from "$lib/BasicDropdown/BasicDropdown.svelte";
-
-  // could look like: import data from "$data/data.json"
-  const data = [
-    {
-      label: "Bar Chart",
-      value: "barChart",
-      metric: 100
-    },
-    {
-      label: "Column Chart",
-      value: "columnChart",
-      metric: 200
-    },
-    {
-      label: "Heatmap",
-      value: "heatmap",
-      metric: 300
-    }
-  ];
-
-  // use key to access object (instead of .find())
-  data.reduce((map, d) => {
-    map[d.value] = d;
-    return map;
-  }, data);
+  import { BasicDropdown } from "@urbaninstitute/dataviz-components";
+  import { selected, selectedData } from "$lib/stores/selected";
+  import data from "$data/data.json";
 
   // create dropdown data
   const dropdownData = data.map((d) => {
@@ -87,12 +63,6 @@
       value: d.value,
       label: d.label
     };
-  });
-
-  // create writable and derived stores
-  const selected = writable("barChart"); // initial value set to bar Chart
-  const selectedData = derived(selected, ($selected) => {
-    return data[$selected]; // access source data using key
   });
 </script>
 
