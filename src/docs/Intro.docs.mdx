@@ -23,8 +23,7 @@ npm install @urbaninstitute/dataviz-components
 
 These components depend on a set of CSS styles to render as they are documented here. In order to use them in your own project, you'll need to import the components you want to use, along with the `<Theme />` component, which provides the necessary CSS defaults.
 
-
-```html
+```svelte
 <script>
   import { Theme, BasicDropdown } from "@UrbanInstitute/dataviz-components";
 
@@ -35,12 +34,9 @@ These components depend on a set of CSS styles to render as they are documented 
     { value: "Maryland", label: "Maryland" }
   ];
 </script>
+
 <Theme>
-  <BasicDropdown
-    {data}
-    inline_label="Select a state"
-    id="state-select"
-  />
+  <BasicDropdown {data} inlineLabel="Select a state" id="state-select" />
 </Theme>
 ```
 
