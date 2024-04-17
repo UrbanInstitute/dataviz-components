@@ -43,19 +43,19 @@
 <Story
   name="primary with event listeners"
   args={{
-    event_click: fn(),
-    event_mouseenter: fn(),
-    event_mouseleave: fn()
+    eventClick: fn(),
+    eventMouseEnter: fn(),
+    eventMouseLeave: fn()
   }}
   play={async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
     const button = canvas.getByRole("button");
     await userEvent.click(button);
-    await expect(args.event_click).toHaveBeenCalled();
+    await expect(args.eventClick).toHaveBeenCalled();
     await userEvent.hover(button);
-    await expect(args.event_mouseenter).toHaveBeenCalled();
+    await expect(args.eventMouseEnter).toHaveBeenCalled();
     await userEvent.unhover(button);
-    await expect(args.event_mouseleave).toHaveBeenCalled();
+    await expect(args.eventMouseLeave).toHaveBeenCalled();
   }}
 />
 

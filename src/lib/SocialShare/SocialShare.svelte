@@ -17,7 +17,7 @@
    * @param {string} platform - The name of the social media platform the user has clicked
    * @returns {void}
    */
-  export let onClick = function(evt, platform) {};
+  export let onClick = function (evt, platform) {};
 
   /**
    * The color variant of the social media icons
@@ -31,28 +31,28 @@
    */
   export let iconSize = 24;
 
-  $: encoded_url_to_share = encodeURIComponent(shareUrl);
+  $: encodedUrlToShare = encodeURIComponent(shareUrl);
 
   $: socials = [
     {
       name: "facebook",
       icon: facebookIcon,
-      url: `https://www.facebook.com/sharer/sharer.php?u=${encoded_url_to_share}`
+      url: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrlToShare}`
     },
     {
       name: "X",
       icon: xIcon,
-      url: `https://twitter.com/intent/tweet?text=&url=${encoded_url_to_share}`
+      url: `https://twitter.com/intent/tweet?text=&url=${encodedUrlToShare}`
     },
     {
       name: "linkedin",
       icon: linkedinIcon,
-      url: `https://www.linkedin.com/sharing/share-offsite/?url=${encoded_url_to_share}`
+      url: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrlToShare}`
     },
     {
       name: "email",
       icon: mailIcon,
-      url: `mailto: ?subject=&body=${encoded_url_to_share}`
+      url: `mailto: ?subject=&body=${encodedUrlToShare}`
     }
   ];
 </script>
@@ -66,7 +66,9 @@
       role="button"
       aria-label={`${social.name}-share`}
       on:click={(evt) => onClick(evt, social.name)}
-      ><span class="social-icon" style:width={iconSize} style:height={iconSize}><svelte:component this={social.icon} {variant} size={iconSize}/></span></a
+      ><span class="social-icon" style:width={iconSize} style:height={iconSize}
+        ><svelte:component this={social.icon} {variant} size={iconSize} /></span
+      ></a
     >
   {/each}
 </div>
