@@ -5,6 +5,8 @@
 - Add Svelte syntax highlighting for code blocks (thanks to Axios team for the tip here!)
 - Adds example writable/derived store setup for dynamic information display
 - Fixes package name in documentation
+- Fixes Intro code chunk to be up to date
+- Changes snake_case variables to camelCase
 
 ## v0.7.1
 
