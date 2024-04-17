@@ -20,7 +20,7 @@ By default, this will add Google analytics' `gtag` to your page and fire a page 
 
 <Source dark code={`
 <script>
-import { Analytics } from "@urban-institute/dataviz-components";
+import { Analytics } from "@urbaninstitute/dataviz-components";
 </script>
 <Analytics title="My project title" />
 `} language="html"/>
@@ -29,7 +29,7 @@ If you'd like to avoid firing a pageview because you're creating an en embed or 
 
 <Source dark code={`
 <script>
-import { Analytics } from "@urban-institute/dataviz-components";
+import { Analytics } from "@urbaninstitute/dataviz-components";
 </script>
 <Analytics title="My project title" sendPageview={false}/>
 `} language="html"/>
@@ -37,7 +37,7 @@ import { Analytics } from "@urban-institute/dataviz-components";
 Anytime you have an event handler, use this one-line function call to send relevant data through to Google Analytics:
 
 <Source dark code={`
-import { logClickToGA } from "@urban-institute/dataviz-components";
+import { logClickToGA } from "@urbaninstitute/dataviz-components";
 
 /**
  * sends event data to GTM and GA. call in event handlers for each event type you wish to track.
@@ -51,7 +51,7 @@ logClickToGA(target, eventName);
 An example of logClickToGA in action:
 
 <Source dark code={`
-import { logClickToGA } from "@urban-institute/dataviz-components";
+import { logClickToGA } from "@urbaninstitute/dataviz-components";
 
 myElement.addEventListener("click", (e) => {
   logClickToGA(
