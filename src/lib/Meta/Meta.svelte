@@ -51,12 +51,12 @@
   export let publishDate;
 
   /**
-  * The section of the article for the schema.org metadata
+   * The section of the article for the schema.org metadata
    * @type {string}
    */
   export let articleSection = "Data Tool";
 
-  $: schema_meta = {
+  $: schemaMeta = {
     "@context": "http://schema.org",
     "@type": "NewsArticle",
     headline: title,
@@ -67,8 +67,8 @@
     creator: authors,
     keywords: keywords
   };
-  $: schema_meta_markup = `<script type="application/ld+json">${JSON.stringify(
-    schema_meta
+  $: schemaMetaMarkup = `<script type="application/ld+json">${JSON.stringify(
+    schemaMeta
   )}<\/script>`;
 </script>
 
@@ -99,6 +99,6 @@
   <link rel="canonical" href={url} />
 
   <!-- schema.org metadata -->
-  {@html schema_meta_markup}
+  {@html schemaMetaMarkup}
   <!-- End shema.org metadata -->
 </svelte:head>

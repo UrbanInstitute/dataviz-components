@@ -20,7 +20,7 @@
   import TextBlock from "$lib/TextBlock/TextBlock.svelte";
   import { Story, Template } from "@storybook/addon-svelte-csf";
 
-  const sample_data = {
+  const sampleData = {
     heading: "Project credits",
     items: [
       {
@@ -59,4 +59,4 @@
   </ProjectCredits>
 </Template>
 
-<Story name="Default" args={{ ...sample_data }} />
+<Story name="Default" args={{ ...sampleData }} />
