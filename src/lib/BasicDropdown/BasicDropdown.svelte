@@ -11,7 +11,7 @@
 
   /**
    * Binds to the current value for the dropdown (data.value)
-   * @type {string}
+   * @type {string | number | null}
    */
   export let value;
 
