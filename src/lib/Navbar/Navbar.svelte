@@ -12,7 +12,7 @@
    * URL to link to from the title
    * @type {string}
    */
-  export let projectUrl;
+  export let projectUrl = "";
 
   /**
    * Brand to use for the logo
@@ -40,9 +40,13 @@
     </a>
   </div>
   {#if title}
+    {#if projectUrl}
     <a href="{projectUrl}/">
       <p class="nav--page-title">{title}</p>
     </a>
+    {:else}
+    <p class="nav--page-title">{title}</p>
+    {/if}
   {/if}
 </nav>
 
