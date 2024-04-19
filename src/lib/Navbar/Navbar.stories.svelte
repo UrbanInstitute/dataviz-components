@@ -35,7 +35,14 @@
 <Story name="Default" />
 
 <Story
-  name="With title"
+  name="With title, no project link"
+  args={{
+    title: "Project title"
+  }}
+/>
+
+<Story
+  name="With title and project link"
   args={{
     title: "Project title",
     projectUrl: "https://urban.org"
@@ -55,7 +62,7 @@
   name="TPC"
   args={{
     title: "Project title",
-    projectUrl: "https://urban.org",
+    projectUrl: "https://taxpolicycenter.org",
     brand: "tpc"
   }}
 />
