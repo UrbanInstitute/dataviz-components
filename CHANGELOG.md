@@ -8,6 +8,7 @@
 - Fixes Intro code chunk to be up to date
 - Changes snake_case variables to camelCase
 - Change BasicDropdown's value prop to accept null
+- Add Navbar case for no projectUrl with story documentation
 
 ## v0.7.1
 
