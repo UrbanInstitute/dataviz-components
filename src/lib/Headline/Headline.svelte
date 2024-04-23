@@ -1,4 +1,5 @@
 <script>
+  import Navbar from "$lib/Navbar/Navbar.stories.svelte";
   import Block from "../Block/Block.svelte";
   import SocialShare from "../SocialShare/SocialShare.svelte";
 
@@ -53,14 +54,36 @@
 
 <Block {width}>
   <div class="headline-wrap {variant}">
-    {#if eyebrow}
+    {#if $$slots.eyebrow}
+      <!-- 
+        Optional slot for custom content in the eyebrow slot.
+         -->
+      <slot name="eyebrow" />
+    {:else if eyebrow}
       <p class="headline-eyebrow">{eyebrow}</p>
     {/if}
-    <h1 class="headline-page-headline">{headline}</h1>
-    {#if description}
+    {#if $$slots.headline}
+      <!-- 
+        Optional slot for custom content in the headline slot.
+         -->
+      <slot name="headline" />
+    {:else}
+      <h1 class="headline-page-headline">{headline}</h1>
+    {/if}
+    {#if $$slots.description}
+      <!-- 
+        Optional slot for custom content in the description slot.
+         -->
+      <slot name="description" />
+    {:else if description}
       <p class="headline-description">{description}</p>
     {/if}
-    {#if date}
+    {#if $$slots.date}
+      <!-- 
+        Optional slot for custom content in the date slot.
+         -->
+      <slot name="date" />
+    {:else if date}
       <p class="headline-date">
         {#if datePrefix}
           <span>{datePrefix} </span>
@@ -68,6 +91,10 @@
         <time>{date}</time>
       </p>
     {/if}
+    <!-- 
+      Optional slot for extra content to include below the date and above the share buttons.
+       -->
+    <slot name="extra" />
   </div>
   {#if shareUrl}
     <SocialShare {shareUrl} {variant} />
@@ -106,6 +133,9 @@
     color: var(--color-white);
   }
   .headline-wrap.light .headline-date {
+    color: var(--color-white);
+  }
+  .headline-wrap.light .headline-eyebrow {
     color: var(--color-white);
   }
   .headline-eyebrow {

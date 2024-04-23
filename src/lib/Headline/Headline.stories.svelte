@@ -26,17 +26,18 @@
           { name: "dark", value: "#0A4C6A" }
         ]
       },
-    },
-    docs: {
-      description: {
-        component: "A basic headline."
+      docs: {
+        description: {
+          component: "A basic headline component."
+        }
       }
-    }
+    },
   };
 </script>
 
 <script>
   import { Story, Template } from "@storybook/addon-svelte-csf";
+  import { Button } from "$lib";
 
   const hed = "Urban Institute Data Visualization Project Headline"
 </script>
@@ -113,5 +114,21 @@
     eyebrow: "Data tool",
     shareUrl: "https://urban.org",
     variant: "light"
-  }}
-/>
+  }}/>
+
+<Story name="With custom slots">
+  <Headline  shareUrl="https://urban.org">
+    <div slot="eyebrow">
+      <img src="urban-logo.svg" alt="An Urban institute logo" width="120px"/>
+    </div>
+    <h1 style="color: var(--color-blue); text-transform: uppercase; font-weight: var(--font-weight-bold)" slot="headline">Custom headline slot</h1>
+    <div slot="description">
+      <p>This is a custom description slot</p>
+    </div>
+    <p slot="date">Custom date slot: January 1, 1968</p>
+    <div slot="extra">
+      <Button>Extra slot</Button>
+      <p style="font-size: var(--font-size-small); color: var(--color-gray-darker)">(Custom button)</p>
+    </div>
+  </Headline>
+</Story>
