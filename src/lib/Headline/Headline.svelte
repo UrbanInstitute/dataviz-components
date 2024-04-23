@@ -1,5 +1,4 @@
 <script>
-  import Navbar from "$lib/Navbar/Navbar.stories.svelte";
   import Block from "../Block/Block.svelte";
   import SocialShare from "../SocialShare/SocialShare.svelte";
 
