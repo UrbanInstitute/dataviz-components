@@ -1,0 +1,7 @@
+import{j as t}from"./jsx-runtime-WiDF21rh.js";import{u as s}from"./index-UR4ZlisH.js";import{M as e,C as n}from"./index-Bri16zoK.js";import{Dropdown as p,Buttons as a}from"./DatawrapperSwitching.stories-Cqi43d51.js";import"./index-C_XRhBvo.js";import"./iframe-BfVtOPWV.js";import"../sb-preview/runtime.js";import"./_commonjsHelpers-Cpj98o6Y.js";import"./index-Bw8VTzHM.js";import"./index-BzJiga1e.js";import"./index-DrFu-skq.js";import"./index-CF9TYszN.js";import"./lifecycle-DDpknddb.js";import"./collect-stories-olyLhvVT.js";import"./DatawrapperIframe-QmnsR3dQ.js";import"./spread-CgU5AtxT.js";import"./BasicDropdown-BS-I7IYq.js";import"./each-DWWqcAaM.js";import"./urbanColors-DNlJVs0y.js";import"./Button-CFwl3GHU.js";function r(i){const o={h1:"h1",h3:"h3",p:"p",...s(),...i.components};return t.jsxs(t.Fragment,{children:[t.jsx(e,{title:"Examples/Datawrapper Switching"}),`
+`,t.jsx(o.h1,{id:"datawrapper-switching",children:"Datawrapper Switching"}),`
+`,t.jsx(o.p,{children:"It's useful to switch between Datawrapper iframes. Below, we demonstrate two use cases: switching with a dropdown and switching with buttons."}),`
+`,t.jsx(o.h3,{id:"switching-with-a-dropdown",children:"Switching with a dropdown"}),`
+`,t.jsx(n,{of:p,sourceState:"shown"}),`
+`,t.jsx(o.h3,{id:"switching-with-buttons",children:"Switching with buttons"}),`
+`,t.jsx(n,{of:a,sourceState:"shown"})]})}function v(i={}){const{wrapper:o}={...s(),...i.components};return o?t.jsx(o,{...i,children:t.jsx(r,{...i})}):r(i)}export{v as default};
