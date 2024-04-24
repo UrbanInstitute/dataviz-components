@@ -11,6 +11,7 @@
 - Changes snake_case variables to camelCase
 - Change BasicDropdown's value prop to accept null
 - Add Navbar case for no projectUrl with story documentation
+- Add Headline component
 
 ## v0.7.1
 
