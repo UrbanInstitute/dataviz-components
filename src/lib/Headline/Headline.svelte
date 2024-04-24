@@ -94,6 +94,7 @@
       Optional slot for extra content to include below the date and above the share buttons.
        -->
     <slot name="extra" />
+    <hr class="headline-rule" />
   </div>
   {#if shareUrl}
     <SocialShare {shareUrl} {variant} />
@@ -103,9 +104,13 @@
 <style>
   .headline-wrap {
     text-align: center;
-    border-bottom: solid 1px var(--color-gray);
-    padding-bottom: var(--spacing-12);
     margin-bottom: var(--spacing-8);
+  }
+  .headline-rule {
+    border: none;
+    border-bottom: solid 1px var(--color-gray);
+    margin: 0;
+    margin-top: var(--spacing-12);
   }
   .headline-page-headline {
     margin-bottom: var(--spacing-6);
@@ -126,6 +131,8 @@
   }
   .headline-wrap.light {
     color: var(--color-white);
+  }
+  .headline-wrap.light .headline-rule {
     border-bottom: solid 1px var(--color-white);
   }
   .headline-wrap.light h1 {
@@ -140,10 +147,5 @@
   .headline-eyebrow {
     font-size: var(--font-size-small);
     text-transform: uppercase;
-  }
-  @media screen and (min-width: 769px) {
-    .headline-page-headline {
-      /* margin-top: var(--spacing-20); */
-    }
   }
 </style>
