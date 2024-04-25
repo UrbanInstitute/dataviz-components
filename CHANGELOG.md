@@ -2,6 +2,8 @@
 
 ## Next
 
+- Add contribution guidance to Intro docs and README
+
 ## v0.7.2
 
 - Add Svelte syntax highlighting for code blocks (thanks to Axios team for the tip here!)
