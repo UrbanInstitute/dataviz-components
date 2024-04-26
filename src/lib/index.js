@@ -23,3 +23,4 @@ export { default as Toggle } from "./Toggle/Toggle.svelte";
 export { default as Scrolly } from "./Scrolly/Scrolly.svelte";
 export { default as Analytics, logClickToGA } from "./Analytics/Analytics.svelte";
 export { default as Headline } from "./Headline/Headline.svelte";
+export { default as PymChild } from "./Pym/PymChild.svelte";
