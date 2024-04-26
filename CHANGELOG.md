@@ -2,6 +2,7 @@
 
 ## Next
 
+- Add contribution guidance to Intro docs and README
 - Add Headline component
 - Add PymChild component
 
