@@ -29,6 +29,7 @@
   {disabled}
   aria-pressed={active}
   on:click={() => (active = !active)}
+  style:direction={labelPosition === "right" ? "rtl" : "ltr"}
   ><p class="label {labelPosition}">{label}</p>
   <span class="toggle" aria-hidden="true"><span class="circle" /></span>
 </button>
@@ -40,13 +41,10 @@
     border: none;
     color: var(--color-black);
     display: inline-flex;
+    gap: 0.75rem;
     justify-content: start;
     align-items: center;
     cursor: pointer;
-  }
-
-  .container.right {
-    flex-direction: row-reverse;
   }
 
   /* lower opacity if disabled */
@@ -62,14 +60,6 @@
     font-style: italic;
   }
 
-  .label.left {
-    margin-right: 0.75rem;
-  }
-
-  .label.right {
-    margin-left: 0.75rem;
-  }
-
   .toggle {
     display: inline-block;
     width: 36px;
@@ -78,7 +68,9 @@
     background-color: var(--color-white);
     border: 1px solid var(--color-gray-shade-light);
     position: relative;
-    transition: background-color 250ms ease, border 250ms ease;
+    transition:
+      background-color 250ms ease,
+      border 250ms ease;
   }
 
   .toggle .circle {
