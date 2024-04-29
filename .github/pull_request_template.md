@@ -2,6 +2,7 @@
 
 - [ ] Bug fix
 - [ ] New component/feature
+- [ ] Component update
 - [ ] Documentation update
 - [ ] Other
 
