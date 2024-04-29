@@ -6,6 +6,7 @@
 - Add contribution guidance to Intro docs and README
 - Add Headline component
 - Add PymChild component
+- Patch Toggle component accessibility
 
 ## v0.7.2
 

@@ -27,7 +27,8 @@
 <button
   class="container {labelPosition}"
   {disabled}
-  aria-pressed={active}
+  role="switch"
+  aria-checked={active}
   on:click={() => (active = !active)}
   style:direction={labelPosition === "right" ? "rtl" : "ltr"}
   ><p class="label {labelPosition}">{label}</p>
@@ -86,14 +87,21 @@
     transition: transform 250ms ease;
   }
 
-  button[aria-pressed="true"] .toggle {
+  button[aria-checked="true"] .toggle {
     background-color: var(--color-blue);
     border: 1px solid var(--color-blue);
   }
 
-  button[aria-pressed="true"] .circle {
+  button[aria-checked="true"] .circle {
     background-color: var(--color-white);
     left: none;
     transform: translate(17px, 2px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .toggle,
+    .toggle .circle {
+      transition-duration: 0ms;
+    }
   }
 </style>

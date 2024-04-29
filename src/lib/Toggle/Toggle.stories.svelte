@@ -3,7 +3,8 @@
 
   export const meta = {
     title: "Components/Toggle",
-    description: "A toggle component that uses a <button> element under the hood.",
+    description:
+      'A toggle component that uses a <button> element with ARIA role "switch". See <a href="https://www.w3.org/WAI/ARIA/apg/patterns/switch/">ARIA docs</a> for more information on the switch pattern.',
     component: Toggle,
     tags: ["autodocs"],
     argTypes: {
