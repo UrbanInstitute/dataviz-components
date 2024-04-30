@@ -7,6 +7,8 @@
 - Add Headline component
 - Add PymChild component
 - Add "vis.rendered" event to DatawrapperIframe component
+- Patch Toggle component accessibility
+- Add animated Urban Logo Badge component
 
 ## v0.7.2
 
