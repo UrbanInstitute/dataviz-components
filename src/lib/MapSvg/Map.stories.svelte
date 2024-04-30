@@ -1,6 +1,8 @@
 <script context="module">
   import Map from "./Map.svelte";
   import PolygonLayer from "./PolygonLayer.svelte";
+  import LabelLayer from "./LabelLayer.svelte";
+  import PointLayer from "./PointLayer.svelte";
 
   export const meta = {
     title: "Components/Map",
@@ -23,11 +25,26 @@
 <script>
   import { Story, Template } from "@storybook/addon-svelte-csf";
   import states from "../../docs/sample-data/states_geo.json";
+  import {urbanColors} from "$lib/utils";
+
+  const highlightStates = ["Maryland", "New York", "Pennsylvania", "Ohio"];
+
+  const highlightFeatures = states.features.filter((d) => highlightStates.includes(d.properties.NAME))
+
+  function getColor(feature) {
+    if (highlightStates.includes(feature.properties.NAME)) {
+      return urbanColors.blue;
+    }
+    return urbanColors.blue_shade_lightest;
+  }
+
 </script>
 
 <Template let:args>
   <Map {...args}>
-    <PolygonLayer />
+    <PolygonLayer fill={getColor}/>
+    <PointLayer features={highlightFeatures} fill={urbanColors.blue_shade_darker}/>
+    <LabelLayer features={highlightFeatures} getLabel={(feature) => feature.properties.NAME}/>
   </Map>
 </Template>
 
