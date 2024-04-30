@@ -6,6 +6,7 @@
 - Add contribution guidance to Intro docs and README
 - Add Headline component
 - Add PymChild component
+- Add "vis.rendered" event to DatawrapperIframe component
 
 ## v0.7.2
 
