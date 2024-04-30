@@ -66,8 +66,8 @@
     width: 36px;
     height: 20px;
     border-radius: 10px;
-    background-color: var(--color-white);
-    border: 1px solid var(--color-gray-shade-light);
+    background-color: var(--color-gray-shade-dark);
+    border: 1px solid var(--color-gray-shade-dark);
     position: relative;
     transition:
       background-color 250ms ease,
@@ -79,7 +79,7 @@
     width: 14px;
     height: 14px;
     border-radius: 7px;
-    background-color: var(--color-gray-shade-light);
+    background-color: var(--color-white);
     position: absolute;
     left: 0;
     top: 0;
