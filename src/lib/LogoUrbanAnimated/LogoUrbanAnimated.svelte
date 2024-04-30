@@ -47,7 +47,6 @@
   .fadein {
     --opacity-start: 0.25;
     --opacity-end: 1;
-    /* animation: fadein 1000ms infinite; */
   }
 
   @keyframes fadein-1 {
