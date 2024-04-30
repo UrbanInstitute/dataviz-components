@@ -2,6 +2,8 @@
 
 ## Next
 
+## v0.8.0
+
 - Simplify CSS in Toggle component
 - Add contribution guidance to Intro docs and README
 - Add Headline component
