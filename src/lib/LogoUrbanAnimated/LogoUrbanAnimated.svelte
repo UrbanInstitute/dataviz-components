@@ -1,6 +1,6 @@
 <script>
-  export let width = 80;
-  export let duration = "1000ms";
+  export let width = 50;
+  export let duration = "1500ms";
   $: height = width * (90 / 80);
 </script>
 
