@@ -7,6 +7,7 @@
 - Add Headline component
 - Add PymChild component
 - Patch Toggle component accessibility
+- Add animated Urban Logo Badge component
 
 ## v0.7.2
 
