@@ -4,19 +4,17 @@
  -->
 <script>
   import { getContext, createEventDispatcher } from "svelte";
+  import urbanColors from "$lib/utils/urbanColors.js";
   import { geoPath } from "d3-geo";
   import { raise } from "layercake";
 
   const { data, width, height, zGet } = getContext("LayerCake");
   const { projection } = getContext("map");
 
-  /** @type {String} [fill] - The shape's fill color. By default, the fill will be determined by the z-scale, unless this prop is set. */
-  export let fill = undefined;
+  export let fill = urbanColors.blue;
 
-  /** @type {String} [stroke='#333'] - The shape's stroke color. */
-  export let stroke = "#333";
+  export let stroke = urbanColors.white;
 
-  /** @type {Number} [strokeWidth=0.5] - The shape's stroke width. */
   export let strokeWidth = 0.5;
 
   /** @type {Array} [features] - A list of GeoJSON features. Use this if you want to draw a subset of the features in `$data` while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in `$data.features` if left unset. */
@@ -29,7 +27,7 @@
 
   $: fitSizeRange = [$width, $height];
 
-  $: projectionFn = projection().fitSize(fitSizeRange, $data);
+  $: projectionFn = $projection().fitSize(fitSizeRange, $data);
 
   $: geoPathFn = geoPath(projectionFn);
 
@@ -52,7 +50,7 @@
   {#each features || $data.features as feature}
     <path
       class="feature-path"
-      fill="red"
+      fill={typeof fill == "function" ? fill(feature) : fill}
       {stroke}
       stroke-width={strokeWidth}
       d={geoPathFn(feature)}
@@ -61,10 +59,6 @@
 </g>
 
 <style>
-  /* .feature-path {
-    stroke: #333;
-    stroke-width: 0.5px;
-  } */
   .feature-path:hover {
     stroke: #000;
     stroke-width: 2px;

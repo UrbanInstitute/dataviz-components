@@ -1,14 +1,19 @@
 <script>
 import { LayerCake, Svg, Canvas, Html } from 'layercake';
+import {writable} from "svelte/store";
 import { setContext } from "svelte";
 import { geoAlbersUsa } from "d3-geo";
 
 export let geojson;
 export let projection = geoAlbersUsa;
-const flatData = geojson.features.map(d => d.properties);
+
+$: projectionStore = writable(projection);
+$: console.log($projectionStore)
 $: setContext("map", {
-  projection: projection
+  projection: projectionStore
 });
+
+const flatData = geojson.features.map(d => d.properties);
 </script>
 <div class="chart-container">
   <LayerCake
