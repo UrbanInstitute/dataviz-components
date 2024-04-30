@@ -1,16 +1,18 @@
 <script>
 import { LayerCake, Svg, Canvas, Html } from 'layercake';
-import { geoAlbersUsa } from 'd3-geo';
-import states from "../../docs/sample-data/cb_2023_us_state.geojson";
-console.log(states);
+import { setContext } from "svelte";
+import { geoAlbersUsa } from "d3-geo";
 
-export let geojson = states;
+export let geojson;
+export let projection = geoAlbersUsa;
 const flatData = geojson.features.map(d => d.properties);
+$: setContext("map", {
+  projection: projection
+});
 </script>
-<p>Map component</p>
 <div class="chart-container">
   <LayerCake
-    {data}
+    data={geojson}
     {flatData}
   >
     <Svg>
@@ -19,3 +21,8 @@ const flatData = geojson.features.map(d => d.properties);
   </LayerCake>
 </div>
 
+<style>
+.chart-container {
+  height: 500px;
+}
+</style>

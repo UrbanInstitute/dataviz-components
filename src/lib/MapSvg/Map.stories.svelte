@@ -22,8 +22,7 @@
 </script>
 <script>
   import { Story, Template } from "@storybook/addon-svelte-csf";
-  import states from "../../docs/sample-data/cb_2023_us_state.geojson";
-  console.log(states);
+  import states from "../../docs/sample-data/states_geo.json";
 </script>
 
 <Template let:args>
@@ -34,4 +33,7 @@
 
 <Story
   name="Default"
+  args={{
+    geojson: states
+  }}
 />
