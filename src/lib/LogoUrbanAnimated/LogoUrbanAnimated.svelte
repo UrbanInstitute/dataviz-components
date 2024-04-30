@@ -20,28 +20,29 @@
     fill="#1A96D2"
   />
   <g>
-    <path d="M3.94283 0V3.92092H0V0H3.94283Z" fill="#9B9DA1" class="fadein"/>
-    <path d="M22.7997 0V3.92092H18.8605V0H22.7997Z" fill="#9B9DA1" class="fadein"/>
-    <path d="M41.8451 0V3.92092H37.906V0H41.8451Z" fill="#9B9DA1" class="fadein"/>
-    <path d="M60.7985 0V3.92092H56.8593V0H60.7985Z" fill="#9B9DA1" class="fadein"/>
-    <path d="M79.7511 0V3.92092H75.812V0H79.7511Z" fill="#9B9DA1" class="fadein"/>
+    <path d="M3.94283 0V3.92092H0V0H3.94283Z" fill="#9B9DA1" class="fadein" />
+    <path d="M22.7997 0V3.92092H18.8605V0H22.7997Z" fill="#9B9DA1" class="fadein" />
+    <path d="M41.8451 0V3.92092H37.906V0H41.8451Z" fill="#9B9DA1" class="fadein" />
+    <path d="M60.7985 0V3.92092H56.8593V0H60.7985Z" fill="#9B9DA1" class="fadein" />
+    <path d="M79.7511 0V3.92092H75.812V0H79.7511Z" fill="#9B9DA1" class="fadein" />
 
-    <path d="M3.93911 25.4435H0V21.5189H3.93911V25.4435Z" fill="#9B9DA1" class="fadein"/>
-    <path d="M22.8034 25.4435H18.8605V21.5189H22.8034V25.4435Z" fill="#9B9DA1" class="fadein"/>
+    <path d="M3.93911 25.4435H0V21.5189H3.93911V25.4435Z" fill="#9B9DA1" class="fadein" />
+    <path d="M22.8034 25.4435H18.8605V21.5189H22.8034V25.4435Z" fill="#9B9DA1" class="fadein" />
 
-    <path d="M3.93911 46.9625H0V43.0378H3.93911V46.9625Z" fill="#9B9DA1" class="fadein"/>
-    <path d="M22.8034 46.9625H18.8605V43.0378H22.8034V46.9625Z" fill="#9B9DA1" class="fadein"/>
+    <path d="M3.93911 46.9625H0V43.0378H3.93911V46.9625Z" fill="#9B9DA1" class="fadein" />
+    <path d="M22.8034 46.9625H18.8605V43.0378H22.8034V46.9625Z" fill="#9B9DA1" class="fadein" />
 
-    <path d="M3.93911 68.4812H0V64.5566H3.93911V68.4812Z" fill="#9B9DA1" class="fadein"/>
-    <path d="M22.8034 68.4812H18.8605V64.5566H22.8034V68.4812Z" fill="#9B9DA1" class="fadein"/>
+    <path d="M3.93911 68.4812H0V64.5566H3.93911V68.4812Z" fill="#9B9DA1" class="fadein" />
+    <path d="M22.8034 68.4812H18.8605V64.5566H22.8034V68.4812Z" fill="#9B9DA1" class="fadein" />
 
-    <path d="M3.94283 86.0754V90.0001H0V86.0754H3.94283Z" fill="#9B9DA1" class="fadein"/>
-    <path d="M22.7997 86.0754V90.0001H18.8605V86.0754H22.7997Z" fill="#9B9DA1" class="fadein"/>
-    <path d="M41.9236 86.0754V90.0001H37.9807V86.0754H41.9236Z" fill="#9B9DA1" class="fadein"/>
-    <path d="M60.913 86.0754V90.0001H56.9702V86.0754H60.913Z" fill="#9B9DA1" class="fadein"/>
-    <path d="M79.9033 86.0754V90.0001H75.9604V86.0754H79.9033Z" fill="#9B9DA1" class="fadein"/>
+    <path d="M3.94283 86.0754V90.0001H0V86.0754H3.94283Z" fill="#9B9DA1" class="fadein" />
+    <path d="M22.7997 86.0754V90.0001H18.8605V86.0754H22.7997Z" fill="#9B9DA1" class="fadein" />
+    <path d="M41.9236 86.0754V90.0001H37.9807V86.0754H41.9236Z" fill="#9B9DA1" class="fadein" />
+    <path d="M60.913 86.0754V90.0001H56.9702V86.0754H60.913Z" fill="#9B9DA1" class="fadein" />
+    <path d="M79.9033 86.0754V90.0001H75.9604V86.0754H79.9033Z" fill="#9B9DA1" class="fadein" />
   </g>
 </svg>
+
 <style>
   .fadein {
     --opacity-start: 0.25;
