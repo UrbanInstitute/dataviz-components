@@ -9,10 +9,18 @@
   import { raise } from "layercake";
 
   const { data, width, height, zGet } = getContext("LayerCake");
-  const { projection } = getContext("map");
+  const { projection, features: globalFeatures } = getContext("map");
 
+  /**
+   * A color string or a function that takes a feature and returns a color string
+   * @type { (Object) => string | string } [fill = urbanColors.blue] A string or function that returns a string to use as this layers fill color.
+   */
   export let fill = urbanColors.blue;
 
+  /**
+   * A color string or a function that takes a feature and returns a color string
+   * @type { (Object) => string | string } [fill = urbanColors.blue] A string or function that returns a string to use as this layers stroke color.
+   */
   export let stroke = urbanColors.white;
 
   export let strokeWidth = 0.5;
@@ -25,9 +33,24 @@
    */
   const dispatch = createEventDispatcher();
 
+  function getFill(feature) {
+    if (typeof fill === "string") {
+      return fill;
+    }
+    return fill(feature);
+  }
+
+  function getStroke(feature) {
+    if (typeof stroke === "string") {
+      return stroke;
+    }
+    return stroke(feature);
+  }
+
   $: fitSizeRange = [$width, $height];
 
-  $: projectionFn = $projection().fitSize(fitSizeRange, $data);
+  $: console.log($globalFeatures);
+  $: projectionFn = $projection().fitSize(fitSizeRange, {type: "FeatureCollection", features: $globalFeatures});
 
   $: geoPathFn = geoPath(projectionFn);
 
@@ -47,13 +70,14 @@
   on:mouseout={(e) => dispatch("mouseout")}
   on:blur={(e) => dispatch("mouseout")}
 >
-  {#each features || $data.features as feature}
+  {#each features || $globalFeatures as feature}
     <path
       class="feature-path"
-      fill={typeof fill == "function" ? fill(feature) : fill}
-      {stroke}
+      fill={getFill(feature)}
+      stroke={getStroke(feature)}
       stroke-width={strokeWidth}
       d={geoPathFn(feature)}
+      on:mousemove={handleMousemove(feature)}
     ></path>
   {/each}
 </g>

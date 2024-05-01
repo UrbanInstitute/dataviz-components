@@ -5,7 +5,7 @@
   import PointLayer from "./PointLayer.svelte";
 
   export const meta = {
-    title: "Components/Map",
+    title: "Components/SVGMap",
     description: "An SVG map",
     component: Map,
     tags: ["autodocs"],
@@ -42,7 +42,7 @@
 
 <Template let:args>
   <Map {...args}>
-    <PolygonLayer fill={getColor}/>
+    <PolygonLayer fill={getColor} />
     <PointLayer features={highlightFeatures} fill={urbanColors.blue_shade_darker}/>
     <LabelLayer features={highlightFeatures} getLabel={(feature) => feature.properties.NAME}/>
   </Map>
@@ -51,6 +51,6 @@
 <Story
   name="Default"
   args={{
-    geojson: states
+    features: states.features
   }}
 />
