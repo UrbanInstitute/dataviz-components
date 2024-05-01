@@ -17,11 +17,18 @@
    */
   export let fill = urbanColors.blue;
 
+  export let naFill = urbanColors.gray_shade_light;
+
   /**
    * A color string or a function that takes a feature and returns a color string
    * @type { (Object) => string | string } [fill = urbanColors.blue] A string or function that returns a string to use as this layers stroke color.
    */
   export let stroke = urbanColors.white;
+
+  /**
+   * Should the project flip the Y axis?
+   */
+  export let reflectY = false;
 
   export let strokeWidth = 0.5;
 
@@ -49,8 +56,9 @@
 
   $: fitSizeRange = [$width, $height];
 
-  $: console.log($globalFeatures);
-  $: projectionFn = $projection().fitSize(fitSizeRange, {type: "FeatureCollection", features: $globalFeatures});
+
+  $: projectionFn = reflectY ? $projection().reflectY(true).fitSize(fitSizeRange, {type: "FeatureCollection", features: $globalFeatures}) : $projection().fitSize(fitSizeRange, {type: "FeatureCollection", features: $globalFeatures});
+
 
   $: geoPathFn = geoPath(projectionFn);
 
@@ -73,7 +81,7 @@
   {#each features || $globalFeatures as feature}
     <path
       class="feature-path"
-      fill={getFill(feature)}
+      fill={getFill(feature) || naFill}
       stroke={getStroke(feature)}
       stroke-width={strokeWidth}
       d={geoPathFn(feature)}
