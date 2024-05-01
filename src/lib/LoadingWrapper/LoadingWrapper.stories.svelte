@@ -1,0 +1,47 @@
+<script context="module">
+  import { onMount } from "svelte";
+  import LoadingWrapper from "./LoadingWrapper.svelte";
+
+  export const meta = {
+    title: "Components/LoadingWrapper",
+    description: "Wrapper to display a loading spinner graphic while content is loading",
+    component: LoadingWrapper,
+    tags: ["autodocs"],
+    parameters: {
+      docs: {
+        description: {
+          component: "Wrapper to display a loading spinner graphic while content is loading."
+        }
+      }
+    }
+  };
+</script>
+
+<script>
+  import { Story, Template } from "@storybook/addon-svelte-csf";
+
+  // function to create a fake await for 2sec
+  function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  $: loading = false;
+  onMount(() => {
+    loading = true;
+    sleep(2500).then(() => {
+      loading = false;
+    });
+  });
+</script>
+
+<Template>
+  <LoadingWrapper childLoading={loading}>
+    <span
+      >Amet est Lorem qui ullamco laboris velit. Incididunt est sunt exercitation qui ea. Officia
+      Lorem est labore amet irure nostrud. Exercitation Lorem do consectetur enim esse quis mollit
+      cupidatat aliqua magna. Ipsum irure anim commodo Lorem.
+    </span>
+  </LoadingWrapper>
+</Template>
+
+<Story name="Primary" />
