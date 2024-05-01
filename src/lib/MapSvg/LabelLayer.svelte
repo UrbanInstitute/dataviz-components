@@ -4,7 +4,7 @@
   import { urbanColors } from "$lib/utils";
 
   const { data, width, height } = getContext("LayerCake");
-  const { projection } = getContext("map");
+  const { projection, features: globalFeatures } = getContext("map");
 
   export let features;
   export let textColor = urbanColors.white;
@@ -18,7 +18,8 @@
 
   $: fitSizeRange = [$width, $height];
 
-  $: projectionFn = $projection().fitSize(fitSizeRange, $data);
+  $: projectionFn = $projection().fitSize(fitSizeRange, {type: "FeatureCollection", features: $globalFeatures});
+
 
   $: geoPathFn = geoPath(projectionFn);
 </script>
