@@ -12,18 +12,19 @@
   export let strokeWidth = 3;
   export let r = 3;
 
-
   $: fitSizeRange = [$width, $height];
 
-  $: projectionFn = $projection().fitSize(fitSizeRange, {type: "FeatureCollection", features: $globalFeatures});
+  $: projectionFn = $projection().fitSize(fitSizeRange, {
+    type: "FeatureCollection",
+    features: $globalFeatures
+  });
 
   $: geoPathFn = geoPath(projectionFn);
 </script>
 
 <g>
   {#each features || $data.features as feature}
-    {@const [x, y] =
-      feature.geometry.type == "Point" ? geoPathFn(feature) : geoPathFn.centroid(feature)}
-      <circle cx={x} cy={y} fill={fill} {r}/>
+    {@const [x, y] = geoPathFn.centroid(feature)}
+    <circle cx={x} cy={y} {fill} {r} />
   {/each}
 </g>

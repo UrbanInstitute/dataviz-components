@@ -44,7 +44,8 @@
     if (typeof fill === "string") {
       return fill;
     }
-    return fill(feature);
+    const result = fill(feature)
+    return result;
   }
 
   function getStroke(feature) {

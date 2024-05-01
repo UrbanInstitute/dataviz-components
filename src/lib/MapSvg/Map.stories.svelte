@@ -26,53 +26,57 @@
 <script>
   import { Story, Template } from "@storybook/addon-svelte-csf";
   import states from "../../docs/sample-data/states_geo.json";
-  import nyc_income from "../../docs/sample-data/nyc_income_geo.json";
+  import us_cities from "../../docs/sample-data/us_cities.json";
+  import nyc_income_topo from "../../docs/sample-data/nyc_income_topo.json";
+  import county_air_quality_topo from "../../docs/sample-data/county_air_quality_topo.json";
   import { urbanColors } from "$lib/utils";
-  import { geoIdentity } from "d3-geo";
+  import { geoMercator, geoAlbersUsa } from "d3-geo";
   import { scaleQuantize } from "d3-scale";
   import { extent, max } from "d3-array";
 
-  console.log(nyc_income);
+  // nyc census tracts with average hh income
+  const nyc_income = topojson.feature(nyc_income_topo, "nyc_income_geo1");
 
-  const highlightStates = ["Maryland", "New York", "Pennsylvania", "Ohio"];
+  let incomeScale = scaleQuantize()
+    .domain(extent(nyc_income.features, (d) => d.properties.estimate))
+    .range(urbanColors.getGreens());
 
-  const highlightFeatures = states.features.filter((d) =>
-    highlightStates.includes(d.properties.NAME)
-  );
+  // county air quality data
+  const county_air_quality = topojson.feature(county_air_quality_topo, "county_air_quality_geo");
 
-  function getColor(feature) {
-    if (highlightStates.includes(feature.properties.NAME)) {
-      return urbanColors.blue;
-    }
-    return urbanColors.gray_shade_lighter;
-  }
+  let airQualityScale = scaleQuantize()
+    .domain(extent(county_air_quality.features, (d) => d.properties.index_air_quality))
+    .range([urbanColors.yellow_shade_darkest, urbanColors.yellow_shade_dark, urbanColors.yellow, urbanColors.yellow_shade_light, urbanColors.yellow_shade_lighter]);
+    // .range(urbanColors.getMapBlues().reverse());
 
-  let incomeScale = scaleQuantize().domain(extent(nyc_income.features, d => d.properties.estimate)).range(urbanColors.getMapBlues());
-
-  console.log(incomeScale.range())
+  const us_cities_geo = topojson.feature(us_cities, "us_cities");
 </script>
 
 <Template let:args>
   <Map {...args}></Map>
 </Template>
 
-<Story
-  name="Default"
-  args={{
-    features: states.features
-  }}
->
-  <Map features={states.features}>
-    <PolygonLayer fill={getColor} />
-    <PointLayer features={highlightFeatures} fill={urbanColors.blue_shade_darker} />
-    <LabelLayer features={highlightFeatures} getLabel={(feature) => feature.properties.NAME} />
+<Story name="county air quality">
+  <Map projection={geoAlbersUsa} features={county_air_quality.features}>
+    <PolygonLayer
+      fill={(d) => airQualityScale(d.properties.index_air_quality)}
+      stroke={urbanColors.gray_shade_dark}
+    />
+    <PolygonLayer features={states.features} fill="none" stroke={urbanColors.gray_shade_dark} />
+    <PointLayer features={us_cities_geo.features} fill={urbanColors.gray_shade_lighter} />
+    <LabelLayer
+      features={us_cities_geo.features}
+      getLabel={(d) => d.properties.name}
+      fontSize="12px"
+    />
   </Map>
 </Story>
 
-<Story
-  name="NYC Income"
->
-  <Map projection={geoIdentity} features={nyc_income.features}>
-    <PolygonLayer reflectY fill={(d) => incomeScale(d.properties.estimate)} />
+<Story name="nyc-income">
+  <Map projection={geoMercator} features={nyc_income.features}>
+    <PolygonLayer
+      fill={(d) => incomeScale(d.properties.estimate)}
+      stroke={(d) => incomeScale(d.properties.estimate)}
+    />
   </Map>
 </Story>
