@@ -1,6 +1,8 @@
 <script context="module">
   import { onMount } from "svelte";
   import LoadingWrapper from "./LoadingWrapper.svelte";
+  import LogoUrbanWide from "../LogoUrbanWide/LogoUrbanWide.svelte";
+  import DatawrapperIframe from "../DatawrapperIframe/DatawrapperIframe.svelte";
 
   export const meta = {
     title: "Components/LoadingWrapper",
@@ -10,7 +12,8 @@
     parameters: {
       docs: {
         description: {
-          component: "Wrapper to display a loading spinner graphic while content is loading."
+          component:
+            'Wrapper to display a loading spinner graphic while content is loading. All children wrapped in component. Accepts an alternative graphic for the "graphic" named slot.'
         }
       }
     }
@@ -18,23 +21,24 @@
 </script>
 
 <script>
-  import { Story, Template } from "@storybook/addon-svelte-csf";
+  import { Story } from "@storybook/addon-svelte-csf";
 
   // function to create a fake await for 2sec
   function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
-  $: loading = false;
+  $: loading = true;
   onMount(() => {
-    loading = true;
     sleep(2500).then(() => {
       loading = false;
     });
   });
+
+  $: mapLoading = true;
 </script>
 
-<Template>
+<Story name="Default">
   <LoadingWrapper childLoading={loading}>
     <span
       >Amet est Lorem qui ullamco laboris velit. Incididunt est sunt exercitation qui ea. Officia
@@ -42,6 +46,26 @@
       cupidatat aliqua magna. Ipsum irure anim commodo Lorem.
     </span>
   </LoadingWrapper>
-</Template>
+</Story>
 
-<Story name="Primary" />
+<Story name="Custom graphic">
+  <LoadingWrapper childLoading={loading}>
+    <LogoUrbanWide slot="graphic" />
+    <span
+      >Amet est Lorem qui ullamco laboris velit. Incididunt est sunt exercitation qui ea. Officia
+      Lorem est labore amet irure nostrud. Exercitation Lorem do consectetur enim esse quis mollit
+      cupidatat aliqua magna. Ipsum irure anim commodo Lorem.
+    </span>
+  </LoadingWrapper>
+</Story>
+
+<Story name="Datawrapper example">
+  <LoadingWrapper childLoading={mapLoading}>
+    <DatawrapperIframe
+      title="This is a title for the visualization"
+      ariaLabel="This is an accessible title for the visualization"
+      datawrapperId="RMnkX"
+      on:visrendered={() => (mapLoading = false)}
+    />
+  </LoadingWrapper>
+</Story>
