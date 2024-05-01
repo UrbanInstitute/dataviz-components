@@ -2,6 +2,8 @@
 
 ## Next
 
+- Add "development" string value to jsdoc in Analytics component
+
 ## v0.8.0
 
 - Simplify CSS in Toggle component

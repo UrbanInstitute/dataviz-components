@@ -11,7 +11,7 @@
       dataviz_title: window.ui_dataviz_config.analytics_title,
       dataviz_target: target,
       dataviz_detail: eventName
-    }
+    };
     if (!DEV) {
       if (typeof window === "undefined" || !window.gtag) return;
       window.gtag("event", "dataviz_click", eventData);
@@ -38,7 +38,7 @@
 
   /**
    * If set to "development", logClickToGA will print debugging info rather than sending events to GA. Set to "production" to send actual events.
-   * @type {string} ["production"]
+   * @type {string} ["production"|"development"]
    */
   export let mode = "production";
 
