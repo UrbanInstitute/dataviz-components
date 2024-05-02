@@ -13,6 +13,7 @@
   export let features;
   export let projection = geoAlbersUsa;
   export let zoomable = false;
+  export let height = 800;
 
   // create stores of map global settings to add to context
   $: projectionStore = readable(projection);
@@ -92,6 +93,7 @@
   bind:this={el}
   bind:clientWidth={$widthStore}
   bind:clientHeight={$heightStore}
+  style:height="{height}px"
 >
   <LayerCake>
     <Svg>
@@ -116,7 +118,6 @@
 
 <style>
   .chart-container {
-    height: 500px;
     overflow: hidden;
   }
 </style>
