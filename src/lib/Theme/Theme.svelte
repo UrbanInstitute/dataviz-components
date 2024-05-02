@@ -11,6 +11,19 @@
     box-sizing: border-box;
   }
 
+  .theme {
+    font-family: var(--font-family-sans);
+    line-height: var(--line-height-normal, 1.5);
+    font-weight: var(--font-weight-normal, 400);
+    font-size: 16px;
+    color-scheme: light dark;
+    color: #000000;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-text-size-adjust: 100%;
+    box-sizing: border-box;
+  }
+
   /*
    * Inside the <Theme /> we'll set some default typographic styles
    */
