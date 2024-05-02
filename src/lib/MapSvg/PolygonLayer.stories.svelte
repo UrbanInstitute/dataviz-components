@@ -4,47 +4,40 @@
 
   export const meta = {
     title: "Components/SVGMap/PolygonLayer",
-    description: "A polygon layer for use in a Map component.",
+    description: "A polygon layer for use in an `<SVGMap>` component.",
     component: PolygonLayer,
     tags: ["autodocs"],
     argTypes: {
-      geojson: { control: "array" }
+      features: { control: "array" },
+      fill: { control: "text" },
+      stroke: { control: "number" }
     },
     parameters: {
       docs: {
         description: {
-          component: "A polygon layer for use in a Map component."
+          component: "A polygon layer for use in an `<SVGMap>` component. Renders each `feature` as an svg `path` element."
         }
       }
     }
   };
 </script>
+
 <script>
   import { Story, Template } from "@storybook/addon-svelte-csf";
   import states from "../../docs/sample-data/states_geo.json";
-  import {urbanColors} from "$lib/utils";
-
-  const highlightStates = ["Maryland", "New York", "Pennsylvania", "Ohio"];
-
-
-  function getColor(feature) {
-    if (highlightStates.includes(feature.properties.NAME)) {
-      return urbanColors.blue;
-    }
-    return urbanColors.blue_shade_lightest;
-  }
-
+  import { urbanColors } from "$lib/utils";
 </script>
 
 <Template let:args>
-  <Map>
-    <PolygonLayer {...args} fill={getColor}/>
+  <Map features={args.features}>
+    <PolygonLayer {...args} />
   </Map>
 </Template>
 
 <Story
   name="Default"
   args={{
-    geojson: states
+    features: states.features,
+    fill: urbanColors.blue
   }}
 />

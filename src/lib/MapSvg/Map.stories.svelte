@@ -1,5 +1,5 @@
 <script context="module">
-  import Map from "./Map.svelte";
+  import SVGMap from "./Map.svelte";
   import PolygonLayer from "./PolygonLayer.svelte";
   import LabelLayer from "./LabelLayer.svelte";
   import PointLayer from "./PointLayer.svelte";
@@ -7,11 +7,10 @@
   export const meta = {
     title: "Components/SVGMap",
     description: "An SVG map",
-    component: Map,
+    component: SVGMap,
     tags: ["autodocs"],
     argTypes: {
-      arrowFillColor: { control: "color" },
-      data: { control: "object" }
+      features: { control: "array" }
     },
     parameters: {
       docs: {
@@ -46,21 +45,23 @@
 
   let airQualityScale = scaleQuantize()
     .domain(extent(county_air_quality.features, (d) => d.properties.index_air_quality))
-    .range([urbanColors.yellow_shade_darkest, urbanColors.yellow_shade_dark, urbanColors.yellow, urbanColors.yellow_shade_light, urbanColors.yellow_shade_lighter]);
-    // .range(urbanColors.getMapBlues().reverse());
+    // .range([urbanColors.yellow_shade_darkest, urbanColors.yellow_shade_dark, urbanColors.yellow, urbanColors.yellow_shade_light, urbanColors.yellow_shade_lighter]);
+    .range(urbanColors.getMapBlues().reverse());
 
   const us_cities_geo = topojson.feature(us_cities, "us_cities");
 </script>
 
 <Template let:args>
-  <Map {...args}></Map>
+  <SVGMap {...args}></SVGMap>
 </Template>
 
 <Story name="county air quality">
-  <Map projection={geoAlbersUsa} features={county_air_quality.features}>
+  <SVGMap projection={geoAlbersUsa} features={county_air_quality.features}>
     <PolygonLayer
       fill={(d) => airQualityScale(d.properties.index_air_quality)}
       stroke={urbanColors.gray_shade_dark}
+      hoverStroke={urbanColors.yellow}
+      hoverStrokeWidth={2}
     />
     <PolygonLayer features={states.features} fill="none" stroke={urbanColors.gray_shade_dark} />
     <PointLayer features={us_cities_geo.features} fill={urbanColors.gray_shade_lighter} />
@@ -69,14 +70,14 @@
       getLabel={(d) => d.properties.name}
       fontSize="12px"
     />
-  </Map>
+  </SVGMap>
 </Story>
 
 <Story name="nyc-income">
-  <Map projection={geoMercator} features={nyc_income.features}>
+  <SVGMap projection={geoMercator} features={nyc_income.features}>
     <PolygonLayer
       fill={(d) => incomeScale(d.properties.estimate)}
       stroke={(d) => incomeScale(d.properties.estimate)}
     />
-  </Map>
+  </SVGMap>
 </Story>

@@ -1,14 +1,10 @@
-<!--
-  @component
-  Generates an SVG map using the `geoPath` function from [d3-geo](https://github.com/d3/d3-geo).
- -->
 <script>
   import { getContext, createEventDispatcher } from "svelte";
   import urbanColors from "$lib/utils/urbanColors.js";
   import { geoPath } from "d3-geo";
   import { raise } from "layercake";
 
-  const { data, width, height, zGet } = getContext("LayerCake");
+  const { width, height } = getContext("LayerCake");
   const { projection, features: globalFeatures } = getContext("map");
 
   /**
@@ -17,6 +13,16 @@
    */
   export let fill = urbanColors.blue;
 
+  /**
+   * Optional color to use for a feature's fill when hovered
+   * @type { string }
+   */
+  export let hoverFill = undefined;
+
+  /**
+   * Color to use for values that are NA or otherwise undefined in the color scale
+   * @type { string }
+   */
   export let naFill = urbanColors.gray_shade_light;
 
   /**
@@ -25,27 +31,39 @@
    */
   export let stroke = urbanColors.white;
 
+  /*
+   * Optional color string for hovered feature stroke
+   * @type { string }
+   */
+  export let hoverStroke = undefined;
+
+  /*
+   * Stroke width of each feature
+   * @type { number } [strokeWidth = 0.5]
+   */
+  export let strokeWidth = 0.5;
+
+  /*
+   * Stroke width of each feature when hovered
+   * @type { number } [strokeWidth = undefined]
+   */
+  export let hoverStrokeWidth = undefined;
+
   /**
    * Should the project flip the Y axis?
+   * @type { boolean } [reflectY = false]
    */
   export let reflectY = false;
-
-  export let strokeWidth = 0.5;
 
   /** @type {Array} [features] - A list of GeoJSON features. Use this if you want to draw a subset of the features in `$data` while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in `$data.features` if left unset. */
   export let features = undefined;
 
-  /* --------------------------------------------
-   * Here's how you would do cross-component hovers
-   */
-  const dispatch = createEventDispatcher();
 
   function getFill(feature) {
     if (typeof fill === "string") {
       return fill;
     }
-    const result = fill(feature)
-    return result;
+    return fill(feature);
   }
 
   function getStroke(feature) {
@@ -57,11 +75,15 @@
 
   $: fitSizeRange = [$width, $height];
 
-
-  $: projectionFn = reflectY ? $projection().reflectY(true).fitSize(fitSizeRange, {type: "FeatureCollection", features: $globalFeatures}) : $projection().fitSize(fitSizeRange, {type: "FeatureCollection", features: $globalFeatures});
-
+  $: projectionFn = reflectY
+    ? $projection()
+        .reflectY(true)
+        .fitSize(fitSizeRange, { type: "FeatureCollection", features: $globalFeatures })
+    : $projection().fitSize(fitSizeRange, { type: "FeatureCollection", features: $globalFeatures });
 
   $: geoPathFn = geoPath(projectionFn);
+
+  const dispatch = createEventDispatcher();
 
   function handleMousemove(feature) {
     return function handleMousemoveFn(e) {
@@ -75,9 +97,13 @@
 </script>
 
 <g
-  class="map-group"
+  class="map-layer"
   on:mouseout={(e) => dispatch("mouseout")}
   on:blur={(e) => dispatch("mouseout")}
+  style:--hover-fill={hoverFill || null}
+  style:--hover-stroke={hoverStroke || stroke}
+  style:--hover-stroke-width="{hoverStrokeWidth || strokeWidth}px"
+  class:hover-fill={hoverFill}
 >
   {#each features || $globalFeatures as feature}
     <path
@@ -93,8 +119,11 @@
 
 <style>
   .feature-path:hover {
-    stroke: #000;
-    stroke-width: 2px;
+    stroke: var(--hover-stroke);
+    stroke-width: var(--hover-stroke-width);
+  }
+  .hover-fill .feature-path:hover {
+    fill: var(--hover-fill);
   }
   /**
    * Disable the outline on feature click.
