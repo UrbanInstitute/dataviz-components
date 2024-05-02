@@ -1,5 +1,5 @@
 <script>
-  import "theme.css";
+  import "./theme.css";
 </script>
 
 <div class="theme">
