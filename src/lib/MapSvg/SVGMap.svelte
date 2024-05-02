@@ -6,6 +6,7 @@
   import { geoAlbersUsa } from "d3-geo";
   import { zoom, zoomIdentity } from "d3-zoom";
   import { select } from "d3-selection";
+  import ZoomControls from "./ZoomControls.svelte";
 
   /*
    * An array of geojson features to be displayed on the map. The map will scale the projection to fit this set of features.
@@ -23,7 +24,7 @@
 
   // initialize a transform store in case zoom is turned on
   // this will be where we store the output of the d3-zoom behaviour and broadcast it
-  console.log("zoomIdentity", zoomIdentity)
+  console.log("zoomIdentity", zoomIdentity);
   let transformStore = writable(zoomIdentity);
 
   // will hold d3.zoom instance if zoomable
@@ -48,8 +49,7 @@
     mapZoom = zoom()
       .scaleExtent([1, 8])
       .on("zoom", ({ transform }) => transformStore.set(transform));
-    // svgSelection.call(mapZoom).on("wheel.zoom", null);
-    svgSelection.call(mapZoom);
+    svgSelection.call(mapZoom).on("wheel.zoom", null);
   }
 
   function zoomIn() {
@@ -74,7 +74,6 @@
     } else {
       svgSelection.transition().call(mapZoom.transform, zoomIdentity);
     }
-
   }
 
   // to hold reference to root dom node via bind:this
@@ -103,21 +102,25 @@
       >
         >
 
-        <slot transform={$transformStore}/>
+        <slot transform={$transformStore} />
       </g>
     </Svg>
   </LayerCake>
+  {#if zoomable}
+    <div class="map-controls">
+      <ZoomControls showReset={$transformStore != zoomIdentity} {zoomIn} {zoomOut} {zoomReset} />
+    </div>
+  {/if}
 </div>
-{#if zoomable}
-  <div class="zoom-controls">
-    <button on:click={zoomIn}>zoom in</button>
-    <button on:click={zoomOut}>zoom out</button>
-    <button on:click={zoomReset}>reset</button>
-  </div>
-{/if}
 
 <style>
   .chart-container {
     overflow: hidden;
+    position: relative;
+  }
+  .map-controls {
+    position: absolute;
+    bottom: var(--spacing-2);
+    right: var(--spacing-2);
   }
 </style>

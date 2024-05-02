@@ -1,9 +1,9 @@
 <script context="module">
-  import SVGMap from "./Map.svelte";
+  import SVGMap from "./SVGMap.svelte";
   import PolygonLayer from "./PolygonLayer.svelte";
   import LabelLayer from "./LabelLayer.svelte";
   import PointLayer from "./PointLayer.svelte";
-  import description from "./docs/description.md?raw";
+  import description from "./docs/SVGMap.doc.md?raw";
 
   export const meta = {
     title: "Components/SVGMap",
@@ -56,7 +56,7 @@
 </Template>
 
 <Story name="county air quality">
-  <SVGMap zoomable projection={geoAlbersUsa} features={county_air_quality.features}>
+  <SVGMap projection={geoAlbersUsa} features={county_air_quality.features}>
     <PolygonLayer
       fill={(d) => airQualityScale(d.properties.index_air_quality)}
       stroke={urbanColors.gray_shade_dark}
