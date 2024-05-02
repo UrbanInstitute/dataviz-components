@@ -1,3 +1,7 @@
+<script>
+  import "theme.css";
+</script>
+
 <div class="theme">
   <slot />
 </div>
@@ -7,7 +11,7 @@
     box-sizing: border-box;
   }
 
-  .theme {
+  /* .theme {
     --font-family-sans: Lato, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
       "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
       "Segoe UI Symbol", "Noto Color Emoji";
@@ -124,7 +128,7 @@
     text-rendering: optimizeLegibility;
     -webkit-text-size-adjust: 100%;
     box-sizing: border-box;
-  }
+  } */
 
   /*
    * Inside the <Theme /> we'll set some default typographic styles
@@ -267,7 +271,5 @@
       font-size: var(--font-size-xl);
       line-height: var(--line-height-relaxed);
     }
-
   }
-
 </style>
