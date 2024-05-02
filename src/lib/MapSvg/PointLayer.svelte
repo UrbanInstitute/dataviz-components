@@ -3,13 +3,12 @@
   import { geoPath } from "d3-geo";
   import { urbanColors } from "$lib/utils";
 
-  const { data, width, height } = getContext("LayerCake");
-  const { projection, features: globalFeatures } = getContext("map");
+  const { width, height, transform, projection, features: globalFeatures } = getContext("map");
 
   export let features;
   export let fill = urbanColors.white;
   export let stroke = urbanColors.black;
-  export let strokeWidth = 3;
+  export let strokeWidth = 0;
   export let r = 3;
 
   $: fitSizeRange = [$width, $height];
@@ -23,8 +22,8 @@
 </script>
 
 <g>
-  {#each features || $data.features as feature}
+  {#each features || $globalFeatures as feature}
     {@const [x, y] = geoPathFn.centroid(feature)}
-    <circle cx={x} cy={y} {fill} {r} />
+    <circle cx={x} cy={y} {fill} r={r / $transform.k} stroke-width={strokeWidth / $transform.k} {stroke}/>
   {/each}
 </g>

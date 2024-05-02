@@ -5,7 +5,7 @@
   import { raise } from "layercake";
 
   const { width, height } = getContext("LayerCake");
-  const { projection, features: globalFeatures } = getContext("map");
+  const { projection, features: globalFeatures, transform } = getContext("map");
 
   /**
    * A color string or a function that takes a feature and returns a color string
@@ -102,7 +102,7 @@
   on:blur={(e) => dispatch("mouseout")}
   style:--hover-fill={hoverFill || null}
   style:--hover-stroke={hoverStroke || stroke}
-  style:--hover-stroke-width="{hoverStrokeWidth || strokeWidth}px"
+  style:--hover-stroke-width="{(hoverStrokeWidth || strokeWidth)/$transform.k}px"
   class:hover-fill={hoverFill}
 >
   {#each features || $globalFeatures as feature}
@@ -110,7 +110,7 @@
       class="feature-path"
       fill={getFill(feature) || naFill}
       stroke={getStroke(feature)}
-      stroke-width={strokeWidth}
+      stroke-width={strokeWidth/$transform.k}
       d={geoPathFn(feature)}
       on:mousemove={handleMousemove(feature)}
     ></path>

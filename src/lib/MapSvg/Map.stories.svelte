@@ -56,7 +56,7 @@
 </Template>
 
 <Story name="county air quality">
-  <SVGMap projection={geoAlbersUsa} features={county_air_quality.features}>
+  <SVGMap zoomable projection={geoAlbersUsa} features={county_air_quality.features}>
     <PolygonLayer
       fill={(d) => airQualityScale(d.properties.index_air_quality)}
       stroke={urbanColors.gray_shade_dark}
@@ -68,16 +68,18 @@
     <LabelLayer
       features={us_cities_geo.features}
       getLabel={(d) => d.properties.name}
-      fontSize="12px"
+      fontSize={12}
     />
   </SVGMap>
 </Story>
 
 <Story name="nyc-income">
-  <SVGMap projection={geoMercator} features={nyc_income.features}>
+  <SVGMap zoomable projection={geoMercator} features={nyc_income.features}>
     <PolygonLayer
       fill={(d) => incomeScale(d.properties.estimate)}
       stroke={(d) => incomeScale(d.properties.estimate)}
+      hoverStroke={urbanColors.gray_shade_darker}
+      hoverStrokeWidth={2}
     />
   </SVGMap>
 </Story>
