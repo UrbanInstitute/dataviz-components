@@ -63,12 +63,12 @@
       hoverStroke={urbanColors.magenta}
       hoverStrokeWidth={2}
     />
-    <PolygonLayer features={states.features} fill="none" stroke={urbanColors.gray_shade_dark} />
+    <PolygonLayer features={states.features} fill="none" stroke={urbanColors.gray_shade_dark} strokeWidth={1}/>
     <PointLayer features={us_cities_geo.features} fill={urbanColors.gray_shade_lighter} />
     <LabelLayer
       features={us_cities_geo.features}
       getLabel={(d) => d.properties.name}
-      fontSize={12}
+      fontSize={13}
     />
   </SVGMap>
 </Story>
