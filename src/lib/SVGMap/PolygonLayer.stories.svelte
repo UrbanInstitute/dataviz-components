@@ -1,5 +1,5 @@
 <script context="module">
-  import Map from "./Map.svelte";
+  import SVGMap from "./SVGMap.svelte";
   import PolygonLayer from "./PolygonLayer.svelte";
 
   export const meta = {
@@ -29,9 +29,9 @@
 </script>
 
 <Template let:args>
-  <Map features={args.features}>
+  <SVGMap features={args.features}>
     <PolygonLayer {...args} />
-  </Map>
+  </SVGMap>
 </Template>
 
 <Story
