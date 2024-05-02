@@ -3,10 +3,10 @@
   import PolygonLayer from "./PolygonLayer.svelte";
   import LabelLayer from "./LabelLayer.svelte";
   import PointLayer from "./PointLayer.svelte";
+  import description from "./docs/description.md?raw";
 
   export const meta = {
     title: "Components/SVGMap",
-    description: "An SVG map",
     component: SVGMap,
     tags: ["autodocs"],
     argTypes: {
@@ -15,7 +15,7 @@
     parameters: {
       docs: {
         description: {
-          component: "SVG Map component"
+          component: description
         }
       }
     }
@@ -46,7 +46,7 @@
   let airQualityScale = scaleQuantize()
     .domain(extent(county_air_quality.features, (d) => d.properties.index_air_quality))
     // .range([urbanColors.yellow_shade_darkest, urbanColors.yellow_shade_dark, urbanColors.yellow, urbanColors.yellow_shade_light, urbanColors.yellow_shade_lighter]);
-    .range(urbanColors.getMapBlues().reverse());
+    .range(urbanColors.getDivergingColors());
 
   const us_cities_geo = topojson.feature(us_cities, "us_cities");
 </script>
@@ -60,7 +60,7 @@
     <PolygonLayer
       fill={(d) => airQualityScale(d.properties.index_air_quality)}
       stroke={urbanColors.gray_shade_dark}
-      hoverStroke={urbanColors.yellow}
+      hoverStroke={urbanColors.magenta}
       hoverStrokeWidth={2}
     />
     <PolygonLayer features={states.features} fill="none" stroke={urbanColors.gray_shade_dark} />
