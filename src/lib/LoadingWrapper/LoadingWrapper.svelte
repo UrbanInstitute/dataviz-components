@@ -46,6 +46,5 @@
     align-items: center;
     display: flex;
     justify-content: center;
-    background-color: var(--color-white);
   }
 </style>
