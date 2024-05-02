@@ -1,5 +1,4 @@
 <script>
-  import { LayerCake, Svg } from "layercake";
   import { reducedMotion } from "../stores";
   import { readable, writable } from "svelte/store";
   import { setContext, onMount } from "svelte";
@@ -24,7 +23,6 @@
 
   // initialize a transform store in case zoom is turned on
   // this will be where we store the output of the d3-zoom behaviour and broadcast it
-  console.log("zoomIdentity", zoomIdentity);
   let transformStore = writable(zoomIdentity);
 
   // will hold d3.zoom instance if zoomable
@@ -94,18 +92,16 @@
   bind:clientHeight={$heightStore}
   style:height="{height}px"
 >
-  <LayerCake>
-    <Svg>
-      <g
-        class="zoom-group"
-        transform="translate({$transformStore.x}, {$transformStore.y}) scale({$transformStore.k})"
+  <svg width={$widthStore} height={$heightStore}>
+    <g
+      class="zoom-group"
+      transform="translate({$transformStore.x}, {$transformStore.y}) scale({$transformStore.k})"
+    >
       >
-        >
 
-        <slot transform={$transformStore} />
-      </g>
-    </Svg>
-  </LayerCake>
+      <slot transform={$transformStore} />
+    </g>
+  </svg>
   {#if zoomable}
     <div class="map-controls">
       <ZoomControls showReset={$transformStore != zoomIdentity} {zoomIn} {zoomOut} {zoomReset} />

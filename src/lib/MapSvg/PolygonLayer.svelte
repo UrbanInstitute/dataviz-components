@@ -4,8 +4,7 @@
   import { geoPath } from "d3-geo";
   import { raise } from "layercake";
 
-  const { width, height } = getContext("LayerCake");
-  const { projection, features: globalFeatures, transform } = getContext("map");
+  const { width, height, projection, features: globalFeatures, transform } = getContext("map");
 
   /**
    * A color string or a function that takes a feature and returns a color string
