@@ -94,13 +94,9 @@
 
   function handleMousemove(feature) {
     return function handleMousemoveFn(e) {
-      // if (!pointerEvents) {
-      //   return;
-      // }
       raise(this);
       // When the element gets raised, it flashes 0,0 for a second so skip that
       if (e.layerX !== 0 && e.layerY !== 0) {
-        console.log("dispatch mousemove")
         dispatch("mousemove", { e, props: feature.properties });
       }
     };
@@ -108,11 +104,11 @@
 </script>
 
 <g
-  class="map-layer"
+  class="map-layer polygon-layer"
   on:mouseout={(e) => dispatch("mouseout")}
   on:blur={(e) => dispatch("mouseout")}
   style:--hover-fill={hoverFill || null}
-  style:--hover-stroke={hoverStroke || stroke}
+  style:--hover-stroke={hoverStroke || getStroke()}
   style:--hover-stroke-width="{(hoverStrokeWidth || strokeWidth) / $transform.k}px"
   style:pointe-events={pointerEvents ? "auto" : "none"}
   class:hover-fill={hoverFill}

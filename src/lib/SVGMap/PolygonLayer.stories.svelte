@@ -4,7 +4,6 @@
 
   export const meta = {
     title: "Components/SVGMap/PolygonLayer",
-    description: "A polygon layer for use in an `<SVGMap>` component.",
     component: PolygonLayer,
     tags: ["autodocs"],
     argTypes: {
@@ -15,7 +14,7 @@
     parameters: {
       docs: {
         description: {
-          component: "A polygon layer for use in an `<SVGMap>` component. Renders each `feature` as an svg `path` element."
+          component: "A polygon layer for use in an `<SVGMap>` component. Renders each `feature` as an svg `path` element, leveraging d3's geoPath function."
         }
       }
     }
@@ -27,11 +26,14 @@
   import { Story, Template } from "@storybook/addon-svelte-csf";
   import states from "../../docs/sample-data/states_geo.json";
   import { urbanColors } from "$lib/utils";
+
+  let mousemoveHandler = fn();
+  let mouseoutHandler = fn();
 </script>
 
-<Template let:args>
-  <SVGMap features={args.features}>
-    <PolygonLayer {...args} on:mouseout on:mousemove/>
+<Template let:args >
+  <SVGMap features={args.features} on:mouseout on:mousemove>
+    <PolygonLayer {...args} on:mouseout={mouseoutHandler} on:mousemove={mousemoveHandler}/>
   </SVGMap>
 </Template>
 
@@ -39,16 +41,21 @@
   name="Default"
   args={{
     features: states.features,
-    fill: urbanColors.blue
+    fill: urbanColors.blue,
   }}
 />
 
 <Story
   name="With event listeners"
   args={{
-    event_mousemove: fn(),
-    event_mouseout: fn(),
     features: states.features,
     fill: urbanColors.blue
+  }}
+  play={async ({ canvasElement, args }) => {
+    const feature = canvasElement.querySelector(".feature-path");
+    await userEvent.hover(feature);
+    await expect(mousemoveHandler).toHaveBeenCalled();
+    await userEvent.unhover(feature);
+    await expect(mouseoutHandler).toHaveBeenCalled();
   }}
 />

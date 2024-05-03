@@ -102,8 +102,6 @@
       class="zoom-group"
       transform="translate({$transformStore.x}, {$transformStore.y}) scale({$transformStore.k})"
     >
-      >
-
       <slot transform={$transformStore} />
     </g>
   </svg>
