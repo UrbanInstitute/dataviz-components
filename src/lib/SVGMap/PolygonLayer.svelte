@@ -99,6 +99,11 @@
       dispatch("mousemove", { e, props: feature.properties });
     }
   }
+
+  function handleClick(e, feature) {
+    raise(e.target)
+    dispatch("click", {e, props: feature.properties})
+  }
 </script>
 
 <g
@@ -119,6 +124,7 @@
       stroke-width={strokeWidth / $transform.k}
       d={geoPathFn(feature)}
       on:mousemove={(e) => handleMousemove(e, feature)}
+      on:click={(e) => handleClick(e, feature)}
     ></path>
   {/each}
 </g>
