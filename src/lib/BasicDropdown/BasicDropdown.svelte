@@ -4,6 +4,12 @@
   // define arguments
 
   /**
+   * Variant of dropdown (primary, secondary) // TODO: do dropdown
+   * @type {string} ["primary" | "secondary-blue" | "secondary-black" | "secondary-yellow"]
+   */
+  export let variant = "secondary-blue";
+
+  /**
    * Unique id given to the dropdown DOM node
    * @type {string}
    */
@@ -57,8 +63,9 @@
     bind:value
     name={id}
     {id}
-    class="dropdown-select"
-    style={`--bg-img: url("${arrow}"); width: ${dropdownWidth}px;`}
+    class={`dropdown-select ${variant}`}
+    style={`width: ${dropdownWidth}px; ` +
+      (variant === "primary" ? `--bg-img: url("${arrow}");` : null)}
     aria-label={inlineLabel}
     on:change
   >
@@ -81,12 +88,16 @@
   }
 
   .dropdown-select {
-    color: var(--color-gray-shade-darker);
-    padding: var(--spacing-2) var(--spacing-8) var(--spacing-2) var(--spacing-3);
+    cursor: pointer;
+    text-overflow: ellipsis;
     font-size: var(--font-size-normal);
     font-family: Lato, helvetica, sans-serif;
+  }
+
+  .dropdown-select.primary {
+    color: var(--color-gray-shade-darker);
+    padding: var(--spacing-2) var(--spacing-8) var(--spacing-2) var(--spacing-3);
     border: 1px solid var(--color-gray-shade-medium);
-    cursor: pointer;
     background-color: var(--color-white);
     background-image: var(--bg-img);
     background-size: var(--spacing-4) var(--spacing-4);
@@ -95,6 +106,30 @@
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    text-overflow: ellipsis;
+  }
+
+  .dropdown-select[class*="secondary-"] {
+    padding: var(--spacing-1) var(--spacing-4) var(--spacing-1) var(--spacing-3);
+    font-size: var(--font-size-normal);
+    font-weight: var(--font-weight-medium);
+    border-width: 1px;
+    border-style: solid;
+  }
+
+  .dropdown-select.secondary-blue {
+    color: var(--color-white);
+    background-color: var(--color-blue);
+  }
+
+  .dropdown-select.secondary-black {
+    color: var(--color-white);
+    background-color: var(--color-black);
+    border-color: var(--color-black);
+  }
+
+  .dropdown-select.secondary-yellow {
+    color: var(--color-black);
+    background-color: var(--color-yellow);
+    border-color: var(--color-yellow);
   }
 </style>
