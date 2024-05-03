@@ -2,6 +2,8 @@
 
 ## Next
 
+- Add LoadingWrapper component to provide a loading graphic for components that need it
+
 ## v0.8.0
 
 - Simplify CSS in Toggle component
