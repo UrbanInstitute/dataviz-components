@@ -13,6 +13,11 @@
   export let features;
   export let projection = geoAlbersUsa;
   export let zoomable = false;
+  /*
+   * Where the zoom control UI should be positioned.
+   * @type {"bottom-left" | "bottom-right" | "top-left" | "top-right"}
+   */
+  export let controlPosition = "bottom-right";
   export let height = 800;
 
   // create stores of map global settings to add to context
@@ -103,8 +108,8 @@
     </g>
   </svg>
   {#if zoomable}
-    <div class="map-controls">
-      <ZoomControls showReset={$transformStore != zoomIdentity} {zoomIn} {zoomOut} {zoomReset} />
+    <div class="map-controls {controlPosition}">
+      <ZoomControls  {controlPosition} showReset={$transformStore != zoomIdentity} {zoomIn} {zoomOut} {zoomReset} />
     </div>
   {/if}
 </div>
@@ -116,7 +121,21 @@
   }
   .map-controls {
     position: absolute;
+  }
+  .map-controls.bottom-right {
     bottom: var(--spacing-2);
+    right: var(--spacing-2);
+  }
+  .map-controls.bottom-left {
+    bottom: var(--spacing-2);
+    left: var(--spacing-2);
+  }
+  .map-controls.top-left {
+    top: var(--spacing-2);
+    left: var(--spacing-2);
+  }
+  .map-controls.top-right {
+    top: var(--spacing-2);
     right: var(--spacing-2);
   }
 </style>

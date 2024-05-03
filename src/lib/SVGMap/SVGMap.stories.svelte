@@ -10,7 +10,8 @@
     component: SVGMap,
     tags: ["autodocs"],
     argTypes: {
-      features: { control: "array" }
+      features: { control: "array" },
+      controlPosition: { control: "select", options: ["bottom-right", "bottom-left", "top-right", "top-left"] }
     },
     parameters: {
       docs: {
