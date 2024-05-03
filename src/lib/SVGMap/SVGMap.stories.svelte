@@ -3,7 +3,7 @@
   import PolygonLayer from "./PolygonLayer.svelte";
   import LabelLayer from "./LabelLayer.svelte";
   import PointLayer from "./PointLayer.svelte";
-  import description from "./docs/SVGMap.doc.md?raw";
+  import docs from "./SVGMap.docs.md?raw";
 
   export const meta = {
     title: "Components/SVGMap",
@@ -16,7 +16,7 @@
     parameters: {
       docs: {
         description: {
-          component: description
+          component: docs
         }
       }
     }

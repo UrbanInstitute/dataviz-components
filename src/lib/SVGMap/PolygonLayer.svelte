@@ -92,14 +92,12 @@
 
   const dispatch = createEventDispatcher();
 
-  function handleMousemove(feature) {
-    return function handleMousemoveFn(e) {
-      raise(this);
-      // When the element gets raised, it flashes 0,0 for a second so skip that
-      if (e.layerX !== 0 && e.layerY !== 0) {
-        dispatch("mousemove", { e, props: feature.properties });
-      }
-    };
+  function handleMousemove(e, feature) {
+    raise(e.target);
+    // When the element gets raised, it flashes 0,0 for a second so skip that
+    if (e.layerX !== 0 && e.layerY !== 0) {
+      dispatch("mousemove", { e, props: feature.properties });
+    }
   }
 </script>
 
@@ -120,7 +118,7 @@
       stroke={getStroke(feature)}
       stroke-width={strokeWidth / $transform.k}
       d={geoPathFn(feature)}
-      on:mousemove={handleMousemove(feature)}
+      on:mousemove={(e) => handleMousemove(e, feature)}
     ></path>
   {/each}
 </g>

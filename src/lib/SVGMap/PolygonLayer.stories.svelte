@@ -1,6 +1,7 @@
 <script context="module">
   import SVGMap from "./SVGMap.svelte";
   import PolygonLayer from "./PolygonLayer.svelte";
+  import docs from "./Polygonlayer.docs.md?raw";
 
   export const meta = {
     title: "Components/SVGMap/PolygonLayer",
@@ -14,7 +15,7 @@
     parameters: {
       docs: {
         description: {
-          component: "A polygon layer for use in an `<SVGMap>` component. Renders each `feature` as an svg `path` element, leveraging d3's geoPath function."
+          component: docs
         }
       }
     }
@@ -32,21 +33,13 @@
 </script>
 
 <Template let:args >
-  <SVGMap features={args.features} on:mouseout on:mousemove>
-    <PolygonLayer {...args} on:mouseout={mouseoutHandler} on:mousemove={mousemoveHandler}/>
+  <SVGMap features={args.features} >
+    <PolygonLayer {...args} on:mouseout on:mousemove on:mouseout={mouseoutHandler} on:mousemove={mousemoveHandler}/>
   </SVGMap>
 </Template>
 
 <Story
   name="Default"
-  args={{
-    features: states.features,
-    fill: urbanColors.blue,
-  }}
-/>
-
-<Story
-  name="With event listeners"
   args={{
     features: states.features,
     fill: urbanColors.blue
