@@ -2,6 +2,7 @@
   import { getContext } from "svelte";
   import { geoPath } from "d3-geo";
   import { urbanColors } from "$lib/utils";
+  import { fade } from "svelte/transition";
 
   const { width, height, transform, projection, features: mapFeatures } = getContext("map");
 
@@ -12,6 +13,7 @@
   export let strokeWidth = 3;
   export let textAnchor = "middle";
   export let dy = "-.5em";
+  export let minZoom = 0;
 
   export let getLabel = (d) => d;
 
@@ -25,7 +27,8 @@
   $: geoPathFn = geoPath(projectionFn);
 </script>
 
-<g>
+{#if !minZoom || $transform.k >= minZoom}
+<g transition:fade={{duration: 250}}>
   {#each features || $mapFeatures as feature}
     {@const [x, y] = geoPathFn.centroid(feature)}
     <g>
@@ -51,3 +54,4 @@
     </g>
   {/each}
 </g>
+{/if}

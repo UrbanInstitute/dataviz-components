@@ -27,6 +27,7 @@
   import states from "../../docs/sample-data/states_geo.json";
   import us_cities from "../../docs/sample-data/us_cities.json";
   import nyc_income_topo from "../../docs/sample-data/nyc_income_topo.json";
+  import nyc_ntas from "../../docs/sample-data/nyc_ntas.json";
   import county_air_quality_topo from "../../docs/sample-data/county_air_quality_topo.json";
   import cleveland_bike_data_topo from "../../docs/sample-data/cleveland_bike_to_work.json";
   import { urbanColors } from "$lib/utils";
@@ -36,6 +37,7 @@
 
   // nyc census tracts with average hh income
   const nyc_income = topojson.feature(nyc_income_topo, "nyc_income_geo1");
+  const nyc_neighborhoods = topojson.feature(nyc_ntas, "nyc_ntas");
 
   let incomeScale = scaleQuantize()
     .domain(extent(nyc_income.features, (d) => d.properties.estimate))
@@ -88,6 +90,11 @@
       hoverStroke={urbanColors.gray_shade_darker}
       hoverStrokeWidth={2}
     />
+    <LabelLayer 
+      features={nyc_neighborhoods.features}
+      getLabel={(d) => d.properties.ntaname}
+      minZoom={3}
+      />
   </SVGMap>
 </Story>
 <Story name="Cleveland bike to work">

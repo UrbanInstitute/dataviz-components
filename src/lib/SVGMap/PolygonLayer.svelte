@@ -7,7 +7,7 @@
   const { width, height, projection, features: globalFeatures, transform } = getContext("map");
 
   /**
-   * A color string or a function that takes a feature and returns a color string
+   * A color string or a function that takes a feature and returns a color string. Use in combination with a D3 scale for a dynamic color encoding.
    * @type { (Object) => string | string } [fill = urbanColors.blue] A string or function that returns a string to use as this layers fill color.
    */
   export let fill = urbanColors.blue;
@@ -54,9 +54,17 @@
    */
   export let reflectY = false;
 
-  /** @type {Array} [features] - A list of GeoJSON features. Use this if you want to draw a subset of the features in `$data` while keeping the zoom on the whole GeoJSON feature set. By default, it plots everything in `$data.features` if left unset. */
+  /**
+   * A list of GeoJSON features. By default this component will render the features set in the parent SVGMap, but if `features` is defined, it plots those instead.
+   * @type {Array} [features]
+   */
   export let features = undefined;
 
+  /**
+   * Boolean that determines if this layer should respond to pointer events and dispatch events.
+   * @type {boolean} [pointerEvents]
+   */
+  export let pointerEvents = true;
 
   function getFill(feature) {
     if (typeof fill === "string") {
@@ -86,9 +94,13 @@
 
   function handleMousemove(feature) {
     return function handleMousemoveFn(e) {
+      // if (!pointerEvents) {
+      //   return;
+      // }
       raise(this);
       // When the element gets raised, it flashes 0,0 for a second so skip that
       if (e.layerX !== 0 && e.layerY !== 0) {
+        console.log("dispatch mousemove")
         dispatch("mousemove", { e, props: feature.properties });
       }
     };
@@ -101,7 +113,8 @@
   on:blur={(e) => dispatch("mouseout")}
   style:--hover-fill={hoverFill || null}
   style:--hover-stroke={hoverStroke || stroke}
-  style:--hover-stroke-width="{(hoverStrokeWidth || strokeWidth)/$transform.k}px"
+  style:--hover-stroke-width="{(hoverStrokeWidth || strokeWidth) / $transform.k}px"
+  style:pointe-events={pointerEvents ? "auto" : "none"}
   class:hover-fill={hoverFill}
 >
   {#each features || $globalFeatures as feature}
@@ -109,7 +122,7 @@
       class="feature-path"
       fill={getFill(feature) || naFill}
       stroke={getStroke(feature)}
-      stroke-width={strokeWidth/$transform.k}
+      stroke-width={strokeWidth / $transform.k}
       d={geoPathFn(feature)}
       on:mousemove={handleMousemove(feature)}
     ></path>
