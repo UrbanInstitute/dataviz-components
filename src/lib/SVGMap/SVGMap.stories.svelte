@@ -28,9 +28,10 @@
   import us_cities from "../../docs/sample-data/us_cities.json";
   import nyc_income_topo from "../../docs/sample-data/nyc_income_topo.json";
   import county_air_quality_topo from "../../docs/sample-data/county_air_quality_topo.json";
+  import cleveland_bike_data_topo from "../../docs/sample-data/cleveland_bike_to_work.json";
   import { urbanColors } from "$lib/utils";
   import { geoMercator, geoAlbersUsa } from "d3-geo";
-  import { scaleQuantize } from "d3-scale";
+  import { scaleQuantize, scaleQuantile, scaleLinear } from "d3-scale";
   import { extent, max } from "d3-array";
 
   // nyc census tracts with average hh income
@@ -43,10 +44,16 @@
   // county air quality data
   const county_air_quality = topojson.feature(county_air_quality_topo, "county_air_quality_geo");
 
-  let airQualityScale = scaleQuantize()
-    .domain(extent(county_air_quality.features, (d) => d.properties.index_air_quality))
+  let airQualityScale = scaleQuantile()
+    .domain(county_air_quality.features.map((d) => d.properties.index_air_quality))
     // .range([urbanColors.yellow_shade_darkest, urbanColors.yellow_shade_dark, urbanColors.yellow, urbanColors.yellow_shade_light, urbanColors.yellow_shade_lighter]);
     .range(urbanColors.getDivergingColors());
+
+  let cleveland_bike_data = topojson.feature(cleveland_bike_data_topo, "cleveland_bike_to_work");
+  let bikeScale = scaleQuantize()
+    .domain(extent(cleveland_bike_data.features
+      , (d) => d.properties.bike_to_work))
+    .range(urbanColors.getMapBlues())
 
   const us_cities_geo = topojson.feature(us_cities, "us_cities");
 </script>
@@ -56,7 +63,7 @@
 </Template>
 
 <Story name="county air quality">
-  <SVGMap projection={geoAlbersUsa} features={county_air_quality.features}>
+  <SVGMap zoomable projection={geoAlbersUsa} features={county_air_quality.features}>
     <PolygonLayer
       fill={(d) => airQualityScale(d.properties.index_air_quality)}
       stroke={urbanColors.gray_shade_dark}
@@ -78,6 +85,16 @@
     <PolygonLayer
       fill={(d) => incomeScale(d.properties.estimate)}
       stroke={(d) => incomeScale(d.properties.estimate)}
+      hoverStroke={urbanColors.gray_shade_darker}
+      hoverStrokeWidth={2}
+    />
+  </SVGMap>
+</Story>
+<Story name="Cleveland bike to work">
+  <SVGMap zoomable features={cleveland_bike_data.features} projection={geoMercator}>
+    <PolygonLayer
+      fill={(d) => bikeScale(d.properties.bike_to_work)}
+      stroke="white"
       hoverStroke={urbanColors.gray_shade_darker}
       hoverStrokeWidth={2}
     />
