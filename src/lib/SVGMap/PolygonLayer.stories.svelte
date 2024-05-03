@@ -30,11 +30,12 @@
 
   let mousemoveHandler = fn();
   let mouseoutHandler = fn();
+  let clickHandler = fn();
 </script>
 
 <Template let:args >
   <SVGMap features={args.features} >
-    <PolygonLayer {...args} on:mouseout on:mousemove on:mouseout={mouseoutHandler} on:mousemove={mousemoveHandler}/>
+    <PolygonLayer {...args} on:click on:mouseout on:mousemove on:click={clickHandler} on:mouseout={mouseoutHandler} on:mousemove={mousemoveHandler}/>
   </SVGMap>
 </Template>
 
@@ -50,5 +51,7 @@
     await expect(mousemoveHandler).toHaveBeenCalled();
     await userEvent.unhover(feature);
     await expect(mouseoutHandler).toHaveBeenCalled();
+    await userEvent.click(feature);
+    await expect(clickHandler).toHaveBeenCalled();
   }}
 />
