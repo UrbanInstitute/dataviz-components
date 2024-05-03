@@ -64,7 +64,7 @@
     <DatawrapperIframe
       title="This is a title for the visualization"
       ariaLabel="This is an accessible title for the visualization"
-      datawrapperId="RMnkX"
+      datawrapperId="qF5No"
       on:visrendered={() => (mapLoading = false)}
     />
   </LoadingWrapper>
