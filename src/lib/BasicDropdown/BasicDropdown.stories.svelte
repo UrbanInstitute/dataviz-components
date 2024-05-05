@@ -7,8 +7,13 @@
     component: BasicDropdown,
     tags: ["autodocs"],
     argTypes: {
-      arrowFillColor: { control: "color" },
-      data: { control: "object" }
+      variant: {
+        options: ["primary", "secondary-blue", "secondary-black", "secondary-yellow"],
+        control: { type: "select" }
+      },
+      data: { control: "object" },
+      showLabel: { control: "boolean" },
+      value: { control: "text" }
     },
     parameters: {
       docs: {
@@ -25,10 +30,10 @@
   import { fireEvent, within, expect } from "@storybook/test";
 
   const sampleData = [
-    { value: "Ohio", label: "Ohio" },
-    { value: "Pennsylvania", label: "Pennsylvania" },
-    { value: "New York", label: "New York" },
-    { value: "Maryland", label: "Maryland" }
+    { value: "ohio", label: "Ohio" },
+    { value: "pennsylvania", label: "Pennsylvania" },
+    { value: "new_york", label: "New York" },
+    { value: "maryland", label: "Maryland" }
   ];
 </script>
 
@@ -39,12 +44,13 @@
 <Story
   name="Default"
   args={{
+    variant: "primary",
     id: "dropdown-story",
-    dropdownWidth: 260,
-    inlineLabel: "Dropdown label",
-    arrowFillColor: "#1696D1",
+    data: sampleData,
+    value: null,
     placeholder: "Select a state",
-    data: sampleData
+    dropdownWidth: 260,
+    inlineLabel: "Dropdown label"
   }}
 />
 
@@ -54,7 +60,7 @@
     id: "dropdown-story-2",
     inlineLabel: "Dropdown with value",
     placeholder: "Select a state",
-    value: "Ohio",
+    value: "ohio",
     data: sampleData
   }}
 />
