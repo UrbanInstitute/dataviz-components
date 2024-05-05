@@ -51,8 +51,6 @@
 </script>
 
 <div class="dropdown-container">
-  <IconChevronFull />
-
   <label aria-hidden="true" hidden={!showLabel} for={id}>{inlineLabel} </label>
   <select
     bind:value
@@ -88,18 +86,11 @@
     color: var(--color-gray-shade-darker);
   }
 
-  .dropdown-select {
+  select {
     cursor: pointer;
     text-overflow: ellipsis;
     font-size: var(--font-size-normal);
     font-family: Lato, helvetica, sans-serif;
-  }
-
-  .dropdown-select.primary {
-    color: var(--color-gray-shade-darker);
-    padding: var(--spacing-2) var(--spacing-8) var(--spacing-2) var(--spacing-3);
-    border: 1px solid var(--color-gray-shade-medium);
-    background-color: var(--color-white);
     background-image: var(--bg-img);
     background-size: var(--spacing-4) var(--spacing-4);
     background-repeat: no-repeat;
@@ -109,12 +100,20 @@
     appearance: none;
   }
 
+  .dropdown-select.primary {
+    color: var(--color-gray-shade-darker);
+    padding: var(--spacing-2) var(--spacing-8) var(--spacing-2) var(--spacing-3);
+    border: 1px solid var(--color-gray-shade-medium);
+    background-color: var(--color-white);
+  }
+
   .dropdown-select[class*="secondary-"] {
-    padding: var(--spacing-1) var(--spacing-4) var(--spacing-1) var(--spacing-3);
+    padding: var(--spacing-1) var(--spacing-4);
     font-size: var(--font-size-normal);
-    font-weight: var(--font-weight-medium);
+    font-weight: var(--font-weight-bold);
     border-width: 1px;
     border-style: solid;
+    line-height: 150%;
   }
 
   .dropdown-select.secondary-blue {
