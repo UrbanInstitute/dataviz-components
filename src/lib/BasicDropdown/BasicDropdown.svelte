@@ -26,10 +26,16 @@
   export let data;
 
   /**
-   * Label for the dropdown (currently hidden)
+   * Label for the dropdown (used for accessibility even if showLabel is set to false)
    * @type {string}
    */
   export let inlineLabel;
+
+  /**
+   * Show label above dropdown
+   * @type {boolean}
+   */
+  export let showLabel = false;
 
   /**
    * placeholder for when no option is selected (accepts a null value)
@@ -42,12 +48,6 @@
    * @type {number}
    */
   export let dropdownWidth = 260;
-
-  /**
-   * Show label above dropdown
-   * @type {boolean}
-   */
-  export let showLabel = false;
 </script>
 
 <div class="dropdown-container">
@@ -78,7 +78,14 @@
 <style>
   .dropdown-container {
     display: flex;
-    align-items: center;
+    font-size: var(--font-size-small);
+    flex-direction: column;
+    gap: var(--spacing-2);
+  }
+
+  label {
+    text-transform: uppercase;
+    color: var(--color-gray-shade-darker);
   }
 
   .dropdown-select {
@@ -113,6 +120,7 @@
   .dropdown-select.secondary-blue {
     color: var(--color-white);
     background-color: var(--color-blue);
+    border-color: var(--color-blue);
   }
 
   .dropdown-select.secondary-black {
