@@ -62,8 +62,19 @@
 </script>
 
 <Template let:args>
-  <SVGMap {...args}></SVGMap>
+  <SVGMap {...args}>
+    <PolygonLayer />
+    <PointLayer />
+    <LabelLayer getLabel={(d) => d.properties.STUSPS}/>
+  </SVGMap>
 </Template>
+
+<Story name="default"
+  args={{
+    features: states.features
+  }}
+>
+</Story>
 
 <Story name="county air quality">
   <SVGMap scrollWheel="ctrl" zoomable projection={geoAlbersUsa} features={county_air_quality.features}>
