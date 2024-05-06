@@ -25,14 +25,18 @@
    * @type { string } [ariaRole = undefined]
    */
   export let ariaRole = undefined;
-  $: console.log("ariaRole undefined", ariaRole === undefined);
-  $: console.log("ariaRole", ariaRole);
 
   /*
    * Optional aria label string to be applied to SVG container. By default, the SVG is hidden from the accessiblity tree and should include a descriptive label. If you add an ariaRole this property can be left undefined;
    * @type { string } [ariaRole = undefined]
    */
   export let ariaLabel = undefined;
+
+  /**
+   * Whether or not the map should zoom when scroll wheel is used on map.
+   * @type {"no" | "yes" | "ctrl"}
+   */
+  export let scrollWheel = "no";
 
   // create stores of map global settings to add to context
   $: projectionStore = readable(projection);
@@ -65,8 +69,19 @@
     // create zoom instance
     mapZoom = zoom()
       .scaleExtent([1, 8])
+      .filter((event) => {
+        if (scrollWheel === "ctrl") {
+          // Only allow zooming with wheel when ctrlKey is pressed
+          return event.type === "wheel" ? event.ctrlKey : true;
+        } else if (scrollWheel === "no") {
+          // No scroll wheel events
+          return event.type !== "wheel"
+        }
+        // All events
+        return true;
+      })
       .on("zoom", ({ transform }) => transformStore.set(transform));
-    svgSelection.call(mapZoom).on("wheel.zoom", null);
+    svgSelection.call(mapZoom);
   }
 
   function zoomIn() {
@@ -110,9 +125,9 @@
   bind:clientWidth={$widthStore}
   bind:clientHeight={$heightStore}
   style:height="{height}px"
-  aria-hidden={(typeof ariaRole === "undefined")}
+  aria-hidden={typeof ariaRole === "undefined"}
   role={ariaRole}
-  aria-label={ariaLabel}
+  aria-label="{ariaLabel}svgmap"
 >
   <svg width={$widthStore} height={$heightStore}>
     <g
@@ -124,7 +139,13 @@
   </svg>
   {#if zoomable}
     <div class="map-controls {controlPosition}">
-      <ZoomControls  {controlPosition} showReset={$transformStore != zoomIdentity} {zoomIn} {zoomOut} {zoomReset} />
+      <ZoomControls
+        {controlPosition}
+        showReset={$transformStore != zoomIdentity}
+        {zoomIn}
+        {zoomOut}
+        {zoomReset}
+      />
     </div>
   {/if}
 </div>

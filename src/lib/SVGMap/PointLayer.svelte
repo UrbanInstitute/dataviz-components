@@ -32,7 +32,18 @@
 
   export let stroke = urbanColors.black;
   export let strokeWidth = 0;
-  export let r = 3;
+
+  /**
+   * Function or static value to use for radius of circle
+   * @type {number | (Object) => number}
+   */
+  export let r = 4;
+
+  /**
+   * Opacity of point circles
+   * @type { number }
+   */
+  export let opacity = 1;
 
   $: fitSizeRange = [$width, $height];
 
@@ -42,23 +53,40 @@
   });
 
   $: geoPathFn = geoPath(projectionFn);
+
+  function getRadius(feature) {
+    if (typeof r == "number") {
+      return r;
+    }
+    return r(feature);
+  }
 </script>
 
 <g>
   {#each features || $globalFeatures as feature}
     {@const [x, y] = geoPathFn.centroid(feature)}
     {#if $$slots.default}
-      <!-- Optional slot that renders once for each feature. Overrides default SVG `<circle>` element. Receives `feature`, `x` and `y` as props.-->
-      <slot {feature} {x} {y} />
+      <!-- Optional slot that renders once for each feature. Overrides default SVG `<circle>` element.-->
+      <slot {feature} {x} {y} {hoverFill} />
     {:else}
       <circle
+        class="point-feature"
         cx={x}
         cy={y}
-        {fill}
-        r={r / $transform.k}
+        {opacity}
+        fill={getFill(feature, fill, naFill)}
+        r={getRadius(feature) / $transform.k}
         stroke-width={strokeWidth / $transform.k}
+        style:--hover-fill={hoverFill}
+        class:hover-fill={typeof hoverFill !== "undefined"}
         {stroke}
       />
     {/if}
   {/each}
 </g>
+
+<style>
+.point-feature.hover-fill:hover {
+  fill: var(--hover-fill);
+}
+</style>

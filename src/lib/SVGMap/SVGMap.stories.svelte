@@ -66,7 +66,7 @@
 </Template>
 
 <Story name="county air quality">
-  <SVGMap zoomable projection={geoAlbersUsa} features={county_air_quality.features}>
+  <SVGMap scrollWheel="ctrl" zoomable projection={geoAlbersUsa} features={county_air_quality.features}>
     <PolygonLayer
       fill={(d) => airQualityScale(d.properties.index_air_quality)}
       stroke={urbanColors.gray_shade_dark}
