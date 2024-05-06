@@ -20,6 +20,20 @@
   export let controlPosition = "bottom-right";
   export let height = 800;
 
+  /*
+   * Optional aria role string to be applied to SVG container. By default, the SVG is hidden from the accessiblity tree. If you add an ariaRole here, any layers should also be given an ariaRole.
+   * @type { string } [ariaRole = undefined]
+   */
+  export let ariaRole = undefined;
+  $: console.log("ariaRole undefined", ariaRole === undefined);
+  $: console.log("ariaRole", ariaRole);
+
+  /*
+   * Optional aria label string to be applied to SVG container. By default, the SVG is hidden from the accessiblity tree and should include a descriptive label. If you add an ariaRole this property can be left undefined;
+   * @type { string } [ariaRole = undefined]
+   */
+  export let ariaLabel = undefined;
+
   // create stores of map global settings to add to context
   $: projectionStore = readable(projection);
   $: featuresStore = readable(features);
@@ -96,6 +110,9 @@
   bind:clientWidth={$widthStore}
   bind:clientHeight={$heightStore}
   style:height="{height}px"
+  aria-hidden={(typeof ariaRole === "undefined")}
+  role={ariaRole}
+  aria-label={ariaLabel}
 >
   <svg width={$widthStore} height={$heightStore}>
     <g
@@ -135,5 +152,8 @@
   .map-controls.top-right {
     top: var(--spacing-2);
     right: var(--spacing-2);
+  }
+  .zoom-group:focus {
+    outline: none;
   }
 </style>

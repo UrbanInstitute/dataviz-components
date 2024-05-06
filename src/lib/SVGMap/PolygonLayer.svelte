@@ -3,6 +3,7 @@
   import urbanColors from "$lib/utils/urbanColors.js";
   import { geoPath } from "d3-geo";
   import { raise } from "layercake";
+  import { getFill, getStroke } from "./lib.js";
 
   const { width, height, projection, features: globalFeatures, transform } = getContext("map");
 
@@ -66,19 +67,17 @@
    */
   export let pointerEvents = true;
 
-  function getFill(feature) {
-    if (typeof fill === "string") {
-      return fill;
-    }
-    return fill(feature);
-  }
+  /*
+   * Optional aria role string to be applied to each feature. Defaults to no role, assuming that SVG is hidden from the accessiblity tree.
+   * @type { string } [ariaRole = undefined]
+   */
+  export let ariaRole = undefined;
 
-  function getStroke(feature) {
-    if (typeof stroke === "string") {
-      return stroke;
-    }
-    return stroke(feature);
-  }
+  /*
+   * Optional aria label string or function to be applied to each feature. Defaults to no label, assuming that SVG is hidden from the accessiblity tree. If a function is passed, it should take a `feature` as an argument and return a label string.
+   * @type { string | (Object) => string } [ariaLabel = undefined]
+   */
+  export let ariaLabel = undefined;
 
   $: fitSizeRange = [$width, $height];
 
@@ -86,11 +85,18 @@
     ? $projection()
         .reflectY(true)
         .fitSize(fitSizeRange, { type: "FeatureCollection", features: $globalFeatures })
-    : $projection().fitSize(fitSizeRange, { type: "FeatureCollection", features: $globalFeatures });
+    : $projection().fitSize(fitSizeRange, { type: "FeatureCollection", features: $globalFeatures || features });
 
   $: geoPathFn = geoPath(projectionFn);
 
   const dispatch = createEventDispatcher();
+
+  function getAriaLabel(feature) {
+    if (typeof ariaLabel === "string" || typeof ariaLabel === "undefined") {
+      return ariaLabel;
+    }
+    return ariaLabel(feature);
+  }
 
   function handleMousemove(e, feature) {
     raise(e.target);
@@ -106,12 +112,13 @@
   }
 </script>
 
+<!-- svelte-ignore a11y-no-static-element-interactions -->
 <g
   class="map-layer polygon-layer"
   on:mouseout={(e) => dispatch("mouseout")}
   on:blur={(e) => dispatch("mouseout")}
   style:--hover-fill={hoverFill || null}
-  style:--hover-stroke={hoverStroke || getStroke()}
+  style:--hover-stroke={hoverStroke || null}
   style:--hover-stroke-width="{(hoverStrokeWidth || strokeWidth) / $transform.k}px"
   style:pointe-events={pointerEvents ? "auto" : "none"}
   class:hover-fill={hoverFill}
@@ -119,8 +126,11 @@
   {#each features || $globalFeatures as feature}
     <path
       class="feature-path"
-      fill={getFill(feature) || naFill}
-      stroke={getStroke(feature)}
+      role={ariaRole}
+      label={getAriaLabel(feature)}
+      style:--hover-stroke={hoverStroke || getStroke(feature, stroke)}
+      fill={getFill(feature, fill, naFill)}
+      stroke={getStroke(feature, stroke)}
       stroke-width={strokeWidth / $transform.k}
       d={geoPathFn(feature)}
       on:mousemove={(e) => handleMousemove(e, feature)}
@@ -144,7 +154,7 @@
    * https://developer.mozilla.org/en-US/docs/Web/CSS/:focus
    * https://github.com/mhkeller/layercake/issues/63
    */
-  .feature-path:focus {
+  .feature-path:focus, .polygon-layer:focus {
     outline: none;
   }
 </style>
