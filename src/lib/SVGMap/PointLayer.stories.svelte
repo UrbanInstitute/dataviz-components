@@ -10,7 +10,7 @@
     argTypes: {
       features: { control: "array" },
       fill: { control: "text" },
-      stroke: { control: "number" }
+      stroke: { control: "text" }
     },
     parameters: {
       docs: {
@@ -51,7 +51,9 @@
   name="Default"
   args={{
     features: states.features,
-    fill: urbanColors.blue
+    stroke: urbanColors.blue_shade_darker,
+    fill: urbanColors.blue,
+    hoverFill: urbanColors.magenta,
   }}
   play={async ({ canvasElement, args }) => {
     const feature = canvasElement.querySelector(".feature-path");
