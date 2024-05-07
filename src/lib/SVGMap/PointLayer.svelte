@@ -166,7 +166,8 @@
 </g>
 
 <style>
-  .point-feature.hover-fill:hover, .point-feature.highlight {
+  .point-feature.hover-fill:hover,
+  .point-feature.highlight {
     fill: var(--hover-fill);
   }
   .point-feature:hover {

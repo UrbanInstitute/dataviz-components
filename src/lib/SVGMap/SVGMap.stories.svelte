@@ -63,8 +63,11 @@
 
   // pa population
   const pa_population_geo = topojson.feature(pa_population_topo, "pa_county_population");
-  const paPopRadiusScale = scaleSqrt().domain(extent(pa_population_geo.features, d => d.properties.value)).range([2, 50]);
+  const paPopRadiusScale = scaleSqrt()
+    .domain(extent(pa_population_geo.features, (d) => d.properties.value))
+    .range([2, 50]);
 </script>
+
 <Template let:args>
   <SVGMap {...args}>
     <PolygonLayer />
@@ -126,17 +129,14 @@
       hoverStroke={urbanColors.yellow}
       hoverStrokeWidth={2}
       highlightFeature={(d) => d.properties.GEOID === clevelandHighlight}
-      on:click={(e) => clevelandHighlight = e.detail.props.GEOID}
+      on:click={(e) => (clevelandHighlight = e.detail.props.GEOID)}
     />
   </SVGMap>
 </Story>
 
 <Story name="Bubble map">
   <SVGMap features={pa_population_geo.features} projection={geoMercator}>
-    <PolygonLayer
-      fill={urbanColors.gray_shade_lighter}
-      stroke={urbanColors.gray}
-    />
+    <PolygonLayer fill={urbanColors.gray_shade_lighter} stroke={urbanColors.gray} />
     <PointLayer
       fill={urbanColors.blue}
       opacity={0.5}
