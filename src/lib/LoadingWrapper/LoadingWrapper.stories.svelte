@@ -29,16 +29,16 @@
   }
 
   // set loading for paragraph examples, sleep for 2.5 sec on mount
-  $: loading = true;
+  $: isChildLoading = true;
   onMount(() => {
     sleep(2500).then(() => {
-      loading = false;
+      isChildLoading = false;
     });
   });
 </script>
 
 <Story name="Default">
-  <LoadingWrapper isChildLoading={loading}>
+  <LoadingWrapper {isChildLoading}>
     <span
       >Amet est Lorem qui ullamco laboris velit. Incididunt est sunt exercitation qui ea. Officia
       Lorem est labore amet irure nostrud. Exercitation Lorem do consectetur enim esse quis mollit
@@ -48,7 +48,7 @@
 </Story>
 
 <Story name="Custom graphic">
-  <LoadingWrapper isChildLoading={loading}>
+  <LoadingWrapper {isChildLoading}>
     <LogoUrbanWide slot="graphic" />
     <span
       >Amet est Lorem qui ullamco laboris velit. Incididunt est sunt exercitation qui ea. Officia
@@ -59,12 +59,12 @@
 </Story>
 
 <Story name="Datawrapper example">
-  <LoadingWrapper let:childLoaded>
+  <LoadingWrapper let:setChildLoaded>
     <DatawrapperIframe
       title="This is a title for the visualization"
       ariaLabel="This is an accessible title for the visualization"
       datawrapperId="qF5No"
-      on:visrendered={childLoaded}
+      on:visrendered={setChildLoaded}
     />
   </LoadingWrapper>
 </Story>

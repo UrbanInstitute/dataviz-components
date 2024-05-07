@@ -6,6 +6,8 @@
 </script>
 
 <script>
+  import LoadingWrapper from "$lib/LoadingWrapper/LoadingWrapper.svelte";
+
   import { Story } from "@storybook/addon-svelte-csf";
   import DatawrapperIframe from "$lib/DatawrapperIframe/DatawrapperIframe.svelte";
   import BasicDropdown from "$lib/BasicDropdown/BasicDropdown.svelte";
@@ -18,6 +20,8 @@
     { value: "91Q0t", label: "Chart #2" },
     { value: "eaD2D", label: "Chart #3" }
   ];
+
+  let selectedChartLoading = "Toh1S";
 </script>
 
 <Story
@@ -81,5 +85,21 @@
   <Button on:click={() => (selectedChart = "eaD2D")}>Chart #3</Button>
   {#key selectedChart}
     <DatawrapperIframe datawrapperId={selectedChart} />
+  {/key}
+</Story>
+
+<Story name="Loading" source={``}>
+  <Button on:click={() => (selectedChart = "Toh1S")}>Chart #1</Button>
+  <Button on:click={() => (selectedChart = "rgLU1")}>Chart #2</Button>
+  <Button on:click={() => (selectedChart = "JNfqf")}>Chart #3</Button>
+
+  {#key selectedChart}
+    <LoadingWrapper let:setChildLoaded let:setChildLoading>
+      <DatawrapperIframe
+        datawrapperId={selectedChartLoading}
+        on:startrender={setChildLoading}
+        on:visrendered={setChildLoaded}
+      />
+    </LoadingWrapper>
   {/key}
 </Story>

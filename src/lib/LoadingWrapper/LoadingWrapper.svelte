@@ -6,21 +6,22 @@
    * Boolean indicating whether the child component is loading or not
    * @type {boolean}
    */
-  export let isChildLoading;
-
-  let childLoaded = () => {
-    isChildLoading = false;
-  };
-
-  let childLoading = () => {
-    isChildLoading = true;
-  };
+  export let isChildLoading = true;
 
   /**
    * The background color of the loading container (can be null for transparent background)
    * @type {string | null} ["white"]
    */
   export let backgroundColor = urbanColors.white;
+
+  // define functions to expose that set isChildLoading
+  let setChildLoaded = () => {
+    isChildLoading = false;
+  };
+
+  let setChildLoading = () => {
+    isChildLoading = true;
+  };
 </script>
 
 <div class="container">
@@ -31,7 +32,7 @@
       </slot>
     </div>
   {/if}
-  <slot {isChildLoading} {childLoading} {childLoaded} />
+  <slot {setChildLoading} {setChildLoaded} />
 </div>
 
 <style>
