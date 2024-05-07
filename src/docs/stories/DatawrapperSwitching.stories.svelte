@@ -21,7 +21,7 @@
     { value: "eaD2D", label: "Chart #3" }
   ];
 
-  let selectedChartLoading = "Toh1S";
+  let selectedChartLoading = "WsGs1";
 </script>
 
 <Story
@@ -102,9 +102,9 @@
   {/key}
 `}
 >
-  <Button on:click={() => (selectedChart = "Toh1S")}>Chart #1</Button>
-  <Button on:click={() => (selectedChart = "rgLU1")}>Chart #2</Button>
-  <Button on:click={() => (selectedChart = "JNfqf")}>Chart #3</Button>
+  <Button on:click={() => (selectedChartLoading = "WsGs1")}>Chart #1</Button>
+  <Button on:click={() => (selectedChartLoading = "ug91F")}>Chart #2</Button>
+  <Button on:click={() => (selectedChartLoading = "9ZUog")}>Chart #3</Button>
 
   {#key selectedChart}
     <LoadingWrapper let:setChildLoaded let:setChildLoading>
