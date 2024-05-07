@@ -73,7 +73,8 @@
   name="With value selected"
   args={{
     id: "dropdown-story-3",
-    placeholder: "Select a state"
+    placeholder: "Select a state",
+    inlineLabel: "Dropdown with selected value"
   }}
   play={async ({ canvasElement }) => {
     const canvas = within(canvasElement);
