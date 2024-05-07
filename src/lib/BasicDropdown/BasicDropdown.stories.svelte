@@ -13,7 +13,8 @@
       },
       data: { control: "object" },
       showLabel: { control: "boolean" },
-      value: { control: "text" }
+      value: { control: "text" },
+      placeholder: { control: "text" }
     },
     parameters: {
       docs: {
@@ -91,6 +92,16 @@
     id: "dropdown-story-4",
     inlineLabel: "Dropdown without a value",
     placeholder: null,
+    data: sampleData
+  }}
+/>
+
+<Story
+  name="Secondary variant"
+  args={{
+    variant: "secondary-blue",
+    id: "dropdown-story-5",
+    inlineLabel: "Dropdown value",
     data: sampleData
   }}
 />
