@@ -59,11 +59,12 @@
 </Story>
 
 <Story name="Datawrapper example">
-  <LoadingWrapper let:setChildLoaded>
+  <LoadingWrapper let:setChildLoading let:setChildLoaded>
     <DatawrapperIframe
       title="This is a title for the visualization"
       ariaLabel="This is an accessible title for the visualization"
       datawrapperId="qF5No"
+      on:startrender={setChildLoading}
       on:visrendered={setChildLoaded}
     />
   </LoadingWrapper>

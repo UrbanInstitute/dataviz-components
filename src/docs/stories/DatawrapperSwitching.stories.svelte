@@ -88,7 +88,20 @@
   {/key}
 </Story>
 
-<Story name="Loading" source={``}>
+<Story
+  name="Loading"
+  source={`
+  {#key selectedChart}
+    <LoadingWrapper let:setChildLoaded let:setChildLoading>
+      <DatawrapperIframe
+        datawrapperId={selectedChart}
+        on:startrender={setChildLoading}
+        on:visrendered={setChildLoaded}
+      />
+    </LoadingWrapper>
+  {/key}
+`}
+>
   <Button on:click={() => (selectedChart = "Toh1S")}>Chart #1</Button>
   <Button on:click={() => (selectedChart = "rgLU1")}>Chart #2</Button>
   <Button on:click={() => (selectedChart = "JNfqf")}>Chart #3</Button>
