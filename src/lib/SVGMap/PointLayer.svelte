@@ -109,7 +109,7 @@
 </script>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
-<g class="point-layer" on:mouseout={(e) => dispatch("mouseout")} on:blur={(e) => dispatch("mouseout")}>
+<g class="point-layer map-layer" on:mouseout={(e) => dispatch("mouseout")} on:blur={(e) => dispatch("mouseout")}>
   {#each features || $globalFeatures as feature}
     {@const [x, y] = geoPathFn.centroid(feature)}
     {#if $$slots.default}
