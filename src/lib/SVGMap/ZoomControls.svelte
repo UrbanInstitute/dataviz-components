@@ -3,10 +3,48 @@
   export let zoomOut;
   export let zoomReset;
   export let showReset = false;
+  /*
+   * Where the zoom control UI should be positioned.
+   * @type {"bottom-left" | "bottom-right" | "top-left" | "top-right"}
+   */
+  export let controlPosition;
+
+  $: top = controlPosition.includes("top");
 </script>
 
-<div class="zoom-controls">
-  <button class="zoom-button" on:click={zoomOut}>
+<div class="zoom-controls {controlPosition}">
+  {#if showReset && top}
+    <button class="zoom-button zoom-reset" on:click={zoomReset}>
+      <svg
+        width="15"
+        height="15"
+        viewBox="0 0 15 15"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M0 0H6V2H2V6H0V0Z" fill="black" />
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M15 0L15 6L13 6L13 2L9 2L9 -2.62268e-07L15 0Z"
+          fill="black"
+        />
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M15 15L9 15L9 13L13 13L13 9L15 9L15 15Z"
+          fill="black"
+        />
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M0 15L-2.62268e-07 9L2 9L2 13L6 13L6 15L0 15Z"
+          fill="black"
+        />
+      </svg>
+    </button>
+  {/if}
+  <button class="zoom-button zoom-out" on:click={zoomOut}>
     <svg width="11" height="3" viewBox="0 0 11 3" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         fill-rule="evenodd"
@@ -26,8 +64,8 @@
       />
     </svg>
   </button>
-  {#if showReset}
-    <button class="zoom-button" on:click={zoomReset}>
+  {#if showReset && !top}
+    <button class="zoom-button zoom-reset" on:click={zoomReset}>
       <svg
         width="15"
         height="15"
@@ -76,14 +114,14 @@
     align-items: center;
     justify-content: center;
   }
-  .zoom-button:nth-child(3) {
+  .zoom-reset {
     margin-block: var(--spacing-1);
     border-radius: var(--border-radius);
   }
-  .zoom-button:nth-child(1) {
+  .zoom-out {
     border-radius: 0 0 var(--border-radius) var(--border-radius);
   }
-  .zoom-button:nth-child(2) {
+  .zoom-in {
     border-radius: var(--border-radius) var(--border-radius) 0 0;
   }
 </style>
