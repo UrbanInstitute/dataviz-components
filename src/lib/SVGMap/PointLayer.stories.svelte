@@ -48,7 +48,7 @@
 </Template>
 
 <Story
-  name="Default"
+  name="simple"
   args={{
     features: states.features,
     stroke: urbanColors.blue_shade_darker,

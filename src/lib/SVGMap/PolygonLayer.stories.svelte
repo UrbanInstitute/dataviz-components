@@ -40,10 +40,10 @@
 </Template>
 
 <Story
-  name="Default"
+  name="Simple"
   args={{
     features: states.features,
-    fill: urbanColors.blue
+    fill: urbanColors.blue,
   }}
   play={async ({ canvasElement, args }) => {
     const feature = canvasElement.querySelector(".polygon-feature");
@@ -53,5 +53,15 @@
     await expect(mouseoutHandler).toHaveBeenCalled();
     await userEvent.click(feature);
     await expect(clickHandler).toHaveBeenCalled();
+  }}
+/>
+<Story
+  name="With highlighted feature"
+  args={{
+    features: states.features,
+    fill: urbanColors.blue,
+    hoverStroke: urbanColors.yellow,
+    hoverStrokeWidth: 3,
+    highlightFeature: (d) => {console.log(d.properties.GEOID === "01"); return d.properties.GEOID === "01"}
   }}
 />

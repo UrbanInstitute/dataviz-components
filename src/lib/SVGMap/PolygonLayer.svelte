@@ -79,6 +79,13 @@
    */
   export let ariaLabel = undefined;
 
+
+  /*
+   * Optional function that takes a feature as an argument, and if it returns true, set's that feature to a highlighted state.
+   * @type {(Object) => boolean}
+   */
+  export let highlightFeature = undefined;
+
   $: fitSizeRange = [$width, $height];
 
   $: projectionFn = reflectY
@@ -126,6 +133,7 @@
   {#each features || $globalFeatures as feature}
     <path
       class="polygon-feature"
+      class:highlight={highlightFeature ? highlightFeature(feature) : false}
       role={ariaRole}
       label={getAriaLabel(feature)}
       style:--hover-stroke={hoverStroke || getStroke(feature, stroke)}
@@ -140,11 +148,11 @@
 </g>
 
 <style>
-  .polygon-feature:hover {
+  .polygon-feature:hover, .polygon-feature.highlight {
     stroke: var(--hover-stroke);
     stroke-width: var(--hover-stroke-width);
   }
-  .hover-fill .polygon-feature:hover {
+  .hover-fill .polygon-feature:hover, .hover-full .polygon-feature.highlight {
     fill: var(--hover-fill);
   }
   .polygon-feature:focus, .polygon-layer:focus {
