@@ -102,9 +102,8 @@
   {/key}
 `}
 >
-  <Button on:click={() => (selectedChartLoading = "WsGs1")}>Chart #1</Button>
-  <Button on:click={() => (selectedChartLoading = "ug91F")}>Chart #2</Button>
-  <Button on:click={() => (selectedChartLoading = "9ZUog")}>Chart #3</Button>
+  <Button on:click={() => (selectedChart = "Toh1S")}>Chart #1</Button>
+  <Button on:click={() => (selectedChart = "rgLU1")}>Chart #2</Button>
 
   {#key selectedChart}
     <LoadingWrapper let:setChildLoaded let:setChildLoading>
