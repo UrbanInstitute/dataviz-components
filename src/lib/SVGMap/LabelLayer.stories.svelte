@@ -52,7 +52,7 @@
     getLabel: (feature) => feature.properties.STUSPS
   }}
   play={async ({ canvasElement, args }) => {
-    const feature = canvasElement.querySelector(".feature-path");
+    const feature = canvasElement.querySelector("text");
     await userEvent.hover(feature);
     await expect(mousemoveHandler).toHaveBeenCalled();
     await userEvent.unhover(feature);
