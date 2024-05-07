@@ -87,12 +87,6 @@
       hoverStroke={urbanColors.magenta}
       hoverStrokeWidth={2}
     />
-    <PolygonLayer
-      features={states.features}
-      fill="none"
-      stroke={urbanColors.gray_shade_dark}
-      strokeWidth={2}
-    />
     <PointLayer features={us_cities_geo.features} fill={urbanColors.gray_shade_lighter} />
     <LabelLayer
       features={us_cities_geo.features}
@@ -119,7 +113,7 @@
 </Story>
 
 <Story name="Feature highlight">
-  <SVGMap zoomable features={cleveland_bike_data.features} projection={geoMercator}>
+  <SVGMap features={cleveland_bike_data.features} projection={geoMercator}>
     <PolygonLayer
       fill={(d) => clevelandBikeScale(d.properties.bike_to_work)}
       stroke="white"

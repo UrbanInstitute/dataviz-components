@@ -156,7 +156,7 @@
     stroke-width: var(--hover-stroke-width);
   }
   .hover-fill .polygon-feature:hover,
-  .hover-full .polygon-feature.highlight {
+  .hover-fill .polygon-feature.highlight {
     fill: var(--hover-fill);
   }
   .polygon-feature:focus,
