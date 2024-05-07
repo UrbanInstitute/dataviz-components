@@ -1,5 +1,7 @@
 <script>
   import IconChevronFull from "./IconChevronFull.svelte";
+  import IconChevronOutline from "./IconChevronOutline.svelte";
+  import urbanColors from "$lib/utils/urbanColors.js";
 
   /**
    * Variant of dropdown
@@ -50,38 +52,56 @@
   export let dropdownWidth = 260;
 </script>
 
-<div class="dropdown-container">
+<div class="dropdown-parent">
   <label aria-hidden="true" hidden={!showLabel} for={id}>{inlineLabel} </label>
-  <select
-    bind:value
-    name={id}
-    {id}
-    class={`dropdown-select ${variant}`}
-    style:width={`${dropdownWidth}px `}
-    aria-label={inlineLabel}
-    on:change
-  >
-    <!-- options -->
-    {#if placeholder}
-      <option value={null}>{placeholder}</option>
-    {/if}
-    {#each data as d (d.value)}
-      {#if d.value !== ""}
-        <option value={d.value}>{d.label}</option>
+  <div class="dropdown-container" style:width={`${dropdownWidth}px `}>
+    <select
+      bind:value
+      name={id}
+      {id}
+      class={`dropdown-select ${variant}`}
+      aria-label={inlineLabel}
+      on:change
+    >
+      <!-- options -->
+      {#if placeholder}
+        <option value={null}>{placeholder}</option>
       {/if}
-    {/each}
-  </select>
+      {#each data as d (d.value)}
+        {#if d.value !== ""}
+          <option value={d.value}>{d.label}</option>
+        {/if}
+      {/each}
+    </select>
+    <div class="icons">
+      <span class="dropdown-chevron">
+        <slot name="icon">
+          {#if variant === "primary"}
+            <IconChevronFull />
+          {:else if variant === "secondary-blue" || variant === "secondary-black"}
+            <IconChevronOutline />
+          {:else if variant === "secondary-yellow"}
+            <IconChevronOutline fill={urbanColors.black} />
+          {/if}
+        </slot>
+      </span>
+    </div>
+  </div>
 </div>
 
 <style>
-  .dropdown-container {
+  .dropdown-parent {
     display: flex;
-    font-size: var(--font-size-small);
     flex-direction: column;
     gap: var(--spacing-2);
   }
 
+  .dropdown-container {
+    position: relative;
+  }
+
   label {
+    font-size: var(--font-size-small);
     text-transform: uppercase;
     color: var(--color-gray-shade-darker);
   }
@@ -98,6 +118,7 @@
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+    width: 100%;
   }
 
   .dropdown-select.primary {
@@ -132,5 +153,23 @@
     color: var(--color-black);
     background-color: var(--color-yellow);
     border-color: var(--color-yellow);
+  }
+
+  .icons {
+    pointer-events: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    padding: 0 var(--spacing-3);
+  }
+
+  .dropdown-chevron {
+    width: var(--spacing-4);
+    height: var(--spacing-4);
   }
 </style>

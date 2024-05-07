@@ -1,5 +1,7 @@
 <script context="module">
   import BasicDropdown from "./BasicDropdown.svelte";
+  import IconDownload from "$lib/Button/IconDownload.svelte";
+  import urbanColors from "$lib/utils/urbanColors.js";
 
   export const meta = {
     title: "Components/BasicDropdown",
@@ -39,19 +41,22 @@
 </script>
 
 <Template let:args>
-  <BasicDropdown {...args} on:change />
+  <BasicDropdown
+    variant="primary"
+    data={sampleData}
+    inlineLabel="Dropdown label"
+    {...args}
+    on:change
+  />
 </Template>
 
 <Story
   name="Default"
   args={{
-    variant: "primary",
     id: "dropdown-story",
-    data: sampleData,
     value: null,
     placeholder: "Select a state",
-    dropdownWidth: 260,
-    inlineLabel: "Dropdown label"
+    dropdownWidth: 260
   }}
 />
 
@@ -59,10 +64,8 @@
   name="With value specified"
   args={{
     id: "dropdown-story-2",
-    inlineLabel: "Dropdown with value",
     placeholder: "Select a state",
-    value: "ohio",
-    data: sampleData
+    value: "ohio"
   }}
 />
 
@@ -70,9 +73,7 @@
   name="With value selected"
   args={{
     id: "dropdown-story-3",
-    inlineLabel: "Dropdown with selected value",
-    placeholder: "Select a state",
-    data: sampleData
+    placeholder: "Select a state"
   }}
   play={async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -90,18 +91,69 @@
   name="With placeholder set to null and no value set"
   args={{
     id: "dropdown-story-4",
-    inlineLabel: "Dropdown without a value",
-    placeholder: null,
-    data: sampleData
+    placeholder: null
   }}
 />
 
 <Story
-  name="Secondary variant"
+  name="Secondary variant (blue) with label shown"
   args={{
     variant: "secondary-blue",
     id: "dropdown-story-5",
-    inlineLabel: "Dropdown value",
-    data: sampleData
+    showLabel: true
   }}
 />
+
+<Story
+  name="Secondary variant (black) with label shown"
+  args={{
+    variant: "secondary-black",
+    id: "dropdown-story-6",
+    showLabel: true
+  }}
+/>
+
+<Story
+  name="Secondary variant (yellow) with label shown"
+  args={{
+    variant: "secondary-yellow",
+    id: "dropdown-story-7",
+    showLabel: true
+  }}
+/>
+
+<Story
+  name="Secondary variant (blue) with label hidden"
+  args={{
+    variant: "secondary-blue",
+    id: "dropdown-story-8"
+  }}
+/>
+
+<Story
+  name="Secondary variant (black) with label hidden"
+  args={{
+    variant: "secondary-black",
+    id: "dropdown-story-9"
+  }}
+/>
+
+<Story
+  name="Secondary variant (yellow) with label hidden"
+  args={{
+    variant: "secondary-yellow",
+    id: "dropdown-story-10"
+  }}
+/>
+
+<Story name="Custom icon (uncommon)">
+  <BasicDropdown
+    variant="primary"
+    id="dropdown-story-11"
+    data={sampleData}
+    inlineLabel="Dropdown label"
+    on:change
+  >
+    <IconDownload slot="icon" size={16} fill={urbanColors.blue_shade_darker} />
+  </BasicDropdown>
+</Story>
