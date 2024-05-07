@@ -134,4 +134,7 @@ const clevelandBikeScale = scaleQuantize()
     .range(urbanColors.getMapBlues());
 let clevelandHighlight = "39035197700";
 ```
+
+Now you can pass a `featureHighlight` function that sets the highlighted feature based on the `clevelandHighlight` variable. We can also update the value of this variable in the `on:click` handler, allowing the user to set a highlighted feature when clicking. Combining this together would like like the following example:
+
 <Canvas of={Stories.FeatureHighlight} sourceState="shown" />
