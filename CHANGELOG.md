@@ -2,6 +2,8 @@
 
 ## Next
 
+- Update BasicDropdown with secondary style variants, a visible label, and better story controls
+
 ## v0.8.0
 
 - Simplify CSS in Toggle component
