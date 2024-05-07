@@ -11,7 +11,7 @@
    * A list of GeoJSON features. By default this component will render the features set in the parent SVGMap, but if `features` is defined, it plots those instead. Points are rendered as SVG `circle` elements by default. Polygon features are converted to points with `d3.geoPath().centroid`.
    * @type {Array} [features]
    */
-  export let features;
+  export let features = undefined;
 
   /**
    * A color string or a function that takes a feature and returns a color string. Use in combination with a D3 scale for a dynamic color encoding.
@@ -37,7 +37,23 @@
    */
   export let stroke = urbanColors.black;
 
+  /*
+   * Optional color string for hovered feature stroke
+   * @type { string }
+   */
+  export let hoverStroke = undefined;
+
+  /*
+   * Stroke width of each feature
+   * @type { number } [strokeWidth = 0.5]
+   */
   export let strokeWidth = 0;
+
+  /*
+   * Stroke width of each feature when hovered
+   * @type { number } [strokeWidth = undefined]
+   */
+  export let hoverStrokeWidth = undefined;
 
   /**
    * Function or static value to use for radius of circle
@@ -68,6 +84,12 @@
    * @type { string | (Object) => string } [ariaLabel = undefined]
    */
   export let ariaLabel = undefined;
+
+  /*
+   * Optional function that takes a feature as an argument, and if it returns true, set's that feature to a highlighted state.
+   * @type {(Object) => boolean}
+   */
+  export let highlightFeature = undefined;
 
   $: fitSizeRange = [$width, $height];
 
@@ -113,6 +135,7 @@
   class="point-layer map-layer"
   on:mouseout={(e) => dispatch("mouseout")}
   on:blur={(e) => dispatch("mouseout")}
+  style:--hover-stroke-width="{(hoverStrokeWidth || strokeWidth) / $transform.k}px"
 >
   {#each features || $globalFeatures as feature}
     {@const [x, y] = geoPathFn.centroid(feature)}
@@ -124,6 +147,7 @@
         class="point-feature"
         role={ariaRole}
         label={getAriaLabel(feature)}
+        class:highlight={highlightFeature ? highlightFeature(feature) : false}
         cx={x}
         cy={y}
         {opacity}
@@ -131,6 +155,7 @@
         r={getRadius(feature) / $transform.k}
         stroke-width={strokeWidth / $transform.k}
         style:--hover-fill={hoverFill}
+        style:--hover-stroke={hoverStroke || getStroke(feature, stroke)}
         class:hover-fill={typeof hoverFill !== "undefined"}
         stroke={getStroke(feature, stroke)}
         on:mousemove={(e) => handleMousemove(e, feature)}
@@ -141,8 +166,12 @@
 </g>
 
 <style>
-  .point-feature.hover-fill:hover {
+  .point-feature.hover-fill:hover, .point-feature.highlight {
     fill: var(--hover-fill);
+  }
+  .point-feature:hover {
+    stroke: var(--hover-stroke);
+    stroke-width: var(--hover-stroke-width);
   }
   .point-feature:focus,
   .point-layer:focus {

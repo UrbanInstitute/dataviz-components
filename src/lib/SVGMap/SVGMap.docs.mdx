@@ -76,7 +76,7 @@ let airQualityScale = scaleQuantile()
 
 Putting these all together, you can render your map like this:
 
-<Canvas of={Stories.ZoomableCountyChoropleth} sourceState="shown"/>
+<Canvas of={Stories.CountyChoroplethWithCustomScale} sourceState="shown"/>
 
 ## Zoomable maps and limiting labels to higher zoom
 
@@ -93,7 +93,7 @@ import nyc_income_topo from "./path/to/topojson/nyc_income_topo.json";
 import nyc_ntas from "./path/to/topojson/nyc_ntas.json";
 
 // load color utility to create a custom scale
-import { urbanColors } from "$lib/utils";
+import { urbanColors } from "@urbaninstitute/dataviz-components";
 
 // use Mercator projection for this map
 import { geoMercator } from "d3-geo";
@@ -123,10 +123,10 @@ For this example, we'll load some 2022 5-year ACS data from Cleveland, Ohio that
 ```javascript
 import topojson from "topojson-client";
 import cleveland_bike_data_topo from "./path/top/topojson/cleveland_bike_to_work.json";
-import { urbanColors } from "$lib/utils";
-import { geoMercator, geoAlbersUsa } from "d3-geo";
+import { urbanColors } from "@urbaninstitute/dataviz-components";
+import { geoMercator } from "d3-geo";
 import { scaleQuantize, scaleQuantile, scaleLinear } from "d3-scale";
-import { extent, max } from "d3-array";
+import { extent } from "d3-array";
 
 const cleveland_bike_data = topojson.feature(cleveland_bike_data_topo, "cleveland_bike_to_work");
 const clevelandBikeScale = scaleQuantize()
@@ -138,3 +138,23 @@ let clevelandHighlight = "39035197700";
 Now you can pass a `featureHighlight` function that sets the highlighted feature based on the `clevelandHighlight` variable. We can also update the value of this variable in the `on:click` handler, allowing the user to set a highlighted feature when clicking. Combining this together would like like the following example:
 
 <Canvas of={Stories.FeatureHighlight} sourceState="shown" />
+
+## Bubble map
+
+You can use the `<PointLayer>` feature to create a bubble map based on a data value. In order to do this, you'll just need to use a D3 scale and pass a data value to it for the `r` property of the layer. Looking at county popluation for the state of Pennsylvania, you could set this up by importing your data and setting up the scale:
+
+```javascript
+import pa_population_topo from "./path/top/topojson/pa_popluation_topo.json";
+import { urbanColors } from "@urbaninstitute/dataviz-components";
+import { geoMercator } from "d3-geo";
+import { scaleSqrt } from "d3-scale";
+import { extent } from "d3-array";
+
+// pa population
+const pa_population_geo = topojson.feature(pa_population_topo, "pa_county_population");
+const paPopRadiusScale = scaleSqrt().domain(extent(pa_population_geo.features, d => d.properties.value)).range([2, 50]);
+```
+
+And then you can render the bubble map here:
+
+<Canvas of={Stories.BubbleMap} sourceState="shown" />
