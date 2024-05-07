@@ -28,18 +28,17 @@
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
+  // set loading for paragraph examples, sleep for 2.5 sec on mount
   $: loading = true;
   onMount(() => {
     sleep(2500).then(() => {
       loading = false;
     });
   });
-
-  $: mapLoading = true;
 </script>
 
 <Story name="Default">
-  <LoadingWrapper childLoading={loading}>
+  <LoadingWrapper isChildLoading={loading}>
     <span
       >Amet est Lorem qui ullamco laboris velit. Incididunt est sunt exercitation qui ea. Officia
       Lorem est labore amet irure nostrud. Exercitation Lorem do consectetur enim esse quis mollit
@@ -49,7 +48,7 @@
 </Story>
 
 <Story name="Custom graphic">
-  <LoadingWrapper childLoading={loading}>
+  <LoadingWrapper isChildLoading={loading}>
     <LogoUrbanWide slot="graphic" />
     <span
       >Amet est Lorem qui ullamco laboris velit. Incididunt est sunt exercitation qui ea. Officia
@@ -60,12 +59,12 @@
 </Story>
 
 <Story name="Datawrapper example">
-  <LoadingWrapper childLoading={mapLoading}>
+  <LoadingWrapper let:childLoaded>
     <DatawrapperIframe
       title="This is a title for the visualization"
       ariaLabel="This is an accessible title for the visualization"
       datawrapperId="qF5No"
-      on:visrendered={() => (mapLoading = false)}
+      on:visrendered={childLoaded}
     />
   </LoadingWrapper>
 </Story>

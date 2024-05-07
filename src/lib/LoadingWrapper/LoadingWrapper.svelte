@@ -6,7 +6,15 @@
    * Boolean indicating whether the child component is loading or not
    * @type {boolean}
    */
-  export let childLoading;
+  export let isChildLoading;
+
+  let childLoaded = () => {
+    isChildLoading = false;
+  };
+
+  let childLoading = () => {
+    isChildLoading = true;
+  };
 
   /**
    * The background color of the loading container (can be null for transparent background)
@@ -16,14 +24,14 @@
 </script>
 
 <div class="container">
-  {#if childLoading}
+  {#if isChildLoading}
     <div class="loading" id="loading" style:background-color={backgroundColor}>
       <slot name="graphic">
         <LogoUrbanAnimated width={50} duration="1500ms" />
       </slot>
     </div>
   {/if}
-  <slot />
+  <slot {isChildLoading} {childLoading} {childLoaded} />
 </div>
 
 <style>
