@@ -33,9 +33,17 @@
   let clickHandler = fn();
 </script>
 
-<Template let:args >
-  <SVGMap features={args.features} >
-    <PolygonLayer {...args} on:click on:mouseout on:mousemove on:click={clickHandler} on:mouseout={mouseoutHandler} on:mousemove={mousemoveHandler}/>
+<Template let:args>
+  <SVGMap features={args.features}>
+    <PolygonLayer
+      {...args}
+      on:click
+      on:mouseout
+      on:mousemove
+      on:click={clickHandler}
+      on:mouseout={mouseoutHandler}
+      on:mousemove={mousemoveHandler}
+    />
   </SVGMap>
 </Template>
 
@@ -43,7 +51,7 @@
   name="Simple"
   args={{
     features: states.features,
-    fill: urbanColors.blue,
+    fill: urbanColors.blue
   }}
   play={async ({ canvasElement, args }) => {
     const feature = canvasElement.querySelector(".polygon-feature");
@@ -62,6 +70,6 @@
     fill: urbanColors.blue,
     hoverStroke: urbanColors.yellow,
     hoverStrokeWidth: 3,
-    highlightFeature: (d) => {console.log(d.properties.GEOID === "01"); return d.properties.GEOID === "01"}
+    highlightFeature: (d) => d.properties.GEOID === "01"
   }}
 />

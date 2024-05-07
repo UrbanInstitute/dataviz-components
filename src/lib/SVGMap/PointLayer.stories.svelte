@@ -53,7 +53,7 @@
     features: states.features,
     stroke: urbanColors.blue_shade_darker,
     fill: urbanColors.blue,
-    hoverFill: urbanColors.magenta,
+    hoverFill: urbanColors.magenta
   }}
   play={async ({ canvasElement, args }) => {
     const feature = canvasElement.querySelector(".point-feature");

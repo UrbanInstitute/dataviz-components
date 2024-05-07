@@ -25,7 +25,6 @@
   import { userEvent, expect, fn } from "@storybook/test";
   import { Story, Template } from "@storybook/addon-svelte-csf";
   import states from "../../docs/sample-data/states_geo.json";
-  import { urbanColors } from "$lib/utils";
 
   let mousemoveHandler = fn();
   let mouseoutHandler = fn();
@@ -52,7 +51,7 @@
     getLabel: (feature) => feature.properties.STUSPS
   }}
   play={async ({ canvasElement, args }) => {
-    const feature = canvasElement.querySelector("text");
+    const feature = canvasElement.querySelector(".label-feature text");
     await userEvent.hover(feature);
     await expect(mousemoveHandler).toHaveBeenCalled();
     await userEvent.unhover(feature);

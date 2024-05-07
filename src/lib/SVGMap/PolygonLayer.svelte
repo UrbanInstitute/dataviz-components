@@ -79,7 +79,6 @@
    */
   export let ariaLabel = undefined;
 
-
   /*
    * Optional function that takes a feature as an argument, and if it returns true, set's that feature to a highlighted state.
    * @type {(Object) => boolean}
@@ -92,7 +91,10 @@
     ? $projection()
         .reflectY(true)
         .fitSize(fitSizeRange, { type: "FeatureCollection", features: $globalFeatures })
-    : $projection().fitSize(fitSizeRange, { type: "FeatureCollection", features: $globalFeatures || features });
+    : $projection().fitSize(fitSizeRange, {
+        type: "FeatureCollection",
+        features: $globalFeatures || features
+      });
 
   $: geoPathFn = geoPath(projectionFn);
 
@@ -114,8 +116,8 @@
   }
 
   function handleClick(e, feature) {
-    raise(e.target)
-    dispatch("click", {e, props: feature.properties})
+    raise(e.target);
+    dispatch("click", { e, props: feature.properties });
   }
 </script>
 
@@ -148,14 +150,17 @@
 </g>
 
 <style>
-  .polygon-feature:hover, .polygon-feature.highlight {
+  .polygon-feature:hover,
+  .polygon-feature.highlight {
     stroke: var(--hover-stroke);
     stroke-width: var(--hover-stroke-width);
   }
-  .hover-fill .polygon-feature:hover, .hover-full .polygon-feature.highlight {
+  .hover-fill .polygon-feature:hover,
+  .hover-full .polygon-feature.highlight {
     fill: var(--hover-fill);
   }
-  .polygon-feature:focus, .polygon-layer:focus {
+  .polygon-feature:focus,
+  .polygon-layer:focus {
     outline: none;
   }
 </style>

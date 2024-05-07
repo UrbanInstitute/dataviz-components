@@ -76,7 +76,7 @@
           return event.type === "wheel" ? event.ctrlKey : true;
         } else if (scrollWheel === "no") {
           // No scroll wheel events
-          return event.type !== "wheel"
+          return event.type !== "wheel";
         }
         // All events
         return true;
