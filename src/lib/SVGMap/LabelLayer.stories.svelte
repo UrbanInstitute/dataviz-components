@@ -60,4 +60,7 @@
     await userEvent.click(feature);
     await expect(clickHandler).toHaveBeenCalled();
   }}
+  source={`<SVGMap features={states.features}>
+  <LabelLayer getLabel={(feature) => feature.properties.STUSPS}/>
+</SVGMap>`}
 />
