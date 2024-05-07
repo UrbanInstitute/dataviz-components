@@ -28,10 +28,10 @@
 </script>
 
 {#if !minZoom || $transform.k >= minZoom}
-<g transition:fade={{duration: 250}}>
+<g class="map-layer label-layer" transition:fade={{duration: 250}}>
   {#each features || $mapFeatures as feature}
     {@const [x, y] = geoPathFn.centroid(feature)}
-    <g>
+    <g class="label-feature">
       <text
         {x}
         {y}

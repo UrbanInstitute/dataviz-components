@@ -125,7 +125,7 @@
 >
   {#each features || $globalFeatures as feature}
     <path
-      class="feature-path"
+      class="polygon-feature"
       role={ariaRole}
       label={getAriaLabel(feature)}
       style:--hover-stroke={hoverStroke || getStroke(feature, stroke)}
@@ -140,21 +140,14 @@
 </g>
 
 <style>
-  .feature-path:hover {
+  .polygon-feature:hover {
     stroke: var(--hover-stroke);
     stroke-width: var(--hover-stroke-width);
   }
-  .hover-fill .feature-path:hover {
+  .hover-fill .polygon-feature:hover {
     fill: var(--hover-fill);
   }
-  /**
-   * Disable the outline on feature click.
-   * Depending on map funtionality and accessiblity issues,
-   * you may not want this rule. Read more:
-   * https://developer.mozilla.org/en-US/docs/Web/CSS/:focus
-   * https://github.com/mhkeller/layercake/issues/63
-   */
-  .feature-path:focus, .polygon-layer:focus {
+  .polygon-feature:focus, .polygon-layer:focus {
     outline: none;
   }
 </style>
