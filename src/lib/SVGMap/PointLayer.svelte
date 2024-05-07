@@ -1,7 +1,8 @@
 <script>
-  import { getContext } from "svelte";
+  import { getContext, createEventDispatcher } from "svelte";
   import { geoPath } from "d3-geo";
   import { urbanColors } from "$lib/utils";
+  import { raise } from "layercake";
   import { getFill, getStroke } from "./lib.js";
 
   const { width, height, transform, projection, features: globalFeatures } = getContext("map");
@@ -30,7 +31,12 @@
    */
   export let naFill = urbanColors.gray_shade_light;
 
+  /**
+   * A color string or a function that takes a feature and returns a color string
+   * @type { (Object) => string | string } [fill = urbanColors.blue] A string or function that returns a string to use as this layers stroke color.
+   */
   export let stroke = urbanColors.black;
+
   export let strokeWidth = 0;
 
   /**
@@ -45,6 +51,24 @@
    */
   export let opacity = 1;
 
+  /**
+   * Boolean that determines if this layer should respond to pointer events and dispatch events.
+   * @type {boolean} [pointerEvents]
+   */
+  export let pointerEvents = true;
+
+  /*
+   * Optional aria role string to be applied to each feature. Defaults to no role, assuming that SVG is hidden from the accessiblity tree.
+   * @type { string } [ariaRole = undefined]
+   */
+  export let ariaRole = undefined;
+
+  /*
+   * Optional aria label string or function to be applied to each feature. Defaults to no label, assuming that SVG is hidden from the accessiblity tree. If a function is passed, it should take a `feature` as an argument and return a label string.
+   * @type { string | (Object) => string } [ariaLabel = undefined]
+   */
+  export let ariaLabel = undefined;
+
   $: fitSizeRange = [$width, $height];
 
   $: projectionFn = $projection().fitSize(fitSizeRange, {
@@ -54,23 +78,48 @@
 
   $: geoPathFn = geoPath(projectionFn);
 
+  const dispatch = createEventDispatcher();
+
+  function getAriaLabel(feature) {
+    if (typeof ariaLabel === "string" || typeof ariaLabel === "undefined") {
+      return ariaLabel;
+    }
+    return ariaLabel(feature);
+  }
+
   function getRadius(feature) {
     if (typeof r == "number") {
       return r;
     }
     return r(feature);
   }
+
+  function handleMousemove(e, feature) {
+    raise(e.target);
+    // When the element gets raised, it flashes 0,0 for a second so skip that
+    if (e.layerX !== 0 && e.layerY !== 0) {
+      dispatch("mousemove", { e, props: feature.properties });
+    }
+  }
+
+  function handleClick(e, feature) {
+    raise(e.target);
+    dispatch("click", { e, props: feature.properties });
+  }
 </script>
 
-<g>
+<!-- svelte-ignore a11y-no-static-element-interactions -->
+<g class="point-layer" on:mouseout={(e) => dispatch("mouseout")} on:blur={(e) => dispatch("mouseout")}>
   {#each features || $globalFeatures as feature}
     {@const [x, y] = geoPathFn.centroid(feature)}
     {#if $$slots.default}
       <!-- Optional slot that renders once for each feature. Overrides default SVG `<circle>` element.-->
-      <slot {feature} {x} {y} {hoverFill} />
+      <slot {feature} {x} {y} />
     {:else}
       <circle
         class="point-feature"
+        role={ariaRole}
+        label={getAriaLabel(feature)}
         cx={x}
         cy={y}
         {opacity}
@@ -79,14 +128,19 @@
         stroke-width={strokeWidth / $transform.k}
         style:--hover-fill={hoverFill}
         class:hover-fill={typeof hoverFill !== "undefined"}
-        {stroke}
+        stroke={getStroke(feature, stroke)}
+        on:mousemove={(e) => handleMousemove(e, feature)}
+        on:click={(e) => handleClick(e, feature)}
       />
     {/if}
   {/each}
 </g>
 
 <style>
-.point-feature.hover-fill:hover {
-  fill: var(--hover-fill);
-}
+  .point-feature.hover-fill:hover {
+    fill: var(--hover-fill);
+  }
+  .point-feature:focus, .point-layer:focus {
+    outline: none;
+  }
 </style>

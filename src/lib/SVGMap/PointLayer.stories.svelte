@@ -56,7 +56,7 @@
     hoverFill: urbanColors.magenta,
   }}
   play={async ({ canvasElement, args }) => {
-    const feature = canvasElement.querySelector(".feature-path");
+    const feature = canvasElement.querySelector(".point-feature");
     await userEvent.hover(feature);
     await expect(mousemoveHandler).toHaveBeenCalled();
     await userEvent.unhover(feature);
