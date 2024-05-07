@@ -10,6 +10,7 @@
 
 - Update BasicDropdown with secondary style variants, a visible label, and better story controls
 - Add LoadingWrapper component to provide a loading graphic for components that need it
+- Add SVGMap component and associated layer components
 
 ## v0.8.0
 
