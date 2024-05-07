@@ -13,6 +13,7 @@
   export let features;
   export let projection = geoAlbersUsa;
   export let zoomable = false;
+
   /*
    * Where the zoom control UI should be positioned.
    * @type {"bottom-left" | "bottom-right" | "top-left" | "top-right"}
