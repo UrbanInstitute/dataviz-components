@@ -37,7 +37,7 @@ And then render your data into a map like this:
 
 ## Loading topojson, custom projections, custom color scales
 
-It is sometimes tricky to correctly pre-project GeoJSON data for usage with D3. You may find that it is easiest to load an "unprojected" data file (IE: data that has been projected into `WGS84`) and make use of a D3 projection to dynamically project your data client-side. Additionally, using topojson may improve loading time, simplification options and help avoid issues like [winding order](https://observablehq.com/@d3/winding-order) when working with raw GeoJSON data. 
+It is sometimes tricky to correctly pre-project GeoJSON data for usage with D3. You may find that it is easiest to load an "unprojected" data file (IE: data that has been projected into `WGS84`) and make use of a D3 projection to dynamically project your data client-side. Additionally, using topojson may improve loading time, simplification options and help avoid issues like [winding](https://observablehq.com/@d3/winding-order) [order](https://github.com/mbloch/mapshaper/issues/432) when working with raw GeoJSON data. 
 
 If you're loading topojson data, you should make use of the `topojson-client` package to convert the data back to GeoJSON before passing it into this component. As an example, loading several datasets for a US county choropleth map might look something like this:
 
