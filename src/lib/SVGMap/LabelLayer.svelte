@@ -6,15 +6,57 @@
 
   const { transform, projection, features: mapFeatures } = getContext("map");
 
+  /**
+   * A list of GeoJSON features. By default this component will render the features set in the parent SVGMap, but if `features` is defined, it plots those instead. Features are rendered as SVG `text` elements. Polygon features are converted to points with `d3.geoPath().centroid`.
+   * @type {Array} [features]
+   */
   export let features;
+
+  /**
+   * Color of the text label
+   * @type { string } [fontColor=urbanColors.white]
+   */
   export let fontColor = urbanColors.white;
+
+  /**
+   * Font size of the text label
+   * @type { number } [fontSize=12]
+   */
   export let fontSize = 12;
+
+  /**
+   * Color of the text label outline
+   * @type { string } [stroke=urbanColors.black]
+   */
   export let stroke = urbanColors.black;
+
+  /**
+   * Width of the outline of the text label
+   * @type { number } [strokeWidth=3]
+   */
   export let strokeWidth = 3;
+  /**
+   * Text anchor property of the label
+   * @type { string } [textAnchor="middle"]
+   */
   export let textAnchor = "middle";
+  /**
+   * `dy` property of the label
+   * @type { string } [dy="-.5em"]
+   */
   export let dy = "-.5em";
+
+  /**
+   * Minumum zoom factor at which to render layer relative to the default zoom
+   * @type { number } [minZoom = 0]
+   */
   export let minZoom = 0;
 
+  /**
+   * Function that returns the string to be displayed in the label when passed a feature object
+   * @param { Object } d the feature on which the label will be based
+   * @returns { string }
+   */
   export let getLabel = (d) => d;
 
   const dispatch = createEventDispatcher();

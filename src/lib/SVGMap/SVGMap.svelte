@@ -48,9 +48,9 @@
 
   // setup the scaled projection function
   $: projectionFn = projection().fitSize(fitSizeRange, {
-        type: "FeatureCollection",
-        features: features
-      });
+    type: "FeatureCollection",
+    features: features
+  });
 
   // set up a store to hold the scaled projection function
   const projectionStore = writable(projectionFn);
@@ -137,9 +137,9 @@
   style:height="{height}px"
   aria-hidden={typeof ariaRole === "undefined"}
   role={ariaRole}
-  aria-label="{ariaLabel}"
+  aria-label={ariaLabel}
 >
-  <svg width={width} height={height}>
+  <svg {width} {height}>
     <g
       class="zoom-group"
       transform="translate({$transformStore.x}, {$transformStore.y}) scale({$transformStore.k})"
