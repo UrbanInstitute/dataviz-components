@@ -5,7 +5,7 @@
   import { raise } from "layercake";
   import { getFill, getStroke } from "./lib.js";
 
-  const { width, height, transform, projection, features: globalFeatures } = getContext("map");
+  const { transform, projection, features: globalFeatures } = getContext("map");
 
   /**
    * A list of GeoJSON features. By default this component will render the features set in the parent SVGMap, but if `features` is defined, it plots those instead. Points are rendered as SVG `circle` elements by default. Polygon features are converted to points with `d3.geoPath().centroid`.
@@ -91,14 +91,7 @@
    */
   export let highlightFeature = undefined;
 
-  $: fitSizeRange = [$width, $height];
-
-  $: projectionFn = $projection().fitSize(fitSizeRange, {
-    type: "FeatureCollection",
-    features: $globalFeatures || features
-  });
-
-  $: geoPathFn = geoPath(projectionFn);
+  $: geoPathFn = geoPath($projection);
 
   const dispatch = createEventDispatcher();
 

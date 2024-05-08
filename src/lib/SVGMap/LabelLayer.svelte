@@ -4,7 +4,7 @@
   import { urbanColors } from "$lib/utils";
   import { fade } from "svelte/transition";
 
-  const { width, height, transform, projection, features: mapFeatures } = getContext("map");
+  const { transform, projection, features: mapFeatures } = getContext("map");
 
   export let features;
   export let fontColor = urbanColors.white;
@@ -19,14 +19,7 @@
 
   const dispatch = createEventDispatcher();
 
-  $: fitSizeRange = [$width, $height];
-
-  $: projectionFn = $projection().fitSize(fitSizeRange, {
-    type: "FeatureCollection",
-    features: $mapFeatures
-  });
-
-  $: geoPathFn = geoPath(projectionFn);
+  $: geoPathFn = geoPath($projection);
 
   function handleMousemove(e, feature) {
     if (e.layerX !== 0 && e.layerY !== 0) {

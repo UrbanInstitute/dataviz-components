@@ -34,7 +34,7 @@
 </script>
 
 <Template let:args>
-  <SVGMap>
+  <SVGMap features={args.features}>
     <PointLayer
       {...args}
       on:click

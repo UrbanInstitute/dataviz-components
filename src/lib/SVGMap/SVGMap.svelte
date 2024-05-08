@@ -40,10 +40,22 @@
   export let scrollWheel = "no";
 
   // create stores of map global settings to add to context
-  $: projectionStore = readable(projection);
   $: featuresStore = readable(features);
-  $: widthStore = writable(500);
-  $: heightStore = writable(300);
+  let width = 500;
+
+  // size to fit projection to
+  $: fitSizeRange = [width, height];
+
+  // setup the scaled projection function
+  $: projectionFn = projection().fitSize(fitSizeRange, {
+        type: "FeatureCollection",
+        features: features
+      });
+
+  // set up a store to hold the scaled projection function
+  const projectionStore = writable(projectionFn);
+  // update the store any time the projection function updates
+  $: projectionStore.set(projectionFn);
 
   // initialize a transform store in case zoom is turned on
   // this will be where we store the output of the d3-zoom behaviour and broadcast it
@@ -59,8 +71,6 @@
   $: setContext("map", {
     projection: projectionStore,
     features: featuresStore,
-    width: widthStore,
-    height: heightStore,
     transform: transformStore
   });
 
@@ -123,14 +133,13 @@
 <div
   class="chart-container"
   bind:this={el}
-  bind:clientWidth={$widthStore}
-  bind:clientHeight={$heightStore}
+  bind:clientWidth={width}
   style:height="{height}px"
   aria-hidden={typeof ariaRole === "undefined"}
   role={ariaRole}
-  aria-label="{ariaLabel}svgmap"
+  aria-label="{ariaLabel}"
 >
-  <svg width={$widthStore} height={$heightStore}>
+  <svg width={width} height={height}>
     <g
       class="zoom-group"
       transform="translate({$transformStore.x}, {$transformStore.y}) scale({$transformStore.k})"

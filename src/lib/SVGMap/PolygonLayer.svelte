@@ -5,7 +5,7 @@
   import { raise } from "layercake";
   import { getFill, getStroke } from "./lib.js";
 
-  const { width, height, projection, features: globalFeatures, transform } = getContext("map");
+  const { projection, features: globalFeatures, transform } = getContext("map");
 
   /**
    * A color string or a function that takes a feature and returns a color string. Use in combination with a D3 scale for a dynamic color encoding.
@@ -85,18 +85,7 @@
    */
   export let highlightFeature = undefined;
 
-  $: fitSizeRange = [$width, $height];
-
-  $: projectionFn = reflectY
-    ? $projection()
-        .reflectY(true)
-        .fitSize(fitSizeRange, { type: "FeatureCollection", features: $globalFeatures })
-    : $projection().fitSize(fitSizeRange, {
-        type: "FeatureCollection",
-        features: $globalFeatures || features
-      });
-
-  $: geoPathFn = geoPath(projectionFn);
+  $: geoPathFn = geoPath($projection);
 
   const dispatch = createEventDispatcher();
 
