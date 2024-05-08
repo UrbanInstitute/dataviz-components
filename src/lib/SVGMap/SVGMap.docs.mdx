@@ -76,7 +76,7 @@ let airQualityScale = scaleQuantile()
 
 Putting these all together, you can render your map like this:
 
-<Canvas of={Stories.CountyChoroplethWithCustomScale} sourceState="shown"/>
+<Canvas of={Stories.CustomColorsAndMultipleLayers} sourceState="shown"/>
 
 ## Zoomable maps and limiting labels to higher zoom
 
@@ -112,7 +112,7 @@ const incomeScale = scaleQuantize()
 
 At this point, you're ready to render a map like this:
 
-<Canvas of={Stories.LabelsWithMinZoom} sourceState="shown" />
+<Canvas of={Stories.Zoomable} sourceState="shown" />
 
 ## Setting a highlighted feature
 
