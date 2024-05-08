@@ -88,7 +88,7 @@
   }}
 ></Story>
 
-<Story name="County choropleth with custom scale">
+<Story name="Custom colors and multiple layers">
   <SVGMap projection={geoAlbersUsa} features={county_air_quality.features}>
     <PolygonLayer
       fill={(d) => airQualityScale(d.properties.index_air_quality)}
@@ -105,7 +105,7 @@
   </SVGMap>
 </Story>
 
-<Story name="Labels with minZoom">
+<Story name="Zoomable">
   <SVGMap scrollWheel="ctrl" zoomable projection={geoMercator} features={nyc_income.features}>
     <PolygonLayer
       fill={(d) => incomeScale(d.properties.estimate)}
