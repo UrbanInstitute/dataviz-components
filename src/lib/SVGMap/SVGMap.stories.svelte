@@ -136,7 +136,7 @@
 
 <Story name="Bubble map">
   <SVGMap features={pa_population_geo.features} projection={geoMercator}>
-    <PolygonLayer fill={urbanColors.gray_shade_lighter} stroke={urbanColors.gray} />
+    <PolygonLayer fill={urbanColors.gray_shade_lighter} stroke={urbanColors.gray_shade_dark} />
     <PointLayer
       fill={urbanColors.blue}
       opacity={0.5}
