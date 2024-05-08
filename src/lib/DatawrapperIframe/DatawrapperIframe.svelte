@@ -1,5 +1,5 @@
 <script>
-  import { createEventDispatcher, onDestroy } from "svelte";
+  import { createEventDispatcher, onDestroy, beforeUpdate, afterUpdate } from "svelte";
   import datawrapper from "./events";
   import datawrapperEventList from "./datawrapper-event-list.json";
 
@@ -48,6 +48,12 @@
       }
     });
   }
+
+  // dispatch an even when the iframe starts to load
+  // (does not user beforeUpdate because it is not triggered on first load)
+  afterUpdate(() => {
+    dispatch("startrender");
+  });
 
   // turn off interaction events on destroy
   // (prevents multiple events when loading multiple iframes)
