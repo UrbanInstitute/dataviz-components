@@ -78,15 +78,18 @@
 
 <Story
   name="Simple map"
-  source={`<SVGMap features={states.features}>
+  source={`<SVGMap projection={geoAlbersUsa} features={states.features}>
   <PolygonLayer />
   <PointLayer />
   <LabelLayer getLabel={(d) => d.properties.STUSPS}/>
 </SVGMap>`}
-  args={{
-    features: states.features
-  }}
-></Story>
+>
+  <SVGMap projection={geoAlbersUsa} features={states.features}>
+    <PolygonLayer />
+    <PointLayer />
+    <LabelLayer getLabel={(d) => d.properties.STUSPS} />
+  </SVGMap>
+</Story>
 
 <Story name="Custom colors and multiple layers">
   <SVGMap projection={geoAlbersUsa} features={county_air_quality.features}>
