@@ -54,27 +54,7 @@
   name="Default"
   args={{
     id: "dropdown-story",
-    value: null,
-    placeholder: "Select a state",
-    dropdownWidth: 260
-  }}
-/>
-
-<Story
-  name="With value specified"
-  args={{
-    id: "dropdown-story-2",
-    placeholder: "Select a state",
-    value: "ohio"
-  }}
-/>
-
-<Story
-  name="With value selected"
-  args={{
-    id: "dropdown-story-3",
-    placeholder: "Select a state",
-    inlineLabel: "Dropdown with selected value"
+    placeholder: "Select a state"
   }}
   play={async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -89,7 +69,16 @@
 />
 
 <Story
-  name="With placeholder set to null and no value set"
+  name="With value specified"
+  args={{
+    id: "dropdown-story-2",
+    placeholder: "Select a state",
+    value: "pennsylvania"
+  }}
+/>
+
+<Story
+  name="With placeholder set to null and no value set (auto-selects first)"
   args={{
     id: "dropdown-story-4",
     placeholder: null
@@ -101,7 +90,9 @@
   args={{
     variant: "secondary-blue",
     id: "dropdown-story-5",
-    showLabel: true
+    inlineLabel: "Select a state",
+    showLabel: true,
+    placeholder: null
   }}
 />
 
@@ -110,7 +101,9 @@
   args={{
     variant: "secondary-black",
     id: "dropdown-story-6",
-    showLabel: true
+    inlineLabel: "Select a state",
+    showLabel: true,
+    placeholder: null
   }}
 />
 
@@ -119,7 +112,9 @@
   args={{
     variant: "secondary-yellow",
     id: "dropdown-story-7",
-    showLabel: true
+    inlineLabel: "Select a state",
+    showLabel: true,
+    placeholder: null
   }}
 />
 
@@ -127,7 +122,8 @@
   name="Secondary variant (blue) with label hidden"
   args={{
     variant: "secondary-blue",
-    id: "dropdown-story-8"
+    id: "dropdown-story-8",
+    placeholder: "Select a state"
   }}
 />
 
@@ -135,7 +131,8 @@
   name="Secondary variant (black) with label hidden"
   args={{
     variant: "secondary-black",
-    id: "dropdown-story-9"
+    id: "dropdown-story-9",
+    placeholder: "Select a state"
   }}
 />
 
@@ -143,7 +140,8 @@
   name="Secondary variant (yellow) with label hidden"
   args={{
     variant: "secondary-yellow",
-    id: "dropdown-story-10"
+    id: "dropdown-story-10",
+    placeholder: "Select a state"
   }}
 />
 
