@@ -26,6 +26,8 @@
   // set by `setScaleType`
   let scaleType;
 
+  let scaleId = uid();
+
   $: scaleType = setScaleType(scale);
 
   $: console.log("scaleType", scaleType);
@@ -64,30 +66,34 @@
       return "oridnal";
     }
   }
+
+  function uid() {
+    return Date.now().toString(36) + Math.random().toString(36).substr(2);
+  }
 </script>
 
 <div class="scale-wrapper" bind:clientWidth={width}>
   <svg {width} {height}>
     {#if scaleType === "continuous"}
       <defs>
-        <linearGradient id="continuous-gradient">
+        <linearGradient id={scaleId}>
           {#each range as color, i}
             <stop offset="{(100 / (range.length - 1)) * i}%" stop-color={color} />
           {/each}
         </linearGradient>
       </defs>
-      <rect fill="url(#continuous-gradient)" {width} {height}></rect>
+      <rect fill="url(#{scaleId})" {width} {height}></rect>
     {:else if scaleType === "sequential"}
       <defs>
-        <linearGradient id="sequential-gradient">
-        <!-- @TODO figure out how to make this work for sequential AND diverging -->
+        <linearGradient id={scaleId}>
+          <!-- @TODO figure out how to make this work for sequential AND diverging -->
           {#each domain as stop, i}
             {@const interpolate = scale.interpolator()}
-            <stop offset="{100 * (i/(domain.length - 1))}%" stop-color={interpolate(i)} />
+            <stop offset="{100 * (i / (domain.length - 1))}%" stop-color={scale(stop)} />
           {/each}
         </linearGradient>
       </defs>
-      <rect fill="url(#sequential-gradient)" {width} {height}></rect>
+      <rect fill="url(#{scaleId})" {width} {height}></rect>
     {/if}
   </svg>
 </div>
