@@ -21,7 +21,7 @@
    * Height of the visual element of the legend
    * @type { Number } [height = 20]
    */
-  export let height = 20;
+  export let height = 10;
 
   /*
    * Optional array of exact values to use as ticks
@@ -45,7 +45,7 @@
    * Optional size of space between color and tick labels
    * @type { Number } [ticksMargin = 6]
    */
-  export let tickMargin = 10;
+  export let tickMargin = 5;
 
   /*
    * Optional tick formatting string or function
@@ -75,6 +75,12 @@
     bottom: 0,
     left: 0
   };
+
+  /*
+   * Optional max width for the legend. Legend will resize to fill the space of the container by default.
+   * @type { Number } [ maxWidth = undefined ]
+   */
+  export let maxWidth = undefined;
 
   // will hold width of DOM element
   let width;
@@ -195,7 +201,7 @@
   }
 </script>
 
-<div class="legend-wrapper" bind:clientWidth={width}>
+<div class="legend-wrapper" bind:clientWidth={width} style:max-width="{maxWidth}px">
   {#if width}
     <svg {width} height={height + tickSize + tickMargin + margin.top + margin.bottom}>
       <g class="legend-inner" transform="translate({margin.left}, {margin.top})">
@@ -236,28 +242,23 @@
         {#if scaleType && width && xScale}
           <g class="legend-ticks">
             {#each legendTicks as tick}
-              {#if scaleType !== "ordinal"}
-                <rect
-                  x={xScale(tick)}
-                  y={0}
-                  height={height + tickMargin}
-                  width={tickLineWidth}
-                  fill={tickLineColor}
-                ></rect>
-                <text
-                  fill="black"
-                  y={height + tickSize + tickMargin}
-                  x={xScale(tick)}
-                  text-anchor="middle">{tickFormatFn(tick)}</text
-                >
-              {:else}
-                <text
-                  fill="black"
-                  y={height + tickSize + tickMargin}
-                  x={xScale(tick) + xScale.bandwidth() / 2}
-                  text-anchor="middle">{tickFormatFn(tick)}</text
-                >
+            {@const xPosition = scaleType === "ordinal" ? xScale(tick) + xScale.bandwidth() / 2 : xScale(tick)}
+              {#if scaleType !== "ordinal" && tickLineWidth}
+                <line
+                  x1={xPosition}
+                  x2={xPosition}
+                  y1={0}
+                  y2={height + tickMargin}
+                  stroke={tickLineColor}
+                  stroke-width={tickLineWidth}
+                ></line>
               {/if}
+                <text
+                  fill="black"
+                  y={height + tickSize + tickMargin}
+                  x={xPosition}
+                  text-anchor="middle">{tickFormatFn(tick)}</text
+                >
             {/each}
           </g>
         {/if}
