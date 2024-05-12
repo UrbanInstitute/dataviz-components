@@ -25,8 +25,7 @@
   import { urbanColors } from "$lib/utils";
   import { geoAlbersUsa } from "d3-geo";
   import us_cities from "../../docs/sample-data/us_cities.json";
-  import { scaleQuantize, scaleQuantile, scaleSqrt } from "d3-scale";
-  import { extent, max } from "d3-array";
+  import { scaleQuantile } from "d3-scale";
 
   const county_air_quality = topojson.feature(county_air_quality_topo, "county_air_quality_geo");
 
@@ -42,14 +41,12 @@
 <Story name="Primary">
 <ChartBlock title="Air quality index by U.S. county" source="Urban Institute Updward Mobility Framework">
   <div style="max-width: 300px; margin: 1em auto 0;">
-    <ColorLegend scale={airQualityScale} height={10}/>
+    <ColorLegend scale={airQualityScale} height={10} tickLineColor={"white"} tickLineWidth="2"/>
   </div>
   <SVGMap projection={geoAlbersUsa} features={county_air_quality.features} height="400">
     <PolygonLayer
       fill={(d) => airQualityScale(d.properties.index_air_quality)}
       stroke={urbanColors.gray_shade_dark}
-      hoverStroke={urbanColors.magenta}
-      hoverStrokeWidth={2}
     />
     <PointLayer features={us_cities_geo.features} fill={urbanColors.gray_shade_lighter} />
     <LabelLayer
