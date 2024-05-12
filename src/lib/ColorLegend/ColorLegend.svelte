@@ -9,6 +9,7 @@
   import { scaleLinear, scaleBand } from "d3-scale";
   import { range as d3Range, quantile } from "d3-array";
   import { format } from "d3-format";
+  import urbanColors from "$lib/utils/urbanColors.js";
 
   /*
    * D3 scale to base legend on
@@ -48,9 +49,21 @@
 
   /*
    * Optional tick formatting string or function
-   * { string | (Object) => string } [tickFormat = undefined]
+   * @type { string | (Object) => string } [tickFormat = undefined]
    */
   export let tickFormat = undefined;
+
+  /*
+   * Width of tick line. Set to 0 if no line is needed.
+   * @type { Number } [tickLineWidth = 1]
+   */
+  export let tickLineWidth = 1;
+
+  /*
+   * Color of tick line.
+   * @type { string } [tickLineColor = urbanColors.black]
+   */
+  export let tickLineColor = urbanColors.black;
 
   /*
    * Optional margin object that defines space around legend within the SVG element
@@ -58,7 +71,7 @@
    */
   export let margin = {
     top: 0,
-    right: 10,
+    right: 0,
     bottom: 0,
     left: 0
   };
@@ -224,12 +237,27 @@
           <g class="legend-ticks">
             {#each legendTicks as tick}
               {#if scaleType !== "ordinal"}
-                <rect x={xScale(tick)} y={0} height={height + tickMargin} width={1} fill="black"
+                <rect
+                  x={xScale(tick)}
+                  y={0}
+                  height={height + tickMargin}
+                  width={tickLineWidth}
+                  fill={tickLineColor}
                 ></rect>
+                <text
+                  fill="black"
+                  y={height + tickSize + tickMargin}
+                  x={xScale(tick)}
+                  text-anchor="middle">{tickFormatFn(tick)}</text
+                >
+              {:else}
+                <text
+                  fill="black"
+                  y={height + tickSize + tickMargin}
+                  x={xScale(tick) + xScale.bandwidth() / 2}
+                  text-anchor="middle">{tickFormatFn(tick)}</text
+                >
               {/if}
-              <text fill="black" y={height + tickSize + tickMargin} x={xScale(tick)}
-                >{tickFormatFn(tick)}</text
-              >
             {/each}
           </g>
         {/if}
