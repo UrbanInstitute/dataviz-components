@@ -20,7 +20,13 @@
 <script>
   import { Story, Template } from "@storybook/addon-svelte-csf";
   import urbanColors from "../utils/urbanColors.js";
-  import { scaleLinear, scaleSequential, scaleDiverging, scaleThreshold, scaleOrdinal } from "d3-scale";
+  import {
+    scaleLinear,
+    scaleSequential,
+    scaleDiverging,
+    scaleThreshold,
+    scaleOrdinal
+  } from "d3-scale";
 
   const sampleScale = scaleLinear()
     .domain([1, 50, 100])
@@ -57,13 +63,25 @@
 <Story
   name="Threshold"
   args={{
-    scale: scaleThreshold([2, 3, 4, 5], [urbanColors.blue_shade_lightest, urbanColors.blue_shade_lighter, urbanColors.blue, urbanColors.blue_shade_darker, urbanColors.black])
+    scale: scaleThreshold(
+      [2, 3, 4, 5],
+      [
+        urbanColors.blue_shade_lightest,
+        urbanColors.blue_shade_lighter,
+        urbanColors.blue,
+        urbanColors.blue_shade_darker,
+        urbanColors.black
+      ]
+    )
   }}
 />
 
 <Story
   name="Ordinal"
   args={{
-    scale: scaleOrdinal(["cat 1", "cat 2", "cat 3", "cat 4"], [urbanColors.blue, urbanColors.yellow, urbanColors.black, urbanColors.magenta])
+    scale: scaleOrdinal(
+      ["cat 1", "cat 2", "cat 3", "cat 4"],
+      [urbanColors.blue, urbanColors.yellow, urbanColors.black, urbanColors.magenta]
+    )
   }}
 />
