@@ -1,5 +1,7 @@
 <script context="module">
   import BasicDropdown from "./BasicDropdown.svelte";
+  import IconDownload from "$lib/Button/IconDownload.svelte";
+  import urbanColors from "$lib/utils/urbanColors.js";
 
   export const meta = {
     title: "Components/BasicDropdown",
@@ -7,8 +9,14 @@
     component: BasicDropdown,
     tags: ["autodocs"],
     argTypes: {
-      arrowFillColor: { control: "color" },
-      data: { control: "object" }
+      variant: {
+        options: ["primary", "secondary-blue", "secondary-black", "secondary-yellow"],
+        control: { type: "select" }
+      },
+      data: { control: "object" },
+      showLabel: { control: "boolean" },
+      value: { control: "text" },
+      placeholder: { control: "text" }
     },
     parameters: {
       docs: {
@@ -25,47 +33,29 @@
   import { fireEvent, within, expect } from "@storybook/test";
 
   const sampleData = [
-    { value: "Ohio", label: "Ohio" },
-    { value: "Pennsylvania", label: "Pennsylvania" },
-    { value: "New York", label: "New York" },
-    { value: "Maryland", label: "Maryland" }
+    { value: "ohio", label: "Ohio" },
+    { value: "pennsylvania", label: "Pennsylvania" },
+    { value: "new_york", label: "New York" },
+    { value: "maryland", label: "Maryland" }
   ];
 </script>
 
 <Template let:args>
-  <BasicDropdown {...args} on:change />
+  <BasicDropdown
+    variant="primary"
+    data={sampleData}
+    inlineLabel="Dropdown label"
+    {...args}
+    on:change
+  />
 </Template>
 
 <Story
   name="Default"
   args={{
     id: "dropdown-story",
-    dropdownWidth: 260,
-    inlineLabel: "Dropdown label",
-    arrowFillColor: "#1696D1",
     placeholder: "Select a state",
-    data: sampleData
-  }}
-/>
-
-<Story
-  name="With value specified"
-  args={{
-    id: "dropdown-story-2",
-    inlineLabel: "Dropdown with value",
-    placeholder: "Select a state",
-    value: "Ohio",
-    data: sampleData
-  }}
-/>
-
-<Story
-  name="With value selected"
-  args={{
-    id: "dropdown-story-3",
-    inlineLabel: "Dropdown with selected value",
-    placeholder: "Select a state",
-    data: sampleData
+    inlineLabel: "Dropdown with selected value"
   }}
   play={async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -80,11 +70,90 @@
 />
 
 <Story
-  name="With placeholder set to null and no value set"
+  name="With value specified"
   args={{
-    id: "dropdown-story-4",
-    inlineLabel: "Dropdown without a value",
-    placeholder: null,
-    data: sampleData
+    id: "dropdown-story-2",
+    placeholder: "Select a state",
+    value: "pennsylvania"
   }}
 />
+
+<Story
+  name="With placeholder set to null and no value set (auto-selects first)"
+  args={{
+    id: "dropdown-story-4",
+    placeholder: null
+  }}
+/>
+
+<Story
+  name="Secondary variant (blue) with label shown"
+  args={{
+    variant: "secondary-blue",
+    id: "dropdown-story-5",
+    inlineLabel: "Select a state",
+    showLabel: true,
+    placeholder: null
+  }}
+/>
+
+<Story
+  name="Secondary variant (black) with label shown"
+  args={{
+    variant: "secondary-black",
+    id: "dropdown-story-6",
+    inlineLabel: "Select a state",
+    showLabel: true,
+    placeholder: null
+  }}
+/>
+
+<Story
+  name="Secondary variant (yellow) with label shown"
+  args={{
+    variant: "secondary-yellow",
+    id: "dropdown-story-7",
+    inlineLabel: "Select a state",
+    showLabel: true,
+    placeholder: null
+  }}
+/>
+
+<Story
+  name="Secondary variant (blue) with label hidden"
+  args={{
+    variant: "secondary-blue",
+    id: "dropdown-story-8",
+    placeholder: "Select a state"
+  }}
+/>
+
+<Story
+  name="Secondary variant (black) with label hidden"
+  args={{
+    variant: "secondary-black",
+    id: "dropdown-story-9",
+    placeholder: "Select a state"
+  }}
+/>
+
+<Story
+  name="Secondary variant (yellow) with label hidden"
+  args={{
+    variant: "secondary-yellow",
+    id: "dropdown-story-10",
+    placeholder: "Select a state"
+  }}
+/>
+
+<Story name="Custom icon (uncommon)">
+  <BasicDropdown
+    variant="primary"
+    id="dropdown-story-11"
+    data={sampleData}
+    inlineLabel="Dropdown label"
+    on:change
+  >
+    <IconDownload slot="icon" size={16} fill={urbanColors.blue_shade_darker} />
+  </BasicDropdown>
+</Story>
