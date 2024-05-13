@@ -65,7 +65,7 @@
    * Whether or not the map should zoom when scroll wheel is used on map.
    * @type {"no" | "yes" | "ctrl"}
    */
-  export let scrollWheel = "no";
+  export let scrollWheel = "ctrl";
 
   // create stores of map global settings to add to context
   $: featuresStore = readable(features);
@@ -112,8 +112,8 @@
       .scaleExtent([1, maxZoom])
       .filter((event) => {
         if (scrollWheel === "ctrl") {
-          // Only allow zooming with wheel when ctrlKey is pressed
-          return event.type === "wheel" ? event.ctrlKey : true;
+          // Only allow zooming with wheel when ctrlKey or metaKey is pressed
+          return event.type === "wheel" ? (event.ctrlKey || event.metaKey) : true;
         } else if (scrollWheel === "no") {
           // No scroll wheel events
           return event.type !== "wheel";
