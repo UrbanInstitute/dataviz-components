@@ -18,6 +18,12 @@
   export let scale;
 
   /**
+   * Optional title for the legend
+   * @type { string } [title = undefined]
+   */
+  export let title = undefined;
+
+  /**
    * Height of the visual element of the legend
    * @type { number } [height = 20]
    */
@@ -231,6 +237,9 @@
 </script>
 
 <div class="legend-wrapper" bind:clientWidth={width} style:max-width="{maxWidth}px">
+  {#if title}
+  <p class="legend-title">{title}</p>
+  {/if}
   {#if width}
     {#if !(scaleType === "ordinal" && swatch)}
       <svg {width} height={height + tickSize + tickMargin + margin.top + margin.bottom}>
@@ -345,5 +354,10 @@
 
   .swatch-label {
     font-size: var(--swatch-font-size);
+  }
+  .legend-title {
+    font-size: var(--font-size-normal);
+    margin-bottom: var(--spacing-2);
+    font-weight: var(--font-weight-bold);
   }
 </style>
