@@ -1,16 +1,16 @@
 <script context="module">
   import SVGMap from "./SVGMap.svelte";
-  import PolygonLayer from "./PolygonLayer.svelte";
-  import docs from "./Polygonlayer.docs.md?raw";
+  import PointLayer from "./PointLayer.svelte";
+  import docs from "./PointLayer.docs.md?raw";
 
   export const meta = {
-    title: "Components/SVGMap/PolygonLayer",
-    component: PolygonLayer,
+    title: "Maps/PointLayer",
+    component: PointLayer,
     tags: ["autodocs"],
     argTypes: {
       features: { control: "array" },
       fill: { control: "text" },
-      stroke: { control: "number" }
+      stroke: { control: "text" }
     },
     parameters: {
       docs: {
@@ -23,9 +23,9 @@
 </script>
 
 <script>
-  import { within, userEvent, expect, fn } from "@storybook/test";
+  import { userEvent, expect, fn } from "@storybook/test";
   import { Story, Template } from "@storybook/addon-svelte-csf";
-  import states from "../../docs/sample-data/states_geo.json";
+  import states from "../../../docs/sample-data/states_geo.json";
   import { urbanColors } from "$lib/utils";
 
   let mousemoveHandler = fn();
@@ -35,7 +35,7 @@
 
 <Template let:args>
   <SVGMap features={args.features}>
-    <PolygonLayer
+    <PointLayer
       {...args}
       on:click
       on:mouseout
@@ -43,33 +43,25 @@
       on:click={clickHandler}
       on:mouseout={mouseoutHandler}
       on:mousemove={mousemoveHandler}
-    />
+    ></PointLayer>
   </SVGMap>
 </Template>
 
 <Story
-  name="Simple"
+  name="simple"
   args={{
     features: states.features,
-    fill: urbanColors.blue
+    stroke: urbanColors.blue_shade_darker,
+    fill: urbanColors.blue,
+    hoverFill: urbanColors.magenta
   }}
   play={async ({ canvasElement, args }) => {
-    const feature = canvasElement.querySelector(".polygon-feature");
+    const feature = canvasElement.querySelector(".point-feature");
     await userEvent.hover(feature);
     await expect(mousemoveHandler).toHaveBeenCalled();
     await userEvent.unhover(feature);
     await expect(mouseoutHandler).toHaveBeenCalled();
     await userEvent.click(feature);
     await expect(clickHandler).toHaveBeenCalled();
-  }}
-/>
-<Story
-  name="With highlighted feature"
-  args={{
-    features: states.features,
-    fill: urbanColors.blue,
-    hoverStroke: urbanColors.yellow,
-    hoverStrokeWidth: 3,
-    highlightFeature: (d) => d.properties.GEOID === "01"
   }}
 />
