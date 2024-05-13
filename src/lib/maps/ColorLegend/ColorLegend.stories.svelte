@@ -2,8 +2,7 @@
   import ColorLegend from "./ColorLegend.svelte";
 
   export const meta = {
-    title: "Components/ColorLegend",
-    description: "A basic headline",
+    title: "Maps/ColorLegend",
     component: ColorLegend,
     tags: ["autodocs"],
     argTypes: {
@@ -35,7 +34,7 @@
 
 <script>
   import { Story, Template } from "@storybook/addon-svelte-csf";
-  import urbanColors from "../utils/urbanColors.js";
+  import urbanColors from "$lib/utils/urbanColors.js";
   import {
     scaleLinear,
     scaleSequential,
