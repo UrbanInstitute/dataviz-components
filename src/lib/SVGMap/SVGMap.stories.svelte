@@ -92,7 +92,7 @@
 </Story>
 
 <Story name="Custom colors and multiple layers">
-  <SVGMap projection={geoAlbersUsa} features={county_air_quality.features}>
+  <SVGMap projection={geoAlbersUsa} features={county_air_quality.features} aspectRatio={4/2.3333}>
     <PolygonLayer
       fill={(d) => airQualityScale(d.properties.index_air_quality)}
       stroke={urbanColors.gray_shade_dark}

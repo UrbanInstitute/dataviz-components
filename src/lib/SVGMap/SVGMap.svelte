@@ -7,21 +7,43 @@
   import { select } from "d3-selection";
   import ZoomControls from "./ZoomControls.svelte";
 
-  /*
+  /**
    * An array of geojson features to be displayed on the map. The map will scale the projection to fit this set of features.
+   * @type {Object[]}
    */
   export let features;
+
+  /**
+   * A D3 geo projection to use with this map. Defaults to geoAlbersUsa.
+   * @type { function } [projection = geoAlbersUsa]
+   */
   export let projection = geoAlbersUsa;
+
+  /**
+   * Should the map allow zoom and pan?
+   * @type { boolean } [zoomable = false]
+   */
   export let zoomable = false;
 
-  /*
+  /**
    * Where the zoom control UI should be positioned.
-   * @type {"bottom-left" | "bottom-right" | "top-left" | "top-right"}
+   * @type {"bottom-left" | "bottom-right" | "top-left" | "top-right"} [ controlPosition = "bottom-right" ]
    */
   export let controlPosition = "bottom-right";
-  export let height = 800;
 
-  /*
+  /**
+   * The height of the map in pixels.
+   * @type { number } [ height = 600 ]
+   */
+  export let height = 600;
+
+  /**
+   * Set the height of the map to a fixed aspect ratio based on width. This overrides the `height` property.
+   * @type { number } [ aspectRatio = undefined ]
+   */
+  export let aspectRatio = undefined;
+
+  /**
    * Optional aria role string to be applied to SVG container. By default, the SVG is hidden from the accessiblity tree. If you add an ariaRole here, any layers should also be given an ariaRole.
    * @type { string } [ariaRole = undefined]
    */
@@ -43,8 +65,10 @@
   $: featuresStore = readable(features);
   let width = 500;
 
+  $: mapHeight = getMapHeight(width, height, aspectRatio);
+
   // size to fit projection to
-  $: fitSizeRange = [width, height];
+  $: fitSizeRange = [width, mapHeight];
 
   // setup the scaled projection function
   $: projectionFn = projection().fitSize(fitSizeRange, {
@@ -119,6 +143,13 @@
     }
   }
 
+  function getMapHeight(width, height, aspectRatio) {
+    if (aspectRatio) {
+      return width / aspectRatio
+    }
+    return height;
+  }
+
   // to hold reference to root dom node via bind:this
   let el;
 
@@ -134,12 +165,12 @@
   class="chart-container"
   bind:this={el}
   bind:clientWidth={width}
-  style:height="{height}px"
+  style:height="{getMapHeight(width, height, aspectRatio)}px"
   aria-hidden={typeof ariaRole === "undefined"}
   role={ariaRole}
   aria-label={ariaLabel}
 >
-  <svg {width} {height}>
+  <svg {width} height={mapHeight}>
     <g
       class="zoom-group"
       transform="translate({$transformStore.x}, {$transformStore.y}) scale({$transformStore.k})"
@@ -151,7 +182,9 @@
     <div class="map-controls {controlPosition}">
       <ZoomControls
         {controlPosition}
-        showReset={$transformStore.k !== zoomIdentity.k || $transformStore.x !== zoomIdentity.x || $transformStore.y !== zoomIdentity.y}
+        showReset={$transformStore.k !== zoomIdentity.k ||
+          $transformStore.x !== zoomIdentity.x ||
+          $transformStore.y !== zoomIdentity.y}
         {zoomIn}
         {zoomOut}
         {zoomReset}

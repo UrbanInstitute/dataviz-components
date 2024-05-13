@@ -6,7 +6,6 @@
 
   export let disableZoomIn = false;
   export let disableZoomOut = false;
-  $: console.log("disableZOomOut", disableZoomOut)
 
   /*
    * Where the zoom control UI should be positioned.
