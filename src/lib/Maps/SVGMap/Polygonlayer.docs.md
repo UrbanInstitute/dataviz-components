@@ -4,7 +4,7 @@ A polygon layer for use in an `<SVGMap>` component. Renders each `feature` as an
 
 ```svelte
 <script>
-  import { SVGMap, PolygonLayer } from "@urbaninstitute/dataviz-components";
+  import { SVGMap, PolygonLayer } from "@urbaninstitute/dataviz-components/maps";
   import states from "./path/to/geojson/states.json";
 </script>
 <SVGMap features={states.features}>
