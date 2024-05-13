@@ -13,7 +13,7 @@
 
   /**
    * D3 scale to base legend on
-   * @type { function } [scale]
+   * @type { Function } [scale]
    */
   export let scale;
 
@@ -24,16 +24,16 @@
   export let height = 10;
 
   /**
-   * Optional array of exact values to use as ticks
-   * {Array<any>}
-   */
-  export let tickValues = undefined;
-
-  /**
    * Optional number of ticks to pass to d3's generator
    * @type { number } [ticks = 3]
    */
   export let ticks = 5;
+
+  /**
+   * Optional array of exact values to use as ticks
+   * @type {Array<any>} [tickValues = undefined]
+   */
+  export let tickValues = undefined;
 
   /**
    * Optional size for tick labels
