@@ -54,26 +54,33 @@
 </Template>
 
 <Story
-  name="Linear"
+  name="Linear scale"
   args={{
-    scale: sampleScale
+    scale: sampleScale,
   }}
 />
 <Story
-  name="Sequential"
+  name="With title"
+  args={{
+    scale: sampleScale,
+    title: "Legend title"
+  }}
+/>
+<Story
+  name="Sequential scale"
   args={{
     scale: sampleSequentialScale
   }}
 />
 <Story
-  name="Diverging continuous"
+  name="Diverging scale"
   args={{
     scale: scaleDiverging([-1, 0, 1], [urbanColors.yellow, urbanColors.white, urbanColors.blue])
   }}
 />
 
 <Story
-  name="Threshold"
+  name="Threshold scale"
   args={{
     scale: scaleThreshold(
       [2, 3, 4, 5],
@@ -89,7 +96,7 @@
 />
 
 <Story
-  name="Ordinal"
+  name="Ordinal scale"
   args={{
     scale: scaleOrdinal(
       ["cat 1", "cat 2", "cat 3", "cat 4"],
@@ -98,7 +105,7 @@
   }}
 />
 <Story
-  name="Ordinal swatches"
+  name="Ordinal scale swatches"
   args={{
     scale: scaleOrdinal(
       ["cat 1", "cat 2", "cat 3", "cat 4"],
@@ -108,7 +115,7 @@
   }}
 />
 <Story
-  name="Ordinal swatches column"
+  name="Ordinal scale swatches column"
   args={{
     scale: scaleOrdinal(
       ["cat 1", "cat 2", "cat 3", "cat 4"],
