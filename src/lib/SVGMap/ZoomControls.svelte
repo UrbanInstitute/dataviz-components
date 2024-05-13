@@ -3,6 +3,11 @@
   export let zoomOut;
   export let zoomReset;
   export let showReset = false;
+
+  export let disableZoomIn = false;
+  export let disableZoomOut = false;
+  $: console.log("disableZOomOut", disableZoomOut)
+
   /*
    * Where the zoom control UI should be positioned.
    * @type {"bottom-left" | "bottom-right" | "top-left" | "top-right"}
@@ -44,7 +49,7 @@
       </svg>
     </button>
   {/if}
-  <button class="zoom-button zoom-out" on:click={zoomOut}>
+  <button class="zoom-button zoom-out" disabled={disableZoomOut} on:click={zoomOut}>
     <svg width="11" height="3" viewBox="0 0 11 3" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         fill-rule="evenodd"
@@ -54,7 +59,7 @@
       />
     </svg>
   </button>
-  <button class="zoom-button zoom-in" on:click={zoomIn}>
+  <button class="zoom-button zoom-in" disabled={disableZoomIn} on:click={zoomIn}>
     <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         fill-rule="evenodd"
@@ -115,6 +120,15 @@
     justify-content: center;
     cursor: pointer;
   }
+
+  .zoom-button:disabled {
+    cursor: not-allowed;
+  }
+
+  .zoom-button:disabled svg path {
+    opacity: 0.25;
+  }
+
   .zoom-reset {
     margin-block: var(--spacing-1);
     border-radius: var(--border-radius);
