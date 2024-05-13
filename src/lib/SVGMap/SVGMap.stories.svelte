@@ -132,7 +132,13 @@
       hoverStroke={urbanColors.yellow}
       hoverStrokeWidth={2}
       highlightFeature={(d) => d.properties.GEOID === clevelandHighlight}
-      on:click={(e) => (clevelandHighlight = e.detail.props.GEOID)}
+      on:click={(e) => {
+        if (clevelandHighlight === e.detail.props.GEOID) {
+          clevelandHighlight = null;
+        } else {
+          clevelandHighlight = e.detail.props.GEOID;
+        }
+      }}
     />
   </SVGMap>
 </Story>

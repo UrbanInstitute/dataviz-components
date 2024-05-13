@@ -1,8 +1,7 @@
 <script>
-  import { getContext, createEventDispatcher } from "svelte";
+  import { getContext, createEventDispatcher, afterUpdate } from "svelte";
   import urbanColors from "$lib/utils/urbanColors.js";
   import { geoPath } from "d3-geo";
-  import { raise } from "layercake";
   import { getFill, getStroke } from "./lib.js";
 
   const { projection, features: globalFeatures, transform } = getContext("map");
@@ -89,6 +88,12 @@
 
   const dispatch = createEventDispatcher();
 
+  // holds main dom node
+  let el;
+
+  // holds highlighted feature DOM element
+  let highlightFeatureNode;
+
   function getAriaLabel(feature) {
     if (typeof ariaLabel === "string" || typeof ariaLabel === "undefined") {
       return ariaLabel;
@@ -98,6 +103,9 @@
 
   function handleMousemove(e, feature) {
     raise(e.target);
+    if (highlightFeatureNode) {
+      raise(highlightFeatureNode);
+    }
     // When the element gets raised, it flashes 0,0 for a second so skip that
     if (e.layerX !== 0 && e.layerY !== 0) {
       dispatch("mousemove", { e, props: feature.properties });
@@ -106,8 +114,19 @@
 
   function handleClick(e, feature) {
     raise(e.target);
+    if (highlightFeatureNode) {
+      raise(highlightFeatureNode);
+    }
     dispatch("click", { e, props: feature.properties });
   }
+
+  function raise(el) {
+    el.parentNode.appendChild(el);
+  }
+
+  afterUpdate(() => {
+    highlightFeatureNode = el.querySelector("path.highlight");
+  });
 </script>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
@@ -120,6 +139,7 @@
   style:--hover-stroke-width="{(hoverStrokeWidth || strokeWidth) / $transform.k}px"
   style:pointe-events={pointerEvents ? "auto" : "none"}
   class:hover-fill={hoverFill}
+  bind:this={el}
 >
   {#each features || $globalFeatures as feature}
     <path
