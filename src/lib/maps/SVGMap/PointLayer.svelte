@@ -37,19 +37,19 @@
    */
   export let stroke = urbanColors.black;
 
-  /*
+  /**
    * Optional color string for hovered feature stroke
    * @type { string }
    */
   export let hoverStroke = undefined;
 
-  /*
+  /**
    * Stroke width of each feature
    * @type { number } [strokeWidth = 0.5]
    */
   export let strokeWidth = 0;
 
-  /*
+  /**
    * Stroke width of each feature when hovered
    * @type { number } [strokeWidth = undefined]
    */
@@ -68,24 +68,18 @@
   export let opacity = 1;
 
   /**
-   * Boolean that determines if this layer should respond to pointer events and dispatch events.
-   * @type {boolean} [pointerEvents]
-   */
-  export let pointerEvents = true;
-
-  /*
    * Optional aria role string to be applied to each feature. Defaults to no role, assuming that SVG is hidden from the accessiblity tree.
    * @type { string } [ariaRole = undefined]
    */
   export let ariaRole = undefined;
 
-  /*
+  /**
    * Optional aria label string or function to be applied to each feature. Defaults to no label, assuming that SVG is hidden from the accessiblity tree. If a function is passed, it should take a `feature` as an argument and return a label string.
    * @type { string | (Object) => string } [ariaLabel = undefined]
    */
   export let ariaLabel = undefined;
 
-  /*
+  /**
    * Optional function that takes a feature as an argument, and if it returns true, set's that feature to a highlighted state.
    * @type {(Object) => boolean}
    */

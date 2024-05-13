@@ -49,12 +49,6 @@
   export let hoverStrokeWidth = undefined;
 
   /**
-   * Should the project flip the Y axis?
-   * @type { boolean } [reflectY = false]
-   */
-  export let reflectY = false;
-
-  /**
    * A list of GeoJSON features. By default this component will render the features set in the parent SVGMap, but if `features` is defined, it plots those instead.
    * @type {Array} [features]
    */
