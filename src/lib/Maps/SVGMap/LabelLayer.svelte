@@ -10,7 +10,7 @@
    * A list of GeoJSON features. By default this component will render the features set in the parent SVGMap, but if `features` is defined, it plots those instead. Features are rendered as SVG `text` elements. Polygon features are converted to points with `d3.geoPath().centroid`.
    * @type {Array} [features]
    */
-  export let features;
+  export let features = undefined;
 
   /**
    * Color of the text label
