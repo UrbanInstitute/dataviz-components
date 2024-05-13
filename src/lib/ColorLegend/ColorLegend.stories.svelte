@@ -1,0 +1,55 @@
+<script context="module">
+  import ColorLegend from "./ColorLegend.svelte";
+
+  export const meta = {
+    title: "Components/ColorLegend",
+    description: "A basic headline",
+    component: ColorLegend,
+    tags: ["autodocs"],
+    argTypes: {},
+    parameters: {
+      docs: {
+        description: {
+          component: "This component generates a color legend based on a D3 scale."
+        }
+      }
+    }
+  };
+</script>
+
+<script>
+  import { Story, Template } from "@storybook/addon-svelte-csf";
+  import urbanColors from "../utils/urbanColors.js";
+  import { scaleLinear, scaleSequential, scaleDiverging } from "d3-scale";
+
+  const sampleScale = scaleLinear()
+    .domain([1, 50, 100])
+    .range([urbanColors.blue_shade_lightest, urbanColors.blue, urbanColors.blue_shade_darkest]);
+
+  const sampleSequentialScale = scaleSequential()
+    .domain([1, 100])
+    .range([urbanColors.blue_shade_lightest, urbanColors.blue_shade_darkest]);
+</script>
+
+<Template let:args>
+  <ColorLegend {...args} />
+</Template>
+
+<Story
+  name="Linear"
+  args={{
+    scale: sampleScale
+  }}
+/>
+<Story
+  name="Sequential"
+  args={{
+    scale: sampleSequentialScale
+  }}
+/>
+<Story
+  name="Diverging continuous"
+  args={{
+    scale: scaleDiverging([-1, 0, 1], [urbanColors.yellow, urbanColors.white, urbanColors.blue])
+  }}
+/>
