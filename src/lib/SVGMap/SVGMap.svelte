@@ -151,10 +151,11 @@
     <div class="map-controls {controlPosition}">
       <ZoomControls
         {controlPosition}
-        showReset={$transformStore != zoomIdentity}
+        showReset={$transformStore.k !== zoomIdentity.k || $transformStore.x !== zoomIdentity.x || $transformStore.y !== zoomIdentity.y}
         {zoomIn}
         {zoomOut}
         {zoomReset}
+        disableZoomOut={$transformStore.k === zoomIdentity.k}
       />
     </div>
   {/if}
