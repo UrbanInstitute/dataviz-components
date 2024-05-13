@@ -48,6 +48,12 @@
   export let tickSize = 14;
 
   /**
+   * Should ticks be positioned above or below the color bars?
+   * @type { "top" | "bottom" } [ticksPosition = "bottom"]
+   */
+  export let tickPosition = "bottom";
+
+  /**
    * Optional size of space between color and tick labels
    * @type { number } [ticksMargin = 6]
    */
@@ -238,7 +244,7 @@
 
 <div class="legend-wrapper" bind:clientWidth={width} style:max-width="{maxWidth}px">
   {#if title}
-  <p class="legend-title">{title}</p>
+    <p class="legend-title">{title}</p>
   {/if}
   {#if width}
     {#if !(scaleType === "ordinal" && swatch)}
@@ -252,7 +258,12 @@
                 {/each}
               </linearGradient>
             </defs>
-            <rect fill="url(#{scaleId})" width={legendWidth} {height}></rect>
+            <rect
+              fill="url(#{scaleId})"
+              width={legendWidth}
+              {height}
+              y={tickPosition === "bottom" ? 0 : tickSize + tickMargin}
+            ></rect>
           {:else if scaleType === "sequential"}
             <defs>
               <linearGradient id={scaleId}>
@@ -261,7 +272,12 @@
                 {/each}
               </linearGradient>
             </defs>
-            <rect fill="url(#{scaleId})" width={legendWidth} {height}></rect>
+            <rect
+              fill="url(#{scaleId})"
+              width={legendWidth}
+              {height}
+              y={tickPosition === "bottom" ? 0 : tickSize + tickMargin}
+            ></rect>
           {:else if scaleType === "threshold"}
             {#each range as color, i}
               <rect x={xScale(i - 1)} y="0" width={xScale(i) - xScale(i - 1)} {height} fill={color}
@@ -271,7 +287,7 @@
             {#each domain as cat, i}
               <rect
                 x={xScale(cat)}
-                y={0}
+                y={tickPosition === "bottom" ? 0 : tickSize + tickMargin}
                 width={Math.max(0, xScale.bandwidth() - 1)}
                 {height}
                 fill={scale(cat)}
@@ -283,19 +299,21 @@
               {#each legendTicks as tick}
                 {@const xPosition =
                   scaleType === "ordinal" ? xScale(tick) + xScale.bandwidth() / 2 : xScale(tick)}
+                {@const yPosition =
+                  tickPosition === "top" ? tickSize : height + tickMargin + tickSize}
                 {#if scaleType !== "ordinal" && tickLineWidth}
                   <line
                     x1={xPosition}
                     x2={xPosition}
-                    y1={0}
-                    y2={height + tickMargin}
+                    y1={tickPosition === "bottom" ? 0 : height + tickMargin + tickSize}
+                    y2={tickPosition === "bottom" ? height + tickMargin : tickSize}
                     stroke={tickLineColor}
                     stroke-width={tickLineWidth}
                   ></line>
                 {/if}
                 <text
                   fill="black"
-                  y={height + tickSize + tickMargin}
+                  y={yPosition}
                   x={xPosition}
                   font-size="{tickSize}px"
                   text-anchor="middle">{tickFormatFn(tick)}</text
