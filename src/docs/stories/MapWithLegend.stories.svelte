@@ -13,14 +13,14 @@
 
 <script>
   import { Story, Template } from "@storybook/addon-svelte-csf";
+  import {ChartBlock} from "$lib";
   import {
-    ChartBlock,
     PolygonLayer,
     LabelLayer,
     PointLayer,
     SVGMap
-  } from "$lib";
-  import ColorLegend from "$lib/ColorLegend/ColorLegend.svelte";
+  } from "$lib/maps";
+  import ColorLegend from "$lib/maps/ColorLegend/ColorLegend.svelte";
   import county_air_quality_topo from "../../docs/sample-data/county_air_quality_topo.json";
   import { urbanColors } from "$lib/utils";
   import { geoAlbersUsa } from "d3-geo";
