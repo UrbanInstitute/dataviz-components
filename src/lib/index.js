@@ -26,7 +26,3 @@ export { default as Analytics, logClickToGA } from "./Analytics/Analytics.svelte
 export { default as Headline } from "./Headline/Headline.svelte";
 export { default as PymChild } from "./Pym/PymChild.svelte";
 export { default as LoadingWrapper } from "./LoadingWrapper/LoadingWrapper.svelte";
-export { default as SVGMap } from "./SVGMap/SVGMap.svelte";
-export { default as PolygonLayer } from "./SVGMap/PolygonLayer.svelte";
-export { default as PointLayer } from "./SVGMap/PointLayer.svelte";
-export { default as LabelLayer } from "./SVGMap/LabelLayer.svelte";

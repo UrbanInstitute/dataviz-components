@@ -4,7 +4,7 @@
   import docs from "./LabelLayer.docs.md?raw";
 
   export const meta = {
-    title: "Components/SVGMap/LabelLayer",
+    title: "Maps/LabelLayer",
     component: LabelLayer,
     tags: ["autodocs"],
     argTypes: {

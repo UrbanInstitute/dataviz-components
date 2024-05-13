@@ -1,5 +1,5 @@
 <script>
-  import { reducedMotion } from "../stores";
+  import { reducedMotion } from "../../stores";
   import { readable, writable } from "svelte/store";
   import { setContext, onMount } from "svelte";
   import { geoAlbersUsa } from "d3-geo";

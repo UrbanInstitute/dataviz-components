@@ -5,7 +5,7 @@
   import PointLayer from "./PointLayer.svelte";
 
   export const meta = {
-    title: "Components/SVGMap",
+    title: "Maps/SVGMap",
     component: SVGMap,
     argTypes: {
       features: { control: "array" },
@@ -23,17 +23,17 @@
 
 <script>
   import { Story, Template } from "@storybook/addon-svelte-csf";
-  import states from "../../docs/sample-data/states_geo.json";
-  import us_cities from "../../docs/sample-data/us_cities.json";
-  import nyc_income_topo from "../../docs/sample-data/nyc_income_topo.json";
-  import nyc_ntas from "../../docs/sample-data/nyc_ntas.json";
-  import county_air_quality_topo from "../../docs/sample-data/county_air_quality_topo.json";
+  import states from "../../../docs/sample-data/states_geo.json";
+  import us_cities from "../../../docs/sample-data/us_cities.json";
+  import nyc_income_topo from "../../../docs/sample-data/nyc_income_topo.json";
+  import nyc_ntas from "../../../docs/sample-data/nyc_ntas.json";
+  import county_air_quality_topo from "../../../docs/sample-data/county_air_quality_topo.json";
   import { urbanColors } from "$lib/utils";
-  import { geoMercator, geoAlbersUsa } from "d3-geo";
+  import { geoMercator } from "d3-geo";
   import { scaleQuantize, scaleQuantile, scaleSqrt } from "d3-scale";
   import { extent, max } from "d3-array";
-  import cleveland_bike_data_topo from "../../docs/sample-data/cleveland_bike_to_work.json";
-  import pa_population_topo from "../../docs/sample-data/pa_county_population_topo.json";
+  import cleveland_bike_data_topo from "../../../docs/sample-data/cleveland_bike_to_work.json";
+  import pa_population_topo from "../../../docs/sample-data/pa_county_population_topo.json";
 
   // nyc census tracts with average hh income
   const nyc_income = topojson.feature(nyc_income_topo, "nyc_income_geo1");
@@ -78,13 +78,13 @@
 
 <Story
   name="Simple map"
-  source={`<SVGMap projection={geoAlbersUsa} features={states.features}>
+  source={`<SVGMap features={states.features}>
   <PolygonLayer />
   <PointLayer />
   <LabelLayer getLabel={(d) => d.properties.STUSPS}/>
 </SVGMap>`}
 >
-  <SVGMap projection={geoAlbersUsa} features={states.features}>
+  <SVGMap features={states.features}>
     <PolygonLayer />
     <PointLayer />
     <LabelLayer getLabel={(d) => d.properties.STUSPS} />
@@ -92,7 +92,7 @@
 </Story>
 
 <Story name="Custom colors and multiple layers">
-  <SVGMap projection={geoAlbersUsa} features={county_air_quality.features} aspectRatio={4/2.3333}>
+  <SVGMap features={county_air_quality.features} aspectRatio={4/2.3333}>
     <PolygonLayer
       fill={(d) => airQualityScale(d.properties.index_air_quality)}
       stroke={urbanColors.gray_shade_dark}
