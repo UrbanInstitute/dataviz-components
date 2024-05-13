@@ -20,12 +20,6 @@
   export let projection = geoAlbersUsa;
 
   /**
-   * Should the map allow zoom and pan?
-   * @type { boolean } [zoomable = false]
-   */
-  export let zoomable = false;
-
-  /**
    * Where the zoom control UI should be positioned.
    * @type {"bottom-left" | "bottom-right" | "top-left" | "top-right"} [ controlPosition = "bottom-right" ]
    */
@@ -54,6 +48,18 @@
    * @type { string } [ariaRole = undefined]
    */
   export let ariaLabel = undefined;
+
+  /**
+   * Should the map allow zoom and pan?
+   * @type { boolean } [zoomable = false]
+   */
+  export let zoomable = false;
+
+  /**
+   * If map is zoomable, sets a maximum zoom factor relative to the initial view.
+   * @type { number } [maxZoom = 8]
+   */
+  export let maxZoom = 8;
 
   /**
    * Whether or not the map should zoom when scroll wheel is used on map.
@@ -103,7 +109,7 @@
     svgSelection = select(el.querySelector("svg"));
     // create zoom instance
     mapZoom = zoom()
-      .scaleExtent([1, 8])
+      .scaleExtent([1, maxZoom])
       .filter((event) => {
         if (scrollWheel === "ctrl") {
           // Only allow zooming with wheel when ctrlKey is pressed
@@ -189,6 +195,7 @@
         {zoomOut}
         {zoomReset}
         disableZoomOut={$transformStore.k === zoomIdentity.k}
+        disableZoomIn={$transformStore.k === maxZoom}
       />
     </div>
   {/if}
