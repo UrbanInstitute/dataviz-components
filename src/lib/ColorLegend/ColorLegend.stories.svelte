@@ -7,6 +7,10 @@
     component: ColorLegend,
     tags: ["autodocs"],
     argTypes: {
+      tickPosition: {
+        control: "select",
+        options: ["bottom", "top"]
+      },
       swatchLayout: {
         control: "select",
         options: ["row", "column"]
