@@ -11,61 +11,61 @@
   import { format } from "d3-format";
   import urbanColors from "$lib/utils/urbanColors.js";
 
-  /*
+  /**
    * D3 scale to base legend on
-   * @type { Function } [scale]
+   * @type { function } [scale]
    */
   export let scale;
 
-  /*
+  /**
    * Height of the visual element of the legend
-   * @type { Number } [height = 20]
+   * @type { number } [height = 20]
    */
   export let height = 10;
 
-  /*
+  /**
    * Optional array of exact values to use as ticks
    * {Array<any>}
    */
   export let tickValues = undefined;
 
-  /*
+  /**
    * Optional number of ticks to pass to d3's generator
-   * @type { Number } [ticks = 3]
+   * @type { number } [ticks = 3]
    */
   export let ticks = 5;
 
-  /*
+  /**
    * Optional size for tick labels
-   * @type { Number } [ticksSize = 12]
+   * @type { number } [ticksSize = 14]
    */
-  export let tickSize = 12;
+  export let tickSize = 14;
 
-  /*
+  /**
    * Optional size of space between color and tick labels
-   * @type { Number } [ticksMargin = 6]
+   * @type { number } [ticksMargin = 6]
    */
   export let tickMargin = 5;
 
-  /*
+  /**
    * Optional tick formatting string or function
    * @type { string | (Object) => string } [tickFormat = undefined]
    */
   export let tickFormat = undefined;
 
-  /*
+  /**
    * Width of tick line. Set to 0 if no line is needed.
-   * @type { Number } [tickLineWidth = 1]
+   * @type { number } [tickLineWidth = 1]
    */
   export let tickLineWidth = 1;
 
-  /*
+  /**
    * Color of tick line.
    * @type { string } [tickLineColor = urbanColors.black]
    */
   export let tickLineColor = urbanColors.black;
 
-  /*
+  /**
    * Optional margin object that defines space around legend within the SVG element
    * @type {{top: Number, right: Number, bottom: Number, left: Number}}
    */
@@ -76,11 +76,47 @@
     left: 0
   };
 
-  /*
+  /**
    * Optional max width for the legend. Legend will resize to fill the space of the container by default.
-   * @type { Number } [ maxWidth = undefined ]
+   * @type { number } [ maxWidth = undefined ]
    */
   export let maxWidth = undefined;
+
+  /**
+   * Display ordinal scale as swatches rather than bars. Does nothing for other scale types.
+   * @type { boolean } [swatch = false]
+   */
+  export let swatch = false;
+
+  /**
+   * Display swatches in a row or column layout.
+   * @type { "row" | "column" } [swatchLayout = "row"]
+   */
+  export let swatchLayout = "row";
+
+  /**
+   * A flexbox alignment value for the swatch layout.
+   * @type { "flex-start" | "center" | "flex-end" } [swatchAlign = "flex-start"]
+   */
+  export let swatchAlign = "flex-start";
+
+  /**
+   * Size of swatch in pixels
+   * @type { number } [swatchSize = 16]
+   */
+  export let swatchSize = 16;
+
+  /**
+   * Display swatches as circles rather than squares.
+   * @type { boolean } [swatchCircle = false]
+   */
+  export let swatchCircle = false;
+
+  /**
+   * Optional override space between swatch items. Should be a css compatable string.
+   * @type { string } [swatchSpacing = undefined]
+   */
+  export let swatchSpacing = undefined;
 
   // will hold width of DOM element
   let width;
@@ -90,7 +126,7 @@
 
   $: legendWidth = width - margin.left - margin.right;
 
-  /*
+  /**
    * @type { scaleType }
    */
   $: scaleType = getScaleType(scale);
@@ -135,13 +171,6 @@
     return (d) => d;
   }
 
-  // debug
-  $: console.log("scaleType", scaleType);
-  $: console.log("domain", domain);
-  $: console.log("range", range);
-  $: console.log("xScale", xScale);
-  $: console.log("legendTicks", legendTicks);
-
   function getXScale(scale, scaleType, legendWidth) {
     if (scaleType === "continuous") {
       const n = Math.min(scale.domain().length, scale.range().length);
@@ -161,7 +190,7 @@
     }
   }
 
-  /*
+  /**
    * @param { Object } scale
    * @returns { scaleType }
    */
@@ -203,66 +232,118 @@
 
 <div class="legend-wrapper" bind:clientWidth={width} style:max-width="{maxWidth}px">
   {#if width}
-    <svg {width} height={height + tickSize + tickMargin + margin.top + margin.bottom}>
-      <g class="legend-inner" transform="translate({margin.left}, {margin.top})">
-        {#if scaleType === "continuous"}
-          <defs>
-            <linearGradient id={scaleId}>
-              {#each range as color, i}
-                <stop offset="{(100 / (range.length - 1)) * i}%" stop-color={color} />
-              {/each}
-            </linearGradient>
-          </defs>
-          <rect fill="url(#{scaleId})" width={legendWidth} {height}></rect>
-        {:else if scaleType === "sequential"}
-          <defs>
-            <linearGradient id={scaleId}>
-              {#each domain as stop, i}
-                <stop offset="{100 * (i / (domain.length - 1))}%" stop-color={scale(stop)} />
-              {/each}
-            </linearGradient>
-          </defs>
-          <rect fill="url(#{scaleId})" width={legendWidth} {height}></rect>
-        {:else if scaleType === "threshold"}
-          {#each range as color, i}
-            <rect x={xScale(i - 1)} y="0" width={xScale(i) - xScale(i - 1)} {height} fill={color}
-            ></rect>
-          {/each}
-        {:else if scaleType === "ordinal"}
-          {#each domain as cat, i}
-            <rect
-              x={xScale(cat)}
-              y={0}
-              width={Math.max(0, xScale.bandwidth() - 1)}
-              {height}
-              fill={scale(cat)}
-            ></rect>
-          {/each}
-        {/if}
-        {#if scaleType && width && xScale}
-          <g class="legend-ticks">
-            {#each legendTicks as tick}
-            {@const xPosition = scaleType === "ordinal" ? xScale(tick) + xScale.bandwidth() / 2 : xScale(tick)}
-              {#if scaleType !== "ordinal" && tickLineWidth}
-                <line
-                  x1={xPosition}
-                  x2={xPosition}
-                  y1={0}
-                  y2={height + tickMargin}
-                  stroke={tickLineColor}
-                  stroke-width={tickLineWidth}
-                ></line>
-              {/if}
+    {#if !(scaleType === "ordinal" && swatch)}
+      <svg {width} height={height + tickSize + tickMargin + margin.top + margin.bottom}>
+        <g class="legend-inner" transform="translate({margin.left}, {margin.top})">
+          {#if scaleType === "continuous"}
+            <defs>
+              <linearGradient id={scaleId}>
+                {#each range as color, i}
+                  <stop offset="{(100 / (range.length - 1)) * i}%" stop-color={color} />
+                {/each}
+              </linearGradient>
+            </defs>
+            <rect fill="url(#{scaleId})" width={legendWidth} {height}></rect>
+          {:else if scaleType === "sequential"}
+            <defs>
+              <linearGradient id={scaleId}>
+                {#each domain as stop, i}
+                  <stop offset="{100 * (i / (domain.length - 1))}%" stop-color={scale(stop)} />
+                {/each}
+              </linearGradient>
+            </defs>
+            <rect fill="url(#{scaleId})" width={legendWidth} {height}></rect>
+          {:else if scaleType === "threshold"}
+            {#each range as color, i}
+              <rect x={xScale(i - 1)} y="0" width={xScale(i) - xScale(i - 1)} {height} fill={color}
+              ></rect>
+            {/each}
+          {:else if scaleType === "ordinal"}
+            {#each domain as cat, i}
+              <rect
+                x={xScale(cat)}
+                y={0}
+                width={Math.max(0, xScale.bandwidth() - 1)}
+                {height}
+                fill={scale(cat)}
+              ></rect>
+            {/each}
+          {/if}
+          {#if scaleType && width && xScale}
+            <g class="legend-ticks">
+              {#each legendTicks as tick}
+                {@const xPosition =
+                  scaleType === "ordinal" ? xScale(tick) + xScale.bandwidth() / 2 : xScale(tick)}
+                {#if scaleType !== "ordinal" && tickLineWidth}
+                  <line
+                    x1={xPosition}
+                    x2={xPosition}
+                    y1={0}
+                    y2={height + tickMargin}
+                    stroke={tickLineColor}
+                    stroke-width={tickLineWidth}
+                  ></line>
+                {/if}
                 <text
                   fill="black"
                   y={height + tickSize + tickMargin}
                   x={xPosition}
+                  font-size="{tickSize}px"
                   text-anchor="middle">{tickFormatFn(tick)}</text
                 >
-            {/each}
-          </g>
-        {/if}
-      </g>
-    </svg>
+              {/each}
+            </g>
+          {/if}
+        </g>
+      </svg>
+    {:else}
+      <div
+        class="swatch-wrap swatch-layout-{swatchLayout}"
+        style:--swatch-font-size="{tickSize}px"
+        style:--swatch-color-size="{swatchSize}px"
+        style:--swatch-align={swatchAlign}
+        style:--swatch-spacing={swatchSpacing}
+      >
+        {#each domain as cat, i}
+          <div class="swatch-item" class:swatch-circle={swatchCircle}>
+            <div class="swatch-color" style:background-color={scale(cat)}></div>
+            <span class="swatch-label">{cat}</span>
+          </div>
+        {/each}
+      </div>
+    {/if}
   {/if}
 </div>
+
+<style>
+  .swatch-wrap {
+    display: flex;
+    gap: var(--swatch-spacing, var(--spacing-4));
+    flex-wrap: wrap;
+    justify-content: var(--swatch-align);
+  }
+
+  .swatch-wrap.swatch-layout-column {
+    flex-direction: column;
+    gap: var(--swatch-spacing, var(--spacing-2));
+  }
+
+  .swatch-item {
+    display: flex;
+    gap: var(--spacing-2);
+    align-items: center;
+  }
+
+  .swatch-color {
+    width: var(--swatch-color-size);
+    height: var(--swatch-color-size);
+  }
+
+  .swatch-circle .swatch-color {
+    border-radius: 50%;
+  }
+
+  .swatch-label {
+    font-size: var(--swatch-font-size);
+  }
+</style>

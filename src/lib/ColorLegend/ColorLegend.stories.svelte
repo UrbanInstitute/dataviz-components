@@ -6,7 +6,19 @@
     description: "A basic headline",
     component: ColorLegend,
     tags: ["autodocs"],
-    argTypes: {},
+    argTypes: {
+      swatchLayout: {
+        control: "select",
+        options: ["row", "column"]
+      },
+      swatchAlign: {
+        control: "select",
+        options: ["flex-start", "center", "flex-end"]
+      },
+      margin: {
+        control: "object"
+      },
+    },
     parameters: {
       docs: {
         description: {
@@ -83,5 +95,27 @@
       ["cat 1", "cat 2", "cat 3", "cat 4"],
       [urbanColors.blue, urbanColors.yellow, urbanColors.black, urbanColors.magenta]
     )
+  }}
+/>
+<Story
+  name="Ordinal swatches"
+  args={{
+    scale: scaleOrdinal(
+      ["cat 1", "cat 2", "cat 3", "cat 4"],
+      [urbanColors.blue, urbanColors.yellow, urbanColors.black, urbanColors.magenta]
+    ),
+    swatch: true,
+  }}
+/>
+<Story
+  name="Ordinal swatches column"
+  args={{
+    scale: scaleOrdinal(
+      ["cat 1", "cat 2", "cat 3", "cat 4"],
+      [urbanColors.blue, urbanColors.yellow, urbanColors.black, urbanColors.magenta]
+    ),
+    swatch: true,
+    swatchLayout: "column",
+    swatchCircle: true
   }}
 />
