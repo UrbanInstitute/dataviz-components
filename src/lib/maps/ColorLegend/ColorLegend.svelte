@@ -299,8 +299,7 @@
               {#each legendTicks as tick}
                 {@const xPosition =
                   scaleType === "ordinal" ? xScale(tick) + xScale.bandwidth() / 2 : xScale(tick)}
-                {@const yPosition =
-                  tickPosition === "top" ? 0 : height + tickMargin + tickSize}
+                {@const yPosition = tickPosition === "top" ? 0 : height + tickMargin + tickSize}
                 {#if scaleType !== "ordinal" && tickLineWidth}
                   <line
                     x1={xPosition}

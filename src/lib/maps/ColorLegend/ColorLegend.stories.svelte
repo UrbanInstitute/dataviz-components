@@ -20,7 +20,7 @@
       },
       margin: {
         control: "object"
-      },
+      }
     },
     parameters: {
       docs: {
@@ -59,7 +59,7 @@
 <Story
   name="Linear scale"
   args={{
-    scale: sampleScale,
+    scale: sampleScale
   }}
 />
 <Story
@@ -114,7 +114,7 @@
       ["cat 1", "cat 2", "cat 3", "cat 4"],
       [urbanColors.blue, urbanColors.yellow, urbanColors.black, urbanColors.magenta]
     ),
-    swatch: true,
+    swatch: true
   }}
 />
 <Story
