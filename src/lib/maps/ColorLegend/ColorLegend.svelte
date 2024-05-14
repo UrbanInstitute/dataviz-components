@@ -300,7 +300,7 @@
                 {@const xPosition =
                   scaleType === "ordinal" ? xScale(tick) + xScale.bandwidth() / 2 : xScale(tick)}
                 {@const yPosition =
-                  tickPosition === "top" ? tickSize : height + tickMargin + tickSize}
+                  tickPosition === "top" ? 0 : height + tickMargin + tickSize}
                 {#if scaleType !== "ordinal" && tickLineWidth}
                   <line
                     x1={xPosition}
@@ -313,6 +313,7 @@
                 {/if}
                 <text
                   fill="black"
+                  alignment-baseline={tickPosition === "top" ? "hanging" : "baseline"}
                   y={yPosition}
                   x={xPosition}
                   font-size="{tickSize}px"
