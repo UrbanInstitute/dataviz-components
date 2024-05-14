@@ -100,10 +100,7 @@
     if (highlightFeatureNode) {
       raise(highlightFeatureNode);
     }
-    // When the element gets raised, it flashes 0,0 for a second so skip that
-    if (e.layerX !== 0 && e.layerY !== 0) {
-      dispatch("mousemove", { e, props: feature.properties });
-    }
+    dispatch("mousemove", { e, props: feature.properties });
   }
 
   function handleClick(e, feature) {

@@ -53,6 +53,12 @@
   export let minZoom = 0;
 
   /**
+   * Boolean that determines if this layer should respond to pointer events and dispatch events.
+   * @type {boolean} [pointerEvents]
+   */
+  export let pointerEvents = true;
+
+  /**
    * Function that returns the string to be displayed in the label when passed a feature object
    * @param { Object } d the feature on which the label will be based
    * @returns { string }
@@ -81,6 +87,7 @@
     on:mouseout={(e) => dispatch("mouseout")}
     on:blur={(e) => dispatch("mouseout")}
     transition:fade={{ duration: 250 }}
+    style:pointer-events={pointerEvents ? "auto" : "none"}
   >
     {#each features || $mapFeatures as feature}
       {@const [x, y] = geoPathFn.centroid(feature)}

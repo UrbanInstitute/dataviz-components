@@ -85,6 +85,12 @@
    */
   export let highlightFeature = undefined;
 
+  /**
+   * Boolean that determines if this layer should respond to pointer events and dispatch events.
+   * @type {boolean} [pointerEvents]
+   */
+  export let pointerEvents = true;
+
   $: geoPathFn = geoPath($projection);
 
   const dispatch = createEventDispatcher();
@@ -122,6 +128,7 @@
   class="point-layer map-layer"
   on:mouseout={(e) => dispatch("mouseout")}
   on:blur={(e) => dispatch("mouseout")}
+  style:pointe-events={pointerEvents ? "auto" : "none"}
   style:--hover-stroke-width="{(hoverStrokeWidth || strokeWidth) / $transform.k}px"
 >
   {#each features || $globalFeatures as feature}
