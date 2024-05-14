@@ -14,6 +14,7 @@
 <script>
   import { Story, Template } from "@storybook/addon-svelte-csf";
   import {ChartBlock} from "$lib";
+  import Tooltip from "$lib/Tooltip/Tooltip.svelte";
   import {
     SVGPolygonLayer,
     SVGLabelLayer,
@@ -34,6 +35,16 @@
   let airQualityScale = scaleQuantile()
     .domain(county_air_quality.features.map((d) => d.properties.index_air_quality))
     .range(urbanColors.getDivergingColors());
+
+  let tooltip = undefined;
+
+  function showTooltip(x, y, content) {
+    tooltip = {
+      x,
+      y,
+      content
+    }
+  }
 </script>
 
 <Template></Template>
@@ -43,9 +54,13 @@
   <div style="max-width: 300px; margin: 1em auto 0;">
     <ColorLegend scale={airQualityScale} height={10} tickLineColor={"white"} tickLineWidth="2"/>
   </div>
-  <SVGMap projection={geoAlbersUsa} features={county_air_quality.features} height="400">
+  <SVGMap zoomable projection={geoAlbersUsa} features={county_air_quality.features} aspectRatio={4/2.666}>
     <SVGPolygonLayer
       fill={(d) => airQualityScale(d.properties.index_air_quality)}
+      on:mousemove={(e) => {
+        showTooltip(e.detail.e.x, e.detail.e.y, `Air quality index: <strong>${e.detail.props.index_air_quality}<strong>`)
+      }}
+      on:mouseout={(e) => {tooltip = undefined}}
       stroke={urbanColors.gray_shade_dark}
     />
     <SVGPointLayer features={us_cities_geo.features} fill={urbanColors.gray_shade_lighter} />
@@ -55,6 +70,9 @@
       fontSize={13}
     />
   </SVGMap>
+  {#if tooltip}
+    <Tooltip {...tooltip} />
+  {/if}
 </ChartBlock>
 
 </Story>
