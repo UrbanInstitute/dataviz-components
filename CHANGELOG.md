@@ -12,6 +12,7 @@
 - Add LoadingWrapper component to provide a loading graphic for components that need it
 - Add SVGMap component and associated layer components
 - Add ColorLegend component
+- Add Tooltip component
 
 ## v0.8.0
 
