@@ -6,8 +6,8 @@
   export let content;
 
   /**
-   * @type {"dark" | "light"}
-   * @default
+   * The color style of the tooltip
+   * @type {"dark" | "light"} [style = "light"]
    */
   export let style = "light";
 
@@ -41,6 +41,36 @@
    */
   export let boxShadow = false;
 
+  /**
+   * Color of tooltip background. Overrides the default style.
+   * @type { string } [backgroundColor = undefined]
+   */
+  export let backgroundColor = undefined;
+
+  /**
+   * Color of tooltip text. Overrides the default style.
+   * @type { string } [fontColor = undefined]
+   */
+  export let fontColor = undefined;
+
+  /**
+   * Color of tooltip border
+   * @type { string } [borderColor = "var(--color-gray)"]
+   */
+  export let borderColor = "var(--color-gray)"
+
+  /**
+   * Size of the tooltip triangle. Set to 0 for no triangle.
+   * @type { number } [triangleSize = 0]
+   */
+  export let triangleSize = 8;
+
+  /**
+   * Orientation of the tooltip. Default to dynamic, which attempts to prevent tooltip from overflowing the bounds of the window or container element.
+   * @type {"top" | "bottom" | "left" | "right" | "dynamic"} [orientation = "dynamic"]
+   */
+  export let orientation = "dynamic";
+
   // lookup to convert semantic sizes to pixel widths
   const sizes = {
     small: 138,
@@ -54,31 +84,35 @@
   $: tooltipWidth = sizes[size];
   $: tooltipHeight = tooltipEl ? tooltipEl.offsetHeight : 20;
 
-  // triangle sizes
-  const triangleSizes = {
-    small: 21,
-    large: 29
-  };
+  const defaultFontColors = {
+    light: "var(--color-gray-shade-darkest)",
+    dark: "var(--color-white)"
+  }
 
-  // store triangle width for easy reference
-  $: triangleWidth = triangleSizes[size];
+  // font and background colors
+  $: tooltipFontColor = fontColor ? fontColor : defaultFontColors[style]
 
-  // tooltip triangles are 18px tall for both large and small variants
-  const triangleHeight = 18;
+  const defaultBgColors = {
+    light: "var(--color-white)",
+    dark: "var(--color-black)"
+  }
+
+  // font and background colors
+  $: tooltipBackgroundColor = backgroundColor || defaultBgColors[style]
 
   // bound to window height and width
   let windowWidth = 0;
   let windowHeight = 0;
 
+
   /**
    * Calculate which direction the tooltip should go based on the window size and the provided x and y position
    * @param {number} x - the x position of the tooltip
    * @param {number} y - the y position of the tooltip
-   * @param {number} containerHeight - the height of the container the tooltip is in
    * @param {number} containerWidth - the width of the container the tooltip is in
    * @returns {"top" | "bottom" | "left" | "right"}
    */
-  function getTooltipDirection(x, y, containerWidth) {
+  function getTooltipOrientation(x, y, containerWidth) {
     // first check if tooltip is too far to the left
     if (x < tooltipWidth / 2) {
       return "right";
@@ -88,7 +122,7 @@
       return "left";
     }
     // next check if tooltip is too far up
-    if (y < tooltipHeight + triangleHeight) {
+    if (y < tooltipHeight + triangleSize) {
       return "bottom";
     }
     // default to top
@@ -97,20 +131,21 @@
 
   // the direction of the tooltip in relation to the mouse
   // defaults to "top", but will move if the tooltip reaches any edge
-  $: tooltipDirection = getTooltipDirection(x, y, windowWidth);
+  $: tooltipOrientation = orientation === "dynamic" ? getTooltipOrientation(x, y, windowWidth) : orientation;
 </script>
 
 <svelte:window bind:innerWidth={windowWidth} bind:innerHeight={windowHeight} />
 <div
   bind:this={tooltipEl}
-  class="tooltip tooltip-{tooltipDirection} tooltip-{style} tooltip-{size}"
+  class="tooltip tooltip-{tooltipOrientation} tooltip-{style} tooltip-{size}"
   class:box-shadow={boxShadow}
   style={`left: ${x}px; top: ${y}px; width: ${sizes[size]}px;`}
   style:--tooltip-font-size={fontSize}
-  style:--tooltip-border-color={"var(--color-gray)"}
+  style:--tooltip-border-color={borderColor}
   style:--tooltip-border-width="{1}px"
-  style:--tooltip-triangle-size="{10}px"
-  style:--tooltip-background-color="var(--color-white)"
+  style:--tooltip-triangle-size="{triangleSize}px"
+  style:--tooltip-font-color={tooltipFontColor}
+  style:--tooltip-background-color={tooltipBackgroundColor}
 >
   <div class="tooltip-text">{@html content}</div>
 </div>
@@ -122,7 +157,7 @@
     left: 0;
     top: 0;
     z-index: 500;
-    color: var(--color-gray-shade-darkest);
+    color: var(--tooltip-font-color);
     background: var(--tooltip-background-color);
     border: solid var(--tooltip-border-width) var(--tooltip-border-color);
     pointer-events: none;
@@ -170,12 +205,6 @@
     font-size: var(--font-size-normal);
   }
 
-  .tooltip.tooltip-light .tooltip-text {
-    color: var(--color-black, "#000000");
-  }
-  .tooltip.tooltip-dark .tooltip-text {
-    color: var(--color-white, "#FFFFFF");
-  }
   .tooltip-shape {
     position: absolute;
     top: 0;
@@ -202,13 +231,14 @@
   .tooltip.tooltip-top::after {
     margin-left: calc(0px - var(--tooltip-triangle-size));
     border-width: var(--tooltip-triangle-size);
-    border-top-color: var(--tooltip-background-color);
+    border-top-color: var(--tooltip-background-color); 
+    transform: translateY(calc(0px - var(--tooltip-border-width)))
   }
 
   /* top outer */
   .tooltip.tooltip-top::before {
-    margin-left: calc(0px - var(--tooltip-triangle-size) - 1px);
-    border-width: calc(var(--tooltip-triangle-size) + 1px);
+    margin-left: calc(0px - var(--tooltip-triangle-size));
+    border-width: var(--tooltip-triangle-size);
     border-top-color: var(--tooltip-border-color);
   }
 
@@ -230,6 +260,7 @@
     margin-left: calc(0px - var(--tooltip-triangle-size));
     border-width: var(--tooltip-triangle-size);
     border-bottom-color: var(--tooltip-background-color);
+    transform: translateY(calc(var(--tooltip-border-width)))
   }
 
   /* bottom outer */
