@@ -40,14 +40,47 @@
     .domain(county_air_quality.features.map((d) => d.properties.index_air_quality))
     .range(urbanColors.getDivergingColors());
 
-  let tooltip = undefined;
+  // will hold the tooltip Obj if set
+  let tooltip;
+  // will hold the map highlight ID if set
+  let stickyHighlight;
 
-  function showTooltip(x, y, content) {
+  // translate an event object into a tooltip object and set it
+  function showTooltip(e) {
+    const content = `<h5>${e.detail.props.fips}</h5>Air quality index: <strong>${e.detail.props.index_air_quality}<strong>`;
+    const { x, y } = e.detail.e;
     tooltip = {
       x,
       y,
-      content,
+      content
     };
+  }
+
+  function handleMousemove(e) {
+    // if map has a current highlight, mousemove should do nothing and return
+    if (stickyHighlight) {
+      return;
+    }
+    // otherwise, show a tooltip based on this event
+    showTooltip(e);
+  }
+
+  function handleClick(e) {
+    // if map has a current highlight, clear it and clear the tooltip on click and return
+    if (stickyHighlight) {
+      tooltip = undefined;
+      stickyHighlight = "";
+      return;
+    }
+    // if map doesn't have a current highlight, set it and render the tooltip based on this event
+    stickyHighlight = e.detail.props.fips;
+    showTooltip(e);
+  }
+
+  function handleMouseout(e) {
+    if (!stickyHighlight) {
+      tooltip = undefined;
+    }
   }
 </script>
 
@@ -69,19 +102,19 @@
     >
       <PolygonLayer
         fill={(d) => airQualityScale(d.properties.index_air_quality)}
-        on:mousemove={(e) => {
-          showTooltip(
-            e.detail.e.x,
-            e.detail.e.y,
-            `<h5>${e.detail.props.fips}</h5>Air quality index: <strong>${e.detail.props.index_air_quality}<strong>`
-          );
-        }}
-        on:mouseout={(e) => {
-          tooltip = undefined;
-        }}
+        hoverStroke={urbanColors.magenta}
+        hoverStrokeWidth={2}
+        highlightFeature={(d) => d.properties.fips === stickyHighlight}
+        on:click={handleClick}
+        on:mousemove={handleMousemove}
+        on:mouseout={handleMouseout}
         stroke={urbanColors.gray_shade_dark}
       />
-      <PointLayer features={us_cities_geo.features} fill={urbanColors.gray_shade_lighter} />
+      <PointLayer
+        pointerEvents={false}
+        features={us_cities_geo.features}
+        fill={urbanColors.gray_shade_lighter}
+      />
       <LabelLayer
         features={us_cities_geo.features}
         getLabel={(d) => d.properties.name}
