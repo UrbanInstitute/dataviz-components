@@ -98,27 +98,6 @@
   // the direction of the tooltip in relation to the mouse
   // defaults to "top", but will move if the tooltip reaches any edge
   $: tooltipDirection = getTooltipDirection(x, y, windowWidth, windowHeight);
-
-  /**
-   * Calculate the SVG shape of the tooltip based on size and direction
-   * @param {number} width - the width of the tooltip
-   * @param {number} height - the height of the tooltip
-   * @param {"top" | "bottom" | "left" | "right"} direction - the direction of the tooltip
-
-  */
-  function getTooltipShape(width, height, direction) {
-    if (direction === "bottom") {
-      return `M0,${triangleHeight}H${width / 2 - triangleWidth / 2}L${width / 2},0L${width / 2 + triangleWidth / 2},${triangleHeight}H${width}V${height + triangleHeight}H0Z`;
-    }
-    if (direction === "right") {
-      return `M${triangleHeight},0H${width}V${height}H${triangleHeight}V${height / 2 + triangleWidth / 2}L0,${height / 2}L${triangleHeight},${height / 2 - triangleWidth / 2}Z`;
-    }
-    if (direction === "left") {
-      return `M0,0H${width - triangleHeight}V${height / 2 - triangleWidth / 2}L${width},${height / 2}L${width - triangleHeight},${height / 2 + triangleWidth / 2}V${height}H0Z`;
-    }
-    // default to top
-    return `M0,0H${width}V${height}H${width / 2 + triangleWidth / 2}L${width / 2},${height + triangleHeight}L${width / 2 - triangleWidth / 2},${height}H0Z`;
-  }
 </script>
 
 <svelte:window bind:innerWidth={windowWidth} bind:innerHeight={windowHeight} />
