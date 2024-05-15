@@ -77,10 +77,14 @@
     showTooltip(e);
   }
 
-  function handleMouseout(e) {
+  function handleMapBgMousemove(e) {
     if (!stickyHighlight) {
       tooltip = undefined;
     }
+  }
+  function handleMapBgClick(e) {
+    stickyHighlight = "";
+    tooltip = undefined;
   }
 </script>
 
@@ -99,6 +103,8 @@
       projection={geoAlbersUsa}
       features={county_air_quality.features}
       aspectRatio={4 / 2.5}
+      on:mousemove={handleMapBgMousemove}
+      on:click={handleMapBgClick}
     >
       <PolygonLayer
         fill={(d) => airQualityScale(d.properties.index_air_quality)}
@@ -107,7 +113,6 @@
         highlightFeature={(d) => d.properties.fips === stickyHighlight}
         on:click={handleClick}
         on:mousemove={handleMousemove}
-        on:mouseout={handleMouseout}
         stroke={urbanColors.gray_shade_dark}
       />
       <PointLayer

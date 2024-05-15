@@ -1,7 +1,7 @@
 <script>
   import { reducedMotion } from "../../stores";
   import { readable, writable } from "svelte/store";
-  import { setContext, onMount } from "svelte";
+  import { setContext, onMount, createEventDispatcher } from "svelte";
   import { geoAlbersUsa } from "d3-geo";
   import { zoom, zoomIdentity } from "d3-zoom";
   import { select } from "d3-selection";
@@ -43,7 +43,7 @@
    */
   export let ariaRole = undefined;
 
-  /*
+  /**
    * Optional aria label string to be applied to SVG container. By default, the SVG is hidden from the accessiblity tree and should include a descriptive label. If you add an ariaRole this property can be left undefined;
    * @type { string } [ariaRole = undefined]
    */
@@ -66,6 +66,14 @@
    * @type {"no" | "yes" | "ctrl"}
    */
   export let scrollWheel = "ctrl";
+
+  /**
+   * Fill for the background of the map
+   * @type { string } [backgroundColor = "transparent"]
+   */
+  export let backgroundColor = "transparent";
+
+  const dispatch = createEventDispatcher();
 
   // create stores of map global settings to add to context
   $: featuresStore = readable(features);
@@ -113,7 +121,7 @@
       .filter((event) => {
         if (scrollWheel === "ctrl") {
           // Only allow zooming with wheel when ctrlKey or metaKey is pressed
-          return event.type === "wheel" ? (event.ctrlKey || event.metaKey) : true;
+          return event.type === "wheel" ? event.ctrlKey || event.metaKey : true;
         } else if (scrollWheel === "no") {
           // No scroll wheel events
           return event.type !== "wheel";
@@ -151,7 +159,7 @@
 
   function getMapHeight(width, height, aspectRatio) {
     if (aspectRatio) {
-      return width / aspectRatio
+      return width / aspectRatio;
     }
     return height;
   }
@@ -168,7 +176,7 @@
 </script>
 
 <div
-  class="chart-container"
+  class="map-container"
   bind:this={el}
   bind:clientWidth={width}
   style:height="{getMapHeight(width, height, aspectRatio)}px"
@@ -177,6 +185,19 @@
   aria-label={ariaLabel}
 >
   <svg {width} height={mapHeight}>
+    <rect
+      role="presentation"
+      class="map-bg"
+      x="0"
+      y="0"
+      {width}
+      height={mapHeight}
+      fill={backgroundColor}
+      on:mousemove={(e) => dispatch("mousemove")}
+      on:click={(e) => dispatch("click")}
+      on:mouseout={(e) => dispatch("mouseout")}
+      on:blur={(e) => dispatch("mouseout")}
+    ></rect>
     <g
       class="zoom-group"
       transform="translate({$transformStore.x}, {$transformStore.y}) scale({$transformStore.k})"
@@ -202,7 +223,7 @@
 </div>
 
 <style>
-  .chart-container {
+  .map-container {
     overflow: hidden;
     position: relative;
   }
@@ -225,7 +246,7 @@
     top: var(--spacing-2);
     right: var(--spacing-2);
   }
-  .zoom-group:focus {
+  .zoom-group:focus, .map-bg:focus {
     outline: none;
   }
 </style>
