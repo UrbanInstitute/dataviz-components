@@ -78,13 +78,13 @@
    * @param {number} containerWidth - the width of the container the tooltip is in
    * @returns {"top" | "bottom" | "left" | "right"}
    */
-  function getTooltipDirection(x, y, containerHeight, containerWidth) {
+  function getTooltipDirection(x, y, containerWidth) {
     // first check if tooltip is too far to the left
     if (x < tooltipWidth / 2) {
       return "right";
     }
     // next check if tooltip is too far to the right
-    if (x > windowWidth - tooltipWidth / 2) {
+    if (x > containerWidth - tooltipWidth / 2) {
       return "left";
     }
     // next check if tooltip is too far up
@@ -97,7 +97,7 @@
 
   // the direction of the tooltip in relation to the mouse
   // defaults to "top", but will move if the tooltip reaches any edge
-  $: tooltipDirection = getTooltipDirection(x, y, windowWidth, windowHeight);
+  $: tooltipDirection = getTooltipDirection(x, y, windowWidth);
 </script>
 
 <svelte:window bind:innerWidth={windowWidth} bind:innerHeight={windowHeight} />
