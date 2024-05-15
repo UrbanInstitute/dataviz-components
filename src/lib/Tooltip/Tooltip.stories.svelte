@@ -19,7 +19,7 @@
 
 <script>
   import { Story, Template } from "@storybook/addon-svelte-csf";
-  let x = 100;
+  let x = 120;
   let y = 100;
 </script>
 
@@ -30,7 +30,7 @@
 </Template>
 
 <Story name="Default" args={{
-  content: "Data value: <strong>72.3%</strong>",
+  content: "<h2>Title</h2>Data value: <strong>72.3%</strong>",
   x: x,
   y: y
 }}/>

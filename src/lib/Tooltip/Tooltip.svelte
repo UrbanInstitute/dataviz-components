@@ -28,10 +28,23 @@
    */
   export let size = "small";
 
+  /**
+   * Font size for tooltip as CSS string.
+   * @type {string} [fontSize="--var(font-size-small)"]
+   */
+  export let fontSize = "var(--font-size-small)";
+
+  /**
+   * Whether to use a box shadow
+   * @type {boolean}
+   * @default false
+   */
+  export let boxShadow = false;
+
   // lookup to convert semantic sizes to pixel widths
   const sizes = {
     small: 138,
-    large: 198,
+    large: 198
   };
 
   // bind to wrapper element
@@ -44,7 +57,7 @@
   // triangle sizes
   const triangleSizes = {
     small: 21,
-    large: 29,
+    large: 29
   };
 
   // store triangle width for easy reference
@@ -71,7 +84,7 @@
       return "right";
     }
     // next check if tooltip is too far to the right
-    if (x > (windowWidth - tooltipWidth / 2)) {
+    if (x > windowWidth - tooltipWidth / 2) {
       return "left";
     }
     // next check if tooltip is too far up
@@ -95,38 +108,32 @@
   */
   function getTooltipShape(width, height, direction) {
     if (direction === "bottom") {
-      return `M0,${triangleHeight}H${width / 2 - triangleWidth / 2}L${width / 2},0L${width / 2 + triangleWidth / 2},${triangleHeight}H${width}V${height + triangleHeight}H0Z`
+      return `M0,${triangleHeight}H${width / 2 - triangleWidth / 2}L${width / 2},0L${width / 2 + triangleWidth / 2},${triangleHeight}H${width}V${height + triangleHeight}H0Z`;
     }
     if (direction === "right") {
-      return `M${triangleHeight},0H${width}V${height}H${triangleHeight}V${height / 2 + triangleWidth / 2}L0,${height / 2}L${triangleHeight},${height / 2 - triangleWidth / 2}Z`
+      return `M${triangleHeight},0H${width}V${height}H${triangleHeight}V${height / 2 + triangleWidth / 2}L0,${height / 2}L${triangleHeight},${height / 2 - triangleWidth / 2}Z`;
     }
     if (direction === "left") {
-      return `M0,0H${width - triangleHeight}V${height / 2 - triangleWidth / 2}L${width},${height / 2}L${width - triangleHeight},${height / 2 + triangleWidth / 2}V${height}H0Z`
+      return `M0,0H${width - triangleHeight}V${height / 2 - triangleWidth / 2}L${width},${height / 2}L${width - triangleHeight},${height / 2 + triangleWidth / 2}V${height}H0Z`;
     }
     // default to top
-    return `M0,0H${width}V${height}H${width / 2 + triangleWidth / 2}L${width / 2},${height + triangleHeight}L${width / 2 - triangleWidth / 2},${height}H0Z`
+    return `M0,0H${width}V${height}H${width / 2 + triangleWidth / 2}L${width / 2},${height + triangleHeight}L${width / 2 - triangleWidth / 2},${height}H0Z`;
   }
-
 </script>
 
 <svelte:window bind:innerWidth={windowWidth} bind:innerHeight={windowHeight} />
 <div
   bind:this={tooltipEl}
   class="tooltip tooltip-{tooltipDirection} tooltip-{style} tooltip-{size}"
+  class:box-shadow={boxShadow}
   style={`left: ${x}px; top: ${y}px; width: ${sizes[size]}px;`}
+  style:--tooltip-font-size={fontSize}
+  style:--tooltip-border-color={"var(--color-gray)"}
+  style:--tooltip-border-width="{1}px"
+  style:--tooltip-triangle-size="{10}px"
+  style:--tooltip-background-color="var(--color-white)"
 >
-  <!-- <svg -->
-  <!--   class="tooltip-shape" -->
-  <!--   width={tooltipWidth + triangleHeight} -->
-  <!--   height={tooltipHeight + triangleHeight} -->
-  <!--   viewBox="0 0 {tooltipWidth + triangleHeight} {tooltipHeight + triangleHeight}" -->
-  <!-- > -->
-    <!-- tooltip background path calculated based on size and height of content and direction of tooltip-->
-  <!--   <path -->
-  <!--     d={getTooltipShape(tooltipWidth, tooltipHeight, tooltipDirection)} -->
-  <!--   /> -->
-  <!-- </svg> -->
-  <p class="tooltip-text">{@html content}</p>
+  <div class="tooltip-text">{@html content}</div>
 </div>
 
 <style>
@@ -136,42 +143,58 @@
     left: 0;
     top: 0;
     z-index: 500;
-    /* box-shadow: 0px 4px 4px 1px rgba(0, 0, 0, 0.25); */
     color: var(--color-gray-shade-darkest);
-    background: var(--color-white, "#FFFFFF");
-    border: solid 1px var(--color-gray);
+    background: var(--tooltip-background-color);
+    border: solid var(--tooltip-border-width) var(--tooltip-border-color);
     pointer-events: none;
   }
+
+  .tooltip.box-shadow {
+    box-shadow: 0px 4px 4px 1px rgba(0, 0, 0, 0.08);
+  }
+
   .tooltip.tooltip-top {
-    transform: translate(-50%, calc(-100% - 10px));
+    transform: translate(-50%, calc(-100% - var(--tooltip-triangle-size)));
   }
+
   .tooltip.tooltip-right {
-    transform: translate(10px, -50%);
+    transform: translate(var(--tooltip-triangle-size), -50%);
   }
+
   .tooltip.tooltip-left {
-    transform: translate(calc(-100% - 10px), -50%);
+    transform: translate(calc(-100% - var(--tooltip-triangle-size)), -50%);
   }
+
   .tooltip.tooltip-bottom {
-    transform: translate(-50%, calc(10px));
+    transform: translate(-50%, var(--tooltip-triangle-size));
   }
-  .tooltip.tooltip-right .tooltip-text {
-    transform: translateX(10px);
-  }
-  .tooltip.tooltip-bottom .tooltip-text {
-    transform: translateY(10px);
-  }
-  .tooltip p.tooltip-text {
-    font-size: var(--font-size-small, 0.75rem);
-    font-weight: var(--font-weight-normal, 400);
+
+  .tooltip .tooltip-text {
+    font-size: var(--tooltip-font-size);
     line-height: var(--line-height-tight);
-    position: relative;
-    margin: 0;
-    z-index: 501;
   }
-  .tooltip.tooltip-light p.tooltip-text {
+
+  /* reset type margins inside tooltip */
+  .tooltip :global(p) {
+    margin: 0;
+    margin-bottom: var(--spacing-1);
+    font-size: var(--tooltip-font-size);
+  }
+  .tooltip :global(h1),
+  .tooltip :global(h2),
+  .tooltip :global(h3),
+  .tooltip :global(h4),
+  .tooltip :global(h5),
+  .tooltip :global(h6) {
+    margin: 0;
+    margin-bottom: var(--spacing-1);
+    font-size: var(--font-size-normal);
+  }
+
+  .tooltip.tooltip-light .tooltip-text {
     color: var(--color-black, "#000000");
   }
-  .tooltip.tooltip-dark p.tooltip-text {
+  .tooltip.tooltip-dark .tooltip-text {
     color: var(--color-white, "#FFFFFF");
   }
   .tooltip-shape {
@@ -180,11 +203,115 @@
     left: 0;
     z-index: 500;
   }
-  .tooltip.tooltip-dark .tooltip-shape path {
-    fill: var(--color-black, "#000000");
+
+  /* triangle styles */
+
+  /* top */
+  .tooltip.tooltip-top::after,
+  .tooltip.tooltip-top::before {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border: solid transparent;
+    content: " ";
+    pointer-events: none;
   }
-  .tooltip.tooltip-light .tooltip-shape path {
-    fill: var(--color-gray-shade-lighter, "#FFFFFF");
-    stroke: var(--color-gray);
+
+  /* top inner */
+  .tooltip.tooltip-top::after {
+    margin-left: calc(0px - var(--tooltip-triangle-size));
+    border-width: var(--tooltip-triangle-size);
+    border-top-color: var(--tooltip-background-color);
   }
+
+  /* top outer */
+  .tooltip.tooltip-top::before {
+    margin-left: calc(0px - var(--tooltip-triangle-size) - 1px);
+    border-width: calc(var(--tooltip-triangle-size) + 1px);
+    border-top-color: var(--tooltip-border-color);
+  }
+
+  /* bottom */
+  .tooltip.tooltip-bottom::after,
+  .tooltip.tooltip-bottom::before {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border: solid transparent;
+    content: " ";
+    pointer-events: none;
+  }
+
+  /* bottom inner */
+  .tooltip.tooltip-bottom::after {
+    margin-left: calc(0px - var(--tooltip-triangle-size));
+    border-width: var(--tooltip-triangle-size);
+    border-bottom-color: var(--tooltip-background-color);
+  }
+
+  /* bottom outer */
+  .tooltip.tooltip-bottom::before {
+    margin-left: calc(0px - var(--tooltip-triangle-size) - 1px);
+    border-width: calc(var(--tooltip-triangle-size) + 1px);
+    border-bottom-color: var(--tooltip-border-color);
+  }
+
+  /* right */
+  .tooltip.tooltip-right::after,
+  .tooltip.tooltip-right::before {
+    position: absolute;
+    right: 100%;
+    top: 50%;
+    width: 0;
+    height: 0;
+    border: solid transparent;
+    content: " ";
+    pointer-events: none;
+  }
+
+  /* right inner */
+  .tooltip.tooltip-right::after {
+    margin-top: calc(0px - var(--tooltip-triangle-size));
+    border-width: var(--tooltip-triangle-size);
+    border-right-color: var(--tooltip-background-color);
+  }
+
+  /* right outer */
+  .tooltip.tooltip-right::before {
+    margin-top: calc(0px - var(--tooltip-triangle-size) - 1px);
+    border-width: calc(var(--tooltip-triangle-size) + 1px);
+    border-right-color: var(--tooltip-border-color);
+  }
+
+  /* left */
+  .tooltip.tooltip-left::after,
+  .tooltip.tooltip-left::before {
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    width: 0;
+    height: 0;
+    border: solid transparent;
+    content: " ";
+    pointer-events: none;
+  }
+
+  /* left inner */
+  .tooltip.tooltip-left::after {
+    margin-top: calc(0px - var(--tooltip-triangle-size));
+    border-width: var(--tooltip-triangle-size);
+    border-left-color: var(--tooltip-background-color);
+  }
+
+  /* left outer */
+  .tooltip.tooltip-left::before {
+    margin-top: calc(0px - var(--tooltip-triangle-size) - 1px);
+    border-width: calc(var(--tooltip-triangle-size) + 1px);
+    border-left-color: var(--tooltip-border-color);
+  }
+
 </style>

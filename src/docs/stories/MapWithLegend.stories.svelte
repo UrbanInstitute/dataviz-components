@@ -46,7 +46,7 @@
     tooltip = {
       x,
       y,
-      content
+      content,
     };
   }
 </script>
@@ -65,7 +65,7 @@
       zoomable
       projection={geoAlbersUsa}
       features={county_air_quality.features}
-      aspectRatio={4 / 2.666}
+      aspectRatio={4 / 2.5}
     >
       <PolygonLayer
         fill={(d) => airQualityScale(d.properties.index_air_quality)}
@@ -73,7 +73,7 @@
           showTooltip(
             e.detail.e.x,
             e.detail.e.y,
-            `Air quality index: <strong>${e.detail.props.index_air_quality}<strong>`
+            `<h5>${e.detail.props.fips}</h5>Air quality index: <strong>${e.detail.props.index_air_quality}<strong>`
           );
         }}
         on:mouseout={(e) => {
