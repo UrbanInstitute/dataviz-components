@@ -16,7 +16,7 @@
       },
       orientation: {
         control: "select",
-        options: ["dynamic", "left", "right", "top", "bottom"]
+        options: ["dynamic", "left", "right", "top", "bottom", "bottom-left", "bottom-right", "top-left", "top-right"]
       }
     },
     parameters: {
@@ -32,7 +32,7 @@
 <script>
   import { Story, Template } from "@storybook/addon-svelte-csf";
   let x = 100;
-  let y = 150;
+  let y = 100;
 
 </script>
 

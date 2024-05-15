@@ -1,6 +1,6 @@
 <script>
   /**
-   * Content to render inside the tooltip
+   * Content to render inside the tooltip. This can include custom HTML.
    * @type { string }
    */
   export let content;
@@ -12,11 +12,13 @@
   export let style = "light";
 
   /**
+   * The x position of the tooltip. This should be an absolute position relative to the page, like you would get from a pointer event.
    * @type {number}
    */
   export let x = 0;
 
   /**
+   * The y position of the tooltip. This should be an absolute position relative to the page, like you would get from a pointer event.
    * @type {number}
    */
   export let y = 0;
@@ -67,7 +69,7 @@
 
   /**
    * Orientation of the tooltip. Default to dynamic, which attempts to prevent tooltip from overflowing the bounds of the window or container element.
-   * @type {"top" | "bottom" | "left" | "right" | "dynamic"} [orientation = "dynamic"]
+   * @type {"top" | "bottom" | "left" | "right" | "bottom-left" | "bottom-right" | "top-left" | "top-right" | "dynamic"} [orientation = "dynamic"]
    */
   export let orientation = "dynamic";
 
@@ -110,19 +112,42 @@
    * @param {number} x - the x position of the tooltip
    * @param {number} y - the y position of the tooltip
    * @param {number} containerWidth - the width of the container the tooltip is in
-   * @returns {"top" | "bottom" | "left" | "right"}
+   * @param {number} containerHeight - the height of the container the tooltip is in
+   * @returns {"top" | "bottom" | "left" | "right" | "top-left" | "top-right" | "bottom-left" | "bottom-right"}
    */
-  function getTooltipOrientation(x, y, containerWidth) {
+  function getTooltipOrientation(x, y, containerWidth, containerHeight) {
+
+    const leftIntersect = x < (tooltipWidth / 2);
+    const rightIntersect = x > containerWidth - (tooltipWidth / 2);
+    const topIntersect = y < (tooltipHeight + triangleSize);
+    const bottomIntersect = y > containerHeight - (tooltipHeight + triangleSize);
+
+    // check for corner cases first
+    if (leftIntersect && topIntersect) {
+      return "bottom-right";
+    }
+    if (rightIntersect && topIntersect) {
+      return "bottom-left";
+    }
+
+    if (bottomIntersect && leftIntersect) {
+      return "top-right";
+    }
+
+    if (bottomIntersect && rightIntersect) {
+      return "top-left";
+    }
+
     // first check if tooltip is too far to the left
-    if (x < tooltipWidth / 2) {
+    if (leftIntersect) {
       return "right";
     }
     // next check if tooltip is too far to the right
-    if (x > containerWidth - tooltipWidth / 2) {
+    if (rightIntersect) {
       return "left";
     }
     // next check if tooltip is too far up
-    if (y < tooltipHeight + triangleSize) {
+    if (topIntersect) {
       return "bottom";
     }
     // default to top
@@ -131,7 +156,7 @@
 
   // the direction of the tooltip in relation to the mouse
   // defaults to "top", but will move if the tooltip reaches any edge
-  $: tooltipOrientation = orientation === "dynamic" ? getTooltipOrientation(x, y, windowWidth) : orientation;
+  $: tooltipOrientation = orientation === "dynamic" ? getTooltipOrientation(x, y, windowWidth, windowHeight) : orientation;
 </script>
 
 <svelte:window bind:innerWidth={windowWidth} bind:innerHeight={windowHeight} />
@@ -181,6 +206,22 @@
 
   .tooltip.tooltip-bottom {
     transform: translate(-50%, var(--tooltip-triangle-size));
+  }
+
+  .tooltip.tooltip-bottom-left {
+    transform: translate(-100%, 0);
+  }
+
+  .tooltip.tooltip-bottom-right {
+    transform: translate(0, 0);
+  }
+
+  .tooltip.tooltip-top-left {
+    transform: translate(-100%, -100%);
+  }
+
+  .tooltip.tooltip-top-right {
+    transform: translate(0, -100%);
   }
 
   .tooltip .tooltip-text {
