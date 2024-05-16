@@ -12,13 +12,13 @@
   export let style = "light";
 
   /**
-   * The x position of the tooltip. This should be an absolute position relative to the page, like you would get from a pointer event.
+   * The x position of the tooltip. This should be an absolute position relative to the page, like you would get from a pointer event's `pageX` property.
    * @type {number}
    */
   export let x = 0;
 
   /**
-   * The y position of the tooltip. This should be an absolute position relative to the page, like you would get from a pointer event.
+   * The y position of the tooltip. This should be an absolute position relative to the page, like you would get from a pointer event's `pageY` property.
    * @type {number}
    */
   export let y = 0;
@@ -68,10 +68,17 @@
   export let triangleSize = 8;
 
   /**
-   * Orientation of the tooltip. Default to dynamic, which attempts to prevent tooltip from overflowing the bounds of the window or container element.
+   * Orientation of the tooltip. Default to dynamic, which attempts to prevent tooltip from overflowing the bounds of the viewport or parent element if `containParent` is true.
    * @type {"top" | "bottom" | "left" | "right" | "bottom-left" | "bottom-right" | "top-left" | "top-right" | "dynamic"} [orientation = "dynamic"]
    */
   export let orientation = "dynamic";
+
+
+  /**
+   * Should the tooltip contain with the parent element instead of the window?
+   * @type { boolean } [ containParent = false ]
+   */
+  export let containParent = false;
 
   // lookup to convert semantic sizes to pixel widths
   const sizes = {
@@ -102,25 +109,88 @@
   // font and background colors
   $: tooltipBackgroundColor = backgroundColor || defaultBgColors[style]
 
-  // bound to window height and width
+  // bound to window height and width and scroll values
   let windowWidth = 0;
   let windowHeight = 0;
+  let windowScrollY = 0;
+  let windowScrollX = 0;
 
+  // Hold a reference to parent element if necessary
+  let parentEl;
+
+  function measureParent(scrollX, scrollY) {
+    // if the parentEl isn't stored already, grab a reference to it
+    if (!parentEl) {
+      parentEl = tooltipEl.parentNode;
+    }
+
+    // get the bounding box of the parentEl.
+    // https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect
+    const parentBbox = parentEl.getBoundingClientRect();
+    
+    // return bounding box, adjusting for x and y scroll of window
+    return {
+      top: parentBbox.top + scrollY,
+      right: parentBbox.right + scrollX,
+      bottom: parentBbox.bottom + scrollY,
+      left: parentBbox.left + scrollX,
+    }
+  }
+
+  function findRelativeAncestor(el) {
+    if (!el) return;
+    // traverse the tree upwards to see if there are any absolutely, fixed or relatively positioned ancestors
+    let ancestor = el.parentNode;
+    while(ancestor && ancestor !== document.documentElement) {
+
+      const position = window.getComputedStyle(ancestor).position;
+      if (position === "relative" || position === "absolute" || position === "fixed") {
+        return ancestor;
+      }
+      ancestor = ancestor.parentNode;
+    }
+    return null;
+  }
 
   /**
-   * Calculate which direction the tooltip should go based on the window size and the provided x and y position
+   * Take the provided coordinates and adjust them if necessary.
+   * @param {number} x
+   * @param {number} y
+   * @returns {[number, number]}
+   **/
+  function getTooltipCoords(el, x, y) {
+    const relativeParent = findRelativeAncestor(el);
+    if (relativeParent) {
+
+      // check for padding on the ancestor
+      const ancestorStyles = window.getComputedStyle(relativeParent);
+      const leftPadding = parseInt(ancestorStyles.paddingLeft.replace("px", ""));
+      const topPadding = parseInt(ancestorStyles.paddingTop.replace("px", ""));
+
+      const ancestorBbox = relativeParent.getBoundingClientRect();
+      const adjustedX = x - ancestorBbox.left - windowScrollX - leftPadding;
+      const adjustedY = y - ancestorBbox.top - windowScrollY - topPadding;
+      return [adjustedX, adjustedY];
+    }
+    return [x, y];
+  }
+
+  $: tooltipBounds = containParent && tooltipEl ? measureParent(windowScrollX, windowScrollY) : {top: windowScrollY, right: windowWidth, bottom: windowHeight + windowScrollY, left: windowScrollX}
+
+  $: tooltipCoords = getTooltipCoords(tooltipEl, x, y);
+
+  /**
+   * Calculate which direction the tooltip should go based on the provided x and y position and a given bounding box relative to the document.
    * @param {number} x - the x position of the tooltip
    * @param {number} y - the y position of the tooltip
-   * @param {number} containerWidth - the width of the container the tooltip is in
-   * @param {number} containerHeight - the height of the container the tooltip is in
+   * @param {{top: number, right: number, bottom: number, left: number}} - the bounds to contain within, relative to the entire document
    * @returns {"top" | "bottom" | "left" | "right" | "top-left" | "top-right" | "bottom-left" | "bottom-right"}
    */
-  function getTooltipOrientation(x, y, containerWidth, containerHeight) {
-
-    const leftIntersect = x < (tooltipWidth / 2);
-    const rightIntersect = x > containerWidth - (tooltipWidth / 2);
-    const topIntersect = y < (tooltipHeight + triangleSize);
-    const bottomIntersect = y > containerHeight - (tooltipHeight + triangleSize);
+  function getTooltipOrientation(x, y, bounds) {
+    const leftIntersect = x < ((tooltipWidth / 2) + bounds.left);
+    const rightIntersect = x > bounds.right - (tooltipWidth / 2);
+    const topIntersect = y < (tooltipHeight + triangleSize + bounds.top);
+    const bottomIntersect = y > bounds.bottom - (tooltipHeight / 2 + triangleSize);
 
     // check for corner cases first
     if (leftIntersect && topIntersect) {
@@ -156,15 +226,15 @@
 
   // the direction of the tooltip in relation to the mouse
   // defaults to "top", but will move if the tooltip reaches any edge
-  $: tooltipOrientation = orientation === "dynamic" ? getTooltipOrientation(x, y, windowWidth, windowHeight) : orientation;
+  $: tooltipOrientation = orientation === "dynamic" ? getTooltipOrientation(x, y, tooltipBounds) : orientation;
 </script>
 
-<svelte:window bind:innerWidth={windowWidth} bind:innerHeight={windowHeight} />
+<svelte:window bind:scrollY={windowScrollY} bind:scrollX={windowScrollX} bind:innerWidth={windowWidth} bind:innerHeight={windowHeight} />
 <div
   bind:this={tooltipEl}
   class="tooltip tooltip-{tooltipOrientation} tooltip-{style} tooltip-{size}"
   class:box-shadow={boxShadow}
-  style={`left: ${x}px; top: ${y}px; width: ${sizes[size]}px;`}
+  style={`left: ${tooltipCoords[0]}px; top: ${tooltipCoords[1]}px; width: ${sizes[size]}px;`}
   style:--tooltip-font-size={fontSize}
   style:--tooltip-border-color={borderColor}
   style:--tooltip-border-width="{1}px"

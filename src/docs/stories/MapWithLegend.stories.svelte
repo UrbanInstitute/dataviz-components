@@ -48,7 +48,8 @@
   // translate an event object into a tooltip object and set it
   function showTooltip(e) {
     const content = `<h5>${e.detail.props.fips}</h5>Air quality index: <strong>${e.detail.props.index_air_quality}<strong>`;
-    const { x, y } = e.detail.e;
+    const x = e.detail.e.pageX;
+    const y = e.detail.e.pageY;
     tooltip = {
       x,
       y,

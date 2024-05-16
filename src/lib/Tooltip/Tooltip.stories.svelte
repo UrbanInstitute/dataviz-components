@@ -34,18 +34,27 @@
   let x = 100;
   let y = 100;
 
+  let dynamicX = 100;
+  let dynamicY = 100;
+
+  function handleMousemove(e) {
+    const x = e.pageX;
+    const y = e.pageY;
+    dynamicX = x;
+    dynamicY = y;
+  }
 </script>
 
 <Template let:args>
-  <div class="wrapper" style="width: 100%; height: 300px">
-    <Tooltip {...args} />
+  <div class="wrapper" style="width: 100%; height: 300px" on:mousemove={handleMousemove}>
+    <Tooltip {...args} x={dynamicX} y={dynamicY}/>
   </div>
 </Template>
 
 <Story name="Default" args={{
   content: "This is a tooltip",
-  x: x,
-  y: y
+  x: dynamicX,
+  y: dynamicY
 }}/>
 
 <Story name="Dark mode" args={{
@@ -69,3 +78,21 @@
   x: x + 50,
   y: y
 }}/>
+
+<Story name="Contain inside parent" args={{
+  content: "This tooltip is oriented to the left",
+  style: "dark",
+  orientation: "left",
+  containParent: true,
+  x: dynamicX,
+  y: dynamicY
+}}>
+  <div class="wrapper" style="position: relative; width: 800px; height: 300px; border: solid 1px black; margin: 100px;" on:mousemove={(e) => {
+    const x = e.pageX;
+    const y = e.pageY;
+    dynamicX = x;
+    dynamicY = y;
+  }}>
+    <Tooltip content="This tooltip is contained by parent" containParent x={dynamicX} y={dynamicY}/>
+  </div>
+</Story>
