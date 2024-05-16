@@ -59,7 +59,7 @@
    * Color of tooltip border
    * @type { string } [borderColor = "var(--color-gray)"]
    */
-  export let borderColor = "var(--color-gray)"
+  export let borderColor = "var(--color-gray)";
 
   /**
    * Size of the tooltip triangle. Set to 0 for no triangle.
@@ -72,7 +72,6 @@
    * @type {"top" | "bottom" | "left" | "right" | "bottom-left" | "bottom-right" | "top-left" | "top-right" | "dynamic"} [orientation = "dynamic"]
    */
   export let orientation = "dynamic";
-
 
   /**
    * Should the tooltip contain with the parent element instead of the window?
@@ -96,18 +95,18 @@
   const defaultFontColors = {
     light: "var(--color-gray-shade-darkest)",
     dark: "var(--color-white)"
-  }
+  };
 
   // font and background colors
-  $: tooltipFontColor = fontColor ? fontColor : defaultFontColors[style]
+  $: tooltipFontColor = fontColor ? fontColor : defaultFontColors[style];
 
   const defaultBgColors = {
     light: "var(--color-white)",
     dark: "var(--color-black)"
-  }
+  };
 
   // font and background colors
-  $: tooltipBackgroundColor = backgroundColor || defaultBgColors[style]
+  $: tooltipBackgroundColor = backgroundColor || defaultBgColors[style];
 
   // bound to window height and width and scroll values
   let windowWidth = 0;
@@ -127,22 +126,21 @@
     // get the bounding box of the parentEl.
     // https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect
     const parentBbox = parentEl.getBoundingClientRect();
-    
+
     // return bounding box, adjusting for x and y scroll of window
     return {
       top: parentBbox.top + scrollY,
       right: parentBbox.right + scrollX,
       bottom: parentBbox.bottom + scrollY,
-      left: parentBbox.left + scrollX,
-    }
+      left: parentBbox.left + scrollX
+    };
   }
 
   function findRelativeAncestor(el) {
     if (!el) return;
     // traverse the tree upwards to see if there are any absolutely, fixed or relatively positioned ancestors
     let ancestor = el.parentNode;
-    while(ancestor && ancestor !== document.documentElement) {
-
+    while (ancestor && ancestor !== document.documentElement) {
       const position = window.getComputedStyle(ancestor).position;
       if (position === "relative" || position === "absolute" || position === "fixed") {
         return ancestor;
@@ -161,12 +159,10 @@
   function getTooltipCoords(el, x, y) {
     const relativeParent = findRelativeAncestor(el);
     if (relativeParent) {
-
       // check for padding on the ancestor
       const ancestorStyles = window.getComputedStyle(relativeParent);
       const leftPadding = parseInt(ancestorStyles.paddingLeft.replace("px", ""));
       const topPadding = parseInt(ancestorStyles.paddingTop.replace("px", ""));
-
       const ancestorBbox = relativeParent.getBoundingClientRect();
       const adjustedX = x - ancestorBbox.left - windowScrollX - leftPadding;
       const adjustedY = y - ancestorBbox.top - windowScrollY - topPadding;
@@ -175,7 +171,15 @@
     return [x, y];
   }
 
-  $: tooltipBounds = containParent && tooltipEl ? measureParent(windowScrollX, windowScrollY) : {top: windowScrollY, right: windowWidth, bottom: windowHeight + windowScrollY, left: windowScrollX}
+  $: tooltipBounds =
+    containParent && tooltipEl
+      ? measureParent(windowScrollX, windowScrollY)
+      : {
+          top: windowScrollY,
+          right: windowWidth,
+          bottom: windowHeight + windowScrollY,
+          left: windowScrollX
+        };
 
   $: tooltipCoords = getTooltipCoords(tooltipEl, x, y);
 
@@ -187,9 +191,9 @@
    * @returns {"top" | "bottom" | "left" | "right" | "top-left" | "top-right" | "bottom-left" | "bottom-right"}
    */
   function getTooltipOrientation(x, y, bounds) {
-    const leftIntersect = x < ((tooltipWidth / 2) + bounds.left);
-    const rightIntersect = x > bounds.right - (tooltipWidth / 2);
-    const topIntersect = y < (tooltipHeight + triangleSize + bounds.top);
+    const leftIntersect = x < tooltipWidth / 2 + bounds.left;
+    const rightIntersect = x > bounds.right - tooltipWidth / 2;
+    const topIntersect = y < tooltipHeight + triangleSize + bounds.top;
     const bottomIntersect = y > bounds.bottom - (tooltipHeight / 2 + triangleSize);
 
     // check for corner cases first
@@ -226,10 +230,16 @@
 
   // the direction of the tooltip in relation to the mouse
   // defaults to "top", but will move if the tooltip reaches any edge
-  $: tooltipOrientation = orientation === "dynamic" ? getTooltipOrientation(x, y, tooltipBounds) : orientation;
+  $: tooltipOrientation =
+    orientation === "dynamic" ? getTooltipOrientation(x, y, tooltipBounds) : orientation;
 </script>
 
-<svelte:window bind:scrollY={windowScrollY} bind:scrollX={windowScrollX} bind:innerWidth={windowWidth} bind:innerHeight={windowHeight} />
+<svelte:window
+  bind:scrollY={windowScrollY}
+  bind:scrollX={windowScrollX}
+  bind:innerWidth={windowWidth}
+  bind:innerHeight={windowHeight}
+/>
 <div
   bind:this={tooltipEl}
   class="tooltip tooltip-{tooltipOrientation} tooltip-{style} tooltip-{size}"
@@ -342,8 +352,8 @@
   .tooltip.tooltip-top::after {
     margin-left: calc(0px - var(--tooltip-triangle-size));
     border-width: var(--tooltip-triangle-size);
-    border-top-color: var(--tooltip-background-color); 
-    transform: translateY(calc(0px - var(--tooltip-border-width)))
+    border-top-color: var(--tooltip-background-color);
+    transform: translateY(calc(0px - var(--tooltip-border-width)));
   }
 
   /* top outer */
@@ -371,7 +381,7 @@
     margin-left: calc(0px - var(--tooltip-triangle-size));
     border-width: var(--tooltip-triangle-size);
     border-bottom-color: var(--tooltip-background-color);
-    transform: translateY(calc(var(--tooltip-border-width)))
+    transform: translateY(calc(var(--tooltip-border-width)));
   }
 
   /* bottom outer */
@@ -434,5 +444,4 @@
     border-width: calc(var(--tooltip-triangle-size) + 1px);
     border-left-color: var(--tooltip-border-color);
   }
-
 </style>
