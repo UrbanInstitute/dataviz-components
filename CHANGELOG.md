@@ -2,6 +2,8 @@
 
 ## Next
 
+## v0.9.0
+
 - Update BasicDropdown with secondary style variants, a visible label, and better story controls
 - Add LoadingWrapper component to provide a loading graphic for components that need it
 
