@@ -105,11 +105,61 @@
   // will hold svg selection if zoomable
   let svgSelection;
 
+  // internal tooltip state, only used for default tooltip functionality
+
+  // will hold the tooltip Obj if set
+  let tooltip;
+
+  // will hold the map highlight feature if set
+  let stickyHighlight;
+
+  // translate an event object into a tooltip object and set it
+  function showTooltip(e) {
+    const content = `<h5>${e.detail.props.fips}</h5>Air quality index: <strong>${e.detail.props.index_air_quality}<strong>`;
+    const x = e.detail.e.pageX;
+    const y = e.detail.e.pageY;
+    tooltip = {
+      x,
+      y,
+      content
+    };
+  }
+
+  // function to provide via context to children layers
+  function handleLayerMousemove(e) {
+    // if map has a current highlight, mousemove should do nothing and return
+    if (stickyHighlight) {
+      return;
+    }
+    // otherwise, show a tooltip based on this event
+    showTooltip(e);
+  }
+
+  // function to provide via context to children layers
+  function handleLayerClick(e) {
+    // if map has a current highlight, clear it and clear the tooltip on click and return
+    if (stickyHighlight) {
+      tooltip = undefined;
+      stickyHighlight = "";
+      return;
+    }
+    // if map doesn't have a current highlight, set it and render the tooltip based on this event
+    stickyHighlight = e.detail.props.fips;
+    showTooltip(e);
+  }
+
+  // how do we store the sticky highlgiht in the context or something similar?
+  // or can we just do away with the need for the ID, by just storing the entire object? or at least the props, especially since this is internal?
+  // may need to add the callbacks to the context
+
   // add global stores to context
   $: setContext("map", {
     projection: projectionStore,
     features: featuresStore,
-    transform: transformStore
+    transform: transformStore,
+    showTooltip,
+    handleLayerMousemove,
+    handleLayerClick
   });
 
   function setupZoom(el) {
@@ -164,6 +214,18 @@
     return height;
   }
 
+  function handleBgMousemove(e) {
+    if (!stickyHighlight) {
+      tooltip = undefined;
+    }
+    dispatch("mousemove");
+  }
+  function handleBgClick(e) {
+    stickyHighlight = "";
+    tooltip = undefined;
+    dispatch("click");
+  }
+
   // to hold reference to root dom node via bind:this
   let el;
 
@@ -193,8 +255,8 @@
       {width}
       height={mapHeight}
       fill={backgroundColor}
-      on:mousemove={(e) => dispatch("mousemove")}
-      on:click={(e) => dispatch("click")}
+      on:mousemove={handleBgMousemove}
+      on:click={handleBgClick}
       on:mouseout={(e) => dispatch("mouseout")}
       on:blur={(e) => dispatch("mouseout")}
     ></rect>
@@ -202,7 +264,7 @@
       class="zoom-group"
       transform="translate({$transformStore.x}, {$transformStore.y}) scale({$transformStore.k})"
     >
-      <slot transform={$transformStore} />
+      <slot />
     </g>
   </svg>
   {#if zoomable}
@@ -246,7 +308,8 @@
     top: var(--spacing-2);
     right: var(--spacing-2);
   }
-  .zoom-group:focus, .map-bg:focus {
+  .zoom-group:focus,
+  .map-bg:focus {
     outline: none;
   }
 </style>

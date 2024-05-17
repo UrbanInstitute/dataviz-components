@@ -40,53 +40,6 @@
     .domain(county_air_quality.features.map((d) => d.properties.index_air_quality))
     .range(urbanColors.getDivergingColors());
 
-  // will hold the tooltip Obj if set
-  let tooltip;
-  // will hold the map highlight ID if set
-  let stickyHighlight;
-
-  // translate an event object into a tooltip object and set it
-  function showTooltip(e) {
-    const content = `<h5>${e.detail.props.fips}</h5>Air quality index: <strong>${e.detail.props.index_air_quality}<strong>`;
-    const x = e.detail.e.pageX;
-    const y = e.detail.e.pageY;
-    tooltip = {
-      x,
-      y,
-      content
-    };
-  }
-
-  function handleMousemove(e) {
-    // if map has a current highlight, mousemove should do nothing and return
-    if (stickyHighlight) {
-      return;
-    }
-    // otherwise, show a tooltip based on this event
-    showTooltip(e);
-  }
-
-  function handleClick(e) {
-    // if map has a current highlight, clear it and clear the tooltip on click and return
-    if (stickyHighlight) {
-      tooltip = undefined;
-      stickyHighlight = "";
-      return;
-    }
-    // if map doesn't have a current highlight, set it and render the tooltip based on this event
-    stickyHighlight = e.detail.props.fips;
-    showTooltip(e);
-  }
-
-  function handleMapBgMousemove(e) {
-    if (!stickyHighlight) {
-      tooltip = undefined;
-    }
-  }
-  function handleMapBgClick(e) {
-    stickyHighlight = "";
-    tooltip = undefined;
-  }
 </script>
 
 <Template></Template>
@@ -104,16 +57,12 @@
       projection={geoAlbersUsa}
       features={county_air_quality.features}
       aspectRatio={4 / 2.5}
-      on:mousemove={handleMapBgMousemove}
-      on:click={handleMapBgClick}
     >
       <PolygonLayer
         fill={(d) => airQualityScale(d.properties.index_air_quality)}
         hoverStroke={urbanColors.magenta}
         hoverStrokeWidth={2}
-        highlightFeature={(d) => d.properties.fips === stickyHighlight}
-        on:click={handleClick}
-        on:mousemove={handleMousemove}
+        tooltip
         stroke={urbanColors.gray_shade_dark}
       />
       <PointLayer
@@ -127,9 +76,10 @@
         fontSize={13}
         pointerEvents={false}
       />
+      <div slot="tooltip" let:props>
+        <h5>{props.fips}</h5>
+        Air quality index:<strong>{props.index_air_quality}<strong> </strong></strong>
+      </div>
     </SVGMap>
-    {#if tooltip}
-      <Tooltip {...tooltip} />
-    {/if}
   </ChartBlock>
 </Story>
