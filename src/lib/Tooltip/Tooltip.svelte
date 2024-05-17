@@ -3,7 +3,7 @@
    * Content to render inside the tooltip. This can include custom HTML.
    * @type { string }
    */
-  export let content;
+  export let content = "";
 
   /**
    * The color style of the tooltip
@@ -252,7 +252,11 @@
   style:--tooltip-font-color={tooltipFontColor}
   style:--tooltip-background-color={tooltipBackgroundColor}
 >
-  <div class="tooltip-text">{@html content}</div>
+  <div class="tooltip-text">
+    <slot>
+      {@html content}
+    </slot>
+  </div>
 </div>
 
 <style>

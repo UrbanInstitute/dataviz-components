@@ -57,14 +57,13 @@
 
 <Template let:args>
   <div class="wrapper" style="width: 100%; height: 300px" on:mousemove={handleMousemove}>
-    <Tooltip {...args} x={dynamicX} y={dynamicY} />
+    <Tooltip {...args} x={dynamicX} y={dynamicY}>This is a tooltip</Tooltip>
   </div>
 </Template>
 
 <Story
   name="Default"
   args={{
-    content: "This is a tooltip",
     x: dynamicX,
     y: dynamicY
   }}
@@ -80,15 +79,14 @@
   }}
 />
 
-<Story
-  name="Custom HTML"
-  args={{
-    content: "<h2>HTML Formatting</h2><p>For <em>fancier</em> tooltip structure</p>",
-    size: "large",
-    x: x,
-    y: y
-  }}
-/>
+<Story name="Custom HTML">
+  <div class="wrapper" style="width: 100%; height: 300px" on:mousemove={handleMousemove}>
+    <Tooltip x={dynamicX} y={dynamicY} size="large">
+      <h2>HTML Formatting</h2>
+      <p>For <em>fancier</em> tooltip structure</p>
+    </Tooltip>
+  </div>
+</Story>
 
 <Story
   name="Set static orientation"
