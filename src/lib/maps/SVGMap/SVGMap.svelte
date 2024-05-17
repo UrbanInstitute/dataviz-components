@@ -6,6 +6,7 @@
   import { zoom, zoomIdentity } from "d3-zoom";
   import { select } from "d3-selection";
   import ZoomControls from "./ZoomControls.svelte";
+  import Tooltip from "$lib/Tooltip/Tooltip.svelte";
 
   /**
    * An array of geojson features to be displayed on the map. The map will scale the projection to fit this set of features.
@@ -111,41 +112,29 @@
   let tooltip;
 
   // will hold the map highlight feature if set
-  let stickyHighlight;
-
-  // translate an event object into a tooltip object and set it
-  function showTooltip(e) {
-    const content = `<h5>${e.detail.props.fips}</h5>Air quality index: <strong>${e.detail.props.index_air_quality}<strong>`;
-    const x = e.detail.e.pageX;
-    const y = e.detail.e.pageY;
-    tooltip = {
-      x,
-      y,
-      content
-    };
-  }
+  let stickyHighlightStore = writable(null);
 
   // function to provide via context to children layers
-  function handleLayerMousemove(e) {
+  function handleLayerMousemove(tooltipProps) {
     // if map has a current highlight, mousemove should do nothing and return
-    if (stickyHighlight) {
+    if ($stickyHighlightStore) {
       return;
     }
     // otherwise, show a tooltip based on this event
-    showTooltip(e);
+    tooltip = tooltipProps
   }
 
   // function to provide via context to children layers
-  function handleLayerClick(e) {
+  function handleLayerClick(tooltipProps) {
     // if map has a current highlight, clear it and clear the tooltip on click and return
-    if (stickyHighlight) {
+    if ($stickyHighlightStore) {
       tooltip = undefined;
-      stickyHighlight = "";
+      $stickyHighlightStore = null;
       return;
     }
     // if map doesn't have a current highlight, set it and render the tooltip based on this event
-    stickyHighlight = e.detail.props.fips;
-    showTooltip(e);
+    $stickyHighlightStore = tooltipProps.props;
+    tooltip = tooltipProps;
   }
 
   // how do we store the sticky highlgiht in the context or something similar?
@@ -157,7 +146,7 @@
     projection: projectionStore,
     features: featuresStore,
     transform: transformStore,
-    showTooltip,
+    stickyHighlight: stickyHighlightStore,
     handleLayerMousemove,
     handleLayerClick
   });
@@ -215,13 +204,13 @@
   }
 
   function handleBgMousemove(e) {
-    if (!stickyHighlight) {
+    if (!$stickyHighlightStore) {
       tooltip = undefined;
     }
     dispatch("mousemove");
   }
   function handleBgClick(e) {
-    stickyHighlight = "";
+    $stickyHighlightStore = null;
     tooltip = undefined;
     dispatch("click");
   }
@@ -281,6 +270,11 @@
         disableZoomIn={$transformStore.k === maxZoom}
       />
     </div>
+  {/if}
+  {#if tooltip}
+    <Tooltip x={tooltip.x} y={tooltip.y}>
+      <slot name="tooltip" props={tooltip.props}></slot>
+    </Tooltip>
   {/if}
 </div>
 

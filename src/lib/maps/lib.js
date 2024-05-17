@@ -24,3 +24,60 @@ export function getStroke(feature, stroke) {
   }
   return stroke(feature);
 }
+
+/*
+ * Performs shallow comparison between 2 objects. Useful for checking a reference set of properties against a geojson feature props
+ * @param { Object.<string: any> } propsA Reference props to check against `propsB`.
+ * @param { Object.<string: any> } propsB The feature properties object to compare `propsA` with.
+ * @returns { boolean }
+ */
+export function compareProps(propsA, propsB) {
+  for (const key in propsA) {
+    if (key in propsB && propsB[key] !== propsA[key]) {
+      return false;
+    }
+  }
+  return true;
+}
+
+/**
+ * Raise a dom node to top of siblings
+ * @param { HTMLElement } el The DOM element to raise
+ * @returns void
+ */
+export function raise(el) {
+  el.parentNode.appendChild(el);
+}
+
+/**
+ * Turn a PointerEvent and a feature object into the format for used for tooltips
+ * @param { PointerEvent } e The event object
+ * @param { {properties: Object.<string: any>} } feature The feature object
+ * @returns { {x: number, y: number, props: {Object.<string, any>}}}
+ */
+export function getTooltipProps(e, feature) {
+  return {
+    x: e.pageX,
+    y: e.pageY,
+    props: feature.properties
+  }
+}
+
+
+/**
+ * Determine if a feature should be highlighted based on 2 possible comparisons
+ * @param { Object } feature The feature to check
+ * @param { Object } compareA The first comparison
+ * @param { Object } compareB The second comparison
+ * @returns { boolean }
+ **/
+export function getHighlightFeature(feature, compareA, compareB) {
+  if (compareA && compareProps(compareA, feature.properties)) {
+    return true;
+  }
+  if (compareB && compareProps(compareB, feature.properties)) {
+    return true;
+  }
+  return false;
+}
+

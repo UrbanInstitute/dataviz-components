@@ -3,8 +3,15 @@
   import { geoPath } from "d3-geo";
   import { urbanColors } from "$lib/utils";
   import { fade } from "svelte/transition";
+  import { raise, getTooltipProps } from "../lib.js";
 
-  const { transform, projection, features: mapFeatures } = getContext("map");
+  const {
+    projection,
+    features: globalFeatures,
+    transform,
+    handleLayerClick,
+    handleLayerMousemove
+  } = getContext("map");
 
   /**
    * A list of GeoJSON features. By default this component will render the features set in the parent SVGMap, but if `features` is defined, it plots those instead. Features are rendered as SVG `text` elements. Polygon features are converted to points with `d3.geoPath().centroid`.
@@ -65,17 +72,29 @@
    */
   export let getLabel = (d) => d;
 
+  /**
+   * Boolean that determines if this layer should populate the tooltip slot when interacted with.
+   * @type {boolean} [tooltip = false]
+   */
+  export let tooltip = false;
+
   const dispatch = createEventDispatcher();
 
   $: geoPathFn = geoPath($projection);
 
   function handleMousemove(e, feature) {
-    if (e.layerX !== 0 && e.layerY !== 0) {
-      dispatch("mousemove", { e, props: feature.properties });
+    raise(e.target);
+    if (tooltip) {
+      handleLayerMousemove(getTooltipProps(e, feature));
     }
+    dispatch("mousemove", { e, props: feature.properties });
   }
 
   function handleClick(e, feature) {
+    raise(e.target);
+    if (tooltip) {
+      handleLayerClick(getTooltipProps(e, feature));
+    }
     dispatch("click", { e, props: feature.properties });
   }
 </script>
@@ -89,10 +108,10 @@
     transition:fade={{ duration: 250 }}
     style:pointer-events={pointerEvents ? "auto" : "none"}
   >
-    {#each features || $mapFeatures as feature}
+    {#each features || $globalFeatures as feature}
       {@const [x, y] = geoPathFn.centroid(feature)}
+      <!-- svelte-ignore a11y-click-events-have-key-events -->
       <g class="label-feature">
-        <!-- svelte-ignore a11y-click-events-have-key-events -->
         <text
           {x}
           {y}
@@ -104,8 +123,11 @@
           stroke-linejoin="round"
           on:mousemove={(e) => handleMousemove(e, feature)}
           on:click={(e) => handleClick(e, feature)}
-          text-anchor={textAnchor}><slot props={feature.properties}>{getLabel(feature)}</slot></text
+          text-anchor={textAnchor}
         >
+          <!-- Default slot overrides output of `getLabel` prop -->
+          <slot props={feature.properties}>{getLabel(feature)}</slot>
+        </text>
         <text
           {x}
           {y}

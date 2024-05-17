@@ -14,17 +14,12 @@
 <script>
   import { Story, Template } from "@storybook/addon-svelte-csf";
   import { ChartBlock } from "$lib";
-  import Tooltip from "$lib/Tooltip/Tooltip.svelte";
-<<<<<<< HEAD
   import {
     SVGPolygonLayer,
     SVGLabelLayer,
     SVGPointLayer,
     SVGMap
   } from "$lib/maps";
-=======
-  import { PolygonLayer, LabelLayer, PointLayer, SVGMap } from "$lib/maps";
->>>>>>> 42691a6 (Add pointer events options to all map layers)
   import ColorLegend from "$lib/maps/ColorLegend/ColorLegend.svelte";
   import county_air_quality_topo from "../../docs/sample-data/county_air_quality_topo.json";
   import { urbanColors } from "$lib/utils";
@@ -47,7 +42,7 @@
 <Story name="Primary">
   <ChartBlock
     title="Air quality index by U.S. county"
-    source="Urban Institute Updward Mobility Framework"
+    source="Urban Institute Upward Mobility Framework"
   >
     <div style="max-width: 300px; margin: 1em auto 0;">
       <ColorLegend scale={airQualityScale} height={10} tickLineColor={"white"} tickLineWidth="2" />
@@ -58,19 +53,19 @@
       features={county_air_quality.features}
       aspectRatio={4 / 2.5}
     >
-      <PolygonLayer
+      <SVGPolygonLayer
         fill={(d) => airQualityScale(d.properties.index_air_quality)}
         hoverStroke={urbanColors.magenta}
         hoverStrokeWidth={2}
         tooltip
         stroke={urbanColors.gray_shade_dark}
       />
-      <PointLayer
-        pointerEvents={false}
+      <SVGPointLayer
         features={us_cities_geo.features}
+        pointerEvents={false}
         fill={urbanColors.gray_shade_lighter}
       />
-      <LabelLayer
+      <SVGLabelLayer
         features={us_cities_geo.features}
         getLabel={(d) => d.properties.name}
         fontSize={13}
@@ -78,7 +73,7 @@
       />
       <div slot="tooltip" let:props>
         <h5>{props.fips}</h5>
-        Air quality index:<strong>{props.index_air_quality}<strong> </strong></strong>
+        <p>Air quality index:<strong>{props.index_air_quality}</strong></p>
       </div>
     </SVGMap>
   </ChartBlock>

@@ -2,10 +2,16 @@
   import { getContext, createEventDispatcher } from "svelte";
   import { geoPath } from "d3-geo";
   import { urbanColors } from "$lib/utils";
-  import { raise } from "layercake";
-  import { getFill, getStroke } from "../lib.js";
+  import { getFill, getStroke, raise, getTooltipProps, getHighlightFeature } from "../lib.js";
 
-  const { transform, projection, features: globalFeatures } = getContext("map");
+  const {
+    projection,
+    features: globalFeatures,
+    transform,
+    handleLayerClick,
+    handleLayerMousemove,
+    stickyHighlight,
+  } = getContext("map");
 
   /**
    * A list of GeoJSON features. By default this component will render the features set in the parent SVGMap, but if `features` is defined, it plots those instead. Points are rendered as SVG `circle` elements by default. Polygon features are converted to points with `d3.geoPath().centroid`.
@@ -80,20 +86,36 @@
   export let ariaLabel = undefined;
 
   /**
-   * Optional function that takes a feature as an argument, and if it returns true, set's that feature to a highlighted state.
-   * @type {(Object) => boolean}
+   * Optional object that will be compared with each `feature` displayed in the layer. If all of the key/value pairs in `highlightFeature` are equal to the properties of a given `feature`, set that `feature` to a highlighted state.
+   * @type {{ string: any }}
    */
   export let highlightFeature = undefined;
 
   /**
    * Boolean that determines if this layer should respond to pointer events and dispatch events.
-   * @type {boolean} [pointerEvents]
+   * @type {boolean} [pointerEvents = true]
    */
   export let pointerEvents = true;
+
+  /**
+   * Boolean that determines if this layer should populate the tooltip slot when interacted with.
+   * @type {boolean} [tooltip = false]
+   */
+  export let tooltip = false;
 
   $: geoPathFn = geoPath($projection);
 
   const dispatch = createEventDispatcher();
+
+  // holds main dom node
+  let el;
+
+  // holds highlighted feature DOM element
+  let highlightFeatureNode;
+
+  $: if (highlightFeatureNode) {
+    raise(highlightFeatureNode);
+  }
 
   function getAriaLabel(feature) {
     if (typeof ariaLabel === "string" || typeof ariaLabel === "undefined") {
@@ -111,14 +133,23 @@
 
   function handleMousemove(e, feature) {
     raise(e.target);
-    // When the element gets raised, it flashes 0,0 for a second so skip that
-    if (e.layerX !== 0 && e.layerY !== 0) {
-      dispatch("mousemove", { e, props: feature.properties });
+    if (highlightFeatureNode) {
+      raise(highlightFeatureNode);
     }
+    if (tooltip) {
+      handleLayerMousemove(getTooltipProps(e, feature));
+    }
+    dispatch("mousemove", { e, props: feature.properties });
   }
 
   function handleClick(e, feature) {
     raise(e.target);
+    if (highlightFeatureNode) {
+      raise(highlightFeatureNode);
+    }
+    if (tooltip) {
+      handleLayerClick(getTooltipProps(e, feature));
+    }
     dispatch("click", { e, props: feature.properties });
   }
 </script>
@@ -141,7 +172,7 @@
         class="point-feature"
         role={ariaRole}
         label={getAriaLabel(feature)}
-        class:highlight={highlightFeature ? highlightFeature(feature) : false}
+        class:highlight={getHighlightFeature(feature, $stickyHighlight, highlightFeature)}
         cx={x}
         cy={y}
         {opacity}

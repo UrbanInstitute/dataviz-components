@@ -91,20 +91,26 @@
   </SVGMap>
 </Story>
 
-<Story name="Custom colors and multiple layers">
-  <SVGMap features={county_air_quality.features} aspectRatio={4/2.3333}>
+<Story name="Colors layers and tooltips">
+  <SVGMap features={county_air_quality.features} aspectRatio={4 / 2.3333}>
     <SVGPolygonLayer
       fill={(d) => airQualityScale(d.properties.index_air_quality)}
       stroke={urbanColors.gray_shade_dark}
       hoverStroke={urbanColors.magenta}
       hoverStrokeWidth={2}
+      tooltip
     />
     <SVGPointLayer features={us_cities_geo.features} fill={urbanColors.gray_shade_lighter} />
     <SVGLabelLayer
       features={us_cities_geo.features}
+      pointerEvents={false}
       getLabel={(d) => d.properties.name}
       fontSize={13}
     />
+    <div slot="tooltip" let:props>
+      <h5>{props.fips}</h5>
+      <p>Air quality index:<strong>{props.index_air_quality}</strong></p>
+    </div>
   </SVGMap>
 </Story>
 
@@ -131,7 +137,7 @@
       stroke="white"
       hoverStroke={urbanColors.yellow}
       hoverStrokeWidth={2}
-      highlightFeature={(d) => d.properties.GEOID === clevelandHighlight}
+      highlightFeature={{ GEOID: clevelandHighlight }}
       on:click={(e) => {
         if (clevelandHighlight === e.detail.props.GEOID) {
           clevelandHighlight = null;

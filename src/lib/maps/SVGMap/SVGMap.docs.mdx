@@ -76,7 +76,7 @@ let airQualityScale = scaleQuantile()
 
 Putting these all together, you can render your map like this:
 
-<Canvas of={Stories.CustomColorsAndMultipleLayers} sourceState="shown"/>
+<Canvas of={Stories.ColorsLayersAndTooltips} sourceState="shown"/>
 
 ## Zoomable maps and limiting labels to higher zoom
 
@@ -135,7 +135,7 @@ const clevelandBikeScale = scaleQuantize()
 let clevelandHighlight = "39035197700";
 ```
 
-Now you can pass a `featureHighlight` function that sets the highlighted feature based on the `clevelandHighlight` variable. We can also update the value of this variable in the `on:click` handler, allowing the user to set a highlighted feature when clicking. Combining this together would like like the following example:
+Now you can pass a `featureHighlight` object that sets the highlighted feature based on the `clevelandHighlight` variable. We can also update the value of this variable in the `on:click` handler, allowing the user to set a highlighted feature when clicking. Combining this together would like like the following example:
 
 <Canvas of={Stories.FeatureHighlight} sourceState="shown" />
 

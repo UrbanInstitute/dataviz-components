@@ -2,9 +2,16 @@
   import { getContext, createEventDispatcher, afterUpdate } from "svelte";
   import urbanColors from "$lib/utils/urbanColors.js";
   import { geoPath } from "d3-geo";
-  import { getFill, getStroke } from "../lib.js";
+  import { getFill, getStroke, raise, getTooltipProps, getHighlightFeature } from "../lib.js";
 
-  const { projection, features: globalFeatures, transform } = getContext("map");
+  const {
+    projection,
+    features: globalFeatures,
+    transform,
+    handleLayerClick,
+    handleLayerMousemove,
+    stickyHighlight
+  } = getContext("map");
 
   /**
    * A color string or a function that takes a feature and returns a color string. Use in combination with a D3 scale for a dynamic color encoding.
@@ -72,11 +79,17 @@
    */
   export let ariaLabel = undefined;
 
-  /*
-   * Optional function that takes a feature as an argument, and if it returns true, set's that feature to a highlighted state.
-   * @type {(Object) => boolean}
+  /**
+   * Optional object that will be compared with each `feature` displayed in the layer. If all of the key/value pairs in `highlightFeature` are equal to the properties of a given `feature`, set that `feature` to a highlighted state.
+   * @type {{ string: any }}
    */
   export let highlightFeature = undefined;
+
+  /**
+   * Boolean that determines if this layer should populate the tooltip slot when interacted with.
+   * @type {boolean} [tooltip = false]
+   */
+  export let tooltip = false;
 
   $: geoPathFn = geoPath($projection);
 
@@ -87,6 +100,10 @@
 
   // holds highlighted feature DOM element
   let highlightFeatureNode;
+
+  $: if (highlightFeatureNode) {
+    raise(highlightFeatureNode);
+  }
 
   function getAriaLabel(feature) {
     if (typeof ariaLabel === "string" || typeof ariaLabel === "undefined") {
@@ -100,6 +117,9 @@
     if (highlightFeatureNode) {
       raise(highlightFeatureNode);
     }
+    if (tooltip) {
+      handleLayerMousemove(getTooltipProps(e, feature));
+    }
     dispatch("mousemove", { e, props: feature.properties });
   }
 
@@ -108,11 +128,10 @@
     if (highlightFeatureNode) {
       raise(highlightFeatureNode);
     }
+    if (tooltip) {
+      handleLayerClick(getTooltipProps(e, feature));
+    }
     dispatch("click", { e, props: feature.properties });
-  }
-
-  function raise(el) {
-    el.parentNode.appendChild(el);
   }
 
   afterUpdate(() => {
@@ -135,7 +154,7 @@
   {#each features || $globalFeatures as feature}
     <path
       class="polygon-feature"
-      class:highlight={highlightFeature ? highlightFeature(feature) : false}
+      class:highlight={getHighlightFeature(feature, $stickyHighlight, highlightFeature)}
       role={ariaRole}
       label={getAriaLabel(feature)}
       style:--hover-stroke={hoverStroke || getStroke(feature, stroke)}

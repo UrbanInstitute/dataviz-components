@@ -41,7 +41,9 @@
       on:click={clickHandler}
       on:mouseout={mouseoutHandler}
       on:mousemove={mousemoveHandler}
-    ></SVGLabelLayer>
+    >
+      <svelte:fragment let:props>{props.STUSPS}</svelte:fragment>
+    </SVGLabelLayer>
   </SVGMap>
 </Template>
 
@@ -60,7 +62,9 @@
     await expect(clickHandler).toHaveBeenCalled();
   }}
   source={`<SVGMap features={states.features}>
-  <SVGLabelLayer getLabel={(feature) => feature.properties.STUSPS}/>
+  <SVGLabelLayer getLabel={(feature) => feature.properties.STUSPS}>
+    <svelte:fragment let:props>{props.STUSPS}</svelte:fragment>
+  </SVGLabelLayer>
 </SVGMap>`}
 />
 <Story
