@@ -55,7 +55,7 @@
   } from "d3-scale";
 
   const sampleScale = scaleLinear()
-    .domain([1, 50, 100])
+    .domain([0, 50, 100])
     .range([urbanColors.blue_shade_lightest, urbanColors.blue, urbanColors.blue_shade_darkest]);
 
   const sampleSequentialScale = scaleSequential()
@@ -78,6 +78,13 @@
   args={{
     scale: sampleScale,
     title: "Legend title"
+  }}
+/>
+<Story
+  name="With custom ticks"
+  args={{
+    scale: sampleScale,
+    tickValues: [0, 25, 50, 75, 100]
   }}
 />
 <Story
