@@ -1,7 +1,7 @@
 <script context="module">
-  import SVGMap from "./SVGMap.svelte";
-  import PolygonLayer from "./PolygonLayer.svelte";
-  import docs from "./Polygonlayer.docs.md?raw";
+  import SVGMap from "../SVGMap/SVGMap.svelte";
+  import SVGPolygonLayer from "./SVGPolygonLayer.svelte";
+  import docs from "./SVGPolygonlayer.docs.md?raw";
 
   export const meta = {
     title: "Maps/PolygonLayer",
@@ -35,7 +35,7 @@
 
 <Template let:args>
   <SVGMap features={args.features}>
-    <PolygonLayer
+    <SVGPolygonLayer
       {...args}
       on:click
       on:mouseout

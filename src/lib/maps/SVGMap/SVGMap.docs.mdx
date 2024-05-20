@@ -14,7 +14,7 @@ This component is useful for simple, thematic maps, especially choropleths. When
 Import the component and the layers you'll need. Load in some GeoJSON - however you want to load it is up to you. But you should probably make sure your date is in the `WGS84` projection. That way, you can load any [D3-compatable projection](https://d3js.org/d3-geo/projection) function and pass it to the map component. Finally, set up some layers, providing any additional data and properties.
 
 ```javascript
-import { SVGMap, PolygonLayer } from "@urbaninstitute/dataviz-components/maps";
+import { SVGMap, SVGPolygonLayer } from "@urbaninstitute/dataviz-components/maps";
 ```
 
 ## Component props
@@ -80,7 +80,7 @@ Putting these all together, you can render your map like this:
 
 ## Zoomable maps and limiting labels to higher zoom
 
-Maps can include zoom and pan functionality out of the box by passing the `zoomable` prop to the `SVGMap`. Some times you may want to limit the visibility of a `LabelLayer` to a minumum zoom multiplyer. Consider this example of mapping average household income in New York City at the census tract level. You may want to display labels if the user has zoomed in far enough, but hide them when zoomed out to avoid overlapping text.
+Maps can include zoom and pan functionality out of the box by passing the `zoomable` prop to the `SVGMap`. Some times you may want to limit the visibility of a `SVGLabelLayer` to a minumum zoom multiplyer. Consider this example of mapping average household income in New York City at the census tract level. You may want to display labels if the user has zoomed in far enough, but hide them when zoomed out to avoid overlapping text.
 
 Loading the data for this map would look something like this:
 
@@ -141,7 +141,7 @@ Now you can pass a `featureHighlight` function that sets the highlighted feature
 
 ## Bubble map
 
-You can use the `<PointLayer>` feature to create a bubble map based on a data value. In order to do this, you'll just need to use a D3 scale and pass a data value to it for the `r` property of the layer. Looking at county popluation for the state of Pennsylvania, you could set this up by importing your data and setting up the scale:
+You can use the `<SVGPointLayer>` feature to create a bubble map based on a data value. In order to do this, you'll just need to use a D3 scale and pass a data value to it for the `r` property of the layer. Looking at county popluation for the state of Pennsylvania, you could set this up by importing your data and setting up the scale:
 
 ```javascript
 import pa_population_topo from "./path/top/topojson/pa_popluation_topo.json";
