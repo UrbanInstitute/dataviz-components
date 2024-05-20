@@ -15,9 +15,9 @@
   import { Story, Template } from "@storybook/addon-svelte-csf";
   import {ChartBlock} from "$lib";
   import {
-    PolygonLayer,
-    LabelLayer,
-    PointLayer,
+    SVGPolygonLayer,
+    SVGLabelLayer,
+    SVGPointLayer,
     SVGMap
   } from "$lib/maps";
   import ColorLegend from "$lib/maps/ColorLegend/ColorLegend.svelte";
@@ -44,12 +44,12 @@
     <ColorLegend scale={airQualityScale} height={10} tickLineColor={"white"} tickLineWidth="2"/>
   </div>
   <SVGMap projection={geoAlbersUsa} features={county_air_quality.features} height="400">
-    <PolygonLayer
+    <SVGPolygonLayer
       fill={(d) => airQualityScale(d.properties.index_air_quality)}
       stroke={urbanColors.gray_shade_dark}
     />
-    <PointLayer features={us_cities_geo.features} fill={urbanColors.gray_shade_lighter} />
-    <LabelLayer
+    <SVGPointLayer features={us_cities_geo.features} fill={urbanColors.gray_shade_lighter} />
+    <SVGLabelLayer
       features={us_cities_geo.features}
       getLabel={(d) => d.properties.name}
       fontSize={13}
