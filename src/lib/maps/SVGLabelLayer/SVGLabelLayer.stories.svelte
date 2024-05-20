@@ -63,3 +63,26 @@
   <SVGLabelLayer getLabel={(feature) => feature.properties.STUSPS}/>
 </SVGMap>`}
 />
+<Story
+  name="Slot"
+  play={async ({ canvasElement, args }) => {
+    const feature = canvasElement.querySelector(".label-feature text");
+    await userEvent.hover(feature);
+    await expect(mousemoveHandler).toHaveBeenCalled();
+    await userEvent.unhover(feature);
+    await expect(mouseoutHandler).toHaveBeenCalled();
+    await userEvent.click(feature);
+    await expect(clickHandler).toHaveBeenCalled();
+  }}
+>
+  <SVGMap features={states.features}>
+    <SVGLabelLayer
+      on:click
+      on:mouseout
+      on:mousemove
+      on:click={clickHandler}
+      on:mouseout={mouseoutHandler}
+      on:mousemove={mousemoveHandler}
+    ><svelte:fragment let:props>{props.STUSPS}</svelte:fragment></SVGLabelLayer>
+  </SVGMap>
+</Story>
