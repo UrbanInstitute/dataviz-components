@@ -2,10 +2,10 @@ A layer that works inside an `SVGMap` component that displays data as a point/sy
 
 ## Basic usage
 
-Import `PointLayer` and `SVGMap` from this library:
+Import `SVGPointLayer` and `SVGMap` from this library:
 
 ```js
-import { SVGMap, PointLayer } from "@urbaninstitute/dataviz-components/maps";
+import { SVGMap, SVGPointLayer } from "@urbaninstitute/dataviz-components/maps";
 
 ```
 Add your own GeoJSON data and specify configuration and props seen below.

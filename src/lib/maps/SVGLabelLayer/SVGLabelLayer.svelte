@@ -97,7 +97,7 @@
           stroke-linejoin="round"
           on:mousemove={(e) => handleMousemove(e, feature)}
           on:click={(e) => handleClick(e, feature)}
-          text-anchor={textAnchor}>{getLabel(feature)}</text
+          text-anchor={textAnchor}><slot props={feature.properties}>{getLabel(feature)}</slot></text
         >
         <text
           {x}
@@ -105,7 +105,7 @@
           {dy}
           style:font-size="{fontSize / $transform.k}px"
           fill={fontColor}
-          text-anchor={textAnchor}>{getLabel(feature)}</text
+          text-anchor={textAnchor}><slot props={feature.properties}>{getLabel(feature)}</slot></text
         >
       </g>
     {/each}

@@ -4,7 +4,7 @@
   import docs from "./SVGPolygonlayer.docs.md?raw";
 
   export const meta = {
-    title: "Maps/PolygonLayer",
+    title: "Maps/SVGPolygonLayer",
     component: SVGPolygonLayer,
     tags: ["autodocs"],
     argTypes: {
