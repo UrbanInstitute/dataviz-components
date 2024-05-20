@@ -60,6 +60,12 @@
   export let tickMargin = 5;
 
   /**
+   * Optionally set the `text-anchor` of all tick marks in the legend. If set to auto, tick marks use `text-anchor: middle` unless they represent the minumum or maximum value of the scale. Min value is set to `text-anchor: start` and max value is set to `text-anchor: end`.
+   * @type { "auto" | "middle" | "start" | "end" } [tickTextAnchor = "auto"]
+   */
+  export let tickTextAnchor = "auto";
+
+  /**
    * Optional tick formatting string or function
    * @type { string | (Object) => string } [tickFormat = undefined]
    */
@@ -84,7 +90,7 @@
   export let margin = {
     top: 0,
     right: 0,
-    bottom: 0,
+    bottom: 5,
     left: 0
   };
 
@@ -240,9 +246,25 @@
   function uid() {
     return Date.now().toString(36) + Math.random().toString(36).substring(2);
   }
+
+  function getTextAnchor(val, domain) {
+    if (tickTextAnchor !== "auto") {
+      return tickTextAnchor;
+    }
+    if (scaleType === "ordinal") {
+      return "middle";
+    }
+    if (val === domain[0]) {
+      return "start";
+    } else if (val === domain[domain.length - 1]) {
+      return "end";
+    } else {
+      return "middle";
+    }
+  }
 </script>
 
-<div class="legend-wrapper" bind:clientWidth={width} style:max-width="{maxWidth}px">
+<div class="legend-wrapper" bind:clientWidth={width} style:max-width="{maxWidth}px" style:padding-bottom="10px">
   {#if title}
     <p class="legend-title">{title}</p>
   {/if}
@@ -316,7 +338,7 @@
                   y={yPosition}
                   x={xPosition}
                   font-size="{tickSize}px"
-                  text-anchor="middle">{tickFormatFn(tick)}</text
+                  text-anchor={getTextAnchor(tick, domain)}>{tickFormatFn(tick)}</text
                 >
               {/each}
             </g>

@@ -1,5 +1,6 @@
 <script context="module">
   import ColorLegend from "./ColorLegend.svelte";
+  import urbanColors from "$lib/utils/urbanColors.js";
 
   export const meta = {
     title: "Maps/ColorLegend",
@@ -10,6 +11,10 @@
         control: "select",
         options: ["bottom", "top"]
       },
+      tickTextAnchor: {
+        control: "select",
+        options: ["auto", "middle", "start", "end"]
+      },
       swatchLayout: {
         control: "select",
         options: ["row", "column"]
@@ -17,6 +22,13 @@
       swatchAlign: {
         control: "select",
         options: ["flex-start", "center", "flex-end"]
+      },
+      tickLineColor: {
+        control: {
+          type: "color",
+          presetColors: [urbanColors.black, urbanColors.white, urbanColors.gray]
+        },
+        defaultValue: urbanColors.black
       },
       margin: {
         control: "object"
@@ -34,7 +46,6 @@
 
 <script>
   import { Story, Template } from "@storybook/addon-svelte-csf";
-  import urbanColors from "$lib/utils/urbanColors.js";
   import {
     scaleLinear,
     scaleSequential,
@@ -108,6 +119,15 @@
   }}
 />
 <Story
+  name="Ordinal scale with buckets"
+  args={{
+    scale: scaleOrdinal(
+      ["$0 to $20,000", "$20,000 to $50,000", "$50,000 to $75,000", "$75,000 to $100,000", "$100,000 or more"],
+      [urbanColors.green_shade_lightest, urbanColors.green_shade_lighter, urbanColors.green, urbanColors.green_shade_dark, urbanColors.green_shade_darkest]
+    )
+  }}
+/>
+<Story
   name="Ordinal scale swatches"
   args={{
     scale: scaleOrdinal(
@@ -127,5 +147,16 @@
     swatch: true,
     swatchLayout: "column",
     swatchCircle: true
+  }}
+/>
+<Story
+  name="Ordinal scale swatches with buckets"
+  args={{
+    scale: scaleOrdinal(
+      ["$0 to $20,000", "$20,000 to $50,000", "$50,000 to $75,000", "$75,000 to $100,000", "$100,000 or more"],
+      [urbanColors.green_shade_lightest, urbanColors.green_shade_lighter, urbanColors.green, urbanColors.green_shade_dark, urbanColors.green_shade_darkest]
+    ),
+    swatch: true,
+    swatchLayout: "column",
   }}
 />
