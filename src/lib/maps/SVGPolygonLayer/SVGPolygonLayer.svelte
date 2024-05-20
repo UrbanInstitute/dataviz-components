@@ -2,7 +2,7 @@
   import { getContext, createEventDispatcher, afterUpdate } from "svelte";
   import urbanColors from "$lib/utils/urbanColors.js";
   import { geoPath } from "d3-geo";
-  import { getFill, getStroke } from "./lib.js";
+  import { getFill, getStroke } from "../lib.js";
 
   const { projection, features: globalFeatures, transform } = getContext("map");
 

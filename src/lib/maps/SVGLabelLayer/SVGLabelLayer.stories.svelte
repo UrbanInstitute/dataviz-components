@@ -1,15 +1,14 @@
 <script context="module">
-  import SVGMap from "./SVGMap.svelte";
-  import PointLayer from "./PointLayer.svelte";
-  import docs from "./PointLayer.docs.md?raw";
+  import SVGMap from "../SVGMap/SVGMap.svelte";
+  import SVGLabelLayer from "./SVGLabelLayer.svelte";
+  import docs from "./SVGLabelLayer.docs.md?raw";
 
   export const meta = {
-    title: "Maps/PointLayer",
-    component: PointLayer,
+    title: "Maps/SVGLabelLayer",
+    component: SVGLabelLayer,
     tags: ["autodocs"],
     argTypes: {
       features: { control: "array" },
-      fill: { control: "text" },
       stroke: { control: "text" }
     },
     parameters: {
@@ -26,7 +25,6 @@
   import { userEvent, expect, fn } from "@storybook/test";
   import { Story, Template } from "@storybook/addon-svelte-csf";
   import states from "../../../docs/sample-data/states_geo.json";
-  import { urbanColors } from "$lib/utils";
 
   let mousemoveHandler = fn();
   let mouseoutHandler = fn();
@@ -34,8 +32,8 @@
 </script>
 
 <Template let:args>
-  <SVGMap features={args.features}>
-    <PointLayer
+  <SVGMap features={states.features}>
+    <SVGLabelLayer
       {...args}
       on:click
       on:mouseout
@@ -43,20 +41,17 @@
       on:click={clickHandler}
       on:mouseout={mouseoutHandler}
       on:mousemove={mousemoveHandler}
-    ></PointLayer>
+    ></SVGLabelLayer>
   </SVGMap>
 </Template>
 
 <Story
-  name="simple"
+  name="Default"
   args={{
-    features: states.features,
-    stroke: urbanColors.blue_shade_darker,
-    fill: urbanColors.blue,
-    hoverFill: urbanColors.magenta
+    getLabel: (feature) => feature.properties.STUSPS
   }}
   play={async ({ canvasElement, args }) => {
-    const feature = canvasElement.querySelector(".point-feature");
+    const feature = canvasElement.querySelector(".label-feature text");
     await userEvent.hover(feature);
     await expect(mousemoveHandler).toHaveBeenCalled();
     await userEvent.unhover(feature);
@@ -64,4 +59,7 @@
     await userEvent.click(feature);
     await expect(clickHandler).toHaveBeenCalled();
   }}
+  source={`<SVGMap features={states.features}>
+  <SVGLabelLayer getLabel={(feature) => feature.properties.STUSPS}/>
+</SVGMap>`}
 />

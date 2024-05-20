@@ -1,4 +1,4 @@
 export { default as SVGMap } from "./SVGMap/SVGMap.svelte";
-export { default as PolygonLayer } from "./SVGMap/PolygonLayer.svelte";
-export { default as PointLayer } from "./SVGMap/PointLayer.svelte";
-export { default as LabelLayer } from "./SVGMap/LabelLayer.svelte";
+export { default as SVGPolygonLayer } from "./SVGPolygonLayer/SVGPolygonLayer.svelte";
+export { default as SVGPointLayer } from "./SVGPointLayer/SVGPointLayer.svelte";
+export { default as SVGLabelLayer } from "./SVGLabelLayer/SVGLabelLayer.svelte";

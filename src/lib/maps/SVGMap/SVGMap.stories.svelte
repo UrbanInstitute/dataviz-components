@@ -1,8 +1,8 @@
 <script context="module">
   import SVGMap from "./SVGMap.svelte";
-  import PolygonLayer from "./PolygonLayer.svelte";
-  import LabelLayer from "./LabelLayer.svelte";
-  import PointLayer from "./PointLayer.svelte";
+  import SVGPolygonLayer from "../SVGPolygonLayer/SVGPolygonLayer.svelte";
+  import SVGLabelLayer from "../SVGLabelLayer/SVGLabelLayer.svelte";
+  import SVGPointLayer from "../SVGPointLayer/SVGPointLayer.svelte";
 
   export const meta = {
     title: "Maps/SVGMap",
@@ -70,37 +70,37 @@
 
 <Template let:args>
   <SVGMap {...args}>
-    <PolygonLayer />
-    <PointLayer />
-    <LabelLayer getLabel={(d) => d.properties.STUSPS} />
+    <SVGPolygonLayer />
+    <SVGPointLayer />
+    <SVGLabelLayer getLabel={(d) => d.properties.STUSPS} />
   </SVGMap>
 </Template>
 
 <Story
   name="Simple map"
   source={`<SVGMap features={states.features}>
-  <PolygonLayer />
-  <PointLayer />
-  <LabelLayer getLabel={(d) => d.properties.STUSPS}/>
+  <SVGPolygonLayer />
+  <SVGPointLayer />
+  <SVGLabelLayer getLabel={(d) => d.properties.STUSPS}/>
 </SVGMap>`}
 >
   <SVGMap features={states.features}>
-    <PolygonLayer />
-    <PointLayer />
-    <LabelLayer getLabel={(d) => d.properties.STUSPS} />
+    <SVGPolygonLayer />
+    <SVGPointLayer />
+    <SVGLabelLayer getLabel={(d) => d.properties.STUSPS} />
   </SVGMap>
 </Story>
 
 <Story name="Custom colors and multiple layers">
   <SVGMap features={county_air_quality.features} aspectRatio={4/2.3333}>
-    <PolygonLayer
+    <SVGPolygonLayer
       fill={(d) => airQualityScale(d.properties.index_air_quality)}
       stroke={urbanColors.gray_shade_dark}
       hoverStroke={urbanColors.magenta}
       hoverStrokeWidth={2}
     />
-    <PointLayer features={us_cities_geo.features} fill={urbanColors.gray_shade_lighter} />
-    <LabelLayer
+    <SVGPointLayer features={us_cities_geo.features} fill={urbanColors.gray_shade_lighter} />
+    <SVGLabelLayer
       features={us_cities_geo.features}
       getLabel={(d) => d.properties.name}
       fontSize={13}
@@ -110,13 +110,13 @@
 
 <Story name="Zoomable">
   <SVGMap scrollWheel="ctrl" zoomable projection={geoMercator} features={nyc_income.features}>
-    <PolygonLayer
+    <SVGPolygonLayer
       fill={(d) => incomeScale(d.properties.estimate)}
       stroke={(d) => incomeScale(d.properties.estimate)}
       hoverStroke={urbanColors.gray_shade_darker}
       hoverStrokeWidth={2}
     />
-    <LabelLayer
+    <SVGLabelLayer
       features={nyc_neighborhoods.features}
       getLabel={(d) => d.properties.ntaname}
       minZoom={3}
@@ -126,7 +126,7 @@
 
 <Story name="Feature highlight">
   <SVGMap features={cleveland_bike_data.features} projection={geoMercator}>
-    <PolygonLayer
+    <SVGPolygonLayer
       fill={(d) => clevelandBikeScale(d.properties.bike_to_work)}
       stroke="white"
       hoverStroke={urbanColors.yellow}
@@ -145,8 +145,8 @@
 
 <Story name="Bubble map">
   <SVGMap features={pa_population_geo.features} projection={geoMercator}>
-    <PolygonLayer fill={urbanColors.gray_shade_lighter} stroke={urbanColors.gray_shade_dark} />
-    <PointLayer
+    <SVGPolygonLayer fill={urbanColors.gray_shade_lighter} stroke={urbanColors.gray_shade_dark} />
+    <SVGPointLayer
       fill={urbanColors.blue}
       opacity={0.5}
       r={(d) => paPopRadiusScale(d.properties.value)}

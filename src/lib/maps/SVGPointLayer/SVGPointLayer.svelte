@@ -3,7 +3,7 @@
   import { geoPath } from "d3-geo";
   import { urbanColors } from "$lib/utils";
   import { raise } from "layercake";
-  import { getFill, getStroke } from "./lib.js";
+  import { getFill, getStroke } from "../lib.js";
 
   const { transform, projection, features: globalFeatures } = getContext("map");
 
