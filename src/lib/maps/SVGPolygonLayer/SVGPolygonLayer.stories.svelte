@@ -5,7 +5,7 @@
 
   export const meta = {
     title: "Maps/PolygonLayer",
-    component: PolygonLayer,
+    component: SVGPolygonLayer,
     tags: ["autodocs"],
     argTypes: {
       features: { control: "array" },
