@@ -119,6 +119,7 @@
     -moz-appearance: none;
     appearance: none;
     width: 100%;
+    border-radius: 0 !important;
   }
 
   .dropdown-select.primary {
