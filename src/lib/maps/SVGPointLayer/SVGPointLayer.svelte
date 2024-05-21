@@ -164,6 +164,8 @@
 >
   {#each features || $globalFeatures as feature}
     {@const [x, y] = geoPathFn.centroid(feature)}
+    {@const featureStroke = getStroke(feature, stroke)}
+    {@const featureFill = getFill(feature, fill, naFill)}
     {#if $$slots.default}
       <!-- Optional slot that renders once for each feature. Overrides default SVG `<circle>` element.-->
       <slot {feature} {x} {y} />
@@ -176,13 +178,13 @@
         cx={x}
         cy={y}
         {opacity}
-        fill={getFill(feature, fill, naFill)}
+        fill={featureFill}
         r={getRadius(feature) / $transform.k}
         stroke-width={strokeWidth / $transform.k}
-        style:--hover-fill={hoverFill}
-        style:--hover-stroke={hoverStroke || getStroke(feature, stroke)}
+        style:--hover-fill={hoverFill || featureFill}
+        style:--hover-stroke={hoverStroke || featureStroke}
         class:hover-fill={typeof hoverFill !== "undefined"}
-        stroke={getStroke(feature, stroke)}
+        stroke={featureStroke}
         on:mousemove={(e) => handleMousemove(e, feature)}
         on:click={(e) => handleClick(e, feature)}
       />

@@ -33,7 +33,11 @@ export function getStroke(feature, stroke) {
  */
 export function compareProps(propsA, propsB) {
   for (const key in propsA) {
-    if (key in propsB && propsB[key] !== propsA[key]) {
+    const propsHasKey = Object.keys(propsB).includes(key);
+    if (propsHasKey && propsB[key] !== propsA[key]) {
+      return false;
+    }
+    if (!propsHasKey) {
       return false;
     }
   }
