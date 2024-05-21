@@ -2,6 +2,8 @@
 
 ## Next
 
+- Fix BasicDropdown border radius
+
 ## v0.9.0
 
 - Update BasicDropdown with secondary style variants, a visible label, and better story controls
