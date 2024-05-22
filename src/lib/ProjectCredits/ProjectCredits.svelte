@@ -22,48 +22,50 @@
   export let githubUrl = null;
 </script>
 
-<Block>
-  <Heading content={heading} />
-</Block>
-<!-- Content to render between the heading and the items -->
-<slot name="intro" />
-<Block>
-  <ul class="credits-list">
-    {#each items as item}
-      <li>
-        <span class="label">{item.label}</span>
-        {@html item.content}
-      </li>
-    {/each}
-  </ul>
-</Block>
-{#if githubUrl}
-  <TextBlock>View the project on <a href={githubUrl} target="_blank">Github</a>.</TextBlock>
-{/if}
+<div class="project-credits-wrapper">
+  <Block>
+    <Heading content={heading} />
+  </Block>
+  <!-- Content to render between the heading and the items -->
+  <slot name="intro" />
+  <Block>
+    <ul class="credits-list">
+      {#each items as item}
+        <li>
+          <span class="label">{item.label}</span>
+          {@html item.content}
+        </li>
+      {/each}
+    </ul>
+  </Block>
+  {#if githubUrl}
+    <TextBlock>View the project on <a href={githubUrl} target="_blank">Github</a>.</TextBlock>
+  {/if}
+</div>
 
 <style>
-  ul.credits-list {
+  .project-credits-wrapper ul.credits-list {
     list-style-type: none;
     padding: 0;
     font-size: var(--font-size-large);
   }
 
-  .label {
+  .project-credits-wrapper .label {
     text-transform: uppercase;
     padding-right: 0.5rem;
     font-weight: var(--font-weight-bold);
   }
 
-  li {
+  .project-credits-wrapper li {
     margin: 2rem 0;
   }
 
-  li :global(a) {
+  .project-credits-wrapper li :global(a) {
     color: var(--color-text-accent);
   }
 
   @media (min-width: 769px) {
-    ul {
+    .project-credits-wrapper ul {
       font-size: var(--font-size-xl);
     }
   }
