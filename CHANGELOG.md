@@ -2,6 +2,8 @@
 
 ## Next
 
+- Update Toggle with dispatched click
+
 ## v0.9.0
 
 - Update BasicDropdown with secondary style variants, a visible label, and better story controls
