@@ -3,6 +3,7 @@
 ## Next
 
 - Fix BasicDropdown border radius
+- Update Toggle with dispatched click
 
 ## v0.9.0
 

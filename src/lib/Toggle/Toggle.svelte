@@ -1,4 +1,6 @@
 <script>
+  import { createEventDispatcher } from "svelte";
+  const dispatch = createEventDispatcher();
   /**
    * Whether the toggle is active or not
    * @type {boolean}
@@ -29,7 +31,10 @@
   {disabled}
   role="switch"
   aria-checked={active}
-  on:click={() => (active = !active)}
+  on:click={() => {
+    dispatch("click");
+    active = !active;
+  }}
   style:direction={labelPosition === "right" ? "rtl" : "ltr"}
   ><p class="label {labelPosition}">{label}</p>
   <span class="toggle" aria-hidden="true"><span class="circle" /></span>
