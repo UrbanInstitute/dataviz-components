@@ -230,16 +230,16 @@
     if (orientation !== "dynamic") {
       newOrientation = orientation;
       if (orientation.includes("left")) {
-        xPos = elLeftX - elOffset
+        xPos = elLeftX - elOffset;
       }
       if (orientation.includes("right")) {
-        xPos = elRightX + elOffset
+        xPos = elRightX + elOffset;
       }
       if (orientation.includes("bottom")) {
-        yPos = elBottomY + elOffset
+        yPos = elBottomY + elOffset;
       }
       if (orientation.includes("top")) {
-        yPos = elTopY - elOffset
+        yPos = elTopY - elOffset;
       }
     } else {
       // if position is dynamic, things are more complicated. We'll need to check for intersections based on the dynamic positions until we find one that works
