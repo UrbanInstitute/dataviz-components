@@ -25,6 +25,10 @@
    */
   export let y = 0;
 
+  /**
+   * An optional HTMLElement to bind the tooltip position to
+   * @type {HTMLElement} [el = undefined]
+   */
   export let el = undefined;
 
   /**
