@@ -228,17 +228,18 @@
 
     // if orientation is not dynamic, just calculate the correct position
     if (orientation !== "dynamic") {
+      newOrientation = orientation;
       if (orientation.includes("left")) {
-        xPos = elLeftX;
+        xPos = elLeftX - elOffset
       }
       if (orientation.includes("right")) {
-        xPos = elRightX;
+        xPos = elRightX + elOffset
       }
       if (orientation.includes("bottom")) {
-        yPos = elBottomY;
+        yPos = elBottomY + elOffset
       }
       if (orientation.includes("top")) {
-        yPos = elTopY;
+        yPos = elTopY - elOffset
       }
     } else {
       // if position is dynamic, things are more complicated. We'll need to check for intersections based on the dynamic positions until we find one that works
@@ -276,8 +277,6 @@
         newOrientation = "top";
       }
     }
-    console.log(typeof elOffset);
-    console.log(typeof xPos, typeof yPos);
     return { x: xPos, y: yPos, orientation: newOrientation };
   }
 
@@ -351,7 +350,6 @@
       windowScrollX,
       windowScrollY
     );
-    console.log(x, y);
     // set global state
     tooltipX = x;
     tooltipY = y;
@@ -371,8 +369,6 @@
 
   // calculate tooltipCoords, which are based on tooltipX and tooltipY and adjusted for any positioned ancestor elements with the getTooltipCoords function
   $: tooltipCoords = getTooltipCoords(tooltipEl, tooltipX, tooltipY);
-  // $: console.log(tooltipX, tooltipY);
-  // $: console.log(tooltipCoords);
 </script>
 
 <svelte:window
