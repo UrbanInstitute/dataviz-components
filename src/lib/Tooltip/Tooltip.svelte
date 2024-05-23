@@ -1,4 +1,6 @@
 <script>
+  import ReturnTop from "$lib/ReturnTop/ReturnTop.svelte";
+
   /**
    * Content to render inside the tooltip. This can include custom HTML.
    * @type { string }
@@ -22,6 +24,14 @@
    * @type {number}
    */
   export let y = 0;
+
+  export let el = undefined;
+
+  /**
+   * The offset distance from the el in pixels
+   * @type {number}
+   */
+  export let elOffset = 0;
 
   /**
    * whether to use a small (138px) or large (198px) width
@@ -117,6 +127,9 @@
   // Hold a reference to parent element if necessary
   let parentEl;
 
+  // Hold the current state of the orientation of the tooltip
+  let tooltipOrientation;
+
   function measureParent(scrollX, scrollY) {
     // if the parentEl isn't stored already, grab a reference to it
     if (!parentEl) {
@@ -159,7 +172,6 @@
   function getTooltipCoords(el, x, y) {
     const relativeParent = findRelativeAncestor(el);
     if (relativeParent) {
-      // check for padding on the ancestor
       const ancestorStyles = window.getComputedStyle(relativeParent);
       const leftPadding = parseInt(ancestorStyles.paddingLeft.replace("px", ""));
       const topPadding = parseInt(ancestorStyles.paddingTop.replace("px", ""));
@@ -171,17 +183,99 @@
     return [x, y];
   }
 
-  $: tooltipBounds =
-    containParent && tooltipEl
-      ? measureParent(windowScrollX, windowScrollY)
-      : {
-          top: windowScrollY,
-          right: windowWidth,
-          bottom: windowHeight + windowScrollY,
-          left: windowScrollX
-        };
+  // simple utilities to detect edge collision
+  // used in getTooltipOrientation and getPositionFromEl
+  function leftIntersect(x, bounds) {
+    return x < tooltipWidth / 2 + bounds.left;
+  }
 
-  $: tooltipCoords = getTooltipCoords(tooltipEl, x, y);
+  function rightIntersect(x, bounds) {
+    return x > bounds.right - tooltipWidth / 2;
+  }
+
+  function topIntersect(y, bounds) {
+    return y < tooltipHeight + triangleSize + bounds.top;
+  }
+
+  function bottomIntersect(y, bounds) {
+    return y > bounds.bottom - (tooltipHeight / 2 + triangleSize);
+  }
+
+  /**
+   * Get the center of an element
+   * @param {HTMLElement} el
+   * @param {"top" | "bottom" | "left" | "right"} alignment
+   * @returns {{x: number, y: number, orientation: string}}
+   */
+  function getPositionFromEl(el, bounds, scrollX, scrollY) {
+    const elBbox = el.getBoundingClientRect();
+
+    // adjust positions for scroll to convert to absolute coordinates on the page
+    const elLeftX = elBbox.left + scrollX;
+    const elRightX = elBbox.right + scrollX;
+    const elTopY = elBbox.top + scrollY;
+    const elBottomY = elBbox.bottom + scrollY;
+    const elCenterX = elLeftX + elBbox.width / 2;
+    const elCenterY = elTopY + elBbox.height / 2;
+
+    let xPos = elCenterX;
+    let yPos = elCenterY;
+    let newOrientation = "top";
+
+    // if orientation is not dynamic, just calculate the correct position
+    if (orientation !== "dynamic") {
+      if (orientation.includes("left")) {
+        xPos = elLeftX;
+      }
+      if (orientation.includes("right")) {
+        xPos = elRightX;
+      }
+      if (orientation.includes("bottom")) {
+        yPos = elBottomY;
+      }
+      if (orientation.includes("top")) {
+        yPos = elTopY;
+      }
+    } else {
+      // if position is dynamic, things are more complicated. We'll need to check for intersections based on the dynamic positions until we find one that works
+      if (topIntersect(elTopY, bounds) && leftIntersect(elCenterX, bounds)) {
+        xPos = elRightX + elOffset;
+        yPos = elBottomY + elOffset;
+        newOrientation = "bottom-right";
+      } else if (topIntersect(elTopY, bounds) && rightIntersect(elCenterX, bounds)) {
+        xPos = elLeftX - elOffset;
+        yPos = elBottomY + elOffset;
+        newOrientation = "bottom-left";
+      } else if (bottomIntersect(elBottomY, bounds) && leftIntersect(elCenterX, bounds)) {
+        xPos = elRightX + elOffset;
+        yPos = elTopY - elOffset;
+        newOrientation = "top-right";
+      } else if (bottomIntersect(elBottomY, bounds) && rightIntersect(elCenterX, bounds)) {
+        xPos = elLeftX - elOffset;
+        yPos = elTopY - elOffset;
+        newOrientation = "top-left";
+      } else if (leftIntersect(elCenterX, bounds)) {
+        xPos = elRightX + elOffset;
+        yPos = elCenterY;
+        newOrientation = "right";
+      } else if (rightIntersect(elCenterX, bounds)) {
+        xPos = elLeftX - elOffset;
+        yPos = elCenterY;
+        newOrientation = "left";
+      } else if (topIntersect(elTopY, bounds)) {
+        xPos = elCenterX;
+        yPos = elBottomY + elOffset;
+        newOrientation = "bottom";
+      } else {
+        xPos = elCenterX;
+        yPos = elTopY - elOffset;
+        newOrientation = "top";
+      }
+    }
+    console.log(typeof elOffset);
+    console.log(typeof xPos, typeof yPos);
+    return { x: xPos, y: yPos, orientation: newOrientation };
+  }
 
   /**
    * Calculate which direction the tooltip should go based on the provided x and y position and a given bounding box relative to the document.
@@ -191,47 +285,90 @@
    * @returns {"top" | "bottom" | "left" | "right" | "top-left" | "top-right" | "bottom-left" | "bottom-right"}
    */
   function getTooltipOrientation(x, y, bounds) {
-    const leftIntersect = x < tooltipWidth / 2 + bounds.left;
-    const rightIntersect = x > bounds.right - tooltipWidth / 2;
-    const topIntersect = y < tooltipHeight + triangleSize + bounds.top;
-    const bottomIntersect = y > bounds.bottom - (tooltipHeight / 2 + triangleSize);
+    const left = leftIntersect(x, bounds);
+    const top = topIntersect(y, bounds);
+    const right = rightIntersect(x, bounds);
+    const bottom = bottomIntersect(y, bounds);
 
     // check for corner cases first
-    if (leftIntersect && topIntersect) {
+    if (left && top) {
       return "bottom-right";
     }
-    if (rightIntersect && topIntersect) {
+    if (right && top) {
       return "bottom-left";
     }
 
-    if (bottomIntersect && leftIntersect) {
+    if (bottom && left) {
       return "top-right";
     }
 
-    if (bottomIntersect && rightIntersect) {
+    if (bottom && right) {
       return "top-left";
     }
 
     // first check if tooltip is too far to the left
-    if (leftIntersect) {
+    if (left) {
       return "right";
     }
     // next check if tooltip is too far to the right
-    if (rightIntersect) {
+    if (right) {
       return "left";
     }
     // next check if tooltip is too far up
-    if (topIntersect) {
+    if (top) {
       return "bottom";
     }
     // default to top
     return "top";
   }
 
-  // the direction of the tooltip in relation to the mouse
-  // defaults to "top", but will move if the tooltip reaches any edge
-  $: tooltipOrientation =
-    orientation === "dynamic" ? getTooltipOrientation(x, y, tooltipBounds) : orientation;
+  // compute the bounding box the tooltip should stay within
+  // either a parent Element or the current viewport
+  $: tooltipBounds =
+    containParent && tooltipEl
+      ? measureParent(windowScrollX, windowScrollY)
+      : {
+          top: windowScrollY,
+          right: windowWidth + windowScrollX,
+          bottom: windowHeight + windowScrollY,
+          left: windowScrollX
+        };
+
+  // hold calculated tooltip x an y positions
+  let tooltipX;
+  let tooltipY;
+  // if el is provided, calculate the position for the tooltip
+  // getPositionFromEl also sets the tooltipOrientation variable based on its own calculations
+  $: if (el) {
+    // calculate position and orientation from element
+    const { x, y, orientation } = getPositionFromEl(
+      el,
+      tooltipBounds,
+      windowScrollX,
+      windowScrollY
+    );
+    console.log(x, y);
+    // set global state
+    tooltipX = x;
+    tooltipY = y;
+    tooltipOrientation = orientation;
+  }
+
+  // if tooltipOrientation isn't determined by the element placement already and is dynamic, set it here
+  $: if (!el) {
+    if (orientation === "dynamic") {
+      tooltipOrientation = getTooltipOrientation(tooltipX, tooltipY, tooltipBounds);
+    } else {
+      tooltipOrientation = orientation;
+    }
+    tooltipX = x;
+    tooltipY = y;
+  }
+
+  // calculate tooltipCoords, which are based on tooltipX and tooltipY and adjusted for any positioned ancestor elements with the getTooltipCoords function
+  $: tooltipCoords = getTooltipCoords(tooltipEl, tooltipX, tooltipY);
+  // $: console.log(tooltipX, tooltipY);
+  // $: console.log(tooltipCoords);
 </script>
 
 <svelte:window

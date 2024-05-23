@@ -41,11 +41,16 @@
 
 <script>
   import { Story, Template } from "@storybook/addon-svelte-csf";
+  import { Button } from "$lib";
+
   let x = 100;
   let y = 100;
 
   let dynamicX = 100;
   let dynamicY = 100;
+
+  let pinEl;
+  let showPinned = false;
 
   function handleMousemove(e) {
     const x = e.pageX;
@@ -57,7 +62,7 @@
 
 <Template let:args>
   <div class="wrapper" style="width: 100%; height: 300px" on:mousemove={handleMousemove}>
-    <Tooltip {...args} x={dynamicX} y={dynamicY}>This is a tooltip</Tooltip>
+    <Tooltip {...args} x={dynamicX} y={dynamicY}>{args.content || "This is a tooltip"}</Tooltip>
   </div>
 </Template>
 
@@ -94,21 +99,13 @@
     content: "This tooltip is oriented to the left",
     style: "dark",
     orientation: "left",
-    x: x + 50,
+    x: x,
     y: y
   }}
 />
 
 <Story
   name="Contain inside parent"
-  args={{
-    content: "This tooltip is oriented to the left",
-    style: "dark",
-    orientation: "left",
-    containParent: true,
-    x: dynamicX,
-    y: dynamicY
-  }}
 >
   <div
     class="wrapper"
@@ -126,5 +123,18 @@
       x={dynamicX}
       y={dynamicY}
     />
+  </div>
+</Story>
+<Story name="Pinned to element">
+  <div
+    class="wrapper"
+    style="position: relative; width: 800px; height: 300px; display: grid; place-content: center;"
+  >
+    <div bind:this={pinEl} style="display: inline-block">
+      <Button on:click={() => (showPinned = !showPinned)}>Click me</Button>
+    </div>
+    {#if showPinned}
+      <Tooltip elOffset={5} content="This tooltip is pinned to an existing element" el={pinEl} />
+    {/if}
   </div>
 </Story>
