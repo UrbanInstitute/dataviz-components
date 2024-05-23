@@ -42,6 +42,7 @@
 <script>
   import { Story, Template } from "@storybook/addon-svelte-csf";
   import { Button } from "$lib";
+  import { urbanColors } from "$lib/utils";
 
   let x = 100;
   let y = 100;
@@ -104,9 +105,7 @@
   }}
 />
 
-<Story
-  name="Contain inside parent"
->
+<Story name="Contain inside parent">
   <div
     class="wrapper"
     style="position: relative; width: 800px; height: 300px; border: solid 1px black; margin: 100px;"
@@ -136,5 +135,24 @@
     {#if showPinned}
       <Tooltip elOffset={5} content="This tooltip is pinned to an existing element" el={pinEl} />
     {/if}
+  </div>
+</Story>
+
+<Story name="Tooltip override">
+  <div class="wrapper" style="width: 100%; height: 100vh" on:mousemove={handleMousemove}>
+    <Tooltip x={dynamicX} y={dynamicY} size="large">
+      <svelte:fragment let:orientation slot="tooltipOverride">
+        <div
+          class="custom-tooltip {orientation}"
+          style="background: {urbanColors.gray_shade_lighter}; padding: var(--spacing-2); border: solid 2px {urbanColors.magenta}"
+        >
+          <h5 style="margin: 0;">This is a completely custom tooltip</h5>
+          <p style="font-size: var(--font-size-small);">
+            Markup and style is up to me, but positioning is still provided by the component.
+          </p>
+          <Button>Custom</Button>
+        </div>
+      </svelte:fragment>
+    </Tooltip>
   </div>
 </Story>

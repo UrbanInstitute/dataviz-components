@@ -378,70 +378,81 @@
   bind:innerHeight={windowHeight}
 />
 <div
-  bind:this={tooltipEl}
-  class="tooltip tooltip-{tooltipOrientation} tooltip-{style} tooltip-{size}"
-  class:box-shadow={boxShadow}
+  class="tooltip-outer tooltip-orientation-{tooltipOrientation}"
   style={`left: ${tooltipCoords[0]}px; top: ${tooltipCoords[1]}px; width: ${sizes[size]}px;`}
-  style:--tooltip-font-size={fontSize}
-  style:--tooltip-border-color={borderColor}
-  style:--tooltip-border-width="{1}px"
-  style:--tooltip-triangle-size="{triangleSize}px"
-  style:--tooltip-font-color={tooltipFontColor}
-  style:--tooltip-background-color={tooltipBackgroundColor}
+  bind:this={tooltipEl}
+  style:--tooltip-triangle-size="{$$slots.tooltipOverride ? 0 : triangleSize}px"
 >
-  <div class="tooltip-text">
-    <slot>
-      {@html content}
-    </slot>
-  </div>
+  <!-- The tooltipOverride slot allows you to provide custom markup that will override all of the default styling of the tooltip while still adhering to the positioning logic -->
+  <slot name="tooltipOverride" orientation={tooltipOrientation}>
+    <div
+      class="tooltip tooltip-{tooltipOrientation} tooltip-{style} tooltip-{size}"
+      class:box-shadow={boxShadow}
+      style:--tooltip-font-size={fontSize}
+      style:--tooltip-border-color={borderColor}
+      style:--tooltip-border-width="{1}px"
+      style:--tooltip-font-color={tooltipFontColor}
+      style:--tooltip-background-color={tooltipBackgroundColor}
+    >
+      <div class="tooltip-text">
+        <!-- Content in the default slot renders inside the styled tooltop -->
+        <slot>
+          {@html content}
+        </slot>
+      </div>
+    </div>
+  </slot>
 </div>
 
 <style>
-  .tooltip {
-    padding: var(--spacing-2);
+  .tooltip-outer {
+    pointer-events: none;
     position: absolute;
     left: 0;
     top: 0;
     z-index: 500;
+  }
+  .tooltip {
+    padding: var(--spacing-2);
     color: var(--tooltip-font-color);
     background: var(--tooltip-background-color);
     border: solid var(--tooltip-border-width) var(--tooltip-border-color);
-    pointer-events: none;
+    z-index: 500;
   }
 
   .tooltip.box-shadow {
     box-shadow: 0px 4px 4px 1px rgba(0, 0, 0, 0.08);
   }
 
-  .tooltip.tooltip-top {
-    transform: translate(-50%, calc(-100% - var(--tooltip-triangle-size)));
+  .tooltip-orientation-top {
+    transform: translate(-50%, calc(-100% - var(--tooltip-triangle-size, 0px)));
   }
 
-  .tooltip.tooltip-right {
-    transform: translate(var(--tooltip-triangle-size), -50%);
+  .tooltip-orientation-right {
+    transform: translate(var(--tooltip-triangle-size, 0px), -50%);
   }
 
-  .tooltip.tooltip-left {
-    transform: translate(calc(-100% - var(--tooltip-triangle-size)), -50%);
+  .tooltip-orientation-left {
+    transform: translate(calc(-100% - var(--tooltip-triangle-size, 0px)), -50%);
   }
 
-  .tooltip.tooltip-bottom {
-    transform: translate(-50%, var(--tooltip-triangle-size));
+  .tooltip-orientation-bottom {
+    transform: translate(-50%, var(--tooltip-triangle-size, 0px));
   }
 
-  .tooltip.tooltip-bottom-left {
+  .tooltip-orientation-bottom-left {
     transform: translate(-100%, 0);
   }
 
-  .tooltip.tooltip-bottom-right {
+  .tooltip-orientation-bottom-right {
     transform: translate(0, 0);
   }
 
-  .tooltip.tooltip-top-left {
+  .tooltip-orientation-top-left {
     transform: translate(-100%, -100%);
   }
 
-  .tooltip.tooltip-top-right {
+  .tooltip-orientation-top-right {
     transform: translate(0, -100%);
   }
 
@@ -467,11 +478,10 @@
     font-size: var(--font-size-normal);
   }
 
-  .tooltip-shape {
+  .tooltip::after,
+  .tooltip::before {
     position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 500;
+    z-index: 501;
   }
 
   /* triangle styles */
@@ -536,7 +546,7 @@
   .tooltip.tooltip-right::after,
   .tooltip.tooltip-right::before {
     position: absolute;
-    right: 100%;
+    right: calc(100% - 1px);
     top: 50%;
     width: 0;
     height: 0;
@@ -563,7 +573,7 @@
   .tooltip.tooltip-left::after,
   .tooltip.tooltip-left::before {
     position: absolute;
-    left: 100%;
+    left: calc(100% - 1px);
     top: 50%;
     width: 0;
     height: 0;
