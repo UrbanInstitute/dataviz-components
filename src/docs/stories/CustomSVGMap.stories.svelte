@@ -1,10 +1,10 @@
 <script context="module">
   export const meta = {
-    title: "Examples/Stories/MapWithLegend",
+    title: "Examples/Stories/CustomSVGMap",
     parameters: {
       docs: {
         description: {
-          component: "An SVGMap with a ColorLegend"
+          component: "An custom SVGMap with a ColorLegend and tooltip."
         }
       }
     }
@@ -23,11 +23,10 @@
   import ColorLegend from "$lib/maps/ColorLegend/ColorLegend.svelte";
   import county_air_quality_topo from "../../docs/sample-data/county_air_quality_topo.json";
   import { urbanColors } from "$lib/utils";
-  import { geoAlbersUsa } from "d3-geo";
   import us_cities from "../../docs/sample-data/us_cities.json";
   import { scaleQuantile } from "d3-scale";
 
-  const county_air_quality = topojson.feature(county_air_quality_topo, "county_air_quality_geo");
+  const county_air_quality = topojson.feature(county_air_quality_topo, "county_air_quality");
 
   const us_cities_geo = topojson.feature(us_cities, "us_cities");
 
@@ -49,9 +48,9 @@
     </div>
     <SVGMap
       zoomable
-      projection={geoAlbersUsa}
       features={county_air_quality.features}
       aspectRatio={4 / 2.5}
+      tooltipContainParent={true}
     >
       <SVGPolygonLayer
         fill={(d) => airQualityScale(d.properties.index_air_quality)}
@@ -72,8 +71,8 @@
         pointerEvents={false}
       />
       <div slot="tooltip" let:props>
-        <h5>{props.fips}</h5>
-        <p>Air quality index:<strong>{props.index_air_quality}</strong></p>
+        <h5>{props.NAME} county</h5>
+        <p>Air quality index: <strong>{props.index_air_quality}</strong></p>
       </div>
     </SVGMap>
   </ChartBlock>
