@@ -45,7 +45,7 @@
     .range(urbanColors.getGreens());
 
   // county air quality data
-  const county_air_quality = topojson.feature(county_air_quality_topo, "county_air_quality_geo");
+  const county_air_quality = topojson.feature(county_air_quality_topo, "county_air_quality");
 
   let airQualityScale = scaleQuantile()
     .domain(county_air_quality.features.map((d) => d.properties.index_air_quality))
@@ -108,7 +108,7 @@
       fontSize={13}
     />
     <div slot="tooltip" let:props>
-      <h5>{props.fips}</h5>
+      <h5>{props.NAME}</h5>
       <p>Air quality index:<strong>{props.index_air_quality}</strong></p>
     </div>
   </SVGMap>
