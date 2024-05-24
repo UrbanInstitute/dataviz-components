@@ -74,6 +74,12 @@
    */
   export let backgroundColor = "transparent";
 
+  /**
+   * If there is a tooltip on the map, should it be contained to the parent element
+   * @type { boolean } [tooltipContainParent = false]
+   */
+  export let tooltipContainParent = false;
+
   const dispatch = createEventDispatcher();
 
   // create stores of map global settings to add to context
@@ -121,7 +127,7 @@
       return;
     }
     // otherwise, show a tooltip based on this event
-    tooltip = tooltipProps
+    tooltip = tooltipProps;
   }
 
   // function to provide via context to children layers
@@ -272,7 +278,7 @@
     </div>
   {/if}
   {#if tooltip}
-    <Tooltip x={tooltip.x} y={tooltip.y}>
+    <Tooltip x={tooltip.x} y={tooltip.y} containParent={tooltipContainParent}>
       <slot name="tooltip" props={tooltip.props}></slot>
     </Tooltip>
   {/if}
