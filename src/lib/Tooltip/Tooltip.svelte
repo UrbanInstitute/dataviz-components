@@ -1,6 +1,4 @@
 <script>
-  import ReturnTop from "$lib/ReturnTop/ReturnTop.svelte";
-
   /**
    * Content to render inside the tooltip. This can include custom HTML.
    * @type { string }
