@@ -4,7 +4,7 @@
   export const meta = {
     title: "Components/Tooltip",
     component: Tooltip,
-    tags: ["autodocs"],
+    // tags: ["autodocs"],
     argTypes: {
       style: {
         control: "select",
@@ -44,11 +44,8 @@
   import { Button } from "$lib";
   import { urbanColors } from "$lib/utils";
 
-  let x = 100;
-  let y = 100;
-
-  let dynamicX = 100;
-  let dynamicY = 100;
+  let tooltipX;
+  let tooltipY;
 
   let pinEl;
   let showPinned = false;
@@ -56,22 +53,30 @@
   function handleMousemove(e) {
     const x = e.pageX;
     const y = e.pageY;
-    dynamicX = x;
-    dynamicY = y;
+    tooltipX = x;
+    tooltipY = y;
+  }
+
+  function handleMouseout(_) {
+    tooltipX = null;
+    tooltipY = null;
   }
 </script>
 
 <Template let:args>
-  <div class="wrapper" style="width: 100%; height: 300px" on:mousemove={handleMousemove}>
-    <Tooltip {...args} x={dynamicX} y={dynamicY}>{args.content || "This is a tooltip"}</Tooltip>
+  <div class="wrapper" style="background: var(--color-gray-shade-lighter); width: 100%; height: 300px; display: grid; place-content: center;" on:mousemove={handleMousemove} on:mouseout={handleMouseout}>
+    <p>Hover me to see tooltip</p>
   </div>
+  {#if tooltipX && tooltipY}
+  <Tooltip {...args} x={tooltipX} y={tooltipY}>{args.content || "This is a tooltip"}</Tooltip>
+  {/if}
 </Template>
 
 <Story
-  name="Default"
+  name="Mouse event"
   args={{
-    x: dynamicX,
-    y: dynamicY
+    x: tooltipX,
+    y: tooltipY
   }}
 />
 
@@ -80,50 +85,53 @@
   args={{
     content: "This is a dark style tooltip",
     style: "dark",
-    x: x,
-    y: y
+    x: tooltipX,
+    y: tooltipY
   }}
 />
 
 <Story name="Custom HTML">
-  <div class="wrapper" style="width: 100%; height: 300px" on:mousemove={handleMousemove}>
-    <Tooltip x={dynamicX} y={dynamicY} size="large">
+  <div class="wrapper" style="background: var(--color-gray-shade-lighter); width: 100%; height: 300px; display: grid; place-content: center;" on:mousemove={handleMousemove}>
+    <p>Hover me to see tooltip</p>
+  </div>
+  {#if tooltipX && tooltipY}
+    <Tooltip x={tooltipX} y={tooltipY} size="large">
       <h2>HTML Formatting</h2>
       <p>For <em>fancier</em> tooltip structure</p>
     </Tooltip>
-  </div>
+  {/if}
 </Story>
 
 <Story
-  name="Set static orientation"
+  name="Static orientation"
   args={{
     content: "This tooltip is oriented to the left",
     style: "dark",
     orientation: "left",
-    x: x,
-    y: y
+    x: tooltipX,
+    y: tooltipY
   }}
 />
 
 <Story name="Contain inside parent">
   <div
     class="wrapper"
-    style="position: relative; width: 800px; height: 300px; border: solid 1px black; margin: 100px;"
-    on:mousemove={(e) => {
-      const x = e.pageX;
-      const y = e.pageY;
-      dynamicX = x;
-      dynamicY = y;
-    }}
+    style="display: grid; place-content: center; background: var(--color-gray-shade-lighter); position: relative; width: 800px; height: 300px; border: solid 1px black; margin: 100px;"
+    on:mousemove={handleMousemove}
+    on:mouseout={handleMouseout}
   >
+    <p>Hover me to see tooltip</p>
+    {#if tooltipX && tooltipY}
     <Tooltip
       content="This tooltip is contained by parent"
       containParent
-      x={dynamicX}
-      y={dynamicY}
+      x={tooltipX}
+      y={tooltipY}
     />
+    {/if}
   </div>
 </Story>
+
 <Story name="Pinned to element">
   <div
     class="wrapper"
@@ -132,15 +140,18 @@
     <div bind:this={pinEl} style="display: inline-block">
       <Button on:click={() => (showPinned = !showPinned)}>Click me</Button>
     </div>
-    {#if showPinned}
-      <Tooltip elOffset={5} content="This tooltip is pinned to an existing element" el={pinEl} />
-    {/if}
   </div>
+  {#if showPinned}
+    <Tooltip elOffset={5} el={pinEl} >This tooltip is pinned to an existing element</Tooltip>
+  {/if}
 </Story>
 
 <Story name="Tooltip override">
-  <div class="wrapper" style="width: 100%; height: 100vh" on:mousemove={handleMousemove}>
-    <Tooltip x={dynamicX} y={dynamicY} size="large">
+  <div class="wrapper" style="background: var(--color-gray-shade-lighter); width: 100%; height: 300px; display: grid; place-content: center;" on:mousemove={handleMousemove} on:mouseout={handleMouseout}>
+    <p>Hover me to see tooltip</p>
+  </div>
+  {#if tooltipX && tooltipY}
+    <Tooltip x={tooltipX} y={tooltipY} size="large">
       <svelte:fragment let:orientation slot="tooltipOverride">
         <div
           class="custom-tooltip {orientation}"
@@ -154,5 +165,5 @@
         </div>
       </svelte:fragment>
     </Tooltip>
-  </div>
+  {/if}
 </Story>
