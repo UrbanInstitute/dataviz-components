@@ -5,6 +5,12 @@
 - Fix BasicDropdown border radius
 - Update Toggle with dispatched click
 - Fix: Remove errant padding from ProjectCredits
+- Feature: Add SVGMap component
+- Feature: Add SVGPolygonLayer component
+- Feature: Add SVGPointLayer component
+- Feature: Add SVGLabelLayer component
+- Feature: Add ColorLegend component
+- Feature: Add Tooltip component
 
 ## v0.9.0
 
