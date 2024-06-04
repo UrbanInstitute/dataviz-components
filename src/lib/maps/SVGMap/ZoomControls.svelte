@@ -118,6 +118,7 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    padding: 0;
   }
 
   .zoom-button:disabled {
