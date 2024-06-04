@@ -35,6 +35,10 @@
       "types": "./dist/actions/index.d.ts",
       "svelte": "./dist/actions/index.js"
     },
+    "./maps": {
+      "types": "./dist/maps/index.d.ts",
+      "svelte": "./dist/maps/index.js"
+    },
     "./style": "./dist/style/main.css"
   },
   "files": [
@@ -42,7 +46,7 @@
     "!dist/**/*.test.*",
     "!dist/**/*.spec.*",
     "!dist/**/*.stories.*",
-    "!dist/**/*.mdx"
+    "!dist/**/*.md*"
   ],
   "peerDependencies": {
     "svelte": "^4.0.0"
@@ -82,7 +86,18 @@
   "type": "module",
   "dependencies": {
     "@sveltejs/svelte-scroller": "^2.0.7",
+    "@types/d3": "^7.4.3",
+    "@types/d3-array": "^3.2.1",
+    "@types/d3-geo": "^3.1.0",
+    "@types/d3-scale": "^4.0.8",
+    "@types/d3-selection": "^3.0.10",
+    "@types/d3-zoom": "^3.0.8",
+    "d3-array": "^3.2.4",
     "d3-format": "^3.1.0",
+    "d3-geo": "^3.1.1",
+    "d3-interpolate": "^3.0.1",
+    "d3-selection": "^3.0.0",
+    "d3-zoom": "^3.0.0",
     "layercake": "^8.0.0",
     "pym.js": "^1.3.2"
   }

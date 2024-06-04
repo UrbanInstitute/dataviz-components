@@ -26,3 +26,4 @@ export { default as Analytics, logClickToGA } from "./Analytics/Analytics.svelte
 export { default as Headline } from "./Headline/Headline.svelte";
 export { default as PymChild } from "./Pym/PymChild.svelte";
 export { default as LoadingWrapper } from "./LoadingWrapper/LoadingWrapper.svelte";
+export { default as Tooltip } from "./Tooltip/Tooltip.svelte";

@@ -5,11 +5,20 @@
 - Fix BasicDropdown border radius
 - Update Toggle with dispatched click
 - Fix: Remove errant padding from ProjectCredits
+- Feature: Add SVGMap component
+- Feature: Add SVGPolygonLayer component
+- Feature: Add SVGPointLayer component
+- Feature: Add SVGLabelLayer component
+- Feature: Add ColorLegend component
+- Feature: Add Tooltip component
 
 ## v0.9.0
 
 - Update BasicDropdown with secondary style variants, a visible label, and better story controls
 - Add LoadingWrapper component to provide a loading graphic for components that need it
+- Add SVGMap component and associated layer components
+- Add ColorLegend component
+- Add Tooltip component
 
 ## v0.8.0
 
