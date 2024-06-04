@@ -2,6 +2,8 @@
 
 ## Next
 
+## v0.10.0
+
 - Fix BasicDropdown border radius
 - Update Toggle with dispatched click
 - Fix: Remove errant padding from ProjectCredits
