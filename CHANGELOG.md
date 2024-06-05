@@ -1,6 +1,7 @@
 # @UrbanInstitute/dataviz-components Changelog
 
 ## Next
+- Fix: Remove padding from ZoomControls on map in mobile Safari
 
 ## v0.10.0
 
