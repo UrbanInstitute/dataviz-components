@@ -3,6 +3,7 @@
 ## Next
 
 - Patch: Run Vitest tests in CI
+- Feature: Add style/theme export
 
 ## v0.10.1
 

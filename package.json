@@ -41,7 +41,7 @@
       "svelte": "./dist/maps/index.js"
     },
     "./style": "./dist/style/main.css",
-    "./theme.css": "./dist/style/theme.css"
+    "./style/theme": "./dist/style/theme.css"
   },
   "files": [
     "dist",
