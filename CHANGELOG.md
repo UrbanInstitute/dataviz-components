@@ -2,6 +2,8 @@
 
 ## Next
 
+- Patch: Run Vitest tests in CI
+
 ## v0.10.1
 
 - Fix: Remove padding from ZoomControls on map in mobile Safari
