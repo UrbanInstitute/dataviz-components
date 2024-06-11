@@ -69,7 +69,7 @@ const preview = {
       }
     }
   },
-  decorators: [() => Theme],
+  decorators: [() => Theme]
 };
 
 export default preview;
