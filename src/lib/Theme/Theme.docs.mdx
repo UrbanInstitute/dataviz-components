@@ -1,5 +1,5 @@
-import * as Stories from "./Theme.stories.svelte"
-import { Meta, Controls, Markdown } from "@storybook/blocks"
+import * as Stories from "./Theme.stories.svelte";
+import { Meta, Controls, Markdown } from "@storybook/blocks";
 
 <Meta title="Theming/Theme" component={Stories.Theme} />
 
@@ -21,7 +21,7 @@ You get everything you need out of the box by importing and using these componen
 <Theme>
   <Button />
 </Theme>
-````
+```
 
 ## Stylesheet import
 
@@ -30,6 +30,10 @@ If you need access to the `<Theme>` component CSS as a global stylesheet, this l
 ```javascript
 import "@urbaninstitute/dataviz-components/style/theme";
 ```
+
+## VS Code Intellisense
+
+In order to get VS Code intellisense for the CSS variables provided by the theme, you can download the [CSS Var Complete](https://marketplace.visualstudio.com/items?itemName=phoenisx.cssvar) and add the following path to the `cssvar.files` extension settings: `node_modules/@urbaninstitute/dataviz-components/dist/style/theme.css`
 
 ## CSS Variables
 
