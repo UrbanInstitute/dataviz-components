@@ -3,7 +3,7 @@
 ## Next
 
 - Patch: Run Vitest tests in CI
-- Feature: Add style/theme export
+- Feature: Add style/theme export and instructions on CSS variable intellisense
 
 ## v0.10.1
 

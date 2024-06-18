@@ -19,7 +19,7 @@ You get everything you need out of the box by importing and using these componen
 </script>
 <FontsUrban />
 <Theme>
-  <Button />
+  <button />
 </Theme>
 ```
 
@@ -31,16 +31,16 @@ If you need access to the `<Theme>` component CSS as a global stylesheet, this l
 import "@urbaninstitute/dataviz-components/style/theme";
 ```
 
-## VS Code Intellisense
+## VS Code Intellisense for CSS Variables
 
-In order to get VS Code intellisense for the CSS variables provided by the theme, you can download the [CSS Var Complete](https://marketplace.visualstudio.com/items?itemName=phoenisx.cssvar) and add the following path to the `cssvar.files` extension settings: `node_modules/@urbaninstitute/dataviz-components/dist/style/theme.css`
+In order to get VS Code intellisense for the CSS variables provided by the theme, you can download the [CSS Var Complete](https://marketplace.visualstudio.com/items?itemName=phoenisx.cssvar) and add the following path to the `cssvar.files` extension settings: `node_modules/@urbaninstitute/dataviz-components/dist/style/theme.css`. If you're seeing more options than you'd like, remove `**/*.css` from the setting (added by default).
 
 ## CSS Variables
 
 The CSS variables provided by the theme that can be used in components in this library or your own code are as follows:
 
 <Markdown>
-{`| Variable                       | Value                                                                                         |
+  {`| Variable                       | Value                                                                                         |
 | ------------------------------ | --------------------------------------------------------------------------------------------- |
 | \`--font-family-sans\`           | \`Lato, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"\` |
 | \`--font-family-sans-alt\`       | \`"futura-pt", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"\` |
