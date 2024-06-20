@@ -77,7 +77,7 @@
   .social-container {
     display: flex;
     justify-content: center;
-    gap: var(--spacing-6);
+    gap: var(--spacing-4);
   }
   .social-icon {
     display: block;
