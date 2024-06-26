@@ -68,9 +68,9 @@
 
   .toggle {
     display: inline-block;
-    width: 36px;
-    height: 20px;
-    border-radius: 10px;
+    width: 50px;
+    height: 24px;
+    border-radius: 12px;
     background-color: var(--color-gray-shade-dark);
     border: 1px solid var(--color-gray-shade-dark);
     position: relative;
@@ -81,9 +81,9 @@
 
   .toggle .circle {
     display: inline-block;
-    width: 14px;
-    height: 14px;
-    border-radius: 7px;
+    width: 18px;
+    height: 18px;
+    border-radius: 9px;
     background-color: var(--color-white);
     position: absolute;
     left: 0;
@@ -100,7 +100,7 @@
   button[aria-checked="true"] .circle {
     background-color: var(--color-white);
     left: none;
-    transform: translate(17px, 2px);
+    transform: translate(28px, 2px);
   }
 
   @media (prefers-reduced-motion: reduce) {

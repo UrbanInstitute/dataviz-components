@@ -6,6 +6,7 @@
 - Feature: Add style/theme export
 - Patch: Update SocialShare spacing
 - Patch: Update Storybook viewport sizes to match design system breakpoints
+- Patch: Update Toggle size to adhere to design team guidance
 
 ## v0.10.1
 
