@@ -3,7 +3,7 @@
 ## Next
 
 - Patch: Run Vitest tests in CI
-- Feature: Add style/theme export
+- Feature: Add style/theme export and instructions on CSS variable intellisense
 - Patch: Update SocialShare spacing
 - Patch: Update Storybook viewport sizes to match design system breakpoints
 - Patch: Update Toggle size to adhere to design team guidance
