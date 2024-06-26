@@ -2,6 +2,8 @@
 
 ## Next
 
+## v0.10.2
+
 - Patch: Run Vitest tests in CI
 - Feature: Add style/theme export and instructions on CSS variable intellisense
 - Patch: Update SocialShare spacing
