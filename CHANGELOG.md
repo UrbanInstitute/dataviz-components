@@ -2,6 +2,8 @@
 
 ## Next
 
+- Patch: Update BasicDropdown with better accessibility (icon hidden from screen readers)
+
 ## v0.10.2
 
 - Patch: Run Vitest tests in CI
