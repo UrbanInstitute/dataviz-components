@@ -67,6 +67,10 @@ const preview = {
           }
         }
       }
+    },
+    githubLink: {
+      baseURL: "https://github.com/UrbanInstitute/dataviz-components/tree/main/src/lib/",
+      auto: false
     }
   },
   decorators: [() => Theme]
