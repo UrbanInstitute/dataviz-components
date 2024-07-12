@@ -17,6 +17,9 @@
         description: {
           component: docs
         }
+      },
+      githubLink: {
+        url: "/maps/SVGPointLayer/SVGPointLayer.svelte"
       }
     }
   };

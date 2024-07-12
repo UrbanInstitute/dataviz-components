@@ -11,6 +11,9 @@
         description: {
           component: "An animated Urban Institute logo icon"
         }
+      },
+      githubLink: {
+        url: "/LogoUrbanAnimated/LogoUrbanAnimated.svelte"
       }
     }
   };

@@ -24,6 +24,9 @@
         description: {
           component: "Basic HTML Button adhering to Urban styles."
         }
+      },
+      githubLink: {
+        url: "/Button/Button.svelte"
       }
     }
   };

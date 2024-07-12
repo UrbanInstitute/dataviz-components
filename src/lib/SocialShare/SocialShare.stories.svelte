@@ -29,6 +29,9 @@
         description: {
           component: "Social share icons, available in light or dark mode."
         }
+      },
+      githubLink: {
+        url: "/SocialShare/SocialShare.svelte"
       }
     }
   };

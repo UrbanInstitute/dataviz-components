@@ -10,6 +10,9 @@
         description: {
           component: "A component that provides Google Analytics functionality to your page."
         }
+      },
+      githubLink: {
+        url: "/Analytics/Analytics.svelte"
       }
     }
   };
@@ -27,6 +30,6 @@
   name="Default"
   args={{
     title: "Urban Institute dataviz components storybook",
-    mode: "development",
+    mode: "development"
   }}
 />

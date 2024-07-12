@@ -10,6 +10,9 @@
         description: {
           component: "A basic headline component."
         }
+      },
+      githubLink: {
+        url: "/Pym/PymChild.svelte"
       }
     }
   };

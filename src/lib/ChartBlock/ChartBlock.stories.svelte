@@ -24,8 +24,12 @@
       },
       docs: {
         description: {
-          component: "A basic wrapper for charts that includes, title, description, source, and notes. The default slot can be used to include any type of content or visualization between the provided text."
+          component:
+            "A basic wrapper for charts that includes, title, description, source, and notes. The default slot can be used to include any type of content or visualization between the provided text."
         }
+      },
+      githubLink: {
+        url: "/ChartBlock/ChartBlock.svelte"
       }
     }
   };
@@ -60,7 +64,12 @@
   args={{ ...chartArgs, color: "#FFFFFF" }}
 />
 <Story name="With a Datawrapper chart" args={{ ...chartArgs, color: "#FFFFFF" }}>
-  <ChartBlock title="Datawrapper chart" description="This is what a Datawrapper looks like inside this component." source="Chart source" notes="Chart notes">
+  <ChartBlock
+    title="Datawrapper chart"
+    description="This is what a Datawrapper looks like inside this component."
+    source="Chart source"
+    notes="Chart notes"
+  >
     <DatawrapperIframe
       title="Datawrapper title"
       ariaLabel="This is an accessible title for the visualization"
