@@ -17,6 +17,9 @@
         description: {
           component: docs
         }
+      },
+      githubLink: {
+        url: "/maps/SVGPolygonLayer/SVGPolygonLayer.svelte"
       }
     }
   };

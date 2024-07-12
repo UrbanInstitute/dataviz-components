@@ -19,6 +19,9 @@
           component:
             "Full width navigation bar for top of page. Includes <code>brand</code> and <code>sticky</code> properties for Urban/TPC logo and absolute position controls respectively."
         }
+      },
+      githubLink: {
+        url: "/Navbar/Navbar.svelte"
       }
     }
   };

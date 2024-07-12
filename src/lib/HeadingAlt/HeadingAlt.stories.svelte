@@ -11,6 +11,9 @@
         description: {
           component: "Alternate title heading in all caps, useful for h2 tags and lower."
         }
+      },
+      githubLink: {
+        url: "/HeadingAlt/HeadingAlt.svelte"
       }
     }
   };

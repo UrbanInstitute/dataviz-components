@@ -24,6 +24,9 @@
         description: {
           component: "Urban Institute logo in wide format."
         }
+      },
+      githubLink: {
+        url: "/LogoUrbanWide/LogoUrbanWide.svelte"
       }
     }
   };

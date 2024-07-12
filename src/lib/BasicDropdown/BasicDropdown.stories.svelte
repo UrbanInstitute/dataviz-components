@@ -23,6 +23,9 @@
         description: {
           component: "Basic HTML dropdown adhering to Urban styles."
         }
+      },
+      githubLink: {
+        url: "/BasicDropdown/BasicDropdown.svelte"
       }
     }
   };

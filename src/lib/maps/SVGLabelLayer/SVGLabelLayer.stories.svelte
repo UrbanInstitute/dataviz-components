@@ -16,6 +16,9 @@
         description: {
           component: docs
         }
+      },
+      githubLink: {
+        url: "/maps/SVGLabelLayer/SVGLabelLayer.svelte"
       }
     }
   };
@@ -87,6 +90,7 @@
       on:click={clickHandler}
       on:mouseout={mouseoutHandler}
       on:mousemove={mousemoveHandler}
-    ><svelte:fragment let:props>{props.STUSPS}</svelte:fragment></SVGLabelLayer>
+      ><svelte:fragment let:props>{props.STUSPS}</svelte:fragment></SVGLabelLayer
+    >
   </SVGMap>
 </Story>

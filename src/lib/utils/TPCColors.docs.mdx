@@ -5,6 +5,8 @@ import { tpcColors } from "$lib/utils";
 
 # Colors
 
+[![github](https://badgen.net/badge/icon/GitHub?icon=github&label)](https://github.com/UrbanInstitute/dataviz-components/blob/main/src/lib/utils/tpcColors.js)
+
 The colors utility module provides easy access to the Tax Policy Center's brand colors. For best practices on selecting colors for data visualizations, see the [Tax Policy Center data visualizaton styleguide](https://apps.urban.org/tpc-styleguide/public.html).
 
 To use these, utilities, import the module like so:
@@ -31,7 +33,6 @@ import { tpcColors } from "@urbaninstitute/dataviz-components/utils";
 
 </ColorPalette>
 
-
 Any color can be used directly from the `tpcColors` object:
 
 ```js
@@ -42,23 +43,17 @@ const blue = tpcColors.blue;
 const yellow = tpcColors.yellow;
 ```
 
-
 ## Color shades
 
 TPC Blue has an array of 6 shades for sequential usage.
 
-
 <ColorPalette>
-  <ColorItem
-    title="Blue shades"
-     subtitle=""
-     colors={tpcColors.getBlues()}
-  />
+  <ColorItem title="Blue shades" subtitle="" colors={tpcColors.getBlues()} />
 </ColorPalette>
 
 Usage:
+
 ```js
 // returns ["#cae0e7","#95c0cf","#60a1b6","#008bb0","#1d5669","#0e2b35"]
 tpcColors.getBlues();
 ```
-
