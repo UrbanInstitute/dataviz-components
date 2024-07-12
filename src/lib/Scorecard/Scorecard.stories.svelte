@@ -12,6 +12,9 @@
           component:
             "Scorecard element, which displays a value and a label, originally developed for <a href='https://www.urban.org/policy-centers/center-labor-human-services-and-population/projects/apprenticeship-support' target='_blank'>this project</a>."
         }
+      },
+      githubLink: {
+        url: "/Scorecard/Scorecard.svelte"
       }
     }
   };

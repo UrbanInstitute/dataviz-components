@@ -11,6 +11,9 @@
         description: {
           component: "Urban Institute logo in square badge format."
         }
+      },
+      githubLink: {
+        url: "/LogoUrbanBadge/LogoUrbanBadge.svelte"
       }
     }
   };

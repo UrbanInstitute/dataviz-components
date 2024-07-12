@@ -11,6 +11,9 @@
         description: {
           component: "Tax Policy Center logo in square badge format."
         }
+      },
+      githubLink: {
+        url: "/LogoTPCBadge/LogoTPCBadge.svelte"
       }
     }
   };

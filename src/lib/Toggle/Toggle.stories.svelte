@@ -20,6 +20,9 @@
         description: {
           component: "Toggle component adhering to Urban styles."
         }
+      },
+      githubLink: {
+        url: "/Toggle/Toggle.svelte"
       }
     }
   };

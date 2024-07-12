@@ -11,6 +11,9 @@
         description: {
           component: "A block for project credits."
         }
+      },
+      githubLink: {
+        url: "/ProjectCredits/ProjectCredits.svelte"
       }
     }
   };

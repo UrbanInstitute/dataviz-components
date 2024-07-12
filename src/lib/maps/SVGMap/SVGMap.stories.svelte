@@ -17,6 +17,11 @@
         control: "select",
         options: ["no", "yes", "ctrl"]
       }
+    },
+    parameters: {
+      githubLink: {
+        url: "/maps/SVGMap/SVGMap.svelte"
+      }
     }
   };
 </script>
