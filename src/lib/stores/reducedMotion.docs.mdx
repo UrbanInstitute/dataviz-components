@@ -4,6 +4,8 @@ import { Meta } from "@storybook/blocks";
 
 # prefers-reduced-motion Svelte Store
 
+[![github](https://badgen.net/badge/icon/GitHub?icon=github&label)](https://github.com/UrbanInstitute/dataviz-components/blob/main/src/lib/stores/reducedMotion.js)
+
 A Svelte store that tracks the user's preference for reduced motion, adapted from [Geoff Rich's Accessible Svelte Transitions article](https://geoffrich.net/posts/accessible-svelte-transitions/).
 
 Sometimes users may turn on "prefers-reduced-motion" in their accessibility settings. If this is this is the case, they expect to see no animations or transitions. This store uses `window.matchMedia()` to track the user's preference for reduced motion and can be used for conditional rendering.

@@ -5,6 +5,8 @@ import { urbanColors } from "$lib/utils";
 
 # Colors
 
+[![github](https://badgen.net/badge/icon/GitHub?icon=github&label)](https://github.com/UrbanInstitute/dataviz-components/blob/main/src/lib/utils/urbanColors.js)
+
 The colors utility module provides easy access to the Urban Institute's brand colors. For best practices on selecting colors for data visualizations, see the [Urban Institute Data Visualizaton Styleguide](https://urbaninstitute.github.io/graphics-styleguide/#color).
 
 To use these, utilities, import the module like so:
@@ -33,7 +35,6 @@ import { urbanColors } from "@urbaninstitute/dataviz-components/utils";
 
 </ColorPalette>
 
-
 Any color can be used directly from the `urbanColors` object:
 
 ```js
@@ -44,158 +45,140 @@ const blue = urbanColors.blue;
 const magenta = urbanColors.magenta;
 ```
 
-
 ## Color shades
 
 Each of Urban's primary colors also comes in a range of different shades. These can be useful for different data visualization scenarios.
 
-
 <ColorPalette>
-  <ColorItem
-    title="Blue shades"
-     subtitle=""
-     colors={urbanColors.getBlues()}
-  />
+  <ColorItem title="Blue shades" subtitle="" colors={urbanColors.getBlues()} />
 </ColorPalette>
 
 Usage:
+
 ```js
 urbanColors.getBlues();
 ```
 
 Color values:
+
 ```js
-[ "#CFE8F3", "#A2D4EC", "#73BFE2", "#46ABDB", "#1696D2", "#12719E", "#0A4C6A", "#062635" ]
+["#CFE8F3", "#A2D4EC", "#73BFE2", "#46ABDB", "#1696D2", "#12719E", "#0A4C6A", "#062635"];
 ```
 
 <ColorPalette>
-  <ColorItem
-    title="Gray shades"
-     subtitle=""
-     colors={urbanColors.getGrays()}
-  />
+  <ColorItem title="Gray shades" subtitle="" colors={urbanColors.getGrays()} />
 </ColorPalette>
 
 Usage:
+
 ```js
 urbanColors.getGrays();
 ```
 
 Color values:
+
 ```js
-[ "#F5F5F5", "#ECECEC", "#E3E3E3", "#DCDBDB", "#D2D2D2", "#9D9D9D", "#696969", "#353535" ]
+["#F5F5F5", "#ECECEC", "#E3E3E3", "#DCDBDB", "#D2D2D2", "#9D9D9D", "#696969", "#353535"];
 ```
 
 <ColorPalette>
-  <ColorItem
-    title="Yellow shades"
-     subtitle=""
-     colors={urbanColors.getYellows()}
-  />
+  <ColorItem title="Yellow shades" subtitle="" colors={urbanColors.getYellows()} />
 </ColorPalette>
 
 Usage:
+
 ```js
 urbanColors.getYellows();
 ```
 
 Color values:
+
 ```js
-[ "#FFF2CF", "#FCE39E", "#FDD870", "#FCCB41", "#FDBF11", "#E88E2D", "#CA5800", "#843215" ]
+["#FFF2CF", "#FCE39E", "#FDD870", "#FCCB41", "#FDBF11", "#E88E2D", "#CA5800", "#843215"];
 ```
 
 <ColorPalette>
-  <ColorItem
-    title="Magenta shades"
-     subtitle=""
-     colors={urbanColors.getMagentas()}
-  />
+  <ColorItem title="Magenta shades" subtitle="" colors={urbanColors.getMagentas()} />
 </ColorPalette>
 
 Usage:
+
 ```js
 urbanColors.getMagentas();
 ```
+
 Color values:
+
 ```js
-[ "#F5CBDF", "#EB99C2", "#E46AA7", "#E54096", "#EC00BB", "#af1f6b", "#761548", "#351123" ]
+["#F5CBDF", "#EB99C2", "#E46AA7", "#E54096", "#EC00BB", "#af1f6b", "#761548", "#351123"];
 ```
 
 <ColorPalette>
-  <ColorItem
-    title="Green shades"
-     subtitle=""
-     colors={urbanColors.getGreens()}
-  />
+  <ColorItem title="Green shades" subtitle="" colors={urbanColors.getGreens()} />
 </ColorPalette>
 
 Usage:
+
 ```js
 urbanColors.getGreens();
 ```
 
 Color values:
+
 ```js
-[ "#DCEDD9", "#BCDEB4", "#98CF90", "#78C26D", "#55B748", "#408941", "#2C5C2D", "#1A2E19" ]
+["#DCEDD9", "#BCDEB4", "#98CF90", "#78C26D", "#55B748", "#408941", "#2C5C2D", "#1A2E19"];
 ```
 
 <ColorPalette>
-  <ColorItem
-    title="Space gray shades"
-     subtitle=""
-     colors={urbanColors.getSpaceGrays()}
-  />
+  <ColorItem title="Space gray shades" subtitle="" colors={urbanColors.getSpaceGrays()} />
 </ColorPalette>
 
 Usage:
+
 ```js
 urbanColors.getSpaceGrays();
 ```
 
 Color values:
+
 ```js
-[ "#D5D5D4", "#ADABAC", "#848081", "#5C5859", "#332D2F", "#262223", "#1A1717", "#0E0C0D" ]
+["#D5D5D4", "#ADABAC", "#848081", "#5C5859", "#332D2F", "#262223", "#1A1717", "#0E0C0D"];
 ```
 
 <ColorPalette>
-  <ColorItem
-    title="Red shades"
-     subtitle=""
-     colors={urbanColors.getReds()}
-  />
+  <ColorItem title="Red shades" subtitle="" colors={urbanColors.getReds()} />
 </ColorPalette>
 
 Usage:
+
 ```js
 urbanColors.getReds();
 ```
 
 Color values:
+
 ```js
-[ "#F8D5D4", "#F1AAA9", "#E9807D", "#E25552", "#DB2B27", "#A4201D", "#6E1614", "#1A2E19" ]
+["#F8D5D4", "#F1AAA9", "#E9807D", "#E25552", "#DB2B27", "#A4201D", "#6E1614", "#1A2E19"];
 ```
 
 ## DataViz Helpers
 
 Below are a few helper functions to generate some useful default color palettes.
 
-
 <ColorPalette>
-  <ColorItem
-    title="Categorical colors"
-     subtitle=""
-     colors={urbanColors.getCategoricalColors()}
-  />
+  <ColorItem title="Categorical colors" subtitle="" colors={urbanColors.getCategoricalColors()} />
 </ColorPalette>
 
 Usage:
+
 ```js
 urbanColors.getCategoricalColors();
 ```
 
 Color values:
+
 ```js
-[ "#1696D2", "#FDBF11", "#EC00BB", "#000000", "#D2D2D2", "#73BFE2"]
+["#1696D2", "#FDBF11", "#EC00BB", "#000000", "#D2D2D2", "#73BFE2"];
 ```
 
 This function generates a 6 color palette by default, but you can specify any number between 2 and 6.
@@ -203,73 +186,81 @@ This function generates a 6 color palette by default, but you can specify any nu
 <ColorPalette>
   <ColorItem
     title="Categorical colors"
-     subtitle="2 colors"
-     colors={urbanColors.getCategoricalColors(2)}
+    subtitle="2 colors"
+    colors={urbanColors.getCategoricalColors(2)}
   />
 </ColorPalette>
 
 Usage:
+
 ```js
 urbanColors.getCategoricalColors(2);
 ```
 
 Color values:
+
 ```js
-[ "#1696D2", "#FDBF11" ]
+["#1696D2", "#FDBF11"];
 ```
 
 <ColorPalette>
   <ColorItem
     title="Categorical colors"
-     subtitle="3 colors"
-     colors={urbanColors.getCategoricalColors(3)}
+    subtitle="3 colors"
+    colors={urbanColors.getCategoricalColors(3)}
   />
 </ColorPalette>
 
 Usage:
+
 ```js
 urbanColors.getCategoricalColors(3);
 ```
 
 Color values:
+
 ```js
-[ "#1696D2", "#FDBF11", "#000000" ]
+["#1696D2", "#FDBF11", "#000000"];
 ```
 
 <ColorPalette>
   <ColorItem
     title="Categorical colors"
-     subtitle="4 colors"
-     colors={urbanColors.getCategoricalColors(4)}
+    subtitle="4 colors"
+    colors={urbanColors.getCategoricalColors(4)}
   />
 </ColorPalette>
 
 Usage:
+
 ```js
 urbanColors.getCategoricalColors(4);
 ```
 
 Color values:
+
 ```js
-[ "#1696D2", "#FDBF11", "#000000", "#EC00BB" ]
+["#1696D2", "#FDBF11", "#000000", "#EC00BB"];
 ```
 
 <ColorPalette>
   <ColorItem
     title="Categorical colors"
-     subtitle="5 colors"
-     colors={urbanColors.getCategoricalColors(5)}
+    subtitle="5 colors"
+    colors={urbanColors.getCategoricalColors(5)}
   />
 </ColorPalette>
 
 Usage:
+
 ```js
 urbanColors.getCategoricalColors(5);
 ```
 
 Color values:
+
 ```js
-[ "#1696D2", "#FDBF11", "#000000", "#EC00BB", "#D2D2D2" ]
+["#1696D2", "#FDBF11", "#000000", "#EC00BB", "#D2D2D2"];
 ```
 
 ## Diverging colors
@@ -277,19 +268,21 @@ Color values:
 <ColorPalette>
   <ColorItem
     title="Diverging colors"
-     subtitle="Useful for maps with diverging data"
-     colors={urbanColors.getDivergingColors()}
+    subtitle="Useful for maps with diverging data"
+    colors={urbanColors.getDivergingColors()}
   />
 </ColorPalette>
 
 Usage:
+
 ```js
 urbanColors.getDivergingColors();
 ```
 
 Color values:
+
 ```js
-[ "#CA5800", "#FDBF11", "#FDD870", "#FFF2CF", "#CFE8F3", "#73BFE2", "#1696D2", "#0A4C6A" ]
+["#CA5800", "#FDBF11", "#FDD870", "#FFF2CF", "#CFE8F3", "#73BFE2", "#1696D2", "#0A4C6A"];
 ```
 
 ## Blues for maps
@@ -297,19 +290,17 @@ Color values:
 The style guide specifies a specific set of colors for usage in choropleth maps.
 
 <ColorPalette>
-  <ColorItem
-    title="Blue colors for maps"
-     subtitle=""
-     colors={urbanColors.getMapBlues()}
-  />
+  <ColorItem title="Blue colors for maps" subtitle="" colors={urbanColors.getMapBlues()} />
 </ColorPalette>
 
 Usage:
+
 ```js
 urbanColors.getMapBlues();
 ```
 
 Color values:
+
 ```js
-[ "#CFE8F3", "#73BFE2", "#1696D2", "#0A4C6A", "#000000", ]
+["#CFE8F3", "#73BFE2", "#1696D2", "#0A4C6A", "#000000"];
 ```
