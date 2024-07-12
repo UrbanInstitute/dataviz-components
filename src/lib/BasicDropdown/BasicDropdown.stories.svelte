@@ -2,10 +2,10 @@
   import BasicDropdown from "./BasicDropdown.svelte";
   import IconDownload from "$lib/Button/IconDownload.svelte";
   import urbanColors from "$lib/utils/urbanColors.js";
+  import docs from "./BasicDropdown.docs.md?raw";
 
   export const meta = {
     title: "Components/BasicDropdown",
-    description: "A basic dropdown component that uses a <select> element under the hood.",
     component: BasicDropdown,
     tags: ["autodocs"],
     argTypes: {
@@ -21,7 +21,7 @@
     parameters: {
       docs: {
         description: {
-          component: "Basic HTML dropdown adhering to Urban styles."
+          component: docs
         }
       },
       githubLink: {
