@@ -5,6 +5,8 @@ import { Meta, Controls, Markdown } from "@storybook/blocks";
 
 # Theme
 
+[![github](https://badgen.net/badge/icon/GitHub?icon=github&label)](https://github.com/UrbanInstitute/dataviz-components/blob/main/src/lib/Theme/Theme.svelte)
+
 A theme wrapper that provides shared styles for children components. These styles are primarily made up of a series of CSS variables that represent Urban's design system. They also includes some default typographic styling applied to html headings. Components in this library make use of these variables and styles and expect them to be defined, and won't display correctly outside of a parent `<Theme />` component.
 
 All of the `Theme` styles are scoped and won't be applied to content outside of the `<Theme />` itself.
@@ -19,7 +21,7 @@ You get everything you need out of the box by importing and using these componen
 </script>
 <FontsUrban />
 <Theme>
-  <Button />
+  <button />
 </Theme>
 ```
 
