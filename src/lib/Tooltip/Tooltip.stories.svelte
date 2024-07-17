@@ -34,6 +34,9 @@
         description: {
           component: "A basic tooltip."
         }
+      },
+      githubLink: {
+        url: "/Tooltip/Tooltip.svelte"
       }
     }
   };
@@ -64,11 +67,16 @@
 </script>
 
 <Template let:args>
-  <div class="wrapper" style="background: var(--color-gray-shade-lighter); width: 100%; height: 300px; display: grid; place-content: center;" on:mousemove={handleMousemove} on:mouseout={handleMouseout}>
+  <div
+    class="wrapper"
+    style="background: var(--color-gray-shade-lighter); width: 100%; height: 300px; display: grid; place-content: center;"
+    on:mousemove={handleMousemove}
+    on:mouseout={handleMouseout}
+  >
     <p>Hover me to see tooltip</p>
   </div>
   {#if tooltipX && tooltipY}
-  <Tooltip {...args} x={tooltipX} y={tooltipY}>{args.content || "This is a tooltip"}</Tooltip>
+    <Tooltip {...args} x={tooltipX} y={tooltipY}>{args.content || "This is a tooltip"}</Tooltip>
   {/if}
 </Template>
 
@@ -91,7 +99,11 @@
 />
 
 <Story name="Custom HTML">
-  <div class="wrapper" style="background: var(--color-gray-shade-lighter); width: 100%; height: 300px; display: grid; place-content: center;" on:mousemove={handleMousemove}>
+  <div
+    class="wrapper"
+    style="background: var(--color-gray-shade-lighter); width: 100%; height: 300px; display: grid; place-content: center;"
+    on:mousemove={handleMousemove}
+  >
     <p>Hover me to see tooltip</p>
   </div>
   {#if tooltipX && tooltipY}
@@ -122,12 +134,12 @@
   >
     <p>Hover me to see tooltip</p>
     {#if tooltipX && tooltipY}
-    <Tooltip
-      content="This tooltip is contained by parent"
-      containParent
-      x={tooltipX}
-      y={tooltipY}
-    />
+      <Tooltip
+        content="This tooltip is contained by parent"
+        containParent
+        x={tooltipX}
+        y={tooltipY}
+      />
     {/if}
   </div>
 </Story>
@@ -142,12 +154,17 @@
     </div>
   </div>
   {#if showPinned}
-    <Tooltip elOffset={5} el={pinEl} >This tooltip is pinned to an existing element</Tooltip>
+    <Tooltip elOffset={5} el={pinEl}>This tooltip is pinned to an existing element</Tooltip>
   {/if}
 </Story>
 
 <Story name="Tooltip override">
-  <div class="wrapper" style="background: var(--color-gray-shade-lighter); width: 100%; height: 300px; display: grid; place-content: center;" on:mousemove={handleMousemove} on:mouseout={handleMouseout}>
+  <div
+    class="wrapper"
+    style="background: var(--color-gray-shade-lighter); width: 100%; height: 300px; display: grid; place-content: center;"
+    on:mousemove={handleMousemove}
+    on:mouseout={handleMouseout}
+  >
     <p>Hover me to see tooltip</p>
   </div>
   {#if tooltipX && tooltipY}

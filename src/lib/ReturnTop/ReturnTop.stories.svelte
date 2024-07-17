@@ -11,6 +11,9 @@
         description: {
           component: "A button for moving the browser to a specified element ID."
         }
+      },
+      githubLink: {
+        url: "/ReturnTop/ReturnTop.svelte"
       }
     }
   };

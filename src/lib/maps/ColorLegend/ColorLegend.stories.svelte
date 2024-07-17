@@ -39,6 +39,9 @@
         description: {
           component: "This component generates a color legend based on a D3 scale."
         }
+      },
+      githubLink: {
+        url: "/maps/ColorLegend/ColorLegend.svelte"
       }
     }
   };
@@ -129,8 +132,20 @@
   name="Ordinal scale with buckets"
   args={{
     scale: scaleOrdinal(
-      ["$0 to $20,000", "$20,000 to $50,000", "$50,000 to $75,000", "$75,000 to $100,000", "$100,000 or more"],
-      [urbanColors.green_shade_lightest, urbanColors.green_shade_lighter, urbanColors.green, urbanColors.green_shade_dark, urbanColors.green_shade_darkest]
+      [
+        "$0 to $20,000",
+        "$20,000 to $50,000",
+        "$50,000 to $75,000",
+        "$75,000 to $100,000",
+        "$100,000 or more"
+      ],
+      [
+        urbanColors.green_shade_lightest,
+        urbanColors.green_shade_lighter,
+        urbanColors.green,
+        urbanColors.green_shade_dark,
+        urbanColors.green_shade_darkest
+      ]
     )
   }}
 />
@@ -160,10 +175,22 @@
   name="Ordinal scale swatches with buckets"
   args={{
     scale: scaleOrdinal(
-      ["$0 to $20,000", "$20,000 to $50,000", "$50,000 to $75,000", "$75,000 to $100,000", "$100,000 or more"],
-      [urbanColors.green_shade_lightest, urbanColors.green_shade_lighter, urbanColors.green, urbanColors.green_shade_dark, urbanColors.green_shade_darkest]
+      [
+        "$0 to $20,000",
+        "$20,000 to $50,000",
+        "$50,000 to $75,000",
+        "$75,000 to $100,000",
+        "$100,000 or more"
+      ],
+      [
+        urbanColors.green_shade_lightest,
+        urbanColors.green_shade_lighter,
+        urbanColors.green,
+        urbanColors.green_shade_dark,
+        urbanColors.green_shade_darkest
+      ]
     ),
     swatch: true,
-    swatchLayout: "column",
+    swatchLayout: "column"
   }}
 />

@@ -3,6 +3,7 @@
 ## Next
 
 - Patch: Update BasicDropdown with better accessibility (icon hidden from screen readers)
+- Feature: GitHub source links for components via [@etchteam/storybook-addon-github-link](https://storybook.js.org/addons/@etchteam/storybook-addon-github-link) in storybook docs
 
 ## v0.10.2
 

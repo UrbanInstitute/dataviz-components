@@ -30,6 +30,9 @@
         description: {
           component: "A basic text block."
         }
+      },
+      githubLink: {
+        url: "/TextBlock/TextBlock.svelte"
       }
     }
   };

@@ -18,6 +18,11 @@
         options: ["center", "left", "right"],
         control: { type: "select" }
       }
+    },
+    parameters: {
+      githubLink: {
+        url: "/Scrolly/Scrolly.svelte"
+      }
     }
   };
 </script>
