@@ -73,7 +73,7 @@
         {/if}
       {/each}
     </select>
-    <div class="icons">
+    <div class="icons" aria-hidden="true">
       <span class="dropdown-chevron">
         <slot name="icon">
           {#if variant === "primary"}
