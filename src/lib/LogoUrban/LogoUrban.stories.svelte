@@ -1,10 +1,10 @@
 <script context="module">
-  import Logo from "./LogoUrban.svelte";
+  import LogoUrban from "./LogoUrban.svelte";
+  import docs from "./LogoUrban.docs.md?raw";
 
   export const meta = {
     title: "Logos/LogoUrban",
-    description: "An Urban Institute full logo",
-    component: Logo,
+    component: LogoUrban,
     tags: ["autodocs"],
     argTypes: {
       variant: {
@@ -22,7 +22,7 @@
       },
       docs: {
         description: {
-          component: "Urban Institute logo in full width format."
+          component: docs
         }
       },
       githubLink: {
@@ -37,7 +37,7 @@
 </script>
 
 <Template let:args>
-  <Logo {...args} />
+  <LogoUrban {...args} />
 </Template>
 
 <Story name="Default" />

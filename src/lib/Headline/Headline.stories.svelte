@@ -1,9 +1,9 @@
 <script context="module">
   import Headline from "./Headline.svelte";
+  import docs from "./Headline.docs.md?raw";
 
   export const meta = {
     title: "Components/Headline",
-    description: "A basic headline",
     component: Headline,
     tags: ["autodocs"],
     argTypes: {
@@ -28,7 +28,7 @@
       },
       docs: {
         description: {
-          component: "A basic headline component."
+          component: docs
         }
       },
       githubLink: {

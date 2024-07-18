@@ -1,15 +1,15 @@
 <script context="module">
-  import Logo from "./LogoTPCBadge.svelte";
+  import LogoTPCBadge from "./LogoTPCBadge.svelte";
+  import docs from "./LogoTPCBadge.docs.md?raw";
 
   export const meta = {
     title: "Logos/LogoTPCBadge",
-    description: "A Tax Policy Center logo",
-    component: Logo,
+    component: LogoTPCBadge,
     tags: ["autodocs"],
     parameters: {
       docs: {
         description: {
-          component: "Tax Policy Center logo in square badge format."
+          component: docs
         }
       },
       githubLink: {
@@ -24,7 +24,7 @@
 </script>
 
 <Template let:args>
-  <Logo {...args} />
+  <LogoTPCBadge {...args} />
 </Template>
 
 <Story name="Default" />
