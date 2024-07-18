@@ -1,6 +1,7 @@
 <script context="module">
   import ColorLegend from "./ColorLegend.svelte";
   import urbanColors from "$lib/utils/urbanColors.js";
+  import docs from "./ColorLegend.docs.md?raw";
 
   export const meta = {
     title: "Maps/ColorLegend",
@@ -37,7 +38,7 @@
     parameters: {
       docs: {
         description: {
-          component: "This component generates a color legend based on a D3 scale."
+          component: docs
         }
       },
       githubLink: {

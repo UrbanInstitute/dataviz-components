@@ -1,10 +1,10 @@
 <script context="module">
   import SocialShare from "./SocialShare.svelte";
+  import docs from "./SocialShare.docs.md?raw";
   import { fn, userEvent, within, expect } from "@storybook/test";
 
   export const meta = {
     title: "Components/SocialShare",
-    description: "Social media share buttons",
     component: SocialShare,
     tags: ["autodocs"],
     args: {
@@ -27,7 +27,7 @@
       },
       docs: {
         description: {
-          component: "Social share icons, available in light or dark mode."
+          component: docs
         }
       },
       githubLink: {

@@ -1,7 +1,6 @@
 <script context="module">
   export const meta = {
-    title: "Examples/Stories/Datawrapper Switching",
-    description: "Examples of switching between Datawrapper iframes"
+    title: "Examples/Stories/Datawrapper Switching"
   };
 </script>
 

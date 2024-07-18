@@ -3,14 +3,8 @@
 
   export const meta = {
     title: "Components/Analytics",
-    description: "A component that provides Google Analytics functionality to your page.",
     component: Analytics,
     parameters: {
-      docs: {
-        description: {
-          component: "A component that provides Google Analytics functionality to your page."
-        }
-      },
       githubLink: {
         url: "/Analytics/Analytics.svelte"
       }

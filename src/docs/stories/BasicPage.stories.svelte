@@ -1,14 +1,6 @@
 <script context="module">
   export const meta = {
-    title: "Examples/Stories/BasicPage",
-    description: "An example of collecting several components into a basic page",
-    parameters: {
-      docs: {
-        description: {
-          component: "a basic content block."
-        }
-      }
-    }
+    title: "Examples/Stories/BasicPage"
   };
 </script>
 
