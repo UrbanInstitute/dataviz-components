@@ -171,11 +171,7 @@
 
   function getTickFormatFn(tickFormat, thresholds) {
     // respect any user provided options first
-    if (typeof tickFormat === "string") {
-      return format(tickFormat);
-    } else if (tickFormat) {
-      return tickFormat;
-    } else if (thresholds) {
+    if (thresholds) {
       // if we have a threshold scale without any use-provided formatting, generate threshold ticks
       const thresholdFormat =
         tickFormat === undefined
@@ -185,6 +181,12 @@
             : tickFormat;
 
       return (i) => thresholdFormat(thresholds[i], i);
+    }
+    if (typeof tickFormat === "string") {
+      return format(tickFormat);
+    } 
+    if (tickFormat) {
+      return tickFormat;
     }
     return (d) => d;
   }
