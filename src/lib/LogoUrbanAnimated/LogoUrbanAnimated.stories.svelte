@@ -1,15 +1,15 @@
 <script context="module">
   import LogoUrbanAnimated from "./LogoUrbanAnimated.svelte";
+  import docs from "./LogoUrbanAnimated.docs.md?raw";
 
   export const meta = {
     title: "Logos/LogoUrbanAnimated",
-    description: "An animated Urban logo icon",
     component: LogoUrbanAnimated,
     tags: ["autodocs"],
     parameters: {
       docs: {
         description: {
-          component: "An animated Urban Institute logo icon"
+          component: docs
         }
       },
       githubLink: {

@@ -1,9 +1,9 @@
 <script context="module">
   import Navbar from "./Navbar.svelte";
+  import docs from "./Navbar.docs.md?raw";
 
   export const meta = {
     title: "Components/Navbar",
-    description: "A basic navbar",
     component: Navbar,
     tags: ["autodocs"],
     argTypes: {
@@ -16,8 +16,7 @@
     parameters: {
       docs: {
         description: {
-          component:
-            "Full width navigation bar for top of page. Includes <code>brand</code> and <code>sticky</code> properties for Urban/TPC logo and absolute position controls respectively."
+          component: docs
         }
       },
       githubLink: {

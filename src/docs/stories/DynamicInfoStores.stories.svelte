@@ -1,7 +1,6 @@
 <script context="module">
   export const meta = {
-    title: "Examples/Stories/Dynamic Info With Stores",
-    description: "Example of writable/derived Svelte store for dynamic data lookup"
+    title: "Examples/Stories/Dynamic Info With Stores"
   };
 </script>
 

@@ -3,7 +3,6 @@
 
   export const meta = {
     title: "Components/Meta",
-    description: "A component to manage meta tags for the HTML document.",
     component: Meta,
     argTypes: {
       authors: {
@@ -18,12 +17,6 @@
       }
     },
     parameters: {
-      docs: {
-        description: {
-          component:
-            "This component uses Svelt's built-in `<svelte:head>` component to include important metadata for your HTML page."
-        }
-      },
       githubLink: {
         url: "/Meta/Meta.svelte"
       }

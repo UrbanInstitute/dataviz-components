@@ -1,25 +1,13 @@
 <script context="module">
   export const meta = {
-    title: "Examples/Stories/CustomSVGMap",
-    parameters: {
-      docs: {
-        description: {
-          component: "An custom SVGMap with a ColorLegend and tooltip."
-        }
-      }
-    }
+    title: "Examples/Stories/CustomSVGMap"
   };
 </script>
 
 <script>
   import { Story, Template } from "@storybook/addon-svelte-csf";
   import { ChartBlock } from "$lib";
-  import {
-    SVGPolygonLayer,
-    SVGLabelLayer,
-    SVGPointLayer,
-    SVGMap
-  } from "$lib/maps";
+  import { SVGPolygonLayer, SVGLabelLayer, SVGPointLayer, SVGMap } from "$lib/maps";
   import ColorLegend from "$lib/maps/ColorLegend/ColorLegend.svelte";
   import county_air_quality_topo from "../../docs/sample-data/county_air_quality_topo.json";
   import { urbanColors } from "$lib/utils";
@@ -33,7 +21,6 @@
   let airQualityScale = scaleQuantile()
     .domain(county_air_quality.features.map((d) => d.properties.index_air_quality))
     .range(urbanColors.getDivergingColors());
-
 </script>
 
 <Template></Template>

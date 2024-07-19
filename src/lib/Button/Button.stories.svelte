@@ -1,10 +1,10 @@
 <script context="module">
   import Button from "./Button.svelte";
   import IconDownload from "./IconDownload.svelte";
+  import docs from "./Button.docs.md?raw";
 
   export const meta = {
     title: "Components/Button",
-    description: "A basic button component.",
     component: Button,
     tags: ["autodocs"],
     argTypes: {
@@ -22,7 +22,7 @@
     parameters: {
       docs: {
         description: {
-          component: "Basic HTML Button adhering to Urban styles."
+          component: docs
         }
       },
       githubLink: {

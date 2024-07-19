@@ -3,17 +3,16 @@
   import LoadingWrapper from "./LoadingWrapper.svelte";
   import LogoUrbanWide from "../LogoUrbanWide/LogoUrbanWide.svelte";
   import DatawrapperIframe from "../DatawrapperIframe/DatawrapperIframe.svelte";
+  import docs from "./LoadingWrapper.docs.md?raw";
 
   export const meta = {
     title: "Components/LoadingWrapper",
-    description: "Wrapper to display a loading spinner graphic while content is loading",
     component: LoadingWrapper,
     tags: ["autodocs"],
     parameters: {
       docs: {
         description: {
-          component:
-            'Wrapper to display a loading spinner graphic while content is loading. Exposes `setChildLoading()` and `setChildLoaded()` to be used by children as an alternative method of setting `isChildLoading` boolean. Accepts an alternative graphic for the "graphic" named slot.'
+          component: docs
         }
       },
       githubLink: {

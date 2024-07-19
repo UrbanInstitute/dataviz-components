@@ -1,10 +1,10 @@
 <script context="module">
   import ChartBlock from "./ChartBlock.svelte";
   import DatawrapperIframe from "../DatawrapperIframe/DatawrapperIframe.svelte";
+  import docs from "./ChartBlock.docs.md?raw";
 
   export const meta = {
     title: "Components/ChartBlock",
-    description: "A basic wrapper for charts that includes, title, description, source, and notes.",
     component: ChartBlock,
     tags: ["autodocs"],
     argTypes: {
@@ -24,8 +24,7 @@
       },
       docs: {
         description: {
-          component:
-            "A basic wrapper for charts that includes, title, description, source, and notes. The default slot can be used to include any type of content or visualization between the provided text."
+          component: docs
         }
       },
       githubLink: {
