@@ -17,7 +17,8 @@
     "build-storybook:test": "storybook build --quiet --test",
     "test-storybook": "test-storybook",
     "test-storybook-run": "npx concurrently -k -s first -n 'SB,TEST' -c 'magenta,blue' 'npx http-server storybook-static --port 6006 --silent' 'npx wait-on tcp:6006 && npm run test-storybook -- --index-json'",
-    "compile-theme-styles": "node ./bin/compileTheme.js"
+    "compile-theme-styles": "node ./bin/compileTheme.js",
+    "create-component": "node ./bin/createComponent/createComponent.js"
   },
   "exports": {
     ".": {
@@ -72,6 +73,7 @@
     "@sveltejs/package": "^2.3.0",
     "concurrently": "^8.2.2",
     "http-server": "^14.1.1",
+    "inquirer": "^10.1.2",
     "prettier": "^3.2.5",
     "prettier-plugin-svelte": "^3.2.2",
     "publint": "^0.1.9",
