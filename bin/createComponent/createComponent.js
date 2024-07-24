@@ -49,6 +49,9 @@ async function main() {
         // create Component.stories.svelte
         const storyFilePath = path.join(dir, `${componentName}.stories.svelte`);
         fs.writeFileSync(storyFilePath, createStory(componentName), "utf8");
+
+        // Confirmation text
+        console.log(`Boilerplate files created in ${dir}`);
       } else {
         console.error("Directory already exists");
       }
