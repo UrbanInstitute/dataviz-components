@@ -29,8 +29,6 @@ async function main() {
           }
         }
       }
-      // TODO: subdir of src/lib
-      // TODO: ask about .docs.mdx
     ])
     .then((answers) => {
       const { componentName } = answers;
