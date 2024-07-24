@@ -3,9 +3,10 @@ import inquirer from "inquirer";
 import fs from "fs";
 import path from "path";
 import { createStory } from "./createStory.js";
+import { createDocs } from "./createDocs.js";
 
 async function main() {
-  const answers = await inquirer
+  await inquirer
     .prompt([
       {
         type: "input",
