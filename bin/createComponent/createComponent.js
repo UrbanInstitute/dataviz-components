@@ -5,6 +5,11 @@ import path from "path";
 import { createStory } from "./createStory.js";
 import { createDocs } from "./createDocs.js";
 
+// check if PascalCase https://www.w3resource.com/javascript-exercises/javascript-string-exercise-56.php
+function isPascalCase(str) {
+  return /^[A-Z][A-Za-z]*$/.test(str);
+}
+
 async function main() {
   await inquirer
     .prompt([
@@ -13,17 +18,19 @@ async function main() {
         name: "componentName",
         message: "What is the name of your component? (ie: MyComponent)",
         validate: (componentName) => {
-          if (componentName) {
-            return true;
+          // if not present
+          if (!componentName) {
+            return "Please enter a component name";
+            // if not PascalCase
+          } else if (!isPascalCase(componentName)) {
+            return "Component name must be in PascalCase";
           } else {
-            console.log("Please enter a component name");
-            return false;
+            return true;
           }
         }
       }
       // TODO: subdir of src/lib
       // TODO: ask about .docs.mdx
-      // TODO: check PascalCase
     ])
     .then((answers) => {
       const { componentName } = answers;
@@ -50,7 +57,4 @@ async function main() {
     });
 }
 
-main().catch(() => {
-  console.error();
-  // process.exit();
-});
+main().catch(console.error);
