@@ -26,6 +26,14 @@ To build your library:
 npm run package
 ```
 
+### CLI-based command for creating new component boilerplate
+
+To create three boilerplate files for a new component (`ComponentName.svelte`, `ComponentName.stories.svelte`, and `ComponentName.docs.md`), run the following command:
+
+```bash
+npm run create-component
+```
+
 ## Contributing to this library
 
 When contributing to this library, keep the following guidelines in mind. The [pull request template](https://github.com/UrbanInstitute/dataviz-components/blob/main/.github/pull_request_template.md) requires explanation of changes and provides a checklist of tasks to ensure clean code and documentation. Please name all branches in `kebab-case`, beginning with "patch", "feature", or "bugfix", and provide insightful commit messages.

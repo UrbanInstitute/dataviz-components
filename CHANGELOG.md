@@ -6,6 +6,7 @@
 - Feature: GitHub source links for components via [@etchteam/storybook-addon-github-link](https://storybook.js.org/addons/@etchteam/storybook-addon-github-link) in storybook docs
 - Patch: Update method of declaring Storybook component descriptions and add import instructions to components
 - Patch: Remove description field from top level `meta` object in component `.stories.svelte` files (do not render)
+- Feature: CLI command to generate new component boilerplate (`npm run create-component`)
 
 ## v0.10.2
 
