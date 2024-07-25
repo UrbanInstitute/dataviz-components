@@ -1,12 +1,11 @@
 export function createStory(componentName) {
-  return `
-<script context="module">
-  import ${componentName} from "./${componentName}.svelte";
-  import docs from "./${componentName}.docs.md?raw";
+  return `<script context="module">
+  import TestingTree from "./TestingTree.svelte";
+  import docs from "./TestingTree.docs.md?raw";
 
   export const meta = {
-    title: "Components/${componentName}",
-    component: ${componentName},
+    title: "Components/TestingTree",
+    component: TestingTree,
     tags: ["autodocs"],
     parameters: {
       docs: {
@@ -15,7 +14,7 @@ export function createStory(componentName) {
         }
       },
       githubLink: {
-        url: "/${componentName}/${componentName}.svelte"
+        url: "/TestingTree/TestingTree.svelte"
       }
     }
   };
@@ -26,10 +25,8 @@ export function createStory(componentName) {
 </script>
 
 <Template let:args>
-  <${componentName} {...args} />
+  <TestingTree {...args} />
 </Template>
 
-<Story
-  name="Default"
-/>`;
+<Story name="Default" />`;
 }
