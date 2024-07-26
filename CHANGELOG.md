@@ -8,6 +8,7 @@
 - Fixes Intro code chunk to be up to date
 - Changes snake_case variables to camelCase
 - Add Navbar case for no projectUrl with story documentation
+- Add inital batch of Icon components [close, search, plus, minus]
 
 ## v0.7.1
 
