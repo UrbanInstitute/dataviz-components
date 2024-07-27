@@ -2,13 +2,64 @@
 
 ## Next
 
+- Patch: Update BasicDropdown with better accessibility (icon hidden from screen readers)
+- Feature: GitHub source links for components via [@etchteam/storybook-addon-github-link](https://storybook.js.org/addons/@etchteam/storybook-addon-github-link) in storybook docs
+- Patch: Update method of declaring Storybook component descriptions and add import instructions to components
+- Patch: Remove description field from top level `meta` object in component `.stories.svelte` files (do not render)
+- Feature: CLI command to generate new component boilerplate (`npm run create-component`)
+- Feature: Add Icon components [close, plus, minus, search]
+
+## v0.10.2
+
+- Patch: Run Vitest tests in CI
+- Feature: Add style/theme export and instructions on CSS variable intellisense
+- Patch: Update SocialShare spacing
+- Patch: Update Storybook viewport sizes to match design system breakpoints
+- Patch: Update Toggle size to adhere to design team guidance
+
+## v0.10.1
+
+- Fix: Remove padding from ZoomControls on map in mobile Safari
+
+## v0.10.0
+
+- Fix BasicDropdown border radius
+- Update Toggle with dispatched click
+- Fix: Remove errant padding from ProjectCredits
+- Feature: Add SVGMap component
+- Feature: Add SVGPolygonLayer component
+- Feature: Add SVGPointLayer component
+- Feature: Add SVGLabelLayer component
+- Feature: Add ColorLegend component
+- Feature: Add Tooltip component
+
+## v0.9.0
+
+- Update BasicDropdown with secondary style variants, a visible label, and better story controls
+- Add LoadingWrapper component to provide a loading graphic for components that need it
+- Add SVGMap component and associated layer components
+- Add ColorLegend component
+- Add Tooltip component
+
+## v0.8.0
+
+- Simplify CSS in Toggle component
+- Add contribution guidance to Intro docs and README
+- Add Headline component
+- Add PymChild component
+- Add "vis.rendered" event to DatawrapperIframe component
+- Patch Toggle component accessibility
+- Add animated Urban Logo Badge component
+
+## v0.7.2
+
 - Add Svelte syntax highlighting for code blocks (thanks to Axios team for the tip here!)
 - Adds example writable/derived store setup for dynamic information display
 - Fixes package name in documentation
 - Fixes Intro code chunk to be up to date
 - Changes snake_case variables to camelCase
+- Change BasicDropdown's value prop to accept null
 - Add Navbar case for no projectUrl with story documentation
-- Add inital batch of Icon components [close, search, plus, minus]
 
 ## v0.7.1
 
