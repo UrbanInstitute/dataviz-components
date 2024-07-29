@@ -1,0 +1,36 @@
+import * as Stories from "./PymChild.stories.svelte";
+import { Meta, Story, Stories as StoriesDocBlock, Canvas, Controls, Primary, Source } from '@storybook/blocks';
+
+
+<Meta of={Stories} />
+
+# PymChild
+
+A component that adds [Pym.js](http://blog.apps.npr.org/pym.js/) functionality to the current HTML web page.
+
+## Usage
+
+In order to add PymChild functionality to your page, simply import and use this component in your top level component or route like this:
+
+<Source dark code={`
+<script>
+  import { PymChild } from "@urbaninstitute/dataviz-components";
+</script>
+<PymChild />
+`} language="svelte"/>
+
+If you need to access the Pym child instance itself, you can access it by importing and using this component's store:
+
+<Source dark code={`
+import { pymChildStore } from "@urbaninstitute/dataviz-components/stores";
+
+if ($pymChildStore) {
+  $pymChildStore.sendHeight();
+}
+`} language="js" />
+
+## Properties
+
+The `PymChild` component has the following properties.
+
+<Controls />

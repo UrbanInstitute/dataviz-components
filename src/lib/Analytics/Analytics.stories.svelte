@@ -3,13 +3,10 @@
 
   export const meta = {
     title: "Components/Analytics",
-    description: "A component that provides Google Analytics functionality to your page.",
     component: Analytics,
     parameters: {
-      docs: {
-        description: {
-          component: "A component that provides Google Analytics functionality to your page."
-        }
+      githubLink: {
+        url: "/Analytics/Analytics.svelte"
       }
     }
   };
@@ -27,6 +24,6 @@
   name="Default"
   args={{
     title: "Urban Institute dataviz components storybook",
-    mode: "development",
+    mode: "development"
   }}
 />

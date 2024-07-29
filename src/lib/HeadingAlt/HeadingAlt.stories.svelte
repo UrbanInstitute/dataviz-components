@@ -1,16 +1,19 @@
 <script context="module">
   import Heading from "./HeadingAlt.svelte";
+  import docs from "./HeadingAlt.docs.md?raw";
 
   export const meta = {
     title: "Components/HeadingAlt",
-    description: "A block for an alternate heading",
     component: Heading,
     tags: ["autodocs"],
     parameters: {
       docs: {
         description: {
-          component: "Alternate title heading in all caps, useful for h2 tags and lower."
+          component: docs
         }
+      },
+      githubLink: {
+        url: "/HeadingAlt/HeadingAlt.svelte"
       }
     }
   };

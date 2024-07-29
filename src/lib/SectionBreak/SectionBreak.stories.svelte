@@ -1,17 +1,19 @@
 <script context="module">
   import SectionBreak from "./SectionBreak.svelte";
+  import docs from "./SectionBreak.docs.md?raw";
 
   export const meta = {
     title: "Components/SectionBreak",
-    description: "Section break element that includes a number, a subhead and a horizontal rule.",
     component: SectionBreak,
     tags: ["autodocs"],
     parameters: {
       docs: {
         description: {
-          component:
-            "Section break element that includes a number, a subhead and a horizontal rule."
+          component: docs
         }
+      },
+      githubLink: {
+        url: "/SectionBreak/SectionBreak.svelte"
       }
     }
   };

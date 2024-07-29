@@ -3,7 +3,6 @@
 
   export const meta = {
     title: "Components/Meta",
-    description: "A component to manage meta tags for the HTML document.",
     component: Meta,
     argTypes: {
       authors: {
@@ -18,10 +17,8 @@
       }
     },
     parameters: {
-      docs: {
-        description: {
-          component: "This component uses Svelt's built-in `<svelte:head>` component to include important metadata for your HTML page."
-        }
+      githubLink: {
+        url: "/Meta/Meta.svelte"
       }
     }
   };
@@ -35,13 +32,15 @@
   <Meta />
 </Template>
 
-<Story name="Default" args={{
-  title: "",
-  description: "",
-  url: "",
-  siteName: "Urban Institute",
-  authors: ["Author Name", "Author Name"],
-  keywords: ["keyword1", "keyword2"],
-  socialImage: ""
-}}>Nothing to see here</Story>
-
+<Story
+  name="Default"
+  args={{
+    title: "",
+    description: "",
+    url: "",
+    siteName: "Urban Institute",
+    authors: ["Author Name", "Author Name"],
+    keywords: ["keyword1", "keyword2"],
+    socialImage: ""
+  }}>Nothing to see here</Story
+>

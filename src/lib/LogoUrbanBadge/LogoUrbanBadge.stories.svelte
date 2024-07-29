@@ -1,16 +1,19 @@
 <script context="module">
-  import Logo from "./LogoUrbanBadge.svelte";
+  import LogoUrbanBadge from "./LogoUrbanBadge.svelte";
+  import docs from "./LogoUrbanBadge.docs.md?raw";
 
   export const meta = {
     title: "Logos/LogoUrbanBadge",
-    description: "An Urban Institute badge logo",
-    component: Logo,
+    component: LogoUrbanBadge,
     tags: ["autodocs"],
     parameters: {
       docs: {
         description: {
-          component: "Urban Institute logo in square badge format."
+          component: docs
         }
+      },
+      githubLink: {
+        url: "/LogoUrbanBadge/LogoUrbanBadge.svelte"
       }
     }
   };
@@ -21,7 +24,7 @@
 </script>
 
 <Template let:args>
-  <Logo {...args} />
+  <LogoUrbanBadge {...args} />
 </Template>
 
 <Story name="Default" />

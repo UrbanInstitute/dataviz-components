@@ -1,9 +1,9 @@
 <script context="module">
   import TextBlock from "./TextBlock.svelte";
+  import docs from "./TextBlock.docs.md?raw";
 
   export const meta = {
     title: "Components/TextBlock",
-    description: "A basic text block",
     component: TextBlock,
     tags: ["autodocs"],
     argTypes: {
@@ -28,8 +28,11 @@
       },
       docs: {
         description: {
-          component: "A basic text block."
+          component: docs
         }
+      },
+      githubLink: {
+        url: "/TextBlock/TextBlock.svelte"
       }
     }
   };

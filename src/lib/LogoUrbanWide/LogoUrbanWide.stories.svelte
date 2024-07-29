@@ -1,10 +1,10 @@
 <script context="module">
-  import Logo from "./LogoUrbanWide.svelte";
+  import LogoUrbanWide from "./LogoUrbanWide.svelte";
+  import docs from "./LogoUrbanWide.docs.md?raw";
 
   export const meta = {
     title: "Logos/LogoUrbanWide",
-    description: "An Urban Institute wide logo",
-    component: Logo,
+    component: LogoUrbanWide,
     tags: ["autodocs"],
     argTypes: {
       variant: {
@@ -22,8 +22,11 @@
       },
       docs: {
         description: {
-          component: "Urban Institute logo in wide format."
+          component: docs
         }
+      },
+      githubLink: {
+        url: "/LogoUrbanWide/LogoUrbanWide.svelte"
       }
     }
   };
@@ -34,7 +37,7 @@
 </script>
 
 <Template let:args>
-  <Logo {...args} />
+  <LogoUrbanWide {...args} />
 </Template>
 
 <Story name="Default" />

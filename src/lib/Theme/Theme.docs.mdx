@@ -1,9 +1,11 @@
-import * as Stories from "./Theme.stories.svelte"
-import { Meta, Controls, Markdown } from "@storybook/blocks"
+import * as Stories from "./Theme.stories.svelte";
+import { Meta, Controls, Markdown } from "@storybook/blocks";
 
 <Meta title="Theming/Theme" component={Stories.Theme} />
 
 # Theme
+
+[![github](https://badgen.net/badge/icon/GitHub?icon=github&label)](https://github.com/UrbanInstitute/dataviz-components/blob/main/src/lib/Theme/Theme.svelte)
 
 A theme wrapper that provides shared styles for children components. These styles are primarily made up of a series of CSS variables that represent Urban's design system. They also includes some default typographic styling applied to html headings. Components in this library make use of these variables and styles and expect them to be defined, and won't display correctly outside of a parent `<Theme />` component.
 
@@ -13,7 +15,7 @@ In order to display correctly, these components will also need access to Urban's
 
 You get everything you need out of the box by importing and using these components like so:
 
-```html
+```svelte
 <script>
   import { Theme, FontsUrban, Button } from "@urbaninstitute/dataviz-components";
 </script>
@@ -21,14 +23,30 @@ You get everything you need out of the box by importing and using these componen
 <Theme>
   <Button />
 </Theme>
-````
+```
+
+## Stylesheet import
+
+If you need access to the `<Theme>` component CSS as a global stylesheet, this library exports a copy that can be imported like this:
+
+```javascript
+import "@urbaninstitute/dataviz-components/style/theme";
+```
+
+## VS Code Intellisense for CSS Variables
+
+In order to get VS Code intellisense for the CSS variables provided by the theme, you can download the [CSS Var Complete extension](https://marketplace.visualstudio.com/items?itemName=phoenisx.cssvar), add path below to the `cssvar.files` extension settings, and restart VS Code extensions.
+
+`node_modules/@urbaninstitute/dataviz-components/dist/style/theme.css`
+
+If you're seeing more options than you'd like, remove `**/*.css` from the setting (added by default).
 
 ## CSS Variables
 
 The CSS variables provided by the theme that can be used in components in this library or your own code are as follows:
 
 <Markdown>
-{`| Variable                       | Value                                                                                         |
+  {`| Variable                       | Value                                                                                         |
 | ------------------------------ | --------------------------------------------------------------------------------------------- |
 | \`--font-family-sans\`           | \`Lato, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"\` |
 | \`--font-family-sans-alt\`       | \`"futura-pt", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"\` |

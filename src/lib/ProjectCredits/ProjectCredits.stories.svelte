@@ -1,16 +1,19 @@
 <script context="module">
   import ProjectCredits from "./ProjectCredits.svelte";
+  import docs from "./ProjectCredits.docs.md?raw";
 
   export const meta = {
     title: "Components/ProjectCredits",
-    description: "A block for project credits",
     component: ProjectCredits,
     tags: ["autodocs"],
     parameters: {
       docs: {
         description: {
-          component: "A block for project credits."
+          component: docs
         }
+      },
+      githubLink: {
+        url: "/ProjectCredits/ProjectCredits.svelte"
       }
     }
   };

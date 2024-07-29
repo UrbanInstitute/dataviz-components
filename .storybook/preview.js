@@ -25,6 +25,8 @@ const preview = {
           "Components",
           "Layout",
           "Logos",
+          "Maps",
+          ["SVGMap"],
           "Utils",
           "Actions",
           "Stores"
@@ -33,6 +35,42 @@ const preview = {
     },
     docs: {
       source: { language: "svelte" }
+    },
+    viewport: {
+      viewports: {
+        small: {
+          name: "Small",
+          styles: {
+            width: "375px",
+            height: "667px"
+          }
+        },
+        medium: {
+          name: "Medium",
+          styles: {
+            width: "460px",
+            height: "800px"
+          }
+        },
+        large: {
+          name: "Large",
+          styles: {
+            width: "768px",
+            height: "100%"
+          }
+        },
+        xl: {
+          name: "XL",
+          styles: {
+            width: "1160px",
+            height: "100%"
+          }
+        }
+      }
+    },
+    githubLink: {
+      baseURL: "https://github.com/UrbanInstitute/dataviz-components/tree/main/src/lib/",
+      auto: false
     }
   },
   decorators: [() => Theme]

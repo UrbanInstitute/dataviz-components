@@ -8,7 +8,7 @@ import { Meta, Controls, ArgTypes, Markdown, Story } from "@storybook/blocks"
 A component that can be used to create "scrolly" sections and pages. This component is a wrapper around the [svelte-scroller](https://github.com/sveltejs/svelte-scroller) library. If your project has needs that go beyond what this component can support, you should consider using `svelte-scroller` directly. But for many common scenarious, the options provided here should have you covered.
 
 Basic usage:
-```html
+```svelte
 <script>
   import { Scrolly } from "@urbaninstitute/dataviz-components";
 
@@ -61,7 +61,7 @@ console.log("The slideWidth is", $slideWidth);
 
 By default, the foreground expects a simple string in the `slides` array, and it renders the provided string (including any HTML formatting) within a `<p>` element inside a basic text box. This default behaviour will work for many scenarios, but you might need more flexibility beyond including simple inline HTML inside a `<p>`. If this is the case, you can override the default markup by making use of the `foreground` slot of this component. Additionally, you can pass more complex data structures through the `slides` prop and specify how these data should be rendered with a custom `foreground` slot. The contents of the corresponding item in the array will be passed to your foreground `slot` as a `slide` prop. You can use this data in your custom markup like so:
 
-```html
+```svelte
 <script>
   import { Scrolly } from "@urbaninstitute/dataviz-components";
 

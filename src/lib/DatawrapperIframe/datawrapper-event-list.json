@@ -24,5 +24,6 @@
   "embed.modal.open",
   "embed.modal.close",
   "embed.copy",
-  "source.click"
+  "source.click",
+  "vis.rendered"
 ]

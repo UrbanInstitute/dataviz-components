@@ -1,9 +1,9 @@
 <script context="module">
   import Block from "./Block.svelte";
+  import docs from "./Block.docs.md?raw";
 
   export const meta = {
     title: "Components/Block",
-    description: "A basic building block of a page",
     component: Block,
     tags: ["autodocs"],
     argTypes: {
@@ -16,8 +16,11 @@
     parameters: {
       docs: {
         description: {
-          component: "A basic content block with several width options. This helps when building a page layout if you'd like to place your own components inside a container that aligns with the body well of a typical urban.org layout, a wider block, or a full width block."
+          component: docs
         }
+      },
+      githubLink: {
+        url: "/Block/Block.svelte"
       }
     }
   };

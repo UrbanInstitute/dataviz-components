@@ -1,9 +1,9 @@
 <script context="module">
   import Toggle from "./Toggle.svelte";
+  import docs from "./Toggle.docs.md?raw";
 
   export const meta = {
     title: "Components/Toggle",
-    description: "A toggle component that uses a <button> element under the hood.",
     component: Toggle,
     tags: ["autodocs"],
     argTypes: {
@@ -17,8 +17,11 @@
     parameters: {
       docs: {
         description: {
-          component: "Toggle component adhering to Urban styles."
+          component: docs
         }
+      },
+      githubLink: {
+        url: "/Toggle/Toggle.svelte"
       }
     }
   };
