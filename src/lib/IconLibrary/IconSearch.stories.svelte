@@ -2,7 +2,7 @@
     import IconSearch from "./IconSearch.svelte";
   
     export const meta = {
-      title: "Components/IconSearch",
+      title: "Components/IconLibrary",
       component: IconSearch,
       //tags: ["autodocs"],
       argTypes: {
