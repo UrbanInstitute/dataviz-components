@@ -1,7 +1,10 @@
-import * as IconStories from "./IconLibrary.stories.svelte";
-import { Meta, Title, Canvas, Controls, IconGallery, IconItem } from "@storybook/blocks";
+import * as PlusStories from "./IconPlus.stories.svelte";
+import * as MinusStory from "./IconMinus.stories.svelte";
+import * as CloseStory from "./IconClose.stories.svelte";
+import * as SearchStory from "./IconSearch.stories.svelte";
+import { Meta, Title, Canvas, Story, Controls, IconGallery, IconItem } from "@storybook/blocks";
 
-<Meta title="Components/IconLibrary" of={IconStories} />
+<Meta title="Components/IconLibrary" of={PlusStories} />
 
 # Icons
 
@@ -11,75 +14,29 @@ Any of these icons can be pulled in as standalone components. They are intended 
 
 <IconGallery>
   <IconItem name="<IconPlus/>">
-    <svg
-      width="40"
-      height="40"
-      viewBox="0 0 48 48"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      role="img"
-      aria-label="Plus icon"
-    >
-      <path d="M0 27V21H48V27H0Z M28 48H22L22 2.62268e-07L28 0L28 48Z" fill="#000" />
-    </svg>
+    <Story of={PlusStories.PlusPreview}/>
   </IconItem>
   <IconItem name="<IconMinus/>">
-    <svg
-      width="40"
-      height="40"
-      viewBox="0 0 48 48"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      role="img"
-      aria-label="Minus icon"
-    >
-      <path d="M0 27V21H48V27H0Z" fill="#000" />
-    </svg>
+    <Story of={MinusStory.MinusPreview}/>
   </IconItem>
   <IconItem name="<IconClose/>">
-    <svg
-      width="40"
-      height="40"
-      viewBox="0 0 48 48"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      role="img"
-      aria-label="Close icon"
-    >
-      <path
-        d="M29.5351 24L47.5624 42.0273C47.8469 42.3993 47.9781 42.815 47.9781 43.2744C47.9781 43.7338 47.8469 44.1057 47.5624 44.3902L44.3683 47.5843C44.0839 47.8687 43.7119 48 43.2525 48C42.7931 48 42.3774 47.8687 42.0055 47.5843L23.9781 29.557L5.95078 47.5843C5.57885 47.8687 5.16317 48 4.70374 48C4.2443 48 3.87238 47.8687 3.58797 47.5843L0.393801 44.3902C0.131267 44.1057 0 43.7338 0 43.2744C0 42.815 0.131267 42.3993 0.415679 42.0273L18.443 24L0.415679 5.97265C0.131267 5.60073 0 5.18505 0 4.72562C0 4.26618 0.131267 3.89426 0.415679 3.60985L3.60985 0.415679C3.89426 0.131267 4.2443 0 4.72562 0C5.20693 0 5.60073 0.131267 5.97265 0.415679L24 18.443L42.0273 0.415679C42.3993 0.131267 42.815 0 43.2744 0C43.7338 0 44.1057 0.131267 44.3902 0.415679L47.5843 3.60985C47.8687 3.89426 48 4.26618 48 4.72562C48 5.18505 47.8687 5.60073 47.5843 5.97265L29.5351 24Z"
-        fill="#000"
-      />
-    </svg>
+    <Story of={CloseStory.ClosePreview}/>
   </IconItem>
   <IconItem name="<IconSearch/>">
-    <svg
-      width="40"
-      height="40"
-      viewBox="0 0 48 48"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      role="img"
-      aria-label="Search icon"
-    >
-      <path
-        d="M47.719 43.963C47.9113 44.1553 48 44.4067 48 44.7172C48 45.0277 47.9113 45.3087 47.719 45.5601L45.5601 47.6303C45.3087 47.8817 45.0277 48 44.7172 48C44.4067 48 44.1553 47.8817 43.963 47.6303L32.5323 36.2884C32.3401 36.037 32.2514 35.7856 32.2514 35.5342V34.2181C30.5065 35.7116 28.5397 36.8946 26.3512 37.7375C24.1627 38.5804 21.8854 39.0092 19.5046 39.0092C15.9408 39.0092 12.6728 38.1368 9.70055 36.3771C6.72828 34.6322 4.37708 32.2662 2.61738 29.2939C0.872458 26.3216 0 23.0684 0 19.5046C0 15.9408 0.872458 12.6728 2.63216 9.71534C4.37708 6.74307 6.74307 4.39187 9.71534 2.63216C12.6728 0.872458 15.9408 0 19.5046 0C23.0684 0 26.3364 0.872458 29.2939 2.63216C32.2662 4.37708 34.6174 6.74307 36.3771 9.71534C38.122 12.6876 39.0092 15.9556 39.0092 19.5046C39.0092 21.8854 38.5804 24.1627 37.7375 26.3512C36.8946 28.5397 35.7264 30.5065 34.2181 32.2514H35.5342C35.8447 32.2514 36.0961 32.3401 36.2884 32.5323L47.719 43.963ZM19.5046 34.4991C22.1959 34.4991 24.695 33.8336 27.0018 32.488C29.3087 31.1423 31.1423 29.3087 32.488 27.0018C33.8336 24.695 34.4991 22.1959 34.4991 19.5046C34.4991 16.8133 33.8336 14.3142 32.488 12.0074C31.1423 9.70055 29.3087 7.86691 27.0018 6.52126C24.695 5.1756 22.1811 4.49538 19.5046 4.49538C16.8133 4.49538 14.3142 5.16081 12.0074 6.50647C9.70055 7.85213 7.86691 9.68577 6.52126 11.9926C5.1756 14.2994 4.51017 16.7985 4.51017 19.4898C4.51017 22.1811 5.1756 24.6802 6.52126 26.9871C7.86691 29.2939 9.70055 31.1275 12.0074 32.4732C14.3142 33.8189 16.8133 34.4991 19.5046 34.4991Z"
-        fill="#000"
-      />
-    </svg>
+    <Story of={SearchStory.SearchPreview}/>
   </IconItem>
 </IconGallery>
 
 ## Default
 
-<Canvas of={IconStories.Default} />
+<Canvas of={PlusStories.Default} />
 
 <Controls />
 
 ## With color change
 
-<Canvas of={IconStories.WithColor} />
+<Canvas of={PlusStories.WithColor} />
 
 ## With size change
 
-<Canvas of={IconStories.ChangingSize} />
+<Canvas of={PlusStories.ChangingSize} />
