@@ -3,8 +3,6 @@
   
     export const meta = {
       title: "Components/Icons",
-      // includeStories: ["Default", "WithColor","ChangingSize"],
-      // excludeStories: ["PlusPreview"],
       component: IconPlus,
       //tags: ["autodocs"],
       argTypes: {
@@ -37,7 +35,6 @@
         }
       }
     };
-
   </script>
   
   <script>
@@ -50,10 +47,6 @@
   </Template>
   
   <Story name="Default" />
-
-  <Story name="PlusPreview">
-    <IconPlus size={25}/>
-  </Story>
   
   <Story name="WithColor">
     <IconPlus fill={urbanColors.blue} />
