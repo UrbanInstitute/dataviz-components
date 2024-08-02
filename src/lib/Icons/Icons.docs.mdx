@@ -11,9 +11,10 @@ import { Meta, Title, Canvas, Story, Controls, IconGallery, IconItem } from "@st
 Any of these icons can be pulled in as standalone components. They are intended as decorations, and do not include `onClick` parameters.
 
 ## Options
+These are the current possible icon components included with this library.
 
 <IconGallery>
-  <IconItem name="<IconPlus/>">
+  <IconItem name="IconPlus">
     <svg
     width={25}
     height={25}
@@ -26,13 +27,13 @@ Any of these icons can be pulled in as standalone components. They are intended 
   <path d="M0 27V21H48V27H0Z M28 48H22L22 2.62268e-07L28 0L28 48Z" fill="#000" />
 </svg>
   </IconItem>
-  <IconItem name="<IconMinus/>">
+  <IconItem name="IconMinus">
     <Story of={MinusStory.MinusPreview}/>
   </IconItem>
-  <IconItem name="<IconClose/>">
+  <IconItem name="IconClose">
     <Story of={CloseStory.ClosePreview}/>
   </IconItem>
-  <IconItem name="<IconSearch/>">
+  <IconItem name="IconSearch">
     <Story of={SearchStory.SearchPreview}/>
   </IconItem>
 </IconGallery>
