@@ -1,9 +1,11 @@
 <script context="module">
-    import IconClose from "./IconClose.svelte";
+    import IconPlus from "./IconPlus.svelte";
   
     export const meta = {
-      title: "Components/IconLibrary",
-      component: IconClose,
+      title: "Components/Icons",
+      // includeStories: ["Default", "WithColor","ChangingSize"],
+      // excludeStories: ["PlusPreview"],
+      component: IconPlus,
       //tags: ["autodocs"],
       argTypes: {
         size: {
@@ -31,20 +33,33 @@
           }
         },
         githubLink: {
-          url: "/IconLibrary/IconClose.svelte"
+          url: "/Icons/IconPlus.svelte"
         }
       }
     };
+
   </script>
   
   <script>
     import { Story, Template } from "@storybook/addon-svelte-csf";
+    import urbanColors from "$lib/utils/urbanColors.js";
   </script>
   
   <Template let:args>
-    <IconClose {...args} />
+    <IconPlus {...args} />
   </Template>
   
-  <Story name="ClosePreview">
-    <IconClose size={25}/>
+  <Story name="Default" />
+
+  <Story name="PlusPreview">
+    <IconPlus size={25}/>
   </Story>
+  
+  <Story name="WithColor">
+    <IconPlus fill={urbanColors.blue} />
+  </Story>
+  
+  <Story name="ChangingSize">
+    <IconPlus size={65} />
+  </Story>
+  

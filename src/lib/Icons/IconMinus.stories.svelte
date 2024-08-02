@@ -2,7 +2,7 @@
     import IconMinus from "./IconMinus.svelte";
   
     export const meta = {
-      title: "Components/IconLibrary",
+      //title: "Components/Icons",
       component: IconMinus,
       //tags: ["autodocs"],
       argTypes: {
@@ -31,7 +31,7 @@
           }
         },
         githubLink: {
-          url: "/IconLibrary/IconMinus.svelte"
+          url: "/Icons/IconMinus.svelte"
         }
       }
     };

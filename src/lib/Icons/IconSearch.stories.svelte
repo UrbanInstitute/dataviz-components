@@ -2,7 +2,7 @@
     import IconSearch from "./IconSearch.svelte";
   
     export const meta = {
-      title: "Components/IconLibrary",
+      //title: "Components/Icons",
       component: IconSearch,
       //tags: ["autodocs"],
       argTypes: {
@@ -31,7 +31,7 @@
           }
         },
         githubLink: {
-          url: "/IconLibrary/IconSearch.svelte"
+          url: "/Icons/IconSearch.svelte"
         }
       }
     };
