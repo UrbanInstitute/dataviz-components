@@ -2,9 +2,9 @@
     import IconMinus from "./IconMinus.svelte";
   
     export const meta = {
-      //title: "Components/Icons",
+      title: "Icons/Other Icons/IconMinus",
       component: IconMinus,
-      //tags: ["autodocs"],
+      tags: ["!dev","!autodocs"],
       argTypes: {
         size: {
           default: 40

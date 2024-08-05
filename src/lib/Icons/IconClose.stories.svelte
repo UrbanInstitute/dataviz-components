@@ -2,9 +2,9 @@
     import IconClose from "./IconClose.svelte";
   
     export const meta = {
-      //title: "Components/Icons",
+      title: "Icons/Other Icons/IconClose",
       component: IconClose,
-      //tags: ["autodocs"],
+      tags: ["!dev","!autodocs"],
       argTypes: {
         size: {
           default: 40

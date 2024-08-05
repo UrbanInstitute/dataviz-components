@@ -2,7 +2,7 @@
     import IconPlus from "./IconPlus.svelte";
   
     export const meta = {
-      title: "Components/Icons",
+      title: "Icons/Icon",
       component: IconPlus,
       //tags: ["autodocs"],
       argTypes: {
