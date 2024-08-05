@@ -25,6 +25,7 @@ const preview = {
           "Components",
           "Layout",
           "Logos",
+          ["Icons"],
           "Maps",
           ["SVGMap"],
           "Utils",
