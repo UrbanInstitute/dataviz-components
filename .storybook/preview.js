@@ -23,6 +23,7 @@ const preview = {
           ["Theme", "Fonts"],
           "Examples",
           "Components",
+          "Layercake",
           "Layout",
           "Logos",
           "Maps",
