@@ -8,13 +8,13 @@
     tags: ["autodocs"],
     argTypes: {
       gridlines: {
-        control: "boolean",
+        control: "boolean"
       },
       tickMarks: {
-        control: "boolean",
+        control: "boolean"
       },
       baseline: {
-        control: "boolean",
+        control: "boolean"
       },
       snapTicks: {
         control: "boolean"
@@ -23,8 +23,8 @@
         control: {
           type: "range",
           min: 1,
-          max: 20,
-        },
+          max: 20
+        }
       },
       xTick: {
         control: "number"
@@ -59,24 +59,18 @@
 <script>
   import { Story, Template } from "@storybook/addon-svelte-csf";
   import { LayerCake, Svg } from "layercake";
-  import data from "./data.json"
+  import data from "./data.json";
 
-  const xKey = 'value';
-  const yKey = 'year';
+  const xKey = "value";
+  const yKey = "year";
 </script>
 
 <Template let:args>
   <div style="height: 150px;">
-  <LayerCake
-      {data} 
-      xDomain={[0, 20]}
-      yDomain={[0,10]}
-      y={yKey}
-      x={xKey}
-  >
-        <Svg>
-            <AxisX {...args}/>
-        </Svg>
+    <LayerCake {data} xDomain={[0, 20]} yDomain={[0, 10]} y={yKey} x={xKey}>
+      <Svg>
+        <AxisX {...args} />
+      </Svg>
     </LayerCake>
   </div>
 </Template>

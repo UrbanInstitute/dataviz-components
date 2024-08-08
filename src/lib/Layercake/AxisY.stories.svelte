@@ -17,8 +17,8 @@
         control: {
           type: "range",
           min: 1,
-          max: 10,
-        },
+          max: 10
+        }
       },
       xTick: {
         control: "number",
@@ -38,7 +38,7 @@
       },
       textAnchor: {
         control: "select",
-        options: ["start","middle","end"]
+        options: ["start", "middle", "end"]
       },
       tickLabelColor: {
         control: {
@@ -72,24 +72,18 @@
 <script>
   import { Story, Template } from "@storybook/addon-svelte-csf";
   import { LayerCake, Svg } from "layercake";
-  import data from "./data.json"
+  import data from "./data.json";
 
-  const xKey = 'value';
-  const yKey = 'year';
+  const xKey = "value";
+  const yKey = "year";
 </script>
 
 <Template let:args>
   <div style="height: 150px; width:100%;">
-  <LayerCake
-      {data} 
-      xDomain={[0, 20]}
-      yDomain={[0,10]}
-      y={yKey}
-      x={xKey}
-  >
-        <Svg>
-            <AxisY {...args} />
-        </Svg>
+    <LayerCake {data} xDomain={[0, 20]} yDomain={[0, 10]} y={yKey} x={xKey}>
+      <Svg>
+        <AxisY {...args} />
+      </Svg>
     </LayerCake>
   </div>
 </Template>
