@@ -7,37 +7,57 @@
 
   const { padding, xRange, yScale, yDomain, xDomain, xScale, width } = getContext("LayerCake");
 
-  /** @type {Boolean} [gridlines=true] - Extend lines from the ticks into the chart space */
+  /** 
+   * Extend lines from the ticks into the chart space
+   * @type {boolean} [gridlines=true] */
   export let gridlines = true;
 
-  /** @type {Boolean} [tickMarks=false] - Show a vertical mark for each tick. */
+  /** 
+   * Show a vertical mark for each tick.
+   * @type {boolean} [tickMarks=false] */
   export let tickMarks = false;
 
-  /** @type {Function} [formatTick=d => d] - A function that passes the current tick value and expects a nicely formatted value in return. */
+  /** 
+   * A function that passes the current tick value and expects a nicely formatted value in return.
+   * @type {Function} [formatTick=d => d] */
   export let formatTick = (d) => d;
 
-  /** @type {Number|Array|Function} [ticks=4] - If this is a number, it passes that along to the [d3Scale.ticks](https://github.com/d3/d3-scale) function. If this is an array, hardcodes the ticks to those values. If it"s a function, passes along the default tick values and expects an array of tick values in return. */
+  /** 
+   * If this is a number, it passes that along to the [d3Scale.ticks](https://github.com/d3/d3-scale) function. If this is an array, hardcodes the ticks to those values. If it"s a function, passes along the default tick values and expects an array of tick values in return.
+   * @type {number|Array|Function} [ticks=4] */
   export let ticks = 4;
 
-  /** @type {Number} [xTick=0] - How far over to position the text marker. */
+  /**
+   * How far over to position the text marker.
+   *  @type {number} [xTick=0] */
   export let xTick = 0;
 
-  /** @type {Number} [yTick=0] - How far up and down to position the text marker. */
+  /** 
+   * How far up and down to position the text marker.
+   * @type {number} [yTick=0] */
   export let yTick = 0;
 
-  /** @type {Number} [dxTick=-4] - Any optional value passed to the `dx` attribute on the text marker and tick mark (if visible). This is ignored on the text marker if your scale is ordinal. */
+  /** 
+   * Any optional value passed to the `dx` attribute on the text marker and tick mark (if visible). This is ignored on the text marker if your scale is ordinal.
+   * @type {number} [dxTick=-4] */
   export let dxTick = -4;
 
-  /** @type {Number} [dyTick=0] - Any optional value passed to the `dy` attribute on the text marker and tick mark (if visible). This is ignored on the text marker if your scale is ordinal. */
+  /** 
+   * Any optional value passed to the `dy` attribute on the text marker and tick mark (if visible). This is ignored on the text marker if your scale is ordinal.
+   * @type {number} [dyTick=0] */
   export let dyTick = 0;
 
-  /** @type {String} [textAnchor="end"] The CSS `text-anchor` passed to the label. This is automatically set to "end" if the scale has a bandwidth method, like in ordinal scales. */
+  /**
+   * The CSS `text-anchor` passed to the label. This is automatically set to "end" if the scale has a bandwidth method, like in ordinal scales.
+   * @type {string} [textAnchor="end"] */
   export let textAnchor = "end";
 
   export let tickLabelColor = "#000000";
 
-  /** @type {String|null} [axisLabel=null] An optional label for the y axis*/
-  export let axisLabel = null;
+  /** 
+   * An optional label for the y axis
+   * @type {string|null} [axisLabel=null] */
+  export let axisLabel = "";
 
   export let labelDx = 0;
 

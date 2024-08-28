@@ -7,12 +7,6 @@
     component: AxisY,
     tags: ["autodocs"],
     argTypes: {
-      gridlines: {
-        control: "boolean"
-      },
-      tickMarks: {
-        control: "boolean"
-      },
       ticks: {
         control: {
           type: "range",
@@ -20,33 +14,17 @@
           max: 10
         }
       },
-      xTick: {
-        control: "number",
-        description: "Equal to dxTick."
-      },
-      yTick: {
-        control: "number",
-        description: "Equal to dyTick."
-      },
-      dxTick: {
-        control: "number",
-        description: "Equal to xTick."
-      },
-      dyTick: {
-        control: "number",
-        description: "Equal to yTick."
-      },
       textAnchor: {
         control: "select",
         options: ["start", "middle", "end"]
+      },
+      axisLabel: {
+        control: "text"
       },
       tickLabelColor: {
         control: {
           type: "color"
         }
-      },
-      axisLabel: {
-        control: "text"
       }
     },
     parameters: {

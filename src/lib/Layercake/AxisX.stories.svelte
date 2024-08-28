@@ -7,34 +7,16 @@
     component: AxisX,
     tags: ["autodocs"],
     argTypes: {
-      gridlines: {
-        control: "boolean"
-      },
-      tickMarks: {
-        control: "boolean"
-      },
-      baseline: {
-        control: "boolean"
-      },
-      snapTicks: {
-        control: "boolean"
-      },
       ticks: {
         control: {
           type: "range",
           min: 1,
           max: 20
-        }
-      },
-      xTick: {
-        control: "number"
-      },
-      yTick: {
-        control: "number"
+        },
       },
       axisLabel: {
-        control: "text"
-      }
+        control: 'text'
+      },
     },
     parameters: {
       backgrounds: {
