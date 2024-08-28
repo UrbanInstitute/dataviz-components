@@ -7,6 +7,7 @@
 - Patch: Update method of declaring Storybook component descriptions and add import instructions to components
 - Patch: Remove description field from top level `meta` object in component `.stories.svelte` files (do not render)
 - Feature: CLI command to generate new component boilerplate (`npm run create-component`)
+- Feature: Add Layercake AxisX and AxisY components and docs
 
 ## v0.10.2
 
