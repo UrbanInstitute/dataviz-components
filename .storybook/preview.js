@@ -24,6 +24,7 @@ const preview = {
           "Examples",
           "Components",
           "Layercake",
+          ["Intro"],
           "Layout",
           "Logos",
           "Maps",
