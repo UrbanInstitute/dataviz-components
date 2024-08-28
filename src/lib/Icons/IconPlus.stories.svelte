@@ -48,6 +48,8 @@
 
 <Story name="Default" />
 
+<Story name="ForCanvas" />
+
 <Story name="WithColor">
   <IconPlus fill={urbanColors.blue} />
 </Story>
