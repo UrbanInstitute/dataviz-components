@@ -8,6 +8,7 @@
 - Patch: Remove description field from top level `meta` object in component `.stories.svelte` files (do not render)
 - Feature: CLI command to generate new component boilerplate (`npm run create-component`)
 - Feature: Add Layercake AxisX and AxisY components and docs
+- Feature: Add Icon components [close, plus, minus, search]
 
 ## v0.10.2
 

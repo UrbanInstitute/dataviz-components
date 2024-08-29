@@ -27,6 +27,7 @@ const preview = {
           ["Intro"],
           "Layout",
           "Logos",
+          ["Icons"],
           "Maps",
           ["SVGMap"],
           "Utils",

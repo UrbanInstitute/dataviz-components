@@ -1,0 +1,52 @@
+import * as PlusStories from "./IconPlus.stories.svelte";
+import * as MinusStory from "./IconMinus.stories.svelte";
+import * as CloseStory from "./IconClose.stories.svelte";
+import * as SearchStory from "./IconSearch.stories.svelte";
+import * as RefreshStory from "./IconRefresh.stories.svelte";
+import { Meta, Title, Canvas, Story, Controls, IconGallery, IconItem } from "@storybook/blocks";
+
+<Meta title="Icons" />
+
+# Icons
+
+Any of these icons can be pulled in as standalone components. They are intended as decorations, and do not include `onClick` parameters.
+
+```js
+import { IconPlus } from "@urbaninstitute/dataviz-components/icons";
+```
+
+## Options
+
+These are the current possible icon components included with this library.
+
+<IconGallery>
+  <IconItem name="IconPlus">
+    <Story of={PlusStories.Default} />
+  </IconItem>
+  <IconItem name="IconMinus">
+    <Story of={MinusStory.Default} />
+  </IconItem>
+  <IconItem name="IconClose">
+    <Story of={CloseStory.Default} />
+  </IconItem>
+  <IconItem name="IconSearch">
+    <Story of={SearchStory.Default} />
+  </IconItem>
+  <IconItem name="IconRefresh">
+    <Story of={RefreshStory.Default} />
+  </IconItem>
+</IconGallery>
+
+## Default
+
+<Canvas of={PlusStories.ForCanvas} />
+
+<Controls of={PlusStories.ForCanvas} />
+
+## With color change
+
+<Canvas of={PlusStories.WithColor} />
+
+## With size change
+
+<Canvas of={PlusStories.ChangingSize} />
