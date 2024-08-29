@@ -14,11 +14,9 @@
 </script>
 
 <script>
-  import { Story, Template } from "@storybook/addon-svelte-csf";
+  import { Story } from "@storybook/addon-svelte-csf";
 </script>
 
-<Template let:args>
+<Story name="Default" let:args>
   <IconMinus {...args} />
-</Template>
-
-<Story name="Default" />
+</Story>
