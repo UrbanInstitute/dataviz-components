@@ -9,6 +9,7 @@
 - Feature: CLI command to generate new component boilerplate (`npm run create-component`)
 - Feature: Add Layercake AxisX and AxisY components and docs
 - Feature: Add Icon components [close, plus, minus, search]
+- Fix: ColorLegend compontent displays threshold scale ticks correctly
 
 ## v0.10.2
 
