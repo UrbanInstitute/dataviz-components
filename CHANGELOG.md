@@ -10,6 +10,7 @@
 - Feature: Add Layercake AxisX and AxisY components and docs
 - Feature: Add Icon components [close, plus, minus, search]
 - Fix: ColorLegend compontent displays threshold scale ticks correctly
+- Feature: ColorLegend supports an N/A item
 
 ## v0.10.2
 
