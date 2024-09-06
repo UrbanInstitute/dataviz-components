@@ -67,7 +67,7 @@
 
   /**
    * Optional tick formatting string or function
-   * @type { string | (Object) => string } [tickFormat = undefined]
+   * @type { string | (a: Object) => string } [tickFormat = undefined]
    */
   export let tickFormat = undefined;
 
@@ -148,8 +148,16 @@
    */
   export let naLabel = "NA";
 
+  /**
+   * Optional size in pixels for naLabel
+   * @type { string } [naLabel = "NA"]
+   */
   export let naSize = 16;
 
+  /**
+   * Optional amount of spacing in pixels for NA swatch and label
+   * @type { string } [naLabel = "NA"]
+   */
   export let naSpacing = 16;
 
   // will hold width of DOM element
@@ -186,6 +194,7 @@
 
   $: tickFormatFn = getTickFormatFn(tickFormat, thresholds);
   $: legendTicks = getTicks(scaleType, xScale, thresholds);
+  $: console.log(legendTicks);
 
   function getTickFormatFn(tickFormat, thresholds) {
     // respect any user provided options first
