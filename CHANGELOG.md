@@ -2,6 +2,10 @@
 
 ## Next
 
+## v0.11.1
+
+- Fix: Correct path for icon exports
+
 ## v0.11.0
 
 - Patch: Update BasicDropdown with better accessibility (icon hidden from screen readers)
