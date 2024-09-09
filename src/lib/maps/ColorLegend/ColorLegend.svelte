@@ -67,7 +67,7 @@
 
   /**
    * Optional tick formatting string or function
-   * @type { string | (Object) => string } [tickFormat = undefined]
+   * @type { string | (a: Object) => string } [tickFormat = undefined]
    */
   export let tickFormat = undefined;
 
@@ -136,13 +136,39 @@
    */
   export let swatchSpacing = undefined;
 
+  /**
+   * Optional color to indicate for NA values
+   * @type { string } [naFill = undefined]
+   */
+  export let naFill = undefined;
+
+  /**
+   * Optional string label for NA values
+   * @type { string } [naLabel = "NA"]
+   */
+  export let naLabel = "NA";
+
+  /**
+   * Optional size in pixels for naLabel
+   * @type { string } [naLabel = "NA"]
+   */
+  export let naSize = 16;
+
+  /**
+   * Optional amount of spacing in pixels for NA swatch and label
+   * @type { string } [naLabel = "NA"]
+   */
+  export let naSpacing = 16;
+
   // will hold width of DOM element
   let width;
 
   $: domain = scale.domain();
   $: range = scale.range();
 
-  $: legendWidth = width - margin.left - margin.right;
+  $: legendWidth = naFill
+    ? width - margin.left - margin.right - naSize - naSpacing
+    : width - margin.left - margin.right;
 
   /**
    * @type { scaleType }
@@ -171,11 +197,7 @@
 
   function getTickFormatFn(tickFormat, thresholds) {
     // respect any user provided options first
-    if (typeof tickFormat === "string") {
-      return format(tickFormat);
-    } else if (tickFormat) {
-      return tickFormat;
-    } else if (thresholds) {
+    if (thresholds) {
       // if we have a threshold scale without any use-provided formatting, generate threshold ticks
       const thresholdFormat =
         tickFormat === undefined
@@ -185,6 +207,12 @@
             : tickFormat;
 
       return (i) => thresholdFormat(thresholds[i], i);
+    }
+    if (typeof tickFormat === "string") {
+      return format(tickFormat);
+    }
+    if (tickFormat && !thresholds) {
+      return tickFormat;
     }
     return (d) => d;
   }
@@ -251,7 +279,7 @@
     if (tickTextAnchor !== "auto") {
       return tickTextAnchor;
     }
-    if (scaleType === "ordinal") {
+    if (scaleType === "ordinal" || thresholds) {
       return "middle";
     }
     if (val === domain[0]) {
@@ -264,7 +292,12 @@
   }
 </script>
 
-<div class="legend-wrapper" bind:clientWidth={width} style:max-width="{maxWidth}px" style:padding-bottom="10px">
+<div
+  class="legend-wrapper"
+  bind:clientWidth={width}
+  style:max-width="{maxWidth}px"
+  style:padding-bottom="10px"
+>
   {#if title}
     <p class="legend-title">{title}</p>
   {/if}
@@ -316,6 +349,15 @@
               ></rect>
             {/each}
           {/if}
+          {#if naFill}
+            <rect
+              x={legendWidth + margin.left + naSpacing}
+              y="0"
+              width={naSize}
+              {height}
+              fill={naFill}
+            />
+          {/if}
           {#if scaleType && width && xScale}
             <g class="legend-ticks">
               {#each legendTicks as tick}
@@ -341,6 +383,16 @@
                   text-anchor={getTextAnchor(tick, domain)}>{tickFormatFn(tick)}</text
                 >
               {/each}
+              {#if naFill}
+                <text
+                  fill="black"
+                  alignment-baseline={tickPosition === "top" ? "hanging" : "baseline"}
+                  y={tickPosition === "top" ? 0 : height + tickMargin + tickSize}
+                  x={legendWidth + margin.left + naSpacing + naSize / 2}
+                  font-size="{tickSize}px"
+                  text-anchor={"middle"}>{naLabel}</text
+                >
+              {/if}
             </g>
           {/if}
         </g>
