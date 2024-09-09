@@ -194,7 +194,6 @@
 
   $: tickFormatFn = getTickFormatFn(tickFormat, thresholds);
   $: legendTicks = getTicks(scaleType, xScale, thresholds);
-  $: console.log(legendTicks);
 
   function getTickFormatFn(tickFormat, thresholds) {
     // respect any user provided options first
