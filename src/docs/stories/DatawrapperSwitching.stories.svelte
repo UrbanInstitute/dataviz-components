@@ -14,10 +14,24 @@
 
   let selectedChart = "AHpJL";
 
+  $: selectedChartMetadata = dropdownData.find((d) => d.value === selectedChart);
+
   const dropdownData = [
-    { value: "AHpJL", label: "Chart #1" },
-    { value: "91Q0t", label: "Chart #2" },
-    { value: "eaD2D", label: "Chart #3" }
+    {
+      value: "AHpJL",
+      label: "Chart #1",
+      ariaLabel: "Quis id magna ut esse qui nostrud magna."
+    },
+    {
+      value: "91Q0t",
+      label: "Chart #2",
+      ariaLabel: "Quis id magna ut esse qui nostrud magna."
+    },
+    {
+      value: "eaD2D",
+      label: "Chart #3",
+      ariaLabel: "Quis id magna ut esse qui nostrud magna."
+    }
   ];
 
   let selectedChartLoading = "WsGs1";
@@ -30,10 +44,25 @@
   import { BasicDropdown, DatawrapperIframe } from "@urbaninstitute/dataviz-components";
   let selectedChart;
 
+  // look up metadata based on selected chart
+  $: selectedChartMetadata = dropdownData.find((d) => d.value === selectedChart);
+
   const dropdownData = [
-    { value: "AHpJL", label: "Chart #1" },
-    { value: "91Q0t", label: "Chart #2" },
-    { value: "eaD2D", label: "Chart #3" }
+    {
+      value: "AHpJL",
+      label: "Chart #1",
+      ariaLabel: "Quis id magna ut esse qui nostrud magna."
+    },
+    {
+      value: "91Q0t",
+      label: "Chart #2",
+      ariaLabel: "Quis id magna ut esse qui nostrud magna."
+    },
+    {
+      value: "eaD2D",
+      label: "Chart #3",
+      ariaLabel: "Quis id magna ut esse qui nostrud magna."
+    }
   ];
 </script>
 
@@ -46,7 +75,11 @@
 />
 
 {#key selectedChart}
-  <DatawrapperIframe datawrapperId={selectedChart} />
+  <DatawrapperIframe
+    datawrapperId={selectedChartMetadata.value}
+    title={selectedChartMetadata.label}
+    ariaLabel={selectedChartMetadata.ariaLabel}
+  />
 {/key}
 `}
 >
@@ -58,7 +91,11 @@
     placeholder={null}
   />
   {#key selectedChart}
-    <DatawrapperIframe datawrapperId={selectedChart} />
+    <DatawrapperIframe
+      datawrapperId={selectedChartMetadata.value}
+      title={selectedChartMetadata.label}
+      ariaLabel={selectedChartMetadata.ariaLabel}
+    />
   {/key}
 </Story>
 
@@ -67,7 +104,7 @@
   source={`
 <script>
   import { Button, DatawrapperIframe } from "@urbaninstitute/dataviz-components";
-  let selectedChart;
+  // see first code chunk for setup
 </script>
 
 <Button on:click={() => (selectedChart = "AHpJL")}>Chart #1</Button>
@@ -75,7 +112,11 @@
 <Button on:click={() => (selectedChart = "eaD2D")}>Chart #3</Button>
 
 {#key selectedChart}
-  <DatawrapperIframe datawrapperId={selectedChart} />
+  <DatawrapperIframe
+    datawrapperId={selectedChartMetadata.value}
+    title={selectedChartMetadata.label}
+    ariaLabel={selectedChartMetadata.ariaLabel}
+  />
 {/key}
   `}
 >
@@ -90,15 +131,25 @@
 <Story
   name="Loading"
   source={`
-  {#key selectedChart}
-    <LoadingWrapper let:setChildLoaded let:setChildLoading>
-      <DatawrapperIframe
-        datawrapperId={selectedChart}
-        on:startrender={setChildLoading}
-        on:visrendered={setChildLoaded}
-      />
-    </LoadingWrapper>
-  {/key}
+<script>
+  import { Button, DatawrapperIframe, LoadingWrapper } from "@urbaninstitute/dataviz-components";
+  // see first code chunk for setup
+</script>
+
+<Button on:click={() => (selectedChart = "Toh1S")}>Chart #1</Button>
+<Button on:click={() => (selectedChart = "rgLU1")}>Chart #2</Button>
+
+{#key selectedChart}
+  <LoadingWrapper let:setChildLoaded let:setChildLoading>
+    <DatawrapperIframe
+      datawrapperId={selectedChartMetadata.value}
+      title={selectedChartMetadata.label}
+      ariaLabel={selectedChartMetadata.ariaLabel}
+      on:startrender={setChildLoading}
+      on:visrendered={setChildLoaded}
+    />
+  </LoadingWrapper>
+{/key}
 `}
 >
   <Button on:click={() => (selectedChart = "Toh1S")}>Chart #1</Button>
