@@ -56,7 +56,7 @@
     "!dist/**/*.md*"
   ],
   "peerDependencies": {
-    "svelte": "^4.0.0"
+    "svelte": "4 - 5"
   },
   "devDependencies": {
     "@etchteam/storybook-addon-github-link": "^1.0.1",
@@ -107,7 +107,7 @@
     "d3-interpolate": "^3.0.1",
     "d3-selection": "^3.0.0",
     "d3-zoom": "^3.0.0",
-    "layercake": "^8.0.0",
+    "layercake": "^8.4.2",
     "pym.js": "^1.3.2"
   }
 }
