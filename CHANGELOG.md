@@ -2,6 +2,8 @@
 
 ## Next
 
+## v0.12.0
+
 - Patch: Support Svelte 5 in projects that use this library
 - Patch: Update Datawrapper Switching example with `title` and `ariaLabel` props
 
