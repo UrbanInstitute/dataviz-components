@@ -89,7 +89,7 @@
     margin-top: var(--spacing-2);
   }
 
-  .chart-footer p {
+  .chart-wrapper .chart-footer p {
     font-size: 12px;
     margin: 0;
   }
