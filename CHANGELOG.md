@@ -1,6 +1,8 @@
 # @UrbanInstitute/dataviz-components Changelog
 
 ## Next
+
+## v0.12.1
 - Fix: Add more specificity to several <p> tags to avoid CSS conflicts between <Theme /> and component styles
 
 ## v0.12.0
