@@ -54,7 +54,7 @@
 <Block {width}>
   <div class="headline-wrap {variant}">
     {#if $$slots.eyebrow}
-      <!-- 
+      <!--
         Optional slot for custom content in the eyebrow slot.
          -->
       <slot name="eyebrow" />
@@ -62,7 +62,7 @@
       <p class="headline-eyebrow">{eyebrow}</p>
     {/if}
     {#if $$slots.headline}
-      <!-- 
+      <!--
         Optional slot for custom content in the headline slot.
          -->
       <slot name="headline" />
@@ -70,7 +70,7 @@
       <h1 class="headline-page-headline">{headline}</h1>
     {/if}
     {#if $$slots.description}
-      <!-- 
+      <!--
         Optional slot for custom content in the description slot.
          -->
       <slot name="description" />
@@ -78,7 +78,7 @@
       <p class="headline-description">{description}</p>
     {/if}
     {#if $$slots.date}
-      <!-- 
+      <!--
         Optional slot for custom content in the date slot.
          -->
       <slot name="date" />
@@ -90,7 +90,7 @@
         <time>{date}</time>
       </p>
     {/if}
-    <!-- 
+    <!--
       Optional slot for extra content to include below the date and above the share buttons.
        -->
     <slot name="extra" />
@@ -125,7 +125,7 @@
     color: var(--color-gray-shade-darkest);
     font-style: italic;
   }
-  .headline-date {
+  .headline-wrap p.headline-date {
     color: var(--color-gray-shade-darker);
     font-size: var(--font-size-small);
   }
@@ -144,7 +144,7 @@
   .headline-wrap.light .headline-eyebrow {
     color: var(--color-white);
   }
-  .headline-eyebrow {
+  .headline-wrap p.headline-eyebrow {
     font-size: var(--font-size-small);
     text-transform: uppercase;
   }
