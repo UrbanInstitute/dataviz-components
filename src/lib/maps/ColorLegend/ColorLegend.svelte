@@ -190,6 +190,8 @@
       : scale.quantiles
         ? scale.quantiles() // scaleQuantile
         : scale.domain(); // scaleThreshold
+  } else {
+    thresholds = undefined;
   }
 
   $: tickFormatFn = getTickFormatFn(tickFormat, thresholds);

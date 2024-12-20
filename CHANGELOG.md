@@ -1,6 +1,8 @@
 # @UrbanInstitute/dataviz-components Changelog
 
 ## Next
+- Fix: Color scale resets ticks when switching from threshold scale to continuous scale
+- Patch: SVGPolygonLayer uses mousedown instead of click event
 
 ## v0.12.1
 - Fix: Add more specificity to several <p> tags to avoid CSS conflicts between <Theme /> and component styles
