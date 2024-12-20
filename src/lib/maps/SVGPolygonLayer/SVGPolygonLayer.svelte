@@ -163,7 +163,7 @@
       stroke-width={strokeWidth / $transform.k}
       d={geoPathFn(feature)}
       on:mousemove={(e) => handleMousemove(e, feature)}
-      on:click={(e) => handleClick(e, feature)}
+      on:mousedown={(e) => handleClick(e, feature)}
     ></path>
   {/each}
 </g>
