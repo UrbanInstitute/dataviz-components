@@ -1,6 +1,8 @@
 # @UrbanInstitute/dataviz-components Changelog
 
 ## Next
+
+## v0.12.2
 - Fix: Color scale resets ticks when switching from threshold scale to continuous scale
 - Patch: SVGPolygonLayer uses mousedown instead of click event
 
