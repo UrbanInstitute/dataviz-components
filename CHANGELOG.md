@@ -1,6 +1,8 @@
 # @UrbanInstitute/dataviz-components Changelog
 
 ## Next
+
+## v0.12.3
 - Fix: Tooltip checks if ancestor is an instance of Element before calling getComputedStyle
 
 ## v0.12.2
