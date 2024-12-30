@@ -1,6 +1,7 @@
 # @UrbanInstitute/dataviz-components Changelog
 
 ## Next
+- Fix: Tooltip checks if ancestor is an instance of Element before calling getComputedStyle
 
 ## v0.12.2
 - Fix: Color scale resets ticks when switching from threshold scale to continuous scale
