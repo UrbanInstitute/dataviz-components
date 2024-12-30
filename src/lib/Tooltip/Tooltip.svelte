@@ -155,7 +155,7 @@
     if (!el) return;
     // traverse the tree upwards to see if there are any absolutely, fixed or relatively positioned ancestors
     let ancestor = el.parentNode;
-    while (ancestor && ancestor !== document.documentElement) {
+    while (ancestor && ancestor !== document.documentElement && ancestor instanceof Element) {
       const position = window.getComputedStyle(ancestor).position;
       if (position === "relative" || position === "absolute" || position === "fixed") {
         return ancestor;
