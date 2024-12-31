@@ -1,6 +1,8 @@
 # @UrbanInstitute/dataviz-components Changelog
 
 ## Next
+
+## v0.12.4
 - Fix: Tooltip positioning works as expected when inside a ShadowRoot of a custom element
 
 ## v0.12.3
