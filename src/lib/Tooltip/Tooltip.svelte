@@ -155,12 +155,27 @@
     if (!el) return;
     // traverse the tree upwards to see if there are any absolutely, fixed or relatively positioned ancestors
     let ancestor = el.parentNode;
-    while (ancestor && ancestor !== document.documentElement && ancestor instanceof Element) {
-      const position = window.getComputedStyle(ancestor).position;
-      if (position === "relative" || position === "absolute" || position === "fixed") {
-        return ancestor;
+    // loop through all ancestors until we reach the document element
+    while (ancestor && ancestor !== document.documentElement) {
+      // check if ancestor is a shadow root with a host element
+      if (ancestor instanceof ShadowRoot) {
+        // if it is, set ancestor to the host element instead
+        ancestor = ancestor.host;
       }
-      ancestor = ancestor.parentNode;
+      // make sure ancestor is instance of element
+      if (ancestor instanceof Element) {
+        // if it is, check if it is relative, absolute or fixed position
+        const position = window.getComputedStyle(ancestor).position;
+        // return it if so
+        if (position === "relative" || position === "absolute" || position === "fixed") {
+          return ancestor;
+        }
+        // check next ancestor
+        ancestor = ancestor.parentNode;
+      } else {
+        // if ancestor is not an element, break the loop
+        break;
+      }
     }
     return null;
   }

@@ -1,6 +1,7 @@
 # @UrbanInstitute/dataviz-components Changelog
 
 ## Next
+- Fix: Tooltip positioning works as expected when inside a ShadowRoot of a custom element
 
 ## v0.12.3
 - Fix: Tooltip checks if ancestor is an instance of Element before calling getComputedStyle
