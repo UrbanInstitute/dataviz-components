@@ -70,7 +70,7 @@
     --color-green-shade-darkest: #1a2e19;
     --color-green-shade-darker: #2c5c2d;
     --color-green-shade-dark: #408941;
-    --color-green: #ffb748;
+    --color-green: #55b748;
     --color-green-shade-medium: #78c26d;
     --color-green-shade-light: #98cf90;
     --color-green-shade-lighter: #bcdeb4;

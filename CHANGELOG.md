@@ -1,6 +1,7 @@
 # @UrbanInstitute/dataviz-components Changelog
 
 ## Next
+- Fix: CSS Theme variable --color-green was #ffb748, which is a kind of yellow. Changed to match style guide.
 
 ## v0.12.4
 - Fix: Tooltip positioning works as expected when inside a ShadowRoot of a custom element
