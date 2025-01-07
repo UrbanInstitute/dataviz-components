@@ -55,6 +55,8 @@
   <div class="headline-wrap {variant}">
     {#if $$slots.eyebrow}
       <!--
+      Optional slot for custom content in the eyebrow slot.
+       -->
       <slot name="eyebrow" />
     {:else if eyebrow}
       {#if eyebrow.toLowerCase() == "data tool"}
@@ -71,18 +73,24 @@
     {/if}
     {#if $$slots.headline}
       <!--
+      Optional slot for custom content in the headline slot.
+       -->
       <slot name="headline" />
     {:else}
       <h1 class="headline-page-headline">{headline}</h1>
     {/if}
     {#if $$slots.description}
       <!--
+      Optional slot for custom content in the description slot.
+       -->
       <slot name="description" />
     {:else if description}
       <p class="headline-description">{description}</p>
     {/if}
     {#if $$slots.date}
       <!--
+      Optional slot for custom content in the date slot.
+       -->
       <slot name="date" />
     {:else if date}
       <p class="headline-date">
@@ -93,6 +101,8 @@
       </p>
     {/if}
     <!--
+    Optional slot for extra content to include below the date and above the share buttons.
+     -->
     <slot name="extra" />
     <hr class="headline-rule" />
   </div>
