@@ -15,7 +15,7 @@
   export let description = null;
 
   /**
-   * Optional eyebrow to be displayed above the headline.
+   * Optional eyebrow to be displayed above the headline. Determines eyebrow link.
    * @type {string | null}
    */
   export let eyebrow = null;
@@ -55,32 +55,42 @@
   <div class="headline-wrap {variant}">
     {#if $$slots.eyebrow}
       <!--
-        Optional slot for custom content in the eyebrow slot.
-         -->
+      Optional slot for custom content in the eyebrow slot.
+       -->
       <slot name="eyebrow" />
     {:else if eyebrow}
-      <p class="headline-eyebrow">{eyebrow}</p>
+      {#if eyebrow.toLowerCase() == "data tool"}
+        <a href="https://www.urban.org/data-tools" target="_blank"
+          ><p class="headline-eyebrow">{eyebrow}</p></a
+        >
+      {:else if eyebrow.toLowerCase() == "story"}
+        <a href="https://www.urban.org/stories" target="_blank"
+          ><p class="headline-eyebrow">{eyebrow}</p></a
+        >
+      {:else}
+        <p class="headline-eyebrow">{eyebrow}</p>
+      {/if}
     {/if}
     {#if $$slots.headline}
       <!--
-        Optional slot for custom content in the headline slot.
-         -->
+      Optional slot for custom content in the headline slot.
+       -->
       <slot name="headline" />
     {:else}
       <h1 class="headline-page-headline">{headline}</h1>
     {/if}
     {#if $$slots.description}
       <!--
-        Optional slot for custom content in the description slot.
-         -->
+      Optional slot for custom content in the description slot.
+       -->
       <slot name="description" />
     {:else if description}
       <p class="headline-description">{description}</p>
     {/if}
     {#if $$slots.date}
       <!--
-        Optional slot for custom content in the date slot.
-         -->
+      Optional slot for custom content in the date slot.
+       -->
       <slot name="date" />
     {:else if date}
       <p class="headline-date">
@@ -91,8 +101,8 @@
       </p>
     {/if}
     <!--
-      Optional slot for extra content to include below the date and above the share buttons.
-       -->
+    Optional slot for extra content to include below the date and above the share buttons.
+     -->
     <slot name="extra" />
     <hr class="headline-rule" />
   </div>
@@ -147,5 +157,9 @@
   .headline-wrap p.headline-eyebrow {
     font-size: var(--font-size-small);
     text-transform: uppercase;
+  }
+  .headline-wrap p.headline-eyebrow:hover {
+    text-decoration: underline;
+    cursor: pointer;
   }
 </style>
