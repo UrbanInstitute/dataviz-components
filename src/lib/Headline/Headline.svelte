@@ -15,7 +15,7 @@
   export let description = null;
 
   /**
-   * Optional eyebrow to be displayed above the headline; determines eyebrow link.
+   * Optional eyebrow to be displayed above the headline. Determines eyebrow link.
    * @type {string | null}
    */
   export let eyebrow = null;
