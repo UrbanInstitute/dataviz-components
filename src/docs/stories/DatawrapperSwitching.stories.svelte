@@ -90,13 +90,13 @@
     bind:value={selectedChart}
     placeholder={null}
   />
-  {#key selectedChart}
+  {#if selectedChart}
     <DatawrapperIframe
       datawrapperId={selectedChartMetadata.value}
       title={selectedChartMetadata.label}
       ariaLabel={selectedChartMetadata.ariaLabel}
     />
-  {/key}
+  {/if}
 </Story>
 
 <Story
@@ -155,7 +155,7 @@
   <Button on:click={() => (selectedChart = "Toh1S")}>Chart #1</Button>
   <Button on:click={() => (selectedChart = "rgLU1")}>Chart #2</Button>
 
-  {#key selectedChart}
+  {#if selectedChart}
     <LoadingWrapper let:setChildLoaded let:setChildLoading>
       <DatawrapperIframe
         datawrapperId={selectedChartLoading}
@@ -163,5 +163,5 @@
         on:visrendered={setChildLoaded}
       />
     </LoadingWrapper>
-  {/key}
+  {/if}
 </Story>
