@@ -34,8 +34,6 @@
     }
   ];
 
-  // <Button on:click={() => (selectedChart = "toh1s")}>Chart #1</Button>
-  // <Button on:click={() => (selectedChart = "rgLU1")}>Chart #2</Button>
   const loadingChartData = [
     {
       value: "Toh1S",
@@ -46,7 +44,7 @@
       value: "rgLU1",
       label: "Chart #2",
       ariaLabel: "Quis id magna ut esse qui nostrud magna."
-    },
+    }
   ];
   let selectedChartLoading = "Toh1S";
   $: selectedChartLoadingMetadata = loadingChartData.find((d) => d.value === selectedChartLoading);
