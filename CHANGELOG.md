@@ -2,9 +2,6 @@
 
 ## Next
 
-## v0.12.6
-- Patch: DatawrapperSwitching story to wrap the bottom block in `if` instead of `key`. 
-
 ## v0.12.5
 - Patch: Headline eyebrows in Drupal include a link to the Story or Data tool homepage; tweaked Headline component to do the same.
 - Fix: CSS Theme variable --color-green was #ffb748, which is a kind of yellow. Changed to match style guide.
