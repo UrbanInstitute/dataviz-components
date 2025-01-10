@@ -34,7 +34,22 @@
     }
   ];
 
-  let selectedChartLoading = "WsGs1";
+  // <Button on:click={() => (selectedChart = "toh1s")}>Chart #1</Button>
+  // <Button on:click={() => (selectedChart = "rgLU1")}>Chart #2</Button>
+  const loadingChartData = [
+    {
+      value: "Toh1S",
+      label: "Chart #1",
+      ariaLabel: "Quis id magna ut esse qui nostrud magna."
+    },
+    {
+      value: "rgLU1",
+      label: "Chart #2",
+      ariaLabel: "Quis id magna ut esse qui nostrud magna."
+    },
+  ];
+  let selectedChartLoading = "Toh1S";
+  $: selectedChartLoadingMetadata = loadingChartData.find((d) => d.value === selectedChartLoading);
 </script>
 
 <Story
@@ -74,13 +89,13 @@
   placeholder={null}
 />
 
-{#key selectedChart}
+{#if selectedChartMetaData}
   <DatawrapperIframe
     datawrapperId={selectedChartMetadata.value}
     title={selectedChartMetadata.label}
     ariaLabel={selectedChartMetadata.ariaLabel}
   />
-{/key}
+{/if}
 `}
 >
   <BasicDropdown
@@ -90,7 +105,7 @@
     bind:value={selectedChart}
     placeholder={null}
   />
-  {#if selectedChart}
+  {#if selectedChartMetadata}
     <DatawrapperIframe
       datawrapperId={selectedChartMetadata.value}
       title={selectedChartMetadata.label}
@@ -111,21 +126,25 @@
 <Button on:click={() => (selectedChart = "91Q0t")}>Chart #2</Button>
 <Button on:click={() => (selectedChart = "eaD2D")}>Chart #3</Button>
 
-{#key selectedChart}
+{#if selectedChartMetadata}
   <DatawrapperIframe
     datawrapperId={selectedChartMetadata.value}
     title={selectedChartMetadata.label}
     ariaLabel={selectedChartMetadata.ariaLabel}
   />
-{/key}
+{/if}
   `}
 >
   <Button on:click={() => (selectedChart = "AHpJL")}>Chart #1</Button>
   <Button on:click={() => (selectedChart = "91Q0t")}>Chart #2</Button>
   <Button on:click={() => (selectedChart = "eaD2D")}>Chart #3</Button>
-  {#key selectedChart}
-    <DatawrapperIframe datawrapperId={selectedChart} />
-  {/key}
+  {#if selectedChart}
+    <DatawrapperIframe
+      datawrapperId={selectedChartMetadata.value}
+      title={selectedChartMetadata.label}
+      ariaLabel={selectedChartMetadata.ariaLabel}
+    />
+  {/if}
 </Story>
 
 <Story
@@ -139,29 +158,33 @@
 <Button on:click={() => (selectedChart = "Toh1S")}>Chart #1</Button>
 <Button on:click={() => (selectedChart = "rgLU1")}>Chart #2</Button>
 
-{#key selectedChart}
-  <LoadingWrapper let:setChildLoaded let:setChildLoading>
-    <DatawrapperIframe
-      datawrapperId={selectedChartMetadata.value}
-      title={selectedChartMetadata.label}
-      ariaLabel={selectedChartMetadata.ariaLabel}
-      on:startrender={setChildLoading}
-      on:visrendered={setChildLoaded}
-    />
-  </LoadingWrapper>
-{/key}
+  {#if selectedChartMetadata}
+    <LoadingWrapper let:setChildLoaded let:setChildLoading>
+      {#key selectedChart}
+        <DatawrapperIframe
+          datawrapperId={selectedChartMetadata.value}
+          title={selectedChartMetadata.label}
+          ariaLabel={selectedChartMetadata.ariaLabel}
+          on:startrender={setChildLoading}
+          on:visrendered={setChildLoaded}
+        />
+      {/key}
+    </LoadingWrapper>
+  {/if}
 `}
 >
-  <Button on:click={() => (selectedChart = "Toh1S")}>Chart #1</Button>
-  <Button on:click={() => (selectedChart = "rgLU1")}>Chart #2</Button>
+  <Button on:click={() => (selectedChartLoading = "Toh1S")}>Chart #1</Button>
+  <Button on:click={() => (selectedChartLoading = "rgLU1")}>Chart #2</Button>
 
-  {#if selectedChart}
+  {#if selectedChartLoadingMetadata}
     <LoadingWrapper let:setChildLoaded let:setChildLoading>
-      <DatawrapperIframe
-        datawrapperId={selectedChartLoading}
-        on:startrender={setChildLoading}
-        on:visrendered={setChildLoaded}
-      />
+      {#key selectedChartLoading}
+        <DatawrapperIframe
+          datawrapperId={selectedChartLoadingMetadata.value}
+          on:startrender={setChildLoading}
+          on:visrendered={setChildLoaded}
+        />
+      {/key}
     </LoadingWrapper>
   {/if}
 </Story>
