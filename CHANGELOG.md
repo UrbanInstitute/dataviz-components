@@ -1,6 +1,7 @@
 # @UrbanInstitute/dataviz-components Changelog
 
 ## Next
+- Patch: IconRefresh didn't have an export; added it.
 
 ## v0.12.6
 - Patch: DatawrapperSwitching story to wrap the bottom block in `if` instead of `key`. 
