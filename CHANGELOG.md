@@ -2,6 +2,7 @@
 
 ## Next
 - Patch: IconRefresh didn't have an export; added it.
+- Patch: Analytics component sends dev-only start-up console log about state of sendPageview.
 
 ## v0.12.6
 - Patch: DatawrapperSwitching story to wrap the bottom block in `if` instead of `key`. 
