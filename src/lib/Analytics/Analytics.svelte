@@ -46,6 +46,7 @@
     window.ui_dataviz_config = window.ui_dataviz_config || {};
     window.ui_dataviz_config.analytics_title = title;
     window.ui_dataviz_config.analytics_mode = mode;
+    $inspect(sendPageview ? "You are sending page views to GA, as for a full page app." : "You are not sending page views to GA, as for an iframe embed.");
   });
 </script>
 
