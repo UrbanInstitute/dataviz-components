@@ -1,6 +1,8 @@
 # @UrbanInstitute/dataviz-components Changelog
 
 ## Next
+
+## v0.13.0
 - Fix: Allow HTML content for title and description field in ChartBlock component
 - Patch: IconRefresh didn't have an export; added it.
 - Patch: Analytics component sends dev-only start-up console log about state of sendPageview.
