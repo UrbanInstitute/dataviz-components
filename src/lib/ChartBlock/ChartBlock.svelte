@@ -42,10 +42,10 @@
     {#if title || description}
       <div class="chart-header">
         {#if title}
-          <h4 class="chart-title">{title}</h4>
+          <h4 class="chart-title">{@html title}</h4>
         {/if}
         {#if description}
-          <p class="chart-description">{description}</p>
+          <p class="chart-description">{@html description}</p>
         {/if}
       </div>
     {/if}
