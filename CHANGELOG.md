@@ -2,6 +2,8 @@
 
 ## Next
 
+- Patch: Change naSpacing prop jsdoc to type number
+
 ## v0.13.0
 - Fix: Allow HTML content for title and description field in ChartBlock component
 - Patch: IconRefresh didn't have an export; added it.
