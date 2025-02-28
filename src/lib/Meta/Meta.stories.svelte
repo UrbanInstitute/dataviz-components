@@ -29,7 +29,7 @@
 </script>
 
 <Template let:args>
-  <Meta />
+  <Meta {...args} />
 </Template>
 
 <Story
@@ -42,5 +42,19 @@
     authors: ["Author Name", "Author Name"],
     keywords: ["keyword1", "keyword2"],
     socialImage: ""
+  }}>Nothing to see here</Story
+>
+
+<Story
+  name="No Index"
+  args={{
+    title: "",
+    description: "",
+    url: "",
+    siteName: "Urban Institute",
+    authors: ["Author Name", "Author Name"],
+    keywords: ["keyword1", "keyword2"],
+    socialImage: "",
+    robotsNoIndex: true
   }}>Nothing to see here</Story
 >
