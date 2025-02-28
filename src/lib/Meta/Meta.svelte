@@ -56,6 +56,12 @@
    */
   export let articleSection = "Data Tool";
 
+  /**
+   * Should the page be hidden from search engines?
+   * @type {boolean}
+   */
+  export let robotsNoIndex = false;
+
   $: schemaMeta = {
     "@context": "http://schema.org",
     "@type": "NewsArticle",
@@ -95,6 +101,9 @@
   <meta name="twitter:image" content={socialImage} />
 
   <meta name="robots" content="max-image-preview:large" />
+  {#if robotsNoIndex}
+    <meta name="robots" content="noindex" />
+  {/if}
 
   <link rel="canonical" href={url} />
 

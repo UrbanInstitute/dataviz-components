@@ -1,6 +1,7 @@
 # @UrbanInstitute/dataviz-components Changelog
 
 ## Next
+- Feature: add `robotsNoIndex` option to Meta component
 
 ## v0.13.0
 - Fix: Allow HTML content for title and description field in ChartBlock component
