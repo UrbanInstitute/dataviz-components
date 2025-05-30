@@ -16,18 +16,36 @@
       "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --font-family-serif: Georgia, Cambria, "Times New Roman", Times, serif;
     --font-family-mono: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    /* 16 px base size */
     --font-size-normal: 1rem;
+    /* 14px */
     --font-size-small: 0.875rem;
+    /* 18px */
     --font-size-large: 1.125rem;
+    /* 20px */
     --font-size-xl: 1.25rem;
+    /* 24px */
     --font-size-2xl: 1.5rem;
+    /* 28px */
+    --font-size-2-5xl: 1.75rem;
+    /* 30px */
     --font-size-3xl: 1.875rem;
+    /* 32px */
+    --font-size-3-5xl: 2rem;
+    /* 36px */
     --font-size-4xl: 2.25rem;
+    /* 44px */
+    --font-size-4-5xl: 3rem;
+    /* 48px */
     --font-size-5xl: 3rem;
+    /* 60px */
     --font-size-6xl: 3.75rem;
+    /* 64px */
+    --font-size-6-5xl: 4rem;
     --font-weight-light: 300;
     --font-weight-normal: 400;
     --font-weight-medium: 500;
+    --font-weight-demi: 600;
     --font-weight-bold: 700;
     --line-height-normal: 1.5;
     --line-height-relaxed: 1.625;
@@ -136,55 +154,61 @@
 
   .theme :global(h1) {
     color: var(--color-black);
-    font-family: var(--font-family-sans);
+    font-family: var(--font-family-sans-alt);
     font-size: var(--font-size-4xl);
+    font-variant-ligatures: none;
     font-weight: var(--font-weight-bold);
-    line-height: var(--line-height-tight);
+    line-height: 44px;
     text-transform: none;
   }
 
   .theme :global(h2) {
     color: var(--color-black);
-    font-family: var(--font-family-sans);
-    font-size: var(--font-size-3xl);
+    font-family: var(--font-family-sans-alt);
+    font-size: var(--font-size-3_5xl);
+    font-variant-ligatures: none;
     font-weight: var(--font-weight-bold);
-    line-height: var(--line-height-snug);
+    line-height: 40px;
     text-transform: none;
   }
 
   .theme :global(h3) {
     color: var(--color-black);
-    font-family: var(--font-family-sans);
-    font-size: var(--font-size-2xl);
+    font-family: var(--font-family-sans-alt);
+    font-size: var(--font-size-2-5xl);
+    font-variant-ligatures: none;
     font-weight: var(--font-weight-light);
-    line-height: var(--line-height-normal);
+    line-height: 36px;
     text-transform: uppercase;
   }
 
   .theme :global(h4) {
     color: var(--color-black);
-    font-family: var(--font-family-sans);
-    font-size: var(--font-size-xl);
+    font-family: var(--font-family-sans-alt);
+    font-size: var(--font-size-2xl);
+    font-variant-ligatures: none;
     font-weight: var(--font-weight-bold);
-    line-height: var(--line-height-normal);
+    line-height: 32px;
     text-transform: none;
   }
 
   .theme :global(h5) {
     color: var(--color-black);
-    font-family: var(--font-family-sans);
-    font-size: var(--font-size-large);
+    font-family: var(--font-family-sans-alt);
+    font-size: var(--font-size-xl);
+    font-variant-ligatures: none;
     font-weight: var(--font-weight-bold);
-    line-height: var(--line-height-normal);
+    line-height: 28px;
     text-transform: none;
   }
 
   .theme :global(h6) {
     color: var(--color-black);
-    font-family: var(--font-family-sans);
-    font-size: var(--font-size-base);
+    font-family: var(--font-family-sans-alt);
+    font-size: var(--font-size-large);
+    font-variant-ligatures: none;
     font-weight: var(--font-weight-bold);
-    line-height: var(--line-height-normal);
+    line-height: 24px;
     text-transform: none;
   }
 
@@ -196,7 +220,7 @@
     font-family: var(--font-family-sans);
     font-size: var(--font-size-large);
     font-weight: var(--font-weight-normal);
-    line-height: var(--line-height-normal);
+    line-height: 32.5px;
     color: var(--color-gray-shade-darkest);
   }
   .theme :global(strong) {
@@ -240,32 +264,37 @@
      */
 
     .theme :global(h1) {
-      font-size: var(--font-size-5xl);
+      font-size: var(--font-size-6xl);
+      line-height: 68px;
     }
 
     .theme :global(h2) {
-      font-size: var(--font-size-4xl);
+      font-size: var(--font-size-4-5xl);
+      line-height: 56px;
     }
 
     .theme :global(h3) {
       font-size: var(--font-size-3xl);
-    }
+      line-height: 44px;    }
 
     .theme :global(h4) {
       font-size: var(--font-size-2xl);
+      line-height: 36px;
     }
 
     .theme :global(h5) {
       font-size: var(--font-size-xl);
+      line-height: 32px;
     }
 
     .theme :global(h6) {
       font-size: var(--font-size-large);
+      line-height: 24px;
     }
 
     .theme :global(p) {
       font-size: var(--font-size-xl);
-      line-height: var(--line-height-relaxed);
+      line-height: 32.5px;
     }
 
   }
