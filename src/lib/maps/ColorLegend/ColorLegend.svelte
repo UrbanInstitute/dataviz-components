@@ -156,7 +156,7 @@
 
   /**
    * Optional amount of spacing in pixels for NA swatch and label
-   * @type { string } [naLabel = "NA"]
+   * @type { number}  [naSpacing = 16]
    */
   export let naSpacing = 16;
 
