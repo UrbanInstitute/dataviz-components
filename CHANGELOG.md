@@ -2,6 +2,7 @@
 
 ## Next
 - Feature: add `robotsNoIndex` option to Meta component
+- Patch: Add new Urban type styles and update Futura font loading
 
 ## v0.13.0
 - Fix: Allow HTML content for title and description field in ChartBlock component
