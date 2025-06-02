@@ -2,6 +2,7 @@
 
 ## Next
 - Feature: add `robotsNoIndex` option to Meta component
+- Patch: Add new Urban type styles and update Futura font loading
 
 - Patch: Change naSpacing prop jsdoc to type number
 

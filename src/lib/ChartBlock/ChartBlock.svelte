@@ -91,6 +91,7 @@
 
   .chart-wrapper .chart-footer p {
     font-size: 12px;
+    line-height: 21px;
     margin: 0;
   }
   .chart-footer p:not(:last-child) {
