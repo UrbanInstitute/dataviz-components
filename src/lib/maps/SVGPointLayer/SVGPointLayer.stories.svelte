@@ -26,7 +26,7 @@
 </script>
 
 <script>
-  import { userEvent, expect, fn } from "@storybook/test";
+  import { userEvent, expect, fn } from "storybook/test";
   import { Story, Template } from "@storybook/addon-svelte-csf";
   import states from "../../../docs/sample-data/states_geo.json";
   import { urbanColors } from "$lib/utils";

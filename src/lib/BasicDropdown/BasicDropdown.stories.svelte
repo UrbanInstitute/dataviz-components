@@ -33,7 +33,7 @@
 
 <script>
   import { Story, Template } from "@storybook/addon-svelte-csf";
-  import { fireEvent, within, expect } from "@storybook/test";
+  import { fireEvent, within, expect } from "storybook/test";
 
   const sampleData = [
     { value: "ohio", label: "Ohio" },

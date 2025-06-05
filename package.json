@@ -59,7 +59,6 @@
     "svelte": "4 - 5"
   },
   "devDependencies": {
-    "@etchteam/storybook-addon-github-link": "^1.0.1",
     "@inquirer/prompts": "^5.3.2",
     "@storybook/addon-a11y": "^9.0.5",
     "@storybook/addon-docs": "^9.0.5",

@@ -1,7 +1,7 @@
 <script context="module">
   import SocialShare from "./SocialShare.svelte";
   import docs from "./SocialShare.docs.md?raw";
-  import { fn, userEvent, within, expect } from "@storybook/test";
+  import { fn, userEvent, within, expect } from "storybook/test";
 
   export const meta = {
     title: "Components/SocialShare",
