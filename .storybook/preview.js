@@ -1,11 +1,11 @@
 import Theme from "../src/lib/Theme/Theme.svelte";
 import "$lib/style/main.css";
-import { SyntaxHighlighter } from "@storybook/components";
+import { SyntaxHighlighter } from "storybook/internal/components";
 import svelte from "./svelte-highlighting";
 
 SyntaxHighlighter.registerLanguage("svelte", svelte);
 
-/** @type { import('@storybook/svelte').Preview } */
+/** @type { import('@storybook/sveltekit').Preview } */
 const preview = {
   parameters: {
     controls: {
