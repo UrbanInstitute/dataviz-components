@@ -2,8 +2,10 @@
   import SVGMap from "../SVGMap/SVGMap.svelte";
   import SVGLabelLayer from "./SVGLabelLayer.svelte";
   import docs from "./SVGLabelLayer.docs.md?raw";
+  import { defineMeta } from "@storybook/addon-svelte-csf";
+  import { expect, fn } from "storybook/test";
 
-  export const meta = {
+  const {Story} = defineMeta({
     title: "Maps/SVGLabelLayer",
     component: SVGLabelLayer,
     tags: ["autodocs"],
@@ -21,12 +23,10 @@
         url: "/maps/SVGLabelLayer/SVGLabelLayer.svelte"
       }
     }
-  };
+  });
 </script>
 
 <script>
-  import { userEvent, expect, fn } from "storybook/test";
-  import { Story, Template } from "@storybook/addon-svelte-csf";
   import states from "../../../docs/sample-data/states_geo.json";
 
   let mousemoveHandler = fn();
@@ -34,7 +34,7 @@
   let clickHandler = fn();
 </script>
 
-<Template let:args>
+{#snippet template(args)}
   <SVGMap features={states.features}>
     <SVGLabelLayer
       {...args}
@@ -48,14 +48,15 @@
       <svelte:fragment let:props>{props.STUSPS}</svelte:fragment>
     </SVGLabelLayer>
   </SVGMap>
-</Template>
+{/snippet}
 
 <Story
   name="Default"
   args={{
     getLabel: (feature) => feature.properties.STUSPS
   }}
-  play={async ({ canvasElement, args }) => {
+  {template}
+  play={async ({ canvasElement, userEvent }) => {
     const feature = canvasElement.querySelector(".label-feature text");
     await userEvent.hover(feature);
     await expect(mousemoveHandler).toHaveBeenCalled();
@@ -72,7 +73,9 @@
 />
 <Story
   name="Slot"
-  play={async ({ canvasElement, args }) => {
+  }}
+  asChild
+  play={async ({ canvasElement, userEvent }) => {
     const feature = canvasElement.querySelector(".label-feature text");
     await userEvent.hover(feature);
     await expect(mousemoveHandler).toHaveBeenCalled();

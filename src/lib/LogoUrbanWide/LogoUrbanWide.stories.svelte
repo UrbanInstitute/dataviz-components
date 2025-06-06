@@ -1,8 +1,9 @@
 <script context="module">
   import LogoUrbanWide from "./LogoUrbanWide.svelte";
   import docs from "./LogoUrbanWide.docs.md?raw";
+  import { defineMeta } from "@storybook/addon-svelte-csf";
 
-  export const meta = {
+  const { Story } = defineMeta({
     title: "Logos/LogoUrbanWide",
     component: LogoUrbanWide,
     tags: ["autodocs"],
@@ -29,16 +30,8 @@
         url: "/LogoUrbanWide/LogoUrbanWide.svelte"
       }
     }
-  };
+  });
 </script>
-
-<script>
-  import { Story, Template } from "@storybook/addon-svelte-csf";
-</script>
-
-<Template let:args>
-  <LogoUrbanWide {...args} />
-</Template>
 
 <Story name="Default" />
 <Story

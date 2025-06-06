@@ -1,8 +1,9 @@
 <script context="module">
   import LogoUrbanBadge from "./LogoUrbanBadge.svelte";
   import docs from "./LogoUrbanBadge.docs.md?raw";
+  import { defineMeta } from "@storybook/addon-svelte-csf";
 
-  export const meta = {
+  const { Story } = defineMeta({
     title: "Logos/LogoUrbanBadge",
     component: LogoUrbanBadge,
     tags: ["autodocs"],
@@ -16,15 +17,7 @@
         url: "/LogoUrbanBadge/LogoUrbanBadge.svelte"
       }
     }
-  };
+  });
 </script>
-
-<script>
-  import { Story, Template } from "@storybook/addon-svelte-csf";
-</script>
-
-<Template let:args>
-  <LogoUrbanBadge {...args} />
-</Template>
 
 <Story name="Default" />

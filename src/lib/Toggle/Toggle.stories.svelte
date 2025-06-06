@@ -1,8 +1,9 @@
 <script context="module">
   import Toggle from "./Toggle.svelte";
   import docs from "./Toggle.docs.md?raw";
+  import { defineMeta } from "@storybook/addon-svelte-csf";
 
-  export const meta = {
+  const { Story } = defineMeta({
     title: "Components/Toggle",
     component: Toggle,
     tags: ["autodocs"],
@@ -24,16 +25,8 @@
         url: "/Toggle/Toggle.svelte"
       }
     }
-  };
+  });
 </script>
-
-<script>
-  import { Story, Template } from "@storybook/addon-svelte-csf";
-</script>
-
-<Template let:args>
-  <Toggle {...args} on:click />
-</Template>
 
 <Story
   name="Default"

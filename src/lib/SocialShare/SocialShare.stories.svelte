@@ -2,8 +2,9 @@
   import SocialShare from "./SocialShare.svelte";
   import docs from "./SocialShare.docs.md?raw";
   import { fn, userEvent, within, expect } from "storybook/test";
+  import { defineMeta } from "@storybook/addon-svelte-csf";
 
-  export const meta = {
+  const {Story} = defineMeta({
     title: "Components/SocialShare",
     component: SocialShare,
     tags: ["autodocs"],
@@ -34,16 +35,10 @@
         url: "/SocialShare/SocialShare.svelte"
       }
     }
-  };
+  });
 </script>
 
-<script>
-  import { Story, Template } from "@storybook/addon-svelte-csf";
-</script>
 
-<Template let:args>
-  <SocialShare {...args} on:click />
-</Template>
 
 <Story name="Default" />
 <Story

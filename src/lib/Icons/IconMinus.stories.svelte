@@ -1,22 +1,18 @@
 <script context="module">
   import IconMinus from "./IconMinus.svelte";
+  import { defineMeta } from "@storybook/addon-svelte-csf";
 
-  export const meta = {
+  const { Story } = defineMeta({
     title: "Icons/Icons/IconMinus",
     component: IconMinus,
-    tags: ["!dev", "!autodocs"],
+    tags: ["!autodocs"],
     parameters: {
       githubLink: {
         url: "/Icons/IconMinus.svelte"
       }
     }
-  };
+  });
 </script>
 
-<script>
-  import { Story } from "@storybook/addon-svelte-csf";
-</script>
 
-<Story name="Default" let:args>
-  <IconMinus {...args} />
-</Story>
+<Story name="Primary" />

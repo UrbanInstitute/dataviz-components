@@ -1,8 +1,9 @@
 <script context="module">
   import SectionBreak from "./SectionBreak.svelte";
   import docs from "./SectionBreak.docs.md?raw";
+  import { defineMeta } from "@storybook/addon-svelte-csf";
 
-  export const meta = {
+  const { Story } = defineMeta({
     title: "Components/SectionBreak",
     component: SectionBreak,
     tags: ["autodocs"],
@@ -16,16 +17,8 @@
         url: "/SectionBreak/SectionBreak.svelte"
       }
     }
-  };
+  });
 </script>
-
-<script>
-  import { Story, Template } from "@storybook/addon-svelte-csf";
-</script>
-
-<Template let:args>
-  <SectionBreak {...args} />
-</Template>
 
 <Story
   name="Default"

@@ -3,8 +3,9 @@
   import SVGPolygonLayer from "../SVGPolygonLayer/SVGPolygonLayer.svelte";
   import SVGLabelLayer from "../SVGLabelLayer/SVGLabelLayer.svelte";
   import SVGPointLayer from "../SVGPointLayer/SVGPointLayer.svelte";
+  import {defineMeta} from "@storybook/addon-svelte-csf";
 
-  export const meta = {
+  const {Story} = defineMeta({
     title: "Maps/SVGMap",
     component: SVGMap,
     argTypes: {
@@ -23,11 +24,10 @@
         url: "/maps/SVGMap/SVGMap.svelte"
       }
     }
-  };
+  });
 </script>
 
 <script>
-  import { Story, Template } from "@storybook/addon-svelte-csf";
   import states from "../../../docs/sample-data/states_geo.json";
   import us_cities from "../../../docs/sample-data/us_cities.json";
   import nyc_income_topo from "../../../docs/sample-data/nyc_income_topo.json";
@@ -73,16 +73,9 @@
     .range([2, 50]);
 </script>
 
-<Template let:args>
-  <SVGMap {...args}>
-    <SVGPolygonLayer />
-    <SVGPointLayer />
-    <SVGLabelLayer getLabel={(d) => d.properties.STUSPS} />
-  </SVGMap>
-</Template>
-
 <Story
   name="Simple map"
+  asChild
   source={`<SVGMap features={states.features}>
   <SVGPolygonLayer />
   <SVGPointLayer />
@@ -96,7 +89,7 @@
   </SVGMap>
 </Story>
 
-<Story name="Colors layers and tooltips">
+<Story name="Colors layers and tooltips" asChild>
   <SVGMap features={county_air_quality.features} aspectRatio={4 / 2.3333}>
     <SVGPolygonLayer
       fill={(d) => airQualityScale(d.properties.index_air_quality)}
@@ -119,7 +112,7 @@
   </SVGMap>
 </Story>
 
-<Story name="Zoomable">
+<Story name="Zoomable" asChild>
   <SVGMap scrollWheel="ctrl" zoomable projection={geoMercator} features={nyc_income.features}>
     <SVGPolygonLayer
       fill={(d) => incomeScale(d.properties.estimate)}
@@ -135,7 +128,7 @@
   </SVGMap>
 </Story>
 
-<Story name="Feature highlight">
+<Story name="Feature highlight" asChild>
   <SVGMap features={cleveland_bike_data.features} projection={geoMercator}>
     <SVGPolygonLayer
       fill={(d) => clevelandBikeScale(d.properties.bike_to_work)}
@@ -154,7 +147,7 @@
   </SVGMap>
 </Story>
 
-<Story name="Bubble map">
+<Story name="Bubble map" asChild>
   <SVGMap features={pa_population_geo.features} projection={geoMercator}>
     <SVGPolygonLayer fill={urbanColors.gray_shade_lighter} stroke={urbanColors.gray_shade_dark} />
     <SVGPointLayer

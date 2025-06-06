@@ -1,22 +1,17 @@
 <script context="module">
   import IconSearch from "./IconSearch.svelte";
+  import { defineMeta } from "@storybook/addon-svelte-csf";
 
-  export const meta = {
+  const { Story } = defineMeta({
     title: "Icons/Icons/IconSearch",
     component: IconSearch,
-    tags: ["!dev", "!autodocs"],
+    tags: ["!autodocs"],
     parameters: {
       githubLink: {
         url: "/Icons/IconSearch.svelte"
       }
     }
-  };
+  });
 </script>
 
-<script>
-  import { Story } from "@storybook/addon-svelte-csf";
-</script>
-
-<Story name="Default" let:args>
-  <IconSearch {...args} />
-</Story>
+<Story name="Primary" />

@@ -2,8 +2,16 @@
   import ChartBlock from "./ChartBlock.svelte";
   import DatawrapperIframe from "../DatawrapperIframe/DatawrapperIframe.svelte";
   import docs from "./ChartBlock.docs.md?raw";
+  import { defineMeta } from "@storybook/addon-svelte-csf";
 
-  export const meta = {
+  const defaultArgs = {
+    title: "Chart title",
+    description: "Chart description",
+    source: "Chart source",
+    notes: "Chart notes"
+  };
+
+  const { Story } = defineMeta({
     title: "Components/ChartBlock",
     component: ChartBlock,
     tags: ["autodocs"],
@@ -14,14 +22,8 @@
         control: "select"
       }
     },
+    args: defaultArgs,
     parameters: {
-      backgrounds: {
-        default: "light",
-        values: [
-          { name: "light", value: "#ffffff" },
-          { name: "dark", value: "#0A4C6A" }
-        ]
-      },
       docs: {
         description: {
           component: docs
@@ -31,21 +33,10 @@
         url: "/ChartBlock/ChartBlock.svelte"
       }
     }
-  };
+  });
 </script>
 
-<script>
-  import { Story, Template } from "@storybook/addon-svelte-csf";
-
-  const chartArgs = {
-    title: "Chart title",
-    description: "Chart description",
-    source: "Chart source",
-    notes: "Chart notes"
-  };
-</script>
-
-<Template let:args>
+{#snippet template(args)}
   <ChartBlock {...args}>
     <div
       style="height: 350px; width: 100%; background: #dededd; color: #000000; display: flex; align-items: center; justify-content: center;"
@@ -53,16 +44,19 @@
       Chart area
     </div>
   </ChartBlock>
-</Template>
+{/snippet}
 
-<Story name="Default" args={chartArgs} />
+<Story name="Default" {template} />
 
 <Story
   name="Custom text color"
-  parameters={{ backgrounds: { default: "dark" } }}
-  args={{ ...chartArgs, color: "#FFFFFF" }}
+  globals={{
+    backgrounds: { value: "dark" },
+  }}
+  args={{ color: "#FFFFFF" }}
+  {template}
 />
-<Story name="With a Datawrapper chart" args={{ ...chartArgs, color: "#FFFFFF" }}>
+<Story name="With a Datawrapper chart" args={{  color: "#FFFFFF" }} asChild>
   <ChartBlock
     title="Datawrapper chart"
     description="This is what a Datawrapper looks like inside this component."

@@ -1,7 +1,8 @@
 <script context="module">
   import Meta from "./Meta.svelte";
+  import { defineMeta } from "@storybook/addon-svelte-csf";
 
-  export const meta = {
+  const { Story } = defineMeta({
     title: "Components/Meta",
     component: Meta,
     argTypes: {
@@ -21,16 +22,8 @@
         url: "/Meta/Meta.svelte"
       }
     }
-  };
+  });
 </script>
-
-<script>
-  import { Story, Template } from "@storybook/addon-svelte-csf";
-</script>
-
-<Template let:args>
-  <Meta {...args} />
-</Template>
 
 <Story
   name="Default"

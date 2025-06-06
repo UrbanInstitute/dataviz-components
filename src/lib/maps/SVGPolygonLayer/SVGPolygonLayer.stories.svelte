@@ -2,8 +2,9 @@
   import SVGMap from "../SVGMap/SVGMap.svelte";
   import SVGPolygonLayer from "./SVGPolygonLayer.svelte";
   import docs from "./SVGPolygonlayer.docs.md?raw";
+  import { defineMeta } from "@storybook/addon-svelte-csf";
 
-  export const meta = {
+  const { Story } = defineMeta({
     title: "Maps/SVGPolygonLayer",
     component: SVGPolygonLayer,
     tags: ["autodocs"],
@@ -22,12 +23,11 @@
         url: "/maps/SVGPolygonLayer/SVGPolygonLayer.svelte"
       }
     }
-  };
+  });
 </script>
 
 <script>
   import { userEvent, expect, fn } from "storybook/test";
-  import { Story, Template } from "@storybook/addon-svelte-csf";
   import states from "../../../docs/sample-data/states_geo.json";
   import { urbanColors } from "$lib/utils";
 
@@ -36,7 +36,7 @@
   let clickHandler = fn();
 </script>
 
-<Template let:args>
+{#snippet template(args)}
   <SVGMap features={args.features}>
     <SVGPolygonLayer
       {...args}
@@ -48,7 +48,7 @@
       on:mousemove={mousemoveHandler}
     />
   </SVGMap>
-</Template>
+{/snippet}
 
 <Story
   name="Simple"
@@ -56,6 +56,7 @@
     features: states.features,
     fill: urbanColors.blue
   }}
+  {template}
   play={async ({ canvasElement, args }) => {
     const feature = canvasElement.querySelector(".polygon-feature");
     await userEvent.hover(feature);
@@ -68,11 +69,12 @@
 />
 <Story
   name="With highlighted feature"
+  {template}
   args={{
     features: states.features,
     fill: urbanColors.blue,
     hoverStroke: urbanColors.yellow,
     hoverStrokeWidth: 3,
-    highlightFeature: (d) => d.properties.GEOID === "01"
+    highlightFeature: {GEOID: "06"}
   }}
 />

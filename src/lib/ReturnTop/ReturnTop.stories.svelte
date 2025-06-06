@@ -1,8 +1,9 @@
 <script context="module">
   import ReturnTop from "./ReturnTop.svelte";
   import docs from "./ReturnTop.docs.md?raw";
+  import { defineMeta } from "@storybook/addon-svelte-csf";
 
-  export const meta = {
+  const { Story } = defineMeta({
     title: "Components/ReturnTop",
     component: ReturnTop,
     tags: ["autodocs"],
@@ -16,16 +17,8 @@
         url: "/ReturnTop/ReturnTop.svelte"
       }
     }
-  };
+  });
 </script>
-
-<script>
-  import { Story, Template } from "@storybook/addon-svelte-csf";
-</script>
-
-<Template let:args>
-  <ReturnTop args on:click on:keypress />
-</Template>
 
 <Story
   name="Default"

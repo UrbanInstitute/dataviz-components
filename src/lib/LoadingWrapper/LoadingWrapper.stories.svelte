@@ -4,8 +4,9 @@
   import LogoUrbanWide from "../LogoUrbanWide/LogoUrbanWide.svelte";
   import DatawrapperIframe from "../DatawrapperIframe/DatawrapperIframe.svelte";
   import docs from "./LoadingWrapper.docs.md?raw";
+  import { defineMeta } from "@storybook/addon-svelte-csf";
 
-  export const meta = {
+  const { Story } = defineMeta({
     title: "Components/LoadingWrapper",
     component: LoadingWrapper,
     tags: ["autodocs"],
@@ -19,12 +20,10 @@
         url: "/LoadingWrapper/LoadingWrapper.svelte"
       }
     }
-  };
+  });
 </script>
 
 <script>
-  import { Story } from "@storybook/addon-svelte-csf";
-
   // function to create a fake await for 2sec
   function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
@@ -39,7 +38,7 @@
   });
 </script>
 
-<Story name="Default">
+<Story name="Default" asChild>
   <LoadingWrapper {isChildLoading}>
     <span
       >Amet est Lorem qui ullamco laboris velit. Incididunt est sunt exercitation qui ea. Officia
@@ -49,7 +48,7 @@
   </LoadingWrapper>
 </Story>
 
-<Story name="Custom graphic">
+<Story name="Custom graphic" asChild>
   <LoadingWrapper {isChildLoading}>
     <LogoUrbanWide slot="graphic" />
     <span
@@ -60,7 +59,7 @@
   </LoadingWrapper>
 </Story>
 
-<Story name="Datawrapper example">
+<Story name="Datawrapper example" asChild>
   <LoadingWrapper let:setChildLoading let:setChildLoaded>
     <DatawrapperIframe
       title="This is a title for the visualization"

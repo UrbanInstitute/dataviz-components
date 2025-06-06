@@ -1,22 +1,18 @@
 <script context="module">
   import IconClose from "./IconClose.svelte";
+  import { defineMeta } from "@storybook/addon-svelte-csf";
 
-  export const meta = {
+  const { Story } = defineMeta({
     title: "Icons/Icons/IconClose",
     component: IconClose,
-    tags: ["!dev", "!autodocs"],
+    tags: ["!autodocs"],
     parameters: {
       githubLink: {
         url: "/Icons/IconClose.svelte"
       }
     }
-  };
+  });
 </script>
 
-<script>
-  import { Story } from "@storybook/addon-svelte-csf";
-</script>
 
-<Story name="Default" let:args>
-  <IconClose {...args} />
-</Story>
+<Story name="Primary" />

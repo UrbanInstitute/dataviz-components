@@ -1,7 +1,9 @@
 <script context="module">
   import IconPlus from "./IconPlus.svelte";
+  import { defineMeta } from "@storybook/addon-svelte-csf";
+  import urbanColors from "$lib/utils/urbanColors.js";
 
-  export const meta = {
+  const { Story } = defineMeta({
     title: "Icons/Icons/IconPlus",
     component: IconPlus,
     //tags: ["autodocs"],
@@ -34,26 +36,13 @@
         url: "/Icons/IconPlus.svelte"
       }
     }
-  };
+  });
 </script>
 
-<script>
-  import { Story, Template } from "@storybook/addon-svelte-csf";
-  import urbanColors from "$lib/utils/urbanColors.js";
-</script>
-
-<Template let:args>
-  <IconPlus {...args} />
-</Template>
-
-<Story name="Default" />
+<Story name="Primary" />
 
 <Story name="ForCanvas" />
 
-<Story name="WithColor">
-  <IconPlus fill={urbanColors.blue} />
-</Story>
+<Story name="WithColor" args={{ fill: urbanColors.blue }}></Story>
 
-<Story name="ChangingSize">
-  <IconPlus size={65} />
-</Story>
+<Story name="ChangingSize" args={{ size: 65 }}></Story>

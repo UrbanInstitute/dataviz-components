@@ -1,7 +1,8 @@
 <script context="module">
   import PymChild from "./PymChild.svelte";
+  import { defineMeta } from "@storybook/addon-svelte-csf";
 
-  export const meta = {
+  const {Story} = defineMeta({
     title: "Components/PymChild",
     component: PymChild,
     parameters: {
@@ -9,15 +10,7 @@
         url: "/Pym/PymChild.svelte"
       }
     }
-  };
+  });
 </script>
-
-<script>
-  import { Story, Template } from "@storybook/addon-svelte-csf";
-</script>
-
-<Template let:args>
-  <PymChild {...args} />
-</Template>
 
 <Story name="Primary" />
