@@ -1,27 +1,25 @@
-<script context="module">
-  export const meta = {
-    title: "Examples/Stories/BasicPage"
-  };
-</script>
-
-<script>
-  import { Story, Template } from "@storybook/addon-svelte-csf";
+<script module>
+  import { defineMeta } from "@storybook/addon-svelte-csf";
   import {
     Navbar,
-    Block,
     ChartBlock,
     DatawrapperIframe,
     Headline,
     TextBlock,
-    SocialShare,
     ProjectCredits
   } from "$lib";
-</script>
 
-<Template></Template>
+  import BasicPage from "./BasicPage.svelte"
+
+  const { Story } = defineMeta({
+    title: "Examples/Stories/BasicPage",
+    component: BasicPage,
+  });
+</script>
 
 <Story
   name="BasicPage"
+  asChild
   source={`
 <script>
   import { Theme, Navbar, ChartBlock, DatawrapperIframe, Headline, TextBlock, SocialShare, ProjectCredits } from "@urbaninstitute/dataviz-components";
