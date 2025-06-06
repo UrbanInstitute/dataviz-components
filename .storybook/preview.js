@@ -8,6 +8,12 @@ SyntaxHighlighter.registerLanguage("svelte", svelte);
 /** @type { import('@storybook/sveltekit').Preview } */
 const preview = {
   parameters: {
+    backgrounds: {
+      options: {
+        light: { name: "light", value: "#ffffff" },
+        dark: { name: "dark", value: "#0A4C6A" }
+      },
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,
