@@ -1,8 +1,9 @@
-<script context="module">
+<script module>
   import Block from "./Block.svelte";
   import docs from "./Block.docs.md?raw";
+  import { defineMeta } from "@storybook/addon-svelte-csf";
 
-  export const meta = {
+  const { Story } = defineMeta({
     title: "Components/Block",
     component: Block,
     tags: ["autodocs"],
@@ -23,33 +24,30 @@
         url: "/Block/Block.svelte"
       }
     }
-  };
+  });
 </script>
 
-<script>
-  import { Story, Template } from "@storybook/addon-svelte-csf";
-</script>
+{#snippet template(args)}
+  <div
+    style="width: 100%; height: 200px; background: #d2d2d2; display: flex; align-items: center; justify-content: center;"
+  >
+    Block
+  </div>
+{/snippet}
 
-<Template let:args>
-  <Block {...args}>
-    <div
-      style="width: 100%; height: 200px; background: #d2d2d2; display: flex; align-items: center; justify-content: center;"
-    >
-      Block
-    </div>
-  </Block>
-</Template>
-
-<Story name="Default" args={{}} />
+<Story name="Default" {template} />
 <Story
   name="Full width"
   args={{
     width: "full"
   }}
+  {template}
 />
+
 <Story
   name="Wide"
   args={{
     width: "wide"
   }}
+  {template}
 />

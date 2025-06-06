@@ -1,10 +1,10 @@
 <script context="module">
   import Theme from "./Theme.svelte";
+  import { defineMeta } from "@storybook/addon-svelte-csf";
 
-  export const meta = {
+  const { Story } = defineMeta({
     title: "Theming/Theme",
     component: Theme,
-    // tags: ["autodocs"],
     argTypes: {
       theme: {
         default: "urban",
@@ -27,15 +27,7 @@
         url: "/Theme/Theme.svelte"
       }
     }
-  };
+  });
 </script>
-
-<script>
-  import { Story, Template } from "@storybook/addon-svelte-csf";
-</script>
-
-<Template let:args>
-  <Theme />
-</Template>
 
 <Story name="Default" />

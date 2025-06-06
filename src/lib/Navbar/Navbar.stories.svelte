@@ -1,8 +1,9 @@
 <script context="module">
   import Navbar from "./Navbar.svelte";
   import docs from "./Navbar.docs.md?raw";
+  import { defineMeta } from "@storybook/addon-svelte-csf";
 
-  export const meta = {
+  const { Story } = defineMeta({
     title: "Components/Navbar",
     component: Navbar,
     tags: ["autodocs"],
@@ -23,16 +24,8 @@
         url: "/Navbar/Navbar.svelte"
       }
     }
-  };
+  });
 </script>
-
-<script>
-  import { Story, Template } from "@storybook/addon-svelte-csf";
-</script>
-
-<Template let:args>
-  <Navbar {...args} />
-</Template>
 
 <Story name="Default" />
 

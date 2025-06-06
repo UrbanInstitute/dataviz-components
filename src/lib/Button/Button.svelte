@@ -2,28 +2,33 @@
 <script>
   import { createEventDispatcher } from "svelte";
   /**
-   * Which variant of button to use
-   * @type {"primary" | "primary-black" | "secondary" | "secondary-black" | "tertiary"}
-   */
-  export let variant = "primary";
+   * @typedef Props
+   * @type Object
+   * @property {"primary" | "primary-black" | "secondary" | "secondary-black" | "tertiary"} variant - Which variant of button to use
+   * @property {"standard" | "small" } size
+   * @property { boolean } disabled - Is the button disabled?
+   * @property {Function} onMouseEnter - Callback for mouse enter event
+   * @property {Function} onMouseLeave - Callback for mouse leave event
+   * @property {Function} onClick - Callback for click event
+  */
 
   /**
-   * Which size of button to use
-   * @type {"standard" | "small" }
+   * @type {Props}
    */
-  export let size = "standard";
-
-  /**
-   * Is the button disabled?
-   * @type { boolean }
-   */
-  export let disabled = false;
+  const {
+    variant = "primary",
+    size = "standard",
+    disabled = false,
+    onMouseenter = () => {},
+    onMouseleave = () => {},
+    onClick = () => {},
+    children = () => {},
+    icon = (iconColor) => {}
+  } = $props();
 
   let el;
 
   let hovered = false;
-
-  let dispatch = createEventDispatcher();
 
   function getIconColor(_variant, _hovered, el) {
     if (!el) return;
@@ -31,30 +36,36 @@
     return iconColor;
   }
 
-  function onMouseEnter(e) {
+  function _onMouseenter(e) {
     hovered = true;
-    dispatch("mouseenter", e);
+    onMouseenter(e);
   }
-  function onMouseLeave(e) {
+  function _onMouseleave(e) {
     hovered = false;
-    dispatch("mouseleave", e);
+    onMouseleave(e)
   }
 
-  $: iconColor = getIconColor(variant, hovered, el);
+  function _onClick(e) {
+    onClick(e)
+  }
+
+  let iconColor = $derived(getIconColor(variant, hovered, el));
 </script>
 
 <button
   class="variant-{variant} size-{size}"
   bind:this={el}
-  on:click
   {disabled}
   aria-disabled={disabled}
-  on:mouseenter={onMouseEnter}
-  on:mouseleave={onMouseLeave}
+  onmouseenter={_onMouseenter}
+  onmouseleave={_onMouseleave}
+  onclick={_onClick}
 >
-  <slot>Default button text</slot>
-  {#if $$slots.icon}
-    <span class="button-icon"><slot name="icon" {iconColor} /></span>
+  {@render children()}
+  {#if icon}
+    <span class="button-icon">
+      {@render icon(iconColor)}
+    </span>
   {/if}
 </button>
 

@@ -1,8 +1,9 @@
 <script context="module">
   import Scorecard from "./Scorecard.svelte";
   import docs from "./Scorecard.docs.md?raw";
+  import { defineMeta } from "@storybook/addon-svelte-csf";
 
-  export const meta = {
+  const { Story } = defineMeta({
     title: "Components/Scorecard",
     component: Scorecard,
     tags: ["autodocs"],
@@ -16,16 +17,8 @@
         url: "/Scorecard/Scorecard.svelte"
       }
     }
-  };
+  });
 </script>
-
-<script>
-  import { Story, Template } from "@storybook/addon-svelte-csf";
-</script>
-
-<Template let:args>
-  <Scorecard {...args} />
-</Template>
 
 <Story
   name="Default"

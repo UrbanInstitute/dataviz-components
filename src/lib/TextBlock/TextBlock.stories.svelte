@@ -1,8 +1,9 @@
 <script context="module">
   import TextBlock from "./TextBlock.svelte";
   import docs from "./TextBlock.docs.md?raw";
+  import { defineMeta } from "@storybook/addon-svelte-csf";
 
-  export const meta = {
+  const { Story } = defineMeta({
     title: "Components/TextBlock",
     component: TextBlock,
     tags: ["autodocs"],
@@ -35,14 +36,10 @@
         url: "/TextBlock/TextBlock.svelte"
       }
     }
-  };
+  });
 </script>
 
-<script>
-  import { Story, Template } from "@storybook/addon-svelte-csf";
-</script>
-
-<Template let:args>
+{#snippet template(args)}
   <TextBlock {...args}>
     Enim id qui labore labore quis ut enim tempor sint quis proident voluptate ex. Duis nisi minim
     et occaecat do ullamco nisi dolore ipsum proident tempor aute exercitation duis. Proident
@@ -50,11 +47,11 @@
     consectetur nostrud ut cupidatat enim ea cupidatat ipsum. Voluptate esse labore incididunt sint
     eiusmod ullamco mollit consequat.
   </TextBlock>
-</Template>
+{/snippet}
 
-<Story name="Default" />
+<Story name="Default" {template} />
 
-<Story name="With HTML content">
+<Story name="With HTML content" asChild>
   <TextBlock>
     Enim id qui <a href="https://urban.org" target="_blank">labore labore quis</a> ut enim tempor sint
     quis proident voluptate ex. Duis nisi minim et occaecat do ullamco nisi dolore ipsum proident tempor
@@ -66,8 +63,9 @@
 
 <Story
   name="Reversed variant"
-  parameters={{ backgrounds: { default: "dark" } }}
+  globals={{ backgrounds: { value: "dark" } }}
   args={{ variant: "reverse" }}
+  {template}
 />
 
 <Story
@@ -75,4 +73,5 @@
   args={{
     color: "#0a4c6a"
   }}
+  {template}
 />

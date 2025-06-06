@@ -1,8 +1,9 @@
 <script context="module">
   import Heading from "./HeadingAlt.svelte";
   import docs from "./HeadingAlt.docs.md?raw";
+  import { defineMeta } from "@storybook/addon-svelte-csf";
 
-  export const meta = {
+  const { Story } = defineMeta({
     title: "Components/HeadingAlt",
     component: Heading,
     tags: ["autodocs"],
@@ -16,16 +17,8 @@
         url: "/HeadingAlt/HeadingAlt.svelte"
       }
     }
-  };
+  });
 </script>
-
-<script>
-  import { Story, Template } from "@storybook/addon-svelte-csf";
-</script>
-
-<Template let:args>
-  <Heading {...args} />
-</Template>
 
 <Story
   name="Default"

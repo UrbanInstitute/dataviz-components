@@ -1,8 +1,9 @@
 <script context="module">
   import LogoUrbanAnimated from "./LogoUrbanAnimated.svelte";
   import docs from "./LogoUrbanAnimated.docs.md?raw";
+  import { defineMeta } from "@storybook/addon-svelte-csf";
 
-  export const meta = {
+  const { Story } = defineMeta({
     title: "Logos/LogoUrbanAnimated",
     component: LogoUrbanAnimated,
     tags: ["autodocs"],
@@ -16,15 +17,7 @@
         url: "/LogoUrbanAnimated/LogoUrbanAnimated.svelte"
       }
     }
-  };
+  });
 </script>
-
-<script>
-  import { Story, Template } from "@storybook/addon-svelte-csf";
-</script>
-
-<Template let:args>
-  <LogoUrbanAnimated {...args} />
-</Template>
 
 <Story name="Default" />

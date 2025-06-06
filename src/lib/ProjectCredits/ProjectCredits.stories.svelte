@@ -1,8 +1,10 @@
 <script context="module">
   import ProjectCredits from "./ProjectCredits.svelte";
+  import TextBlock from "$lib/TextBlock/TextBlock.svelte";
   import docs from "./ProjectCredits.docs.md?raw";
+  import { defineMeta } from "@storybook/addon-svelte-csf";
 
-  export const meta = {
+  const { Story } = defineMeta({
     title: "Components/ProjectCredits",
     component: ProjectCredits,
     tags: ["autodocs"],
@@ -16,13 +18,7 @@
         url: "/ProjectCredits/ProjectCredits.svelte"
       }
     }
-  };
-</script>
-
-<script>
-  import TextBlock from "$lib/TextBlock/TextBlock.svelte";
-  import { Story, Template } from "@storybook/addon-svelte-csf";
-
+  });
   const sampleData = {
     heading: "Project credits",
     items: [
@@ -47,9 +43,10 @@
   };
 </script>
 
-<Template let:args>
-  <ProjectCredits {...args}>
-    <TextBlock slot="intro"
+<Story name="Default" asChild>
+  <ProjectCredits {...sampleData}>
+    {#snippet intro()}
+    <TextBlock 
       ><em
         >Vitae turpis massa sed elementum tempus. At quis risus sed vulputate odio ut enim blandit
         volutpat. Odio ut sem nulla pharetra. Diam maecenas sed enim ut sem viverra. Nunc lobortis
@@ -59,7 +56,6 @@
         magnis dis parturient montes nascetur ridiculus.</em
       ></TextBlock
     >
+    {/snippet}
   </ProjectCredits>
-</Template>
-
-<Story name="Default" args={{ ...sampleData }} />
+</Story>

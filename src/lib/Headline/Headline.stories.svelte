@@ -1,8 +1,10 @@
 <script context="module">
   import Headline from "./Headline.svelte";
+  import { Button } from "$lib";
   import docs from "./Headline.docs.md?raw";
+  import { defineMeta } from "@storybook/addon-svelte-csf";
 
-  export const meta = {
+  const { Story } = defineMeta({
     title: "Components/Headline",
     component: Headline,
     tags: ["autodocs"],
@@ -35,19 +37,9 @@
         url: "/Headline/Headline.svelte"
       }
     }
-  };
-</script>
-
-<script>
-  import { Story, Template } from "@storybook/addon-svelte-csf";
-  import { Button } from "$lib";
-
+  });
   const hed = "Urban Institute Data Visualization Project Headline";
 </script>
-
-<Template let:args>
-  <Headline {...args} />
-</Template>
 
 <Story
   name="Primary"
@@ -121,26 +113,27 @@
   }}
 />
 
-<Story name="With custom slots">
+<Story name="With custom slots" asChild>
   <Headline shareUrl="https://urban.org">
-    <div slot="eyebrow">
+    {#snippet eyebrow()}
       <img src="urban-logo.svg" alt="An Urban institute logo" width="120px" />
-    </div>
-    <h1
-      style="color: var(--color-blue); text-transform: uppercase; font-weight: var(--font-weight-bold)"
-      slot="headline"
-    >
-      Custom headline slot
-    </h1>
-    <div slot="description">
+    {/snippet}
+    {#snippet headline()}
+      <h1 style="color: var(--color-blue); font-weight: var(--font-weight-bold)">
+        Custom headline slot
+      </h1>
+    {/snippet}
+    {#snippet description()}
       <p>This is a custom description slot</p>
-    </div>
-    <p slot="date">Custom date slot: January 1, 1968</p>
-    <div slot="extra">
+    {/snippet}
+    {#snippet date()}
+      <p>Custom date slot: January 1, 1968</p>
+    {/snippet}
+    {#snippet extra()}
       <Button>Extra slot</Button>
       <p style="font-size: var(--font-size-small); color: var(--color-gray-darker)">
         (Custom button)
       </p>
-    </div>
+    {/snippet}
   </Headline>
 </Story>

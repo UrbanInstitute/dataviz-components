@@ -3,25 +3,46 @@
   import datawrapper from "./events";
   import datawrapperEventList from "./datawrapper-event-list.json";
 
-  /*** @type {string} HTML title of the iframe */
+  /**
+   * HTML title of the iframe
+   * @type {string}
+   */
   export let title;
 
-  /*** @type {string} HTML aria-label of the iframe */
+  /**
+   * HTML aria-label of the iframe
+   * @type {string}
+   */
   export let ariaLabel;
 
-  /*** @type {string} Datawrapper chart ID */
+  /**
+   * Datawrapper chart ID
+   * @type {string}
+   */
   export let datawrapperId;
 
-  /*** @type {string} iframe scrolling attribute */
+  /**
+   * iframe scrolling attribute
+   * @type {string}
+   */
   export let scrolling = "no";
 
-  /*** @type {string} iframe frameborder attribute */
+  /**
+   * iframe frameborder attribute
+   * @type {string}
+   */
   export let frameborder = "0";
 
-  /*** @type {string} iframe height attribute (placeholder since reactivity is enabled) */
+  /**
+   * iframe height attribute (placeholder since reactivity is enabled)
+   * @type {string}
+   */
   export let height = "500";
 
-  /*** @type {string} CSS styles of the iframe */
+  /**
+   * CSS styles of the iframe
+   * @type {string}
+   */
   export let style = "width: 0; min-width: 100% !important; border: none;";
 
   // add event dispatching for Datawrapper interaction events
@@ -77,4 +98,4 @@
   {height}
   data-external="1"
   {...$$restProps}
-/>
+></iframe>

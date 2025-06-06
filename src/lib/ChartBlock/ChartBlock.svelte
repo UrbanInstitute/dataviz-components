@@ -68,7 +68,7 @@
     line-height: var(--line-height-normal);
   }
   .chart-wrapper * {
-    color: var(--current-color);
+    color: var(--current-color) !important;
   }
   /* chart text */
   .chart-title {
