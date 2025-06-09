@@ -1,11 +1,11 @@
 <script context="module">
-  export const meta = {
+  import { defineMeta } from "@storybook/addon-svelte-csf";
+  const { Story } = defineMeta({
     title: "Examples/Stories/CustomSVGMap"
-  };
+  });
 </script>
 
 <script>
-  import { Story, Template } from "@storybook/addon-svelte-csf";
   import { ChartBlock } from "$lib";
   import { SVGPolygonLayer, SVGLabelLayer, SVGPointLayer, SVGMap } from "$lib/maps";
   import ColorLegend from "$lib/maps/ColorLegend/ColorLegend.svelte";
@@ -22,8 +22,6 @@
     .domain(county_air_quality.features.map((d) => d.properties.index_air_quality))
     .range(urbanColors.getDivergingColors());
 </script>
-
-<Template></Template>
 
 <Story name="Primary">
   <ChartBlock

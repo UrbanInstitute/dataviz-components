@@ -1,13 +1,13 @@
 <script context="module">
-  export const meta = {
+  import { defineMeta } from "@storybook/addon-svelte-csf";
+  const { Story } = defineMeta({
     title: "Examples/Stories/Datawrapper Switching"
-  };
+  });
 </script>
 
 <script>
   import LoadingWrapper from "$lib/LoadingWrapper/LoadingWrapper.svelte";
 
-  import { Story } from "@storybook/addon-svelte-csf";
   import DatawrapperIframe from "$lib/DatawrapperIframe/DatawrapperIframe.svelte";
   import BasicDropdown from "$lib/BasicDropdown/BasicDropdown.svelte";
   import Button from "$lib/Button/Button.svelte";

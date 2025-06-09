@@ -1,11 +1,11 @@
 <script context="module">
-  export const meta = {
+  import { defineMeta } from "@storybook/addon-svelte-csf";
+  const { Story } = defineMeta({
     title: "Examples/Stories/Dynamic Info With Stores"
-  };
+  });
 </script>
 
 <script>
-  import { Story } from "@storybook/addon-svelte-csf";
   import { writable, derived } from "svelte/store";
   import BasicDropdown from "$lib/BasicDropdown/BasicDropdown.svelte";
 
