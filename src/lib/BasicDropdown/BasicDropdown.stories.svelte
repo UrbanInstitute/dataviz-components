@@ -30,7 +30,7 @@
     args: {
       variant: "primary",
       data: sampleData,
-      inlineLabel: "Dropdown label",
+      inlineLabel: "Dropdown label"
     },
     parameters: {
       docs: {
@@ -44,7 +44,6 @@
     }
   });
 </script>
-
 
 <Story
   name="Default"

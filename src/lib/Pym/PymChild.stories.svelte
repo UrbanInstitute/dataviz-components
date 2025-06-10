@@ -2,7 +2,7 @@
   import PymChild from "./PymChild.svelte";
   import { defineMeta } from "@storybook/addon-svelte-csf";
 
-  const {Story} = defineMeta({
+  const { Story } = defineMeta({
     title: "Components/PymChild",
     component: PymChild,
     parameters: {

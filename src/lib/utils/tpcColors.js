@@ -21,11 +21,10 @@ function getBlues() {
     blue_shade_light,
     blue,
     blue_shade_dark,
-    blue_shade_darker,
+    blue_shade_darker
   ];
   return shades.slice();
 }
-
 
 export default {
   blue_dark,
@@ -39,5 +38,5 @@ export default {
   gray,
   black,
   yellow,
-  getBlues,
+  getBlues
 };

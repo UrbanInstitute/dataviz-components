@@ -75,6 +75,6 @@
     fill: urbanColors.blue,
     hoverStroke: urbanColors.yellow,
     hoverStrokeWidth: 3,
-    highlightFeature: {GEOID: "06"}
+    highlightFeature: { GEOID: "06" }
   }}
 />

@@ -1,5 +1,5 @@
-import * as Stories from "./SVGMap.stories.svelte"
-import { Meta, Controls, ArgTypes, Markdown, Canvas } from "@storybook/addon-docs/blocks"
+import * as Stories from "./SVGMap.stories.svelte";
+import { Meta, Controls, ArgTypes, Markdown, Canvas } from "@storybook/addon-docs/blocks";
 
 <Meta component={Stories.SVGMap} of={Stories} />
 
@@ -7,7 +7,7 @@ import { Meta, Controls, ArgTypes, Markdown, Canvas } from "@storybook/addon-doc
 
 A basic map component that can render GeoJSON features as SVG elements. It supports 3 layer types: Polygons, Points or Labels.
 
-This component is useful for simple, thematic maps, especially choropleths. When you need just a bit more control than a no-code solution might provide, you might find this useful. 
+This component is useful for simple, thematic maps, especially choropleths. When you need just a bit more control than a no-code solution might provide, you might find this useful.
 
 ## Basic usage
 
@@ -33,11 +33,11 @@ import states from "./path/to/geojson/states.json";
 
 And then render your data into a map like this:
 
-<Canvas of={Stories.SimpleMap} sourceState="shown"/>
+<Canvas of={Stories.SimpleMap} sourceState="shown" />
 
 ## Loading topojson, custom color scales
 
-It is sometimes tricky to correctly prepare GeoJSON data for usage with D3. Using topojson may improve loading time, simplification options and help avoid issues like [winding](https://observablehq.com/@d3/winding-order) [order](https://github.com/mbloch/mapshaper/issues/432) when working with raw GeoJSON data. 
+It is sometimes tricky to correctly prepare GeoJSON data for usage with D3. Using topojson may improve loading time, simplification options and help avoid issues like [winding](https://observablehq.com/@d3/winding-order) [order](https://github.com/mbloch/mapshaper/issues/432) when working with raw GeoJSON data.
 
 If you're loading topojson data, you should make use of the `topojson-client` package to convert the data back to GeoJSON before passing it into this component. As an example, loading several datasets for a US county choropleth map might look something like this:
 
@@ -53,7 +53,6 @@ import us_cities from "./path/to/topojson/us_cities.json";
 const county_air_quality = topojson.feature(county_air_quality_topo, "county_air_quality_geo");
 const us_cities_geo = topojson.feature(us_cities, "us_cities");
 ```
-
 
 Finally, in order to create a custom color scale, you can use D3's built in scale functions. First, import the scale you'd like to use, then create a scale based on your color palette and input data. For this example we'll use this library's `urbanColors` utility module.
 
@@ -71,7 +70,7 @@ let airQualityScale = scaleQuantile()
 
 Putting these all together, you can render your map like this:
 
-<Canvas of={Stories.ColorsLayersAndTooltips} sourceState="shown"/>
+<Canvas of={Stories.ColorsLayersAndTooltips} sourceState="shown" />
 
 ## Zoomable maps, custom projections and limiting labels to higher zoom
 
@@ -128,8 +127,8 @@ import { extent } from "d3-array";
 
 const cleveland_bike_data = topojson.feature(cleveland_bike_data_topo, "cleveland_bike_to_work");
 const clevelandBikeScale = scaleQuantize()
-    .domain(extent(cleveland_bike_data.features, (d) => d.properties.bike_to_work))
-    .range(urbanColors.getMapBlues());
+  .domain(extent(cleveland_bike_data.features, (d) => d.properties.bike_to_work))
+  .range(urbanColors.getMapBlues());
 let clevelandHighlight = "39035197700";
 ```
 
@@ -150,7 +149,9 @@ import { extent } from "d3-array";
 
 // pa population
 const pa_population_geo = topojson.feature(pa_population_topo, "pa_county_population");
-const paPopRadiusScale = scaleSqrt().domain(extent(pa_population_geo.features, d => d.properties.value)).range([2, 50]);
+const paPopRadiusScale = scaleSqrt()
+  .domain(extent(pa_population_geo.features, (d) => d.properties.value))
+  .range([2, 50]);
 ```
 
 And then you can render the bubble map here:

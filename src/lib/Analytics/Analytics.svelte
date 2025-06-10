@@ -11,7 +11,7 @@
       dataviz_title: window.ui_dataviz_config.analytics_title,
       dataviz_target: target,
       dataviz_detail: eventName
-    }
+    };
     if (!DEV) {
       if (typeof window === "undefined" || !window.gtag) return;
       window.gtag("event", "dataviz_click", eventData);
@@ -46,7 +46,7 @@
     window.ui_dataviz_config = window.ui_dataviz_config || {};
     window.ui_dataviz_config.analytics_title = title;
     window.ui_dataviz_config.analytics_mode = mode;
-    if (mode == "development"){
+    if (mode == "development") {
       console.log(
         sendPageview
           ? "You are sending page views to GA, as for a full page app."

@@ -5,7 +5,7 @@
   import { defineMeta } from "@storybook/addon-svelte-csf";
   import { expect, fn } from "storybook/test";
 
-  const {Story} = defineMeta({
+  const { Story } = defineMeta({
     title: "Maps/SVGLabelLayer",
     component: SVGLabelLayer,
     tags: ["autodocs"],

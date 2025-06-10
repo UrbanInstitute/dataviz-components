@@ -10,7 +10,7 @@
     transform,
     handleLayerClick,
     handleLayerMousemove,
-    stickyHighlight,
+    stickyHighlight
   } = getContext("map");
 
   /**

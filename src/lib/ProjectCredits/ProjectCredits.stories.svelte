@@ -46,16 +46,16 @@
 <Story name="Default" asChild>
   <ProjectCredits {...sampleData}>
     {#snippet intro()}
-    <TextBlock 
-      ><em
-        >Vitae turpis massa sed elementum tempus. At quis risus sed vulputate odio ut enim blandit
-        volutpat. Odio ut sem nulla pharetra. Diam maecenas sed enim ut sem viverra. Nunc lobortis
-        mattis aliquam faucibus purus in massa. Vel eros donec ac odio tempor orci. Viverra tellus
-        in hac habitasse platea. Eget nunc scelerisque viverra mauris in aliquam set egestas quis.
-        Integer enim neque volutpat ac tincidunt vitae semper quis. Sociis natoque penatibus et
-        magnis dis parturient montes nascetur ridiculus.</em
-      ></TextBlock
-    >
+      <TextBlock
+        ><em
+          >Vitae turpis massa sed elementum tempus. At quis risus sed vulputate odio ut enim blandit
+          volutpat. Odio ut sem nulla pharetra. Diam maecenas sed enim ut sem viverra. Nunc lobortis
+          mattis aliquam faucibus purus in massa. Vel eros donec ac odio tempor orci. Viverra tellus
+          in hac habitasse platea. Eget nunc scelerisque viverra mauris in aliquam set egestas quis.
+          Integer enim neque volutpat ac tincidunt vitae semper quis. Sociis natoque penatibus et
+          magnis dis parturient montes nascetur ridiculus.</em
+        ></TextBlock
+      >
     {/snippet}
   </ProjectCredits>
 </Story>

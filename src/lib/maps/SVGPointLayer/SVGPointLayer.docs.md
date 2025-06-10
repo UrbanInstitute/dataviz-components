@@ -6,7 +6,6 @@ Import `SVGPointLayer` and `SVGMap` from this library:
 
 ```js
 import { SVGMap, SVGPointLayer } from "@urbaninstitute/dataviz-components/maps";
-
 ```
-Add your own GeoJSON data and specify configuration and props seen below.
 
+Add your own GeoJSON data and specify configuration and props seen below.

@@ -33,7 +33,6 @@
   });
 </script>
 
-
 <Story name="Default" />
 <Story
   name="Variant - white"

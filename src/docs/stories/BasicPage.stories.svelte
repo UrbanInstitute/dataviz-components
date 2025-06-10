@@ -1,19 +1,12 @@
 <script module>
   import { defineMeta } from "@storybook/addon-svelte-csf";
-  import {
-    Navbar,
-    ChartBlock,
-    DatawrapperIframe,
-    Headline,
-    TextBlock,
-    ProjectCredits
-  } from "$lib";
+  import { Navbar, ChartBlock, DatawrapperIframe, Headline, TextBlock, ProjectCredits } from "$lib";
 
-  import BasicPage from "./BasicPage.svelte"
+  import BasicPage from "./BasicPage.svelte";
 
   const { Story } = defineMeta({
     title: "Examples/Stories/BasicPage",
-    component: BasicPage,
+    component: BasicPage
   });
 </script>
 

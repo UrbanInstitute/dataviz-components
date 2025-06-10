@@ -5,7 +5,12 @@
   $: height = width * (naturalHeight / naturalWidth);
 </script>
 
-<svg {width} {height} viewBox="0 0 {naturalWidth} {naturalHeight}" fill="none" xmlns="http://www.w3.org/2000/svg"
+<svg
+  {width}
+  {height}
+  viewBox="0 0 {naturalWidth} {naturalHeight}"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
   role="img"
   aria-label="Tax Policy Center logo"
 >
@@ -34,4 +39,3 @@
   <path d="M73.9238 40.1641H60.1094V26.3253H73.9238V40.1641Z" fill="#3B96BC" />
   <path d="M90.9426 40.1641H77.1265V26.3253H90.9426V40.1641Z" fill="#6BC2D8" />
 </svg>
-

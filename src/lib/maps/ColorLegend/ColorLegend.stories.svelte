@@ -4,7 +4,7 @@
   import docs from "./ColorLegend.docs.md?raw";
   import { defineMeta } from "@storybook/addon-svelte-csf";
 
-  export const {Story} = defineMeta({
+  export const { Story } = defineMeta({
     title: "Maps/ColorLegend",
     component: ColorLegend,
     tags: ["autodocs"],
@@ -66,7 +66,6 @@
     .domain([1, 100])
     .range([urbanColors.blue_shade_lightest, urbanColors.blue]);
 </script>
-
 
 <Story
   name="Linear scale"

@@ -3,9 +3,9 @@
   import SVGPolygonLayer from "../SVGPolygonLayer/SVGPolygonLayer.svelte";
   import SVGLabelLayer from "../SVGLabelLayer/SVGLabelLayer.svelte";
   import SVGPointLayer from "../SVGPointLayer/SVGPointLayer.svelte";
-  import {defineMeta} from "@storybook/addon-svelte-csf";
+  import { defineMeta } from "@storybook/addon-svelte-csf";
 
-  const {Story} = defineMeta({
+  const { Story } = defineMeta({
     title: "Maps/SVGMap",
     component: SVGMap,
     argTypes: {

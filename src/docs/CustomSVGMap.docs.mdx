@@ -1,8 +1,7 @@
-import { Meta, Canvas, Story, Source } from "@storybook/addon-docs/blocks"
-import * as stories from "./stories/CustomSVGMap.stories.svelte"
+import { Meta, Canvas, Story, Source } from "@storybook/addon-docs/blocks";
+import * as stories from "./stories/CustomSVGMap.stories.svelte";
 
-<Meta title="Examples/CustomSVGMap"/>
-# Custom SVGMap example
+<Meta title="Examples/CustomSVGMap" /># Custom SVGMap example
 
 The `SVGMap` component and the associated layer components make it easy to create custom choropleth maps rendered with D3 projections and color scales. This example walks through the creation of a county level U.S. map showing the Urban Institute Upward Mobility Framework's Air Quality Index metric.
 
@@ -11,6 +10,7 @@ The `SVGMap` component and the associated layer components make it easy to creat
 ## Data pre-processing
 
 To begin, first prepare your geographic data for browser mapping. In general there are a few things that will help keep your workflow consistent and efficient:
+
 - Simplify any source data to a reasonable degree of detail. The smaller the filesize, the better the performance of your map wil be. [Mapshaper](https://mapshaper.org/) is a great tool for this.
 - Make sure your data is "unprojected", (ie projected into `WGS84`). This will allow you to take advantage of any [D3-compatable projection function](https://d3js.org/d3-geo/projection). Using mapshaper this is as simple as running `mapshaper -proj wgs84` on your data.
 - Joining any external data to your geographic data can either be done during the pre-processing step or it can be done client-side. The needs of your project will dictate which is the better choice, but pre-joining data will make your application code simpler when this is an option. Mapshaper can also [be used here](https://github.com/mbloch/mapshaper/wiki/Command-Reference#-join) with `mapshaper -join`.
@@ -18,8 +18,9 @@ To begin, first prepare your geographic data for browser mapping. In general the
 
 Putting this all together, for this example we'll take a [Census Bureau Cartographic Boundary file](https://www.census.gov/geographies/mapping-files/time-series/geo/cartographic-boundary.html) of U.S. counties and join it to our Upward Mobility Air Quality Index data. Working with a file structure like this:
 
-
-<Source dark code={`
+<Source
+  dark
+  code={`
 .
 ├── air_quality.csv
 └── cb_2019_us_county_500k
@@ -30,18 +31,22 @@ Putting this all together, for this example we'll take a [Census Bureau Cartogra
     ├── cb_2019_us_county_500k.shp.ea.iso.xml
     ├── cb_2019_us_county_500k.shp.iso.xml
     └── cb_2019_us_county_500k.shx
-`} />
+`}
+/>
 
 Run the following mapshaper command to create a data file that is ready for mapping. Note the use of Mapshaper's filter-fields to limit the properties to just what is relevant for this map. We also need to tell mapshaper to treat the GEOID column the the CSV as a string instead of a number to make sure the join works correctly. Finally, we'll give the object a simpler name than `cb_2019_us_county_500k` for easier reference later.
 
-<Source dark code={`
+<Source
+  dark
+  code={`
 mapshaper -i cb_2019_us_county_500k/cb_2019_us_county_500k.shp \\
   -join air_quality.csv string-fields=GEOID keys=GEOID,GEOID \\
   -simplify 20% \\
   -filter-fields GEOID,NAME,index_air_quality \\
   -rename-layers county_air_quality \\
   -o format=topojson county_air_quality_topo.json
-`} />
+`}
+/>
 
 At this point, you should now have a topojson file that is ready to map.
 
@@ -49,29 +54,44 @@ At this point, you should now have a topojson file that is ready to map.
 
 Now you're ready to start loading these data into your Svelte application. In addition to the data we just prepared, for this example we'll load one additional topojson file of large U.S. cities that has also been created with a similar process to the county file above, but without the need to join any external data. We can load both of these topojson files into our Svelte project like this:
 
-<Source dark code={`
+<Source
+  dark
+  code={`
 import county_air_quality_topo from "./county_air_quality_topo.json";
 import us_cities from "./us_cities.json";
-`} language="javascript" />
+`}
+  language="javascript"
+/>
 
 We'll need to use the `topojson-client` library to handle the topojson format. Make sure you have it installed with:
 
-<Source dark code={`
+<Source
+  dark
+  code={`
 npm install topojson-client
-`} />
+`}
+/>
 
 You can import this library with the following line:
 
-<Source dark code={`
+<Source
+  dark
+  code={`
 import * as topojson from "topojson-client";
-`} language="javascript" />
+`}
+  language="javascript"
+/>
 
 Next parse your source topojson with the `topojson-client` library:
 
-<Source dark code={`
+<Source
+  dark
+  code={`
 const county_air_quality = topojson.feature(county_air_quality_topo, "county_air_quality");
 const us_cities_geo = topojson.feature(us_cities, "us_cities");
-`} language="javascript" />
+`}
+  language="javascript"
+/>
 
 These objects are now formatted as GeoJSON features that will play well with D3.
 
@@ -81,16 +101,20 @@ The next thing we'll need to create the map is a D3 color scale. For this exampl
 import { urbanColors } from "@urbaninstitute/dataviz-components/utils";
 
 const airQualityScale = scaleQuantile()
-  .domain(county_air_quality.features.map((d) => d.properties.index_air_quality))
-  .range(urbanColors.getDivergingColors());
+.domain(county_air_quality.features.map((d) => d.properties.index_air_quality))
+.range(urbanColors.getDivergingColors());
 `} language="javascript" />
 
 At this point, we have everything we need to render the map, but we want to combine a few more components to create a formatted graphic with information about our map, as well as a color legend that explains the scale we just created. Import the map components as well as these additional components from the library:
 
-<Source dark code={`
+<Source
+  dark
+  code={`
 import { ChartBlock } from "@urbaninstitute/dataviz-components";
 import { ColorLegend, SVGLabelLayer, SVGMap, SVGPointLayer } from "@urbaninstitute/dataviz-components/maps";
-`} language="javascript" />
+`}
+  language="javascript"
+/>
 
 And now you can render your map the following Svelte code:
 
@@ -99,4 +123,3 @@ And now you can render your map the following Svelte code:
 This results in an interactive, zoomable map with multiple layers, a custom color scale, a legend, and tooltip that displays details about each county:
 
 <Story of={stories.Primary} />
-

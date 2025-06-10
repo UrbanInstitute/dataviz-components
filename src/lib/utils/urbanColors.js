@@ -228,14 +228,7 @@ function getCategoricalColors(numColors = 6) {
   if (numColors === 5) {
     return [blue, yellow, black, magenta, gray];
   }
-  return [
-    blue,
-    yellow,
-    magenta,
-    black,
-    gray,
-    blue_shade_light
-  ];
+  return [blue, yellow, magenta, black, gray, blue_shade_light];
 }
 
 /**
@@ -243,13 +236,7 @@ function getCategoricalColors(numColors = 6) {
  * @returns {string[]} - An array of colors
  */
 function getMapBlues() {
-  return [
-    blue_shade_lightest,
-    blue_shade_light,
-    blue,
-    blue_shade_darker,
-    black
-  ];
+  return [blue_shade_lightest, blue_shade_light, blue, blue_shade_darker, black];
 }
 
 export default {

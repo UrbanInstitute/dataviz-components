@@ -12,7 +12,7 @@ const preview = {
       options: {
         light: { name: "light", value: "#ffffff" },
         dark: { name: "dark", value: "#0A4C6A" }
-      },
+      }
     },
     controls: {
       matchers: {

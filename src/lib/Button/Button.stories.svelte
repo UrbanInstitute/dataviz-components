@@ -54,7 +54,7 @@
     await expect(args.onMouseleave).toHaveBeenCalled();
   }}
 >
-Button text
+  Button text
 </Story>
 
 <Story name="primary with icon">
@@ -69,7 +69,7 @@ Button text
     disabled: true
   }}
 >
-Button text
+  Button text
 </Story>
 
 <Story
@@ -78,7 +78,7 @@ Button text
     size: "small"
   }}
 >
-Button text
+  Button text
 </Story>
 
 <Story
@@ -87,7 +87,7 @@ Button text
     variant: "primary-black"
   }}
 >
-Button text
+  Button text
 </Story>
 
 <Story
@@ -97,7 +97,7 @@ Button text
     disabled: true
   }}
 >
-Button text
+  Button text
 </Story>
 
 <Story name="primary-black with icon">
@@ -113,7 +113,7 @@ Button text
     size: "small"
   }}
 >
-Button text
+  Button text
 </Story>
 
 <Story
@@ -122,7 +122,7 @@ Button text
     variant: "secondary"
   }}
 >
-Button text
+  Button text
 </Story>
 
 <Story
@@ -132,7 +132,7 @@ Button text
     disabled: true
   }}
 >
-Button text
+  Button text
 </Story>
 
 <Story name="secondary with icon">
@@ -148,7 +148,7 @@ Button text
     size: "small"
   }}
 >
-Button text
+  Button text
 </Story>
 
 <Story
@@ -157,7 +157,7 @@ Button text
     variant: "secondary-black"
   }}
 >
-Button text
+  Button text
 </Story>
 
 <Story
@@ -167,7 +167,7 @@ Button text
     disabled: true
   }}
 >
-Button text
+  Button text
 </Story>
 
 <Story name="secondary-black with icon">
@@ -182,7 +182,7 @@ Button text
     size: "small"
   }}
 >
-Button text
+  Button text
 </Story>
 
 <Story
@@ -191,7 +191,7 @@ Button text
     variant: "tertiary"
   }}
 >
-Button text
+  Button text
 </Story>
 
 <Story
@@ -201,7 +201,7 @@ Button text
     disabled: true
   }}
 >
-Button text
+  Button text
 </Story>
 
 <Story name="tertiary with icon">
@@ -218,5 +218,5 @@ Button text
     size: "small"
   }}
 >
-Button text
+  Button text
 </Story>

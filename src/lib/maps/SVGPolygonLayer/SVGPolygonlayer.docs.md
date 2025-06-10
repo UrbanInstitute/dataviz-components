@@ -7,8 +7,8 @@ A polygon layer for use in an `<SVGMap>` component. Renders each `feature` as an
   import { SVGMap, SVGPolygonLayer } from "@urbaninstitute/dataviz-components/maps";
   import states from "./path/to/geojson/states.json";
 </script>
+
 <SVGMap features={states.features}>
   <SVGPolygonLayer />
 </SVGMap>
-
 ```

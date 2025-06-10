@@ -8,12 +8,14 @@
   }
 
   .theme {
-    --font-family-sans: Lato, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    --font-family-sans:
+      Lato, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+      Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+      "Noto Color Emoji";
+    --font-family-sans-alt:
+      "futura-pt", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
       "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
       "Segoe UI Symbol", "Noto Color Emoji";
-    --font-family-sans-alt: "futura-pt", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-      Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
-      "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --font-family-serif: Georgia, Cambria, "Times New Roman", Times, serif;
     --font-family-mono: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     /* 16 px base size */
@@ -275,7 +277,8 @@
 
     .theme :global(h3) {
       font-size: var(--font-size-3xl);
-      line-height: 44px;    }
+      line-height: 44px;
+    }
 
     .theme :global(h4) {
       font-size: var(--font-size-2xl);
@@ -296,7 +299,5 @@
       font-size: var(--font-size-xl);
       line-height: 32.5px;
     }
-
   }
-
 </style>

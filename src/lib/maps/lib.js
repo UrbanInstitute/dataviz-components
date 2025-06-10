@@ -64,9 +64,8 @@ export function getTooltipProps(e, feature) {
     x: e.pageX,
     y: e.pageY,
     props: feature.properties
-  }
+  };
 }
-
 
 /**
  * Determine if a feature should be highlighted based on 2 possible comparisons
@@ -84,4 +83,3 @@ export function getHighlightFeature(feature, compareA, compareB) {
   }
   return false;
 }
-

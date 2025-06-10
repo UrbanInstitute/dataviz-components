@@ -51,12 +51,12 @@
 <Story
   name="Custom text color"
   globals={{
-    backgrounds: { value: "dark" },
+    backgrounds: { value: "dark" }
   }}
   args={{ color: "#FFFFFF" }}
   {template}
 />
-<Story name="With a Datawrapper chart" args={{  color: "#FFFFFF" }} asChild>
+<Story name="With a Datawrapper chart" args={{ color: "#FFFFFF" }} asChild>
   <ChartBlock
     title="Datawrapper chart"
     description="This is what a Datawrapper looks like inside this component."

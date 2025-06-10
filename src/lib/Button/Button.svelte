@@ -10,7 +10,7 @@
    * @property {Function} onMouseEnter - Callback for mouse enter event
    * @property {Function} onMouseLeave - Callback for mouse leave event
    * @property {Function} onClick - Callback for click event
-  */
+   */
 
   /**
    * @type {Props}
@@ -42,11 +42,11 @@
   }
   function _onMouseleave(e) {
     hovered = false;
-    onMouseleave(e)
+    onMouseleave(e);
   }
 
   function _onClick(e) {
-    onClick(e)
+    onClick(e);
   }
 
   let iconColor = $derived(getIconColor(variant, hovered, el));

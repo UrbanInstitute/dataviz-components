@@ -14,5 +14,4 @@
   });
 </script>
 
-
 <Story name="Primary" />

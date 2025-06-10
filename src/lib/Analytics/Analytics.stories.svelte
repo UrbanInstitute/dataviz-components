@@ -2,7 +2,7 @@
   import Analytics from "./Analytics.svelte";
   import { defineMeta } from "@storybook/addon-svelte-csf";
 
-  const {Story} = defineMeta({
+  const { Story } = defineMeta({
     title: "Components/Analytics",
     component: Analytics,
     parameters: {

@@ -4,7 +4,7 @@
   import { fn, userEvent, within, expect } from "storybook/test";
   import { defineMeta } from "@storybook/addon-svelte-csf";
 
-  const {Story} = defineMeta({
+  const { Story } = defineMeta({
     title: "Components/SocialShare",
     component: SocialShare,
     tags: ["autodocs"],
@@ -37,8 +37,6 @@
     }
   });
 </script>
-
-
 
 <Story name="Default" />
 <Story
