@@ -1,7 +1,8 @@
 <script context="module">
   import Analytics from "./Analytics.svelte";
+  import { defineMeta } from "@storybook/addon-svelte-csf";
 
-  export const meta = {
+  const { Story } = defineMeta({
     title: "Components/Analytics",
     component: Analytics,
     parameters: {
@@ -9,16 +10,11 @@
         url: "/Analytics/Analytics.svelte"
       }
     }
-  };
+  });
 </script>
 
 <script>
-  import { Story, Template } from "@storybook/addon-svelte-csf";
 </script>
-
-<Template let:args>
-  <Analytics {...args} />
-</Template>
 
 <Story
   name="Default"

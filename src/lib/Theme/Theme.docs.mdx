@@ -1,5 +1,5 @@
 import * as Stories from "./Theme.stories.svelte";
-import { Meta, Controls, Markdown } from "@storybook/blocks";
+import { Meta, Controls, Markdown } from "@storybook/addon-docs/blocks";
 
 <Meta title="Theming/Theme" component={Stories.Theme} />
 
@@ -19,6 +19,7 @@ You get everything you need out of the box by importing and using these componen
 <script>
   import { Theme, FontsUrban, Button } from "@urbaninstitute/dataviz-components";
 </script>
+
 <FontsUrban />
 <Theme>
   <Button />

@@ -1,8 +1,9 @@
 <script context="module">
   import LogoTPCBadge from "./LogoTPCBadge.svelte";
   import docs from "./LogoTPCBadge.docs.md?raw";
+  import { defineMeta } from "@storybook/addon-svelte-csf";
 
-  export const meta = {
+  const { Story } = defineMeta({
     title: "Logos/LogoTPCBadge",
     component: LogoTPCBadge,
     tags: ["autodocs"],
@@ -16,15 +17,7 @@
         url: "/LogoTPCBadge/LogoTPCBadge.svelte"
       }
     }
-  };
+  });
 </script>
-
-<script>
-  import { Story, Template } from "@storybook/addon-svelte-csf";
-</script>
-
-<Template let:args>
-  <LogoTPCBadge {...args} />
-</Template>
 
 <Story name="Default" />

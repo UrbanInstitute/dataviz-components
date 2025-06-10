@@ -1,5 +1,5 @@
-import { Meta, Canvas, Controls, Story, Source } from "@storybook/blocks"
-import * as stories from "./Tooltip.stories.svelte"
+import { Meta, Canvas, Controls, Story, Source } from "@storybook/addon-docs/blocks";
+import * as stories from "./Tooltip.stories.svelte";
 
 <Meta title="Components/Tooltip" of={stories} />
 
@@ -11,25 +11,31 @@ A component that displays text or other HTML content inside a small, tooltip-sty
 
 First, import the component into your project:
 
-<Source language="javascript" dark code={`
+<Source
+  language="javascript"
+  dark
+  code={`
 import { Tooltip } from "@urbaninstitute/dataviz-components";
-`}>
-</Source>
+`}
+></Source>
 
 At minimum you'll need to provide a position and content for the tooltip. The simplest form of this is to specify an x and y position (relative to the dimensions of the HTML document itselt) and some text content as the primary slot/child of the component:
 
-<Source language="svelte" dark code={`
+<Source
+  language="svelte"
+  dark
+  code={`
 <Tooltip x={200} y={200} >
   This is a tooltip
 </Tooltip>
-`}/>
+`}
+/>
 
-This will render a tooltip positioned 200px from the left edge and 200px from the top of the document. But this is unlikely to be useful in a real-world context. Its much more common that you will want to position a tooltip based on either a pointer event or aligned to an existing element on the page. More on that below. 
+This will render a tooltip positioned 200px from the left edge and 200px from the top of the document. But this is unlikely to be useful in a real-world context. Its much more common that you will want to position a tooltip based on either a pointer event or aligned to an existing element on the page. More on that below.
 
 ### A note on the following examples
 
 StorybookJS (the tool that this library uses to create the documentation and examples you are reading right now) wraps all of the following examples indside a container with `overflow: hidden;`. This means that some of the tooltips may be cut off in a way that makes them seem like they aren't functioning correctly. Since most project code can easily avoid the situation where a tooltip is inside an `overflow: hidden` container, the examples will mostly ignore this. If your project does need to handle for this situation, take a look at the "Contain in parent" example below.
-
 
 ## Component props
 
@@ -47,39 +53,49 @@ let tooltipY;
 let tooltipContent = "This is a tooltip";
 
 function handleMousemove(e) {
-  tooltipX = e.pageX;
-  tooltipY = e.pageY;
+tooltipX = e.pageX;
+tooltipY = e.pageY;
 }
 
 function handleMouseout(e) {
-  tooltipX = undefined;
-  tooltipY = undefined;
+tooltipX = undefined;
+tooltipY = undefined;
 }
 `} language="javascript" />
 
 Next, attach some event listeners to the elements you'd like to use to trigger a tooltip.
 
-<Source language="svelte" dark code={`
+<Source
+  language="svelte"
+  dark
+  code={`
 <div on:mousemove={handleMousemove} on:mouseout={handleMouseout}>
   <p>Hover me to see tooltip</p>
 </div>
-`} />
+`}
+/>
 
 And finally, add the tooltip to your page by rendering it conditionally based on the `tooltipX` and `tooltipY` variables:
 
-
-<Source language="svelte" dark code={`
+<Source
+  language="svelte"
+  dark
+  code={`
 {#if tooltipX && tooltipY}
   <Tooltip x={tooltipX} y={tooltipY}>
     {tooltipContent}
   </Tooltip>
 {/if}
-`} />
+`}
+/>
 
 Putting this all together (with a few extra CSS rules to make this usable), a simple tooltip implementation might look like this:
 
-<Canvas sourceState="shown" of={stories.MouseEvent} source={{
-  code: `
+<Canvas
+  sourceState="shown"
+  of={stories.MouseEvent}
+  source={{
+    code: `
 <div class="wrapper" on:mousemove={handleMousemove} on:mouseout={handleMouseout} style="background: var(--color-gray-shade-lighter); width: 100%; height: 300px; display: grid; place-content: center;">
   <p>Hover me to see tooltip</p>
 </div>
@@ -87,14 +103,18 @@ Putting this all together (with a few extra CSS rules to make this usable), a si
   <Tooltip x={tooltipX} y={tooltipY}>{tooltipContent}</Tooltip>
 {/if}
 `
-}}/>
+  }}
+/>
 
 ## Dark style tooltip
 
 Setting the `style` prop to `"dark"` will render the tooltip in Urban's standard dark style:
 
-<Canvas sourceState="shown" of={stories.DarkMode} source={{
-  code: `
+<Canvas
+  sourceState="shown"
+  of={stories.DarkMode}
+  source={{
+    code: `
 <div class="wrapper" on:mousemove={handleMousemove} on:mouseout={handleMouseout} style="background: var(--color-gray-shade-lighter); width: 100%; height: 300px; display: grid; place-content: center;">
   <p>Hover me to see tooltip</p>
 </div>
@@ -102,7 +122,8 @@ Setting the `style` prop to `"dark"` will render the tooltip in Urban's standard
   <Tooltip x={tooltipX} y={tooltipY}>{tooltipContent}</Tooltip>
 {/if}
 `
-}}/>
+  }}
+/>
 
 ## Custom HTML
 
@@ -114,8 +135,11 @@ The content of the tooltip can include custom HTML rather than just text:
 
 You can override the automatic edge detection and dynamic orientation calculations and force the tooltip to orient itself with any of the valid `orientation` prop values.
 
-<Canvas sourceState="shown" of={stories.StaticOrientation} source={{
-  code: `
+<Canvas
+  sourceState="shown"
+  of={stories.StaticOrientation}
+  source={{
+    code: `
 <div class="wrapper" on:mousemove={handleMousemove} on:mouseout={handleMouseout} style="background: var(--color-gray-shade-lighter); width: 100%; height: 300px; display: grid; place-content: center;">
   <p>Hover me to see tooltip</p>
 </div>
@@ -123,15 +147,18 @@ You can override the automatic edge detection and dynamic orientation calculatio
   <Tooltip x={tooltipX} y={tooltipY} orientation="left" style="dark">This tooltip is oriented to the left</Tooltip>
 {/if}
 `
-}}/>
+  }}
+/>
 
 ## Contain in parent
 
 Sometimes you'll encounter a use case where the viewport edge detection isn't quite enough to prevent the tooltip from being obscured. One such case is when the tooltip is placed inside a containing element with `overflow` set to `hidden`. For these situations, you can force the tooltip to adjust its orientation based on its parent element rather than the viewport by setting `containParent` to `true`.
 
-
-<Canvas sourceState="shown" of={stories.ContainInsideParent} source={{
-  code: `
+<Canvas
+  sourceState="shown"
+  of={stories.ContainInsideParent}
+  source={{
+    code: `
 <div
   class="wrapper"
   style="display: grid; place-content: center; background: var(--color-gray-shade-lighter); position: relative; width: 800px; height: 300px; border: solid 1px black; margin: 100px;"
@@ -149,21 +176,27 @@ Sometimes you'll encounter a use case where the viewport edge detection isn't qu
   {/if}
 </div>
 `
-}}/>
-
+  }}
+/>
 
 ## Pin to element
 
 Sometimes you'll want to position a tooltip based on another DOM node rather than a cursor position. Instead of passing `x` and `y` props, this component also supports positioning by providing an `el` property. The tooltip will calculate the position of the element and position itself accordingly. Creating a tooltip that shows and hides when a button is clicked could be acheived by creating a variable to track the state of the tooltip, as well as the element to be used for positioning.
 
-<Source language="javascript" dark code={`
+<Source
+  language="javascript"
+  dark
+  code={`
 let pinEl;
 let showPinned = false;
-`} />
+`}
+/>
 
-
-<Canvas sourceState="shown" of={stories.PinnedToElement} source={{
-  code: `
+<Canvas
+  sourceState="shown"
+  of={stories.PinnedToElement}
+  source={{
+    code: `
 <div
   class="wrapper"
   style="position: relative; width: 800px; height: 300px; display: grid; place-content: center;"
@@ -176,14 +209,18 @@ let showPinned = false;
   <Tooltip elOffset={5} el={pinEl} >This tooltip is pinned to an existing element</Tooltip>
 {/if}
 `
-}}/>
+  }}
+/>
 
 ## Tooltip override
 
 Finally, if you want to take advantage of this component's positioning logic and edge detection, but you need more custom control of the markup, style and content of the tooltip itself, you can override all of the default HTML with the `tooltipOverride` slot.
 
-<Canvas sourceState="shown" of={stories.TooltipOverride} source={{
-  code: `
+<Canvas
+  sourceState="shown"
+  of={stories.TooltipOverride}
+  source={{
+    code: `
 <div class="wrapper" style="background: var(--color-gray-shade-lighter); width: 100%; height: 300px; display: grid; place-content: center;" on:mousemove={handleMousemove} on:mouseout={handleMouseout}>
   <p>Hover me to see tooltip</p>
 </div>
@@ -204,4 +241,5 @@ Finally, if you want to take advantage of this component's positioning logic and
   </Tooltip>
 {/if}
 `
-}}/>
+  }}
+/>

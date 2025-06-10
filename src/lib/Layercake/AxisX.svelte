@@ -6,12 +6,12 @@
   import { getContext } from "svelte";
   const { width, height, xScale, yRange } = getContext("LayerCake");
 
-  /** 
+  /**
    * Extend lines from the ticks into the chart space
    * @type {boolean} [gridlines=true] */
   export let gridlines = false;
 
-  /** 
+  /**
    * Show a vertical mark for each tick.
    * @type {boolean} [tickMarks=false] */
   export let tickMarks = true;
@@ -21,32 +21,32 @@
    * @type {boolean} [baseline=false] */
   export let baseline = true;
 
-  /** 
+  /**
    * Instead of centering the text on the first and the last items, align them to the edges of the chart.
    * @type {boolean} [snapTicks=false] */
   export let snapTicks = false;
 
-  /** 
+  /**
    * A function that passes the current tick value and expects a nicely formatted value in return.
    * @type {Function} [formatTick=d => d] */
   export let formatTick = (d) => d;
 
-  /** 
-   * If this is a number, it passes that along to the [d3Scale.ticks](https://github.com/d3/d3-scale) function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return. If nothing, it uses the default ticks supplied by the D3 function. 
+  /**
+   * If this is a number, it passes that along to the [d3Scale.ticks](https://github.com/d3/d3-scale) function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return. If nothing, it uses the default ticks supplied by the D3 function.
    * @type {number|Array|Function} [ticks] */
   export let ticks = undefined;
 
-  /** 
+  /**
    * How far over to position the text marker.
    * @type {number} [xTick=0] */
   export let xTick = 0;
 
-  /** 
+  /**
    * The distance from the baseline to place each tick value.
    * @type {number} [yTick=16] */
   export let yTick = 16;
 
-  /** 
+  /**
    * An optional label for the y axis
    * @type {string|null} [axisLabel=null] */
   export let axisLabel = "";

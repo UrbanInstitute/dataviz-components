@@ -1,23 +1,27 @@
 /** @type { import('@storybook/sveltekit').StorybookConfig } */
 const config = {
   stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx|svelte)"],
+
   addons: [
     "@storybook/addon-links",
-    "@storybook/addon-essentials",
-    "@storybook/addon-interactions",
-    "@storybook/addon-svelte-csf",
+    {
+      name: "@storybook/addon-svelte-csf",
+      options: {
+        legacyTemplate: true
+      }
+    },
     "@storybook/addon-a11y",
-    "@etchteam/storybook-addon-github-link"
+    "@storybook/addon-docs"
   ],
+
   framework: {
     name: "@storybook/sveltekit",
     options: {}
   },
+
   core: { disableTelemetry: true },
-  docs: {
-    autodocs: "tag"
-  },
   staticDirs: ["../static/"],
+
   build: {
     test: {
       disableAutoDocs: false

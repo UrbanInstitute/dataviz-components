@@ -2,34 +2,48 @@
 
 ## Next
 
+## v1.0.0
+
+- Upgrade Svelte from version 4 to 5
+- Upgrade Storybook to version 9
+- Use new Svelte Storybook CSF format for stories
+
 ## v0.13.0
+
 - Feature: add `robotsNoIndex` option to Meta component
 - Patch: Change naSpacing prop jsdoc to type number
 - Patch: Add new Urban type styles and update Futura font loading
 
 ## v0.13.0
+
 - Fix: Allow HTML content for title and description field in ChartBlock component
 - Patch: IconRefresh didn't have an export; added it.
 - Patch: Analytics component sends dev-only start-up console log about state of sendPageview.
 
 ## v0.12.6
-- Patch: DatawrapperSwitching story to wrap the bottom block in `if` instead of `key`. 
+
+- Patch: DatawrapperSwitching story to wrap the bottom block in `if` instead of `key`.
 
 ## v0.12.5
+
 - Patch: Headline eyebrows in Drupal include a link to the Story or Data tool homepage; tweaked Headline component to do the same.
 - Fix: CSS Theme variable --color-green was #ffb748, which is a kind of yellow. Changed to match style guide.
 
 ## v0.12.4
+
 - Fix: Tooltip positioning works as expected when inside a ShadowRoot of a custom element
 
 ## v0.12.3
+
 - Fix: Tooltip checks if ancestor is an instance of Element before calling getComputedStyle
 
 ## v0.12.2
+
 - Fix: Color scale resets ticks when switching from threshold scale to continuous scale
 - Patch: SVGPolygonLayer uses mousedown instead of click event
 
 ## v0.12.1
+
 - Fix: Add more specificity to several <p> tags to avoid CSS conflicts between <Theme /> and component styles
 
 ## v0.12.0

@@ -41,11 +41,11 @@
   </div>
   {#if title}
     {#if projectUrl}
-    <a href="{projectUrl}/">
-      <p class="nav--page-title">{title}</p>
-    </a>
+      <a href="{projectUrl}/">
+        <p class="nav--page-title">{title}</p>
+      </a>
     {:else}
-    <p class="nav--page-title">{title}</p>
+      <p class="nav--page-title">{title}</p>
     {/if}
   {/if}
 </nav>

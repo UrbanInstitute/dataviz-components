@@ -1,10 +1,19 @@
 <script context="module">
+  import { defineMeta } from "@storybook/addon-svelte-csf";
+  import { fireEvent, within, expect } from "storybook/test";
   import BasicDropdown from "./BasicDropdown.svelte";
   import IconDownload from "$lib/Button/IconDownload.svelte";
   import urbanColors from "$lib/utils/urbanColors.js";
   import docs from "./BasicDropdown.docs.md?raw";
 
-  export const meta = {
+  const sampleData = [
+    { value: "ohio", label: "Ohio" },
+    { value: "pennsylvania", label: "Pennsylvania" },
+    { value: "new_york", label: "New York" },
+    { value: "maryland", label: "Maryland" }
+  ];
+
+  const { Story } = defineMeta({
     title: "Components/BasicDropdown",
     component: BasicDropdown,
     tags: ["autodocs"],
@@ -18,6 +27,11 @@
       value: { control: "text" },
       placeholder: { control: "text" }
     },
+    args: {
+      variant: "primary",
+      data: sampleData,
+      inlineLabel: "Dropdown label"
+    },
     parameters: {
       docs: {
         description: {
@@ -28,30 +42,8 @@
         url: "/BasicDropdown/BasicDropdown.svelte"
       }
     }
-  };
+  });
 </script>
-
-<script>
-  import { Story, Template } from "@storybook/addon-svelte-csf";
-  import { fireEvent, within, expect } from "@storybook/test";
-
-  const sampleData = [
-    { value: "ohio", label: "Ohio" },
-    { value: "pennsylvania", label: "Pennsylvania" },
-    { value: "new_york", label: "New York" },
-    { value: "maryland", label: "Maryland" }
-  ];
-</script>
-
-<Template let:args>
-  <BasicDropdown
-    variant="primary"
-    data={sampleData}
-    inlineLabel="Dropdown label"
-    {...args}
-    on:change
-  />
-</Template>
 
 <Story
   name="Default"

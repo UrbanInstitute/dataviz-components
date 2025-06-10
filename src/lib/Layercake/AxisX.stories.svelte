@@ -1,8 +1,14 @@
 <script context="module">
   import AxisX from "./AxisX.svelte";
   import docs from "./AxisX.docs.md?raw";
+  import { defineMeta } from "@storybook/addon-svelte-csf";
+  import { LayerCake, Svg } from "layercake";
+  import data from "./data.json";
 
-  export const meta = {
+  const xKey = "value";
+  const yKey = "year";
+
+  const { Story } = defineMeta({
     title: "Layercake/AxisX",
     component: AxisX,
     tags: ["autodocs"],
@@ -12,11 +18,11 @@
           type: "range",
           min: 1,
           max: 20
-        },
+        }
       },
       axisLabel: {
-        control: 'text'
-      },
+        control: "text"
+      }
     },
     parameters: {
       backgrounds: {
@@ -35,19 +41,10 @@
         url: "/Layercake/AxisX.svelte"
       }
     }
-  };
+  });
 </script>
 
-<script>
-  import { Story, Template } from "@storybook/addon-svelte-csf";
-  import { LayerCake, Svg } from "layercake";
-  import data from "./data.json";
-
-  const xKey = "value";
-  const yKey = "year";
-</script>
-
-<Template let:args>
+{#snippet template(args)}
   <div style="height: 150px;">
     <LayerCake {data} xDomain={[0, 20]} yDomain={[0, 10]} y={yKey} x={xKey}>
       <Svg>
@@ -55,6 +52,6 @@
       </Svg>
     </LayerCake>
   </div>
-</Template>
+{/snippet}
 
-<Story name="Default" />
+<Story name="Default" {template} />

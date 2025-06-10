@@ -2,8 +2,10 @@
   import Button from "./Button.svelte";
   import IconDownload from "./IconDownload.svelte";
   import docs from "./Button.docs.md?raw";
+  import { within, expect, fn } from "storybook/test";
+  import { defineMeta } from "@storybook/addon-svelte-csf";
 
-  export const meta = {
+  const { Story } = defineMeta({
     title: "Components/Button",
     component: Button,
     tags: ["autodocs"],
@@ -19,6 +21,11 @@
         control: "select"
       }
     },
+    args: {
+      onClick: fn(),
+      onMouseenter: fn(),
+      onMouseleave: fn()
+    },
     parameters: {
       docs: {
         description: {
@@ -29,67 +36,59 @@
         url: "/Button/Button.svelte"
       }
     }
-  };
+  });
 </script>
 
-<script>
-  import { Story, Template } from "@storybook/addon-svelte-csf";
-  import { within, userEvent, expect, fn } from "@storybook/test";
-</script>
-
-<Template let:args>
-  <Button {...args} on:click on:mouseenter on:mouseleave>Button text</Button>
-</Template>
-
-<Story name="primary" args={{}} />
+<Story name="primary">Button text</Story>
 
 <Story
   name="primary with event listeners"
-  args={{
-    event_click: fn(),
-    event_mouseenter: fn(),
-    event_mouseleave: fn()
-  }}
-  play={async ({ canvasElement, args }) => {
+  play={async ({ canvasElement, args, userEvent }) => {
     const canvas = within(canvasElement);
     const button = canvas.getByRole("button");
     await userEvent.click(button);
-    await expect(args.event_click).toHaveBeenCalled();
+    await expect(args.onClick).toHaveBeenCalled();
     await userEvent.hover(button);
-    await expect(args.event_mouseenter).toHaveBeenCalled();
+    await expect(args.onMouseenter).toHaveBeenCalled();
     await userEvent.unhover(button);
-    await expect(args.event_mouseleave).toHaveBeenCalled();
+    await expect(args.onMouseleave).toHaveBeenCalled();
   }}
-/>
+>
+  Button text
+</Story>
 
 <Story name="primary with icon">
-  <Button
-    >Button text <svelte:fragment slot="icon" let:iconColor
-      ><IconDownload size={16} fill={iconColor} /></svelte:fragment
-    ></Button
-  >
-</Story>
+  Button text <svelte:fragment slot="icon" let:iconColor
+    ><IconDownload size={16} fill={iconColor} /></svelte:fragment
+  ></Story
+>
 
 <Story
   name="primary disabled"
   args={{
     disabled: true
   }}
-/>
+>
+  Button text
+</Story>
 
 <Story
   name="primary small"
   args={{
     size: "small"
   }}
-/>
+>
+  Button text
+</Story>
 
 <Story
   name="primary-black"
   args={{
     variant: "primary-black"
   }}
-/>
+>
+  Button text
+</Story>
 
 <Story
   name="primary-black disabled"
@@ -97,15 +96,15 @@
     variant: "primary-black",
     disabled: true
   }}
-/>
+>
+  Button text
+</Story>
 
 <Story name="primary-black with icon">
-  <Button variant="primary-black"
-    >Button text <svelte:fragment slot="icon" let:iconColor
-      ><IconDownload size={16} fill={iconColor} /></svelte:fragment
-    ></Button
-  >
-</Story>
+  Button text <svelte:fragment slot="icon" let:iconColor
+    ><IconDownload size={16} fill={iconColor} /></svelte:fragment
+  ></Story
+>
 
 <Story
   name="primary-black-small"
@@ -113,14 +112,18 @@
     variant: "primary-black",
     size: "small"
   }}
-/>
+>
+  Button text
+</Story>
 
 <Story
   name="secondary"
   args={{
     variant: "secondary"
   }}
-/>
+>
+  Button text
+</Story>
 
 <Story
   name="secondary disabled"
@@ -128,15 +131,15 @@
     variant: "secondary",
     disabled: true
   }}
-/>
+>
+  Button text
+</Story>
 
 <Story name="secondary with icon">
-  <Button variant="secondary"
-    >Button text <svelte:fragment slot="icon" let:iconColor
-      ><IconDownload size={16} fill={iconColor} /></svelte:fragment
-    ></Button
-  >
-</Story>
+  Button text <svelte:fragment slot="icon" let:iconColor
+    ><IconDownload size={16} fill={iconColor} /></svelte:fragment
+  ></Story
+>
 
 <Story
   name="secondary-small"
@@ -144,14 +147,18 @@
     variant: "secondary",
     size: "small"
   }}
-/>
+>
+  Button text
+</Story>
 
 <Story
   name="secondary-black"
   args={{
     variant: "secondary-black"
   }}
-/>
+>
+  Button text
+</Story>
 
 <Story
   name="secondary-black disabled"
@@ -159,29 +166,33 @@
     variant: "secondary-black",
     disabled: true
   }}
-/>
+>
+  Button text
+</Story>
 
 <Story name="secondary-black with icon">
-  <Button variant="secondary-black"
-    >Button text <svelte:fragment slot="icon" let:iconColor
-      ><IconDownload size={16} fill={iconColor} /></svelte:fragment
-    ></Button
-  >
-</Story>
+  Button text <svelte:fragment slot="icon" let:iconColor
+    ><IconDownload size={16} fill={iconColor} /></svelte:fragment
+  ></Story
+>
 <Story
   name="secondary-black-small"
   args={{
     variant: "secondary-black",
     size: "small"
   }}
-/>
+>
+  Button text
+</Story>
 
 <Story
   name="tertiary"
   args={{
     variant: "tertiary"
   }}
-/>
+>
+  Button text
+</Story>
 
 <Story
   name="tertiary disabled"
@@ -189,7 +200,9 @@
     variant: "tertiary",
     disabled: true
   }}
-/>
+>
+  Button text
+</Story>
 
 <Story name="tertiary with icon">
   <Button variant="tertiary"
@@ -204,4 +217,6 @@
     variant: "tertiary",
     size: "small"
   }}
-/>
+>
+  Button text
+</Story>

@@ -2,8 +2,9 @@
   import ColorLegend from "./ColorLegend.svelte";
   import urbanColors from "$lib/utils/urbanColors.js";
   import docs from "./ColorLegend.docs.md?raw";
+  import { defineMeta } from "@storybook/addon-svelte-csf";
 
-  export const meta = {
+  export const { Story } = defineMeta({
     title: "Maps/ColorLegend",
     component: ColorLegend,
     tags: ["autodocs"],
@@ -45,11 +46,10 @@
         url: "/maps/ColorLegend/ColorLegend.svelte"
       }
     }
-  };
+  });
 </script>
 
 <script>
-  import { Story, Template } from "@storybook/addon-svelte-csf";
   import {
     scaleLinear,
     scaleSequential,
@@ -66,10 +66,6 @@
     .domain([1, 100])
     .range([urbanColors.blue_shade_lightest, urbanColors.blue]);
 </script>
-
-<Template let:args>
-  <ColorLegend {...args} />
-</Template>
 
 <Story
   name="Linear scale"

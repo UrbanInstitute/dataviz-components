@@ -1,22 +1,17 @@
 <script context="module">
+  import { defineMeta } from "@storybook/addon-svelte-csf";
   import IconRefresh from "./IconRefresh.svelte";
 
-  export const meta = {
+  const { Story } = defineMeta({
     title: "Icons/Icons/IconRefresh",
     component: IconRefresh,
-    tags: ["!dev", "!autodocs"],
+    tags: ["!autodocs"],
     parameters: {
       githubLink: {
         url: "/Icons/IconRefresh.svelte"
       }
     }
-  };
+  });
 </script>
 
-<script>
-  import { Story } from "@storybook/addon-svelte-csf";
-</script>
-
-<Story name="Default" let:args>
-  <IconRefresh {...args} />
-</Story>
+<Story name="Primary" />

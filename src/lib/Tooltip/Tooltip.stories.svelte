@@ -1,10 +1,12 @@
 <script context="module">
   import Tooltip from "./Tooltip.svelte";
+  import { defineMeta } from "@storybook/addon-svelte-csf";
+  import { Button } from "$lib";
+  import { urbanColors } from "$lib/utils";
 
-  export const meta = {
+  const { Story } = defineMeta({
     title: "Components/Tooltip",
     component: Tooltip,
-    // tags: ["autodocs"],
     argTypes: {
       style: {
         control: "select",
@@ -39,14 +41,10 @@
         url: "/Tooltip/Tooltip.svelte"
       }
     }
-  };
+  });
 </script>
 
 <script>
-  import { Story, Template } from "@storybook/addon-svelte-csf";
-  import { Button } from "$lib";
-  import { urbanColors } from "$lib/utils";
-
   let tooltipX;
   let tooltipY;
 
@@ -66,7 +64,7 @@
   }
 </script>
 
-<Template let:args>
+{#snippet template(args)}
   <div
     class="wrapper"
     style="background: var(--color-gray-shade-lighter); width: 100%; height: 300px; display: grid; place-content: center;"
@@ -78,7 +76,7 @@
   {#if tooltipX && tooltipY}
     <Tooltip {...args} x={tooltipX} y={tooltipY}>{args.content || "This is a tooltip"}</Tooltip>
   {/if}
-</Template>
+{/snippet}
 
 <Story
   name="Mouse event"
@@ -86,6 +84,7 @@
     x: tooltipX,
     y: tooltipY
   }}
+  {template}
 />
 
 <Story
@@ -96,9 +95,10 @@
     x: tooltipX,
     y: tooltipY
   }}
+  {template}
 />
 
-<Story name="Custom HTML">
+<Story name="Custom HTML" asChild>
   <div
     class="wrapper"
     style="background: var(--color-gray-shade-lighter); width: 100%; height: 300px; display: grid; place-content: center;"
@@ -123,9 +123,10 @@
     x: tooltipX,
     y: tooltipY
   }}
+  {template}
 />
 
-<Story name="Contain inside parent">
+<Story name="Contain inside parent" asChild>
   <div
     class="wrapper"
     style="display: grid; place-content: center; background: var(--color-gray-shade-lighter); position: relative; width: 800px; height: 300px; border: solid 1px black; margin: 100px;"
@@ -144,13 +145,13 @@
   </div>
 </Story>
 
-<Story name="Pinned to element">
+<Story name="Pinned to element" asChild>
   <div
     class="wrapper"
     style="position: relative; width: 800px; height: 300px; display: grid; place-content: center;"
   >
     <div bind:this={pinEl} style="display: inline-block">
-      <Button on:click={() => (showPinned = !showPinned)}>Click me</Button>
+      <Button onClick={() => (showPinned = !showPinned)}>Click me</Button>
     </div>
   </div>
   {#if showPinned}
@@ -158,7 +159,7 @@
   {/if}
 </Story>
 
-<Story name="Tooltip override">
+<Story name="Tooltip override" asChild>
   <div
     class="wrapper"
     style="background: var(--color-gray-shade-lighter); width: 100%; height: 300px; display: grid; place-content: center;"
