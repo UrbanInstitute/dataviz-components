@@ -2,6 +2,11 @@
 
 ## Next
 
+## v1.0.0
+- Upgrade Svelte from version 4 to 5
+- Upgrade Storybook to version 9
+- Use new Svelte Storybook CSF format for stories
+
 ## v0.13.0
 - Feature: add `robotsNoIndex` option to Meta component
 - Patch: Change naSpacing prop jsdoc to type number
