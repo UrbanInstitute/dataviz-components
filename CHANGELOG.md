@@ -2,6 +2,8 @@
 
 ## Next
 
+## v1.0.1
+
 - Add Tilemap component
 - Update prettier settings
 - Cleanup type checker warnings
