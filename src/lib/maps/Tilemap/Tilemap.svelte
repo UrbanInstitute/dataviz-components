@@ -89,11 +89,9 @@
   let activeRows = $derived(
     mapTiles.filter((row) => row.some((tile) => tile.trim() !== "")).length
   );
-  $inspect("activeRows", activeRows);
   let shapeWidth = $derived(Math.floor(width / mapTiles[0].length));
   let shapeHeight = $derived(getHeight(shapeWidth, shape));
   let height = $derived(getMapHeight(activeRows, shapeHeight, shape));
-  $inspect("mapHeight", height);
 
   /**
    * @param { number } width

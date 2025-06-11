@@ -43,7 +43,7 @@ const preview = {
       }
     },
     docs: {
-      source: { language: "svelte" }
+      source: { language: "svelte", dark: true }
     },
     viewport: {
       viewports: {
