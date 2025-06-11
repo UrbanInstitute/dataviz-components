@@ -1,1 +1,0 @@
-import{P as S,Q as h,x as k,R as x,S as T}from"./iframe-BcferWuU.js";function t(r,i){return r===i||(r==null?void 0:r[T])===i}function A(r={},i,a,c){return S(()=>{var f,s;return h(()=>{f=s,s=[],k(()=>{r!==a(...s)&&(i(r,...s),f&&t(a(...f),r)&&i(null,...f))})}),()=>{x(()=>{s&&t(a(...s),r)&&i(null,...s)})}}),r}export{A as b};
