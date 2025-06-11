@@ -1,0 +1,9 @@
+AK,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,ME
+  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,VT,NH
+  ,  ,WA,MT,ND,MN,WI,  ,MI,  ,NY,MA,RI
+  ,  ,  ,ID,WY,SD,IA,IL,IN,OH,PA,NJ,CT
+  ,  ,OR,NV,CO,NE,MO,KY,WV,VA,MD,DE,
+  ,  ,  ,CA,UT,NM,KS,AR,TN,NC,SC,DC,
+  ,  ,  ,  ,AZ,OK,LA,MS,AL,GA,  ,  ,
+  ,  ,HI,  ,  ,  ,TX,  ,  ,FL,  ,  ,
+  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ,PR,
