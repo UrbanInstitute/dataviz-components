@@ -87,6 +87,7 @@
     hoverStroke: urbanColors.yellow,
     hoverStrokeWidth: 3
   }}
+  {template}
 />
 
 <Story name="Territories Example" asChild>
