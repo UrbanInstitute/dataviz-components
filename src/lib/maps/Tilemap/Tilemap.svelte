@@ -6,11 +6,12 @@
   import Tooltip from "$lib/Tooltip/Tooltip.svelte";
 
   /** @typedef {"states" | "pr" | "territories"} FeatureOptions */
+  /** @typedef {"hex" | "rext"} ShapeOption */
 
   /**
    * @typedef {Object} TilemapProps
    * @property {Object<string, any>[]} data
-   * @property {"rect" | "hex"} [shape="hex"]
+   * @property {ShapeOption} [shape="hex"]
    * @property {import("$utils/states").FeatureOptions} [featureOption="states"]
    * @property {string | ((d: Object<string, any>) => string)} [fill=urbanColors.blue] - A string or function that returns a string to use as this layers stroke color.
    * @property {string | undefined} [hoverFill=undefined] - A color string to use when a feature is hovered
@@ -88,9 +89,11 @@
   let activeRows = $derived(
     mapTiles.filter((row) => row.some((tile) => tile.trim() !== "")).length
   );
+  $inspect("activeRows", activeRows);
   let shapeWidth = $derived(Math.floor(width / mapTiles[0].length));
   let shapeHeight = $derived(getHeight(shapeWidth, shape));
   let height = $derived(getMapHeight(activeRows, shapeHeight, shape));
+  $inspect("mapHeight", height);
 
   /**
    * @param { number } width
@@ -104,9 +107,21 @@
     return width;
   }
 
+  /**
+   * Calculate the height of the map based on number of rows, unit height, and shape type.
+   * @param {number} numRows - Number of rows in the map.
+   * @param {number} unitHeight - Height of a single map unit.
+   * @param {ShapeOption} shapeType - The shape type of the map.
+   * @returns {number}
+   */
   function getMapHeight(numRows, unitHeight, shapeType) {
     if (shapeType === "hex") {
-      return numRows * (unitHeight / 2) + unitHeight * 2.25 + (hoverStrokeWidth || 0);
+      return (
+        numRows * (unitHeight / 2) +
+        unitHeight * 2.25 +
+        (numRows % 2) * (unitHeight * 0.25) +
+        (hoverStrokeWidth || 0)
+      );
     }
     return numRows * unitHeight + (hoverStrokeWidth || 0);
   }
@@ -181,7 +196,9 @@
   }
 
   /**
-   * @param {string} abbr
+   * Get the feature data for a given abbreviation.
+   * @param {string} abbr - The state or territory abbreviation.
+   * @returns {Object|null}
    */
   function getFeatureData(abbr) {
     if (!dataLookup) {
@@ -264,6 +281,12 @@
     }
   });
 
+  /**
+   * Returns true if the given fips matches the highlight value.
+   * @param {string} fips
+   * @param {string|undefined} highlight
+   * @returns {boolean}
+   */
   function getHighlight(fips, highlight) {
     return fips === highlight;
   }
