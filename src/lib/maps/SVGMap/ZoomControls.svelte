@@ -18,7 +18,7 @@
 
 <div class="zoom-controls {controlPosition}">
   {#if showReset && top}
-    <button class="zoom-button zoom-reset" on:click={zoomReset}>
+    <button class="zoom-button zoom-reset" on:click={zoomReset} aria-label="Reset map zoom">
       <svg
         width="15"
         height="15"
@@ -48,7 +48,12 @@
       </svg>
     </button>
   {/if}
-  <button class="zoom-button zoom-out" disabled={disableZoomOut} on:click={zoomOut}>
+  <button
+    class="zoom-button zoom-out"
+    disabled={disableZoomOut}
+    on:click={zoomOut}
+    aria-label="Zoom out map"
+  >
     <svg width="11" height="3" viewBox="0 0 11 3" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         fill-rule="evenodd"
@@ -58,7 +63,12 @@
       />
     </svg>
   </button>
-  <button class="zoom-button zoom-in" disabled={disableZoomIn} on:click={zoomIn}>
+  <button
+    class="zoom-button zoom-in"
+    disabled={disableZoomIn}
+    on:click={zoomIn}
+    aria-label="Zoom in map"
+  >
     <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         fill-rule="evenodd"
@@ -69,7 +79,7 @@
     </svg>
   </button>
   {#if showReset && !top}
-    <button class="zoom-button zoom-reset" on:click={zoomReset}>
+    <button class="zoom-button zoom-reset" on:click={zoomReset} aria-label="Reset map zoom">
       <svg
         width="15"
         height="15"

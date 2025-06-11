@@ -24,7 +24,7 @@
 
 <div class="section-break" style:--accent-color={accentColor} style:--font-weight={fontWeight}>
   <span class="section-number">{number}.</span>
-  <div class="section-line" />
+  <div class="section-line"></div>
 </div>
 <h2>{subhead}</h2>
 
