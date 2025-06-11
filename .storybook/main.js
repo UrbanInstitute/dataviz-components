@@ -5,10 +5,7 @@ const config = {
   addons: [
     "@storybook/addon-links",
     {
-      name: "@storybook/addon-svelte-csf",
-      options: {
-        legacyTemplate: true
-      }
+      name: "@storybook/addon-svelte-csf"
     },
     "@storybook/addon-a11y",
     "@storybook/addon-docs"

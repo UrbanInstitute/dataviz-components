@@ -65,11 +65,13 @@
 </script>
 
 {#snippet template(args)}
+  <!-- svelte-ignore a11y_no_static_element_interactions --> --
   <div
     class="wrapper"
     style="background: var(--color-gray-shade-lighter); width: 100%; height: 300px; display: grid; place-content: center;"
-    on:mousemove={handleMousemove}
-    on:mouseout={handleMouseout}
+    onmousemove={handleMousemove}
+    onmouseout={handleMouseout}
+    onblur={handleMouseout}
   >
     <p>Hover me to see tooltip</p>
   </div>
@@ -99,10 +101,11 @@
 />
 
 <Story name="Custom HTML" asChild>
+  <!-- svelte-ignore a11y_no_static_element_interactions --> --
   <div
     class="wrapper"
     style="background: var(--color-gray-shade-lighter); width: 100%; height: 300px; display: grid; place-content: center;"
-    on:mousemove={handleMousemove}
+    onmousemove={handleMousemove}
   >
     <p>Hover me to see tooltip</p>
   </div>
@@ -127,11 +130,13 @@
 />
 
 <Story name="Contain inside parent" asChild>
+  <!-- svelte-ignore a11y_no_static_element_interactions --> --
   <div
     class="wrapper"
     style="display: grid; place-content: center; background: var(--color-gray-shade-lighter); position: relative; width: 800px; height: 300px; border: solid 1px black; margin: 100px;"
-    on:mousemove={handleMousemove}
-    on:mouseout={handleMouseout}
+    onmousemove={handleMousemove}
+    onmouseout={handleMouseout}
+    onblur={handleMouseout}
   >
     <p>Hover me to see tooltip</p>
     {#if tooltipX && tooltipY}
@@ -160,11 +165,13 @@
 </Story>
 
 <Story name="Tooltip override" asChild>
+  <!-- svelte-ignore a11y_no_static_element_interactions --> --
   <div
     class="wrapper"
     style="background: var(--color-gray-shade-lighter); width: 100%; height: 300px; display: grid; place-content: center;"
-    on:mousemove={handleMousemove}
-    on:mouseout={handleMouseout}
+    onmousemove={handleMousemove}
+    onmouseout={handleMouseout}
+    onblur={handleMouseout}
   >
     <p>Hover me to see tooltip</p>
   </div>

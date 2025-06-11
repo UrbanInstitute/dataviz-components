@@ -1,7 +1,12 @@
 # @UrbanInstitute/dataviz-components Changelog
 
 ## Next
+
 - Add Tilemap component
+- Update prettier settings
+- Cleanup type checker warnings
+- Add type check to CI
+- Fix syntax issues in stories and remove unneeded story
 
 ## v1.0.0
 

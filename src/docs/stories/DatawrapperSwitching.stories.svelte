@@ -1,21 +1,15 @@
-<script context="module">
+<script module>
   import { defineMeta } from "@storybook/addon-svelte-csf";
-  const { Story } = defineMeta({
-    title: "Examples/Stories/Datawrapper Switching"
-  });
-</script>
-
-<script>
   import LoadingWrapper from "$lib/LoadingWrapper/LoadingWrapper.svelte";
-
   import DatawrapperIframe from "$lib/DatawrapperIframe/DatawrapperIframe.svelte";
   import BasicDropdown from "$lib/BasicDropdown/BasicDropdown.svelte";
   import Button from "$lib/Button/Button.svelte";
+  import DocsComponent from "./Placeholder.svelte";
 
-  let selectedChart = "AHpJL";
-
-  $: selectedChartMetadata = dropdownData.find((d) => d.value === selectedChart);
-
+  const { Story } = defineMeta({
+    title: "Examples/Stories/Datawrapper Switching",
+    component: DocsComponent
+  });
   const dropdownData = [
     {
       value: "AHpJL",
@@ -33,7 +27,6 @@
       ariaLabel: "Quis id magna ut esse qui nostrud magna."
     }
   ];
-
   const loadingChartData = [
     {
       value: "Toh1S",
@@ -46,19 +39,24 @@
       ariaLabel: "Quis id magna ut esse qui nostrud magna."
     }
   ];
-  let selectedChartLoading = "Toh1S";
-  $: selectedChartLoadingMetadata = loadingChartData.find((d) => d.value === selectedChartLoading);
+
+  let selectedChart = $state("AHpJL");
+
+  let selectedChartMetadata = $derived(dropdownData.find((d) => d.value === selectedChart));
+
+  let selectedChartLoading = $state("Toh1S");
+  let selectedChartLoadingMetadata = $derived(
+    loadingChartData.find((d) => d.value === selectedChartLoading)
+  );
 </script>
 
 <Story
   name="Dropdown"
+  asChild
   source={`
 <script>
   import { BasicDropdown, DatawrapperIframe } from "@urbaninstitute/dataviz-components";
-  let selectedChart;
-
-  // look up metadata based on selected chart
-  $: selectedChartMetadata = dropdownData.find((d) => d.value === selectedChart);
+  let selectedChart = $state();
 
   const dropdownData = [
     {
@@ -77,6 +75,9 @@
       ariaLabel: "Quis id magna ut esse qui nostrud magna."
     }
   ];
+
+  // look up metadata based on selected chart
+  let selectedChartMetadata = $derived(dropdownData.find((d) => d.value === selectedChart));
 </script>
 
 <BasicDropdown
@@ -114,15 +115,16 @@
 
 <Story
   name="Buttons"
+  asChild
   source={`
 <script>
   import { Button, DatawrapperIframe } from "@urbaninstitute/dataviz-components";
   // see first code chunk for setup
 </script>
 
-<Button on:click={() => (selectedChart = "AHpJL")}>Chart #1</Button>
-<Button on:click={() => (selectedChart = "91Q0t")}>Chart #2</Button>
-<Button on:click={() => (selectedChart = "eaD2D")}>Chart #3</Button>
+<Button onClick={() => (selectedChart = "AHpJL")}>Chart #1</Button>
+<Button onClick={() => (selectedChart = "91Q0t")}>Chart #2</Button>
+<Button onClick={() => (selectedChart = "eaD2D")}>Chart #3</Button>
 
 {#if selectedChartMetadata}
   <DatawrapperIframe
@@ -133,9 +135,9 @@
 {/if}
   `}
 >
-  <Button on:click={() => (selectedChart = "AHpJL")}>Chart #1</Button>
-  <Button on:click={() => (selectedChart = "91Q0t")}>Chart #2</Button>
-  <Button on:click={() => (selectedChart = "eaD2D")}>Chart #3</Button>
+  <Button onClick={() => (selectedChart = "AHpJL")}>Chart #1</Button>
+  <Button onClick={() => (selectedChart = "91Q0t")}>Chart #2</Button>
+  <Button onClick={() => (selectedChart = "eaD2D")}>Chart #3</Button>
   {#if selectedChart}
     <DatawrapperIframe
       datawrapperId={selectedChartMetadata.value}
@@ -147,14 +149,15 @@
 
 <Story
   name="Loading"
+  asChild
   source={`
 <script>
   import { Button, DatawrapperIframe, LoadingWrapper } from "@urbaninstitute/dataviz-components";
   // see first code chunk for setup
 </script>
 
-<Button on:click={() => (selectedChart = "Toh1S")}>Chart #1</Button>
-<Button on:click={() => (selectedChart = "rgLU1")}>Chart #2</Button>
+<Button onClick={() => (selectedChart = "Toh1S")}>Chart #1</Button>
+<Button onClick={() => (selectedChart = "rgLU1")}>Chart #2</Button>
 
   {#if selectedChartMetadata}
     <LoadingWrapper let:setChildLoaded let:setChildLoading>
@@ -163,16 +166,16 @@
           datawrapperId={selectedChartMetadata.value}
           title={selectedChartMetadata.label}
           ariaLabel={selectedChartMetadata.ariaLabel}
-          on:startrender={setChildLoading}
-          on:visrendered={setChildLoaded}
+          onstartrender={setChildLoading}
+          onvisrendered={setChildLoaded}
         />
       {/key}
     </LoadingWrapper>
   {/if}
 `}
 >
-  <Button on:click={() => (selectedChartLoading = "Toh1S")}>Chart #1</Button>
-  <Button on:click={() => (selectedChartLoading = "rgLU1")}>Chart #2</Button>
+  <Button onClick={() => (selectedChartLoading = "Toh1S")}>Chart #1</Button>
+  <Button onClick={() => (selectedChartLoading = "rgLU1")}>Chart #2</Button>
 
   {#if selectedChartLoadingMetadata}
     <LoadingWrapper let:setChildLoaded let:setChildLoading>
