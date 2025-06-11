@@ -1,6 +1,7 @@
 # @UrbanInstitute/dataviz-components Changelog
 
 ## Next
+- Add Tilemap component
 
 ## v1.0.0
 
