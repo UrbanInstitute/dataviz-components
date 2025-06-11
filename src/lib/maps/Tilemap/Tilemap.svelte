@@ -5,6 +5,8 @@
   import { fipsMap } from "./fips.js";
   import Tooltip from "$lib/Tooltip/Tooltip.svelte";
 
+  /** @typedef {"states" | "pr" | "territories"} FeatureOptions */
+
   /**
    * @typedef {Object} TilemapProps
    * @property {Object<string, any>[]} data
@@ -21,8 +23,11 @@
    * @property {string | undefined} [ariaRole=undefined] - Optional aria role string to be applied to SVG container. By default, the SVG is hidden from the accessiblity tree. If you add an ariaRole here, any layers should also be given an ariaRole.
    * @property {string | undefined} [ariaLabel=undefined] - Optional aria label string to be applied to SVG container. By default, the SVG is hidden from the accessiblity tree and should include a descriptive label. If you add an ariaRole this property can be left undefined;
    * @property {string} [labelColor=urbanColors.black] - Optional color string to use for the labels on the map
-   * @property {(e, Record<any, any>) => void} [onMousemove=() => {}] - Optional color string to use for the labels on the map
-   * @property {(props: object) => any} [tooltip] - Optional snippet for rendering a tooltip, receives hovered feature props
+   * @property {(e: Event, props: Record<any, any>) => void} [onMousemove=() => {}] - Optional handler that fires when the mouse moves over a feature
+   * @property {(e: Event) => void} [onMouseout=() => {}] - Optional handler that fires when the mouse moves out of a feature
+   * @property {(e: Event, props: Record<any, any>) => void} [onClick=() => {}] - Optional handler that fires when the mouse clicks on a feature
+   * @property {(e: Event) => void} [onBgclick=() => {}] - Optional handler that fires when the mouse clicks on the background
+   * @property {@import("svelte").Snippet} [tooltip] - Optional snippet for rendering a tooltip, receives hovered feature props
    */
 
   /** @type {TilemapProps} */
@@ -42,6 +47,9 @@
     ariaLabel,
     labelColor = urbanColors.black,
     onMousemove = () => {},
+    onMouseout = () => {},
+    onClick = () => {},
+    onBgclick = () => {},
     tooltip = undefined
   } = $props();
 
@@ -66,17 +74,20 @@
     );
   }
 
-  let dataLookup = $derived(data
-    ? data.reduce((acc, curr) => {
-        const { map_id } = curr;
-        return acc.set(map_id, curr);
-      }, new Map())
-    : undefined);
-    $inspect(dataLookup, "dataLookup");
+  let dataLookup = $derived(
+    data
+      ? data.reduce((acc, curr) => {
+          const { map_id } = curr;
+          return acc.set(map_id, curr);
+        }, new Map())
+      : undefined
+  );
 
   let width = $state(500);
   let mapTiles = $derived(parseLayout(maplayout));
-  let activeRows = $derived(mapTiles.filter((row) => row.some((tile) => tile.trim() !== "")).length);
+  let activeRows = $derived(
+    mapTiles.filter((row) => row.some((tile) => tile.trim() !== "")).length
+  );
   let shapeWidth = $derived(Math.floor(width / mapTiles[0].length));
   let shapeHeight = $derived(getHeight(shapeWidth, shape));
   let height = $derived(getMapHeight(activeRows, shapeHeight, shape));
@@ -182,7 +193,7 @@
     } else {
       //if data doesn't exist for state, fill all columns with N/A values
       let fallbackData = {
-        map_id: fips,
+        map_id: fips
       };
       return fallbackData;
     }
@@ -196,7 +207,6 @@
   let el = $state();
 
   let tooltipData = $state(null);
-  $inspect(tooltipData, "tooltipData");
 
   /**
    * Raise a dom node to top of siblings
@@ -223,7 +233,7 @@
       props,
       x: e.pageX,
       y: e.pageY
-    }
+    };
     onMousemove(e, props);
   }
 
@@ -232,6 +242,7 @@
    */
   function handleMouseout(e) {
     tooltipData = null;
+    onMouseout(e);
   }
 
   /**
@@ -244,7 +255,7 @@
       raise(e.target);
     }
     const props = getFeatureData(state);
-    dispatch("click", { e, props });
+    onClick(e, props);
   }
 
   $effect(() => {
@@ -272,12 +283,13 @@
   <svg bind:this={el} {width} {height} viewBox="0 0 {width} {height}">
     <rect
       role="presentation"
+      class="background"
       fill={urbanColors.white}
       x="0"
       y="0"
       {width}
       {height}
-      on:mousedown={() => dispatch("bgclick")}
+      onmousedown={(e) => onBgclick(e)}
     ></rect>
     <g
       class="tiles"
@@ -298,13 +310,14 @@
                   rowIndex,
                   shapeHeight
                 )})"
-                stroke="white"
+                {stroke}
+                stroke-width={strokeWidth}
                 role="presentation"
                 class:highlight={getHighlight(fipsMap.get(tile), highlightFeature)}
-                on:mousemove={(e) => handleMousemove(e, tile)}
-                on:mouseout={handleMouseout}
-                on:blur
-                on:mousedown={(e) => handleClick(e, tile)}
+                onmousemove={(e) => handleMousemove(e, tile)}
+                onmouseout={handleMouseout}
+                onblur={handleMouseout}
+                onmousedown={(e) => handleClick(e, tile)}
               ></path>
             {:else if shape === "rect"}
               <rect
@@ -316,13 +329,14 @@
                   shapeHeight
                 )})"
                 fill={getFill(getFeatureData(tile), fill, naFill)}
-                stroke="white"
+                {stroke}
+                stroke-width={strokeWidth}
                 role="presentation"
                 class:highlight={getHighlight(fipsMap.get(tile), highlightFeature)}
-                on:mousemove={(e) => handleMousemove(e, tile)}
-                on:mouseout={handleMouseout}
-                on:blur
-                on:click={(e) => handleClick(e, tile)}
+                onmousemove={(e) => handleMousemove(e, tile)}
+                onmouseout={handleMouseout}
+                onblur={handleMouseout}
+                onmousedown={(e) => handleClick(e, tile)}
               ></rect>
             {/if}
           {/if}
@@ -371,8 +385,7 @@
     </g>
   </svg>
   {#if tooltip && tooltipData}
-    <Tooltip
-      {...tooltipData}>
+    <Tooltip {...tooltipData}>
       {@render tooltip(tooltipData.props)}
     </Tooltip>
   {/if}
