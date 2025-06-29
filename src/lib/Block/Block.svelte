@@ -1,4 +1,4 @@
-<script context="module">
+<script module>
   /**
    * @typedef {"body" | "full" | "wide"} blockWidth
    */
@@ -6,14 +6,17 @@
 
 <script>
   /**
-   * The width of the block.
-   * @type {blockWidth} [width="body"]
+   * @typedef {Object} Props
+   * @property {blockWidth} [width="body"] - The width of the block
+   * @property {import('svelte').Snippet} [children] - The content to render inside the block
    */
-  export let width = "body";
+
+  /** @type {Props} */
+  let { width = "body", children } = $props();
 </script>
 
 <div class="layout-block {width}">
-  <slot />
+  {@render children?.()}
 </div>
 
 <style>
@@ -28,11 +31,9 @@
     margin: 0 auto;
     width: 100%;
   }
-
   .layout-block.wide {
     max-width: var(--size-wide-max-width, 1160px);
   }
-
   @media screen and (min-width: 792px) {
     .layout-block.body {
       margin: 0 auto;
