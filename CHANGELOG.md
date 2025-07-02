@@ -2,6 +2,10 @@
 
 ## Next
 
+## v1.0.2
+
+- Update relative css imports in main.css
+
 ## v1.0.1
 
 - Add Tilemap component
