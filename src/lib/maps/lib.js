@@ -75,6 +75,9 @@ export function getTooltipProps(e, feature) {
  * @returns { boolean }
  **/
 export function getHighlightFeature(feature, compareA, compareB) {
+  if (!feature || !feature.properties) {
+    return false;
+  }
   if (compareA && compareProps(compareA, feature.properties)) {
     return true;
   }
