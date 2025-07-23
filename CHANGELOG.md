@@ -2,6 +2,9 @@
 
 ## Next
 
+## v1.0.3
+- Fix: Fixes issue with getFeatureHighlight function in SVGMap that would throw an error for any features without props
+
 ## v1.0.2
 
 - Update relative css imports in main.css
