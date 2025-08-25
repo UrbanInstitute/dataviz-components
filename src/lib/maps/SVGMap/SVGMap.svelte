@@ -80,6 +80,13 @@
    */
   export let tooltipContainParent = false;
 
+  /**
+   * whether to use a small (138px) or large (198px) width tooltip
+   * @type {"small" | "large"}
+   * @default "small"
+   */
+  export let tooltipSize = "small";
+
   const dispatch = createEventDispatcher();
 
   // create stores of map global settings to add to context
@@ -278,7 +285,7 @@
     </div>
   {/if}
   {#if tooltip}
-    <Tooltip x={tooltip.x} y={tooltip.y} containParent={tooltipContainParent}>
+    <Tooltip x={tooltip.x} y={tooltip.y} containParent={tooltipContainParent} size={tooltipSize}>
       <slot name="tooltip" props={tooltip.props}></slot>
     </Tooltip>
   {/if}
