@@ -2,6 +2,9 @@
 
 ## Next
 
+## v1.0.4
+- Feat: SVGMap has tooltipSize prop to determine large or small tooltips
+
 ## v1.0.3
 - Fix: Fixes issue with getFeatureHighlight function in SVGMap that would throw an error for any features without props
 
