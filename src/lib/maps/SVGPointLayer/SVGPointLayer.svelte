@@ -159,7 +159,7 @@
   class="point-layer map-layer"
   on:mouseout={(e) => dispatch("mouseout")}
   on:blur={(e) => dispatch("mouseout")}
-  style:pointe-events={pointerEvents ? "auto" : "none"}
+  style:pointer-events={pointerEvents ? "auto" : "none"}
   style:--hover-stroke-width="{(hoverStrokeWidth || strokeWidth) / $transform.k}px"
 >
   {#each features || $globalFeatures as feature}
