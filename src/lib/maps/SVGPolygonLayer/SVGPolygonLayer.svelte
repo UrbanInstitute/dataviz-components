@@ -147,7 +147,7 @@
   style:--hover-fill={hoverFill || null}
   style:--hover-stroke={hoverStroke || null}
   style:--hover-stroke-width="{(hoverStrokeWidth || strokeWidth) / $transform.k}px"
-  style:pointe-events={pointerEvents ? "auto" : "none"}
+  style:pointer-events={pointerEvents ? "auto" : "none"}
   class:hover-fill={hoverFill}
   bind:this={el}
 >
