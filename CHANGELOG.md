@@ -2,6 +2,9 @@
 
 ## Next
 
+## v1.0.5
+- Fix: SVGMap layers set pointer-events style property correctly
+
 ## v1.0.4
 - Feat: SVGMap has tooltipSize prop to determine large or small tooltips
 
