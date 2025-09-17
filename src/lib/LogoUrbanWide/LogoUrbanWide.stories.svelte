@@ -39,3 +39,8 @@
   args={{ variant: "white" }}
   parameters={{ backgrounds: { default: "dark" } }}
 />
+<Story
+  name="Width 300"
+  args={{ width: 300 }}
+  parameters={{ backgrounds: { default: "dark" } }}
+/>

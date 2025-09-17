@@ -1,13 +1,16 @@
 <script>
-  /** @type {"color" | "white"} */
-  export let variant = "color";
+  /** @typedef {object} Props
+   * @property {"color" | "white"} [variant="color"] - The color variant of the logo.
+   * @property {number} [width=172.88] - The width of the logo in pixels.
+   */
 
-  export let width = 172.88;
-  $: height = 172.88 * (1 / 26.27); //equal to 6.58
+  /** @type {Props} */
+  let { variant = "color", width = 172.88 } = $props();
+  let height = $derived(width * (1 / 26.27)); //equal to 6.58
 
-  $: accentColor = variant == "color" ? "#1696D2" : "#ffffff";
-  $: midColor = variant == "color" ? "#9D9FA2" : "#ffffff";
-  $: darkColor = variant == "color" ? "#231F20" : "#ffffff";
+  let accentColor = $derived(variant == "color" ? "#1696D2" : "#ffffff");
+  let midColor = $derived(variant == "color" ? "#9D9FA2" : "#ffffff");
+  let darkColor = $derived(variant == "color" ? "#231F20" : "#ffffff");
 </script>
 
 <svg
