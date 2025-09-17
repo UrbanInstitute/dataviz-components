@@ -2,6 +2,9 @@
 
 ## Next
 
+## v1.0.6
+- Fix: LogoUrbanWide height is derived from width instead of being hard-coded
+
 ## v1.0.5
 - Fix: SVGMap layers set pointer-events style property correctly
 
