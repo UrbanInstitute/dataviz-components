@@ -1,0 +1,5 @@
+import{j as e}from"./iframe-DkBoYltS.js";import{useMDXComponents as s}from"./index-Bzf7KsXA.js";import{M as i}from"./blocks-BbrjO7ga.js";function o(n){const t={a:"a",code:"code",h1:"h1",img:"img",p:"p",...s(),...n.components};return e.jsxs(e.Fragment,{children:[e.jsx(i,{title:"stores/pymChildStore"}),`
+`,e.jsx(t.h1,{id:"pymchildstore",children:"pymChildStore"}),`
+`,e.jsx(t.p,{children:e.jsx(t.a,{href:"https://github.com/UrbanInstitute/dataviz-components/blob/main/src/lib/Pym/stores.js",rel:"nofollow",children:e.jsx(t.img,{src:"https://badgen.net/badge/icon/GitHub?icon=github&label",alt:"github"})})}),`
+`,e.jsxs(t.p,{children:["A Svelte store that exposes a Pym.js child instance. Used in conjuction with the ",e.jsx(t.code,{children:"<PymChild />"})," component."]}),`
+`,e.jsxs(t.p,{children:[e.jsx(t.a,{href:"/docs/components-pymchild--docs",children:"Read more about how to use the PymChild component here"}),"."]})]})}function m(n={}){const{wrapper:t}={...s(),...n.components};return t?e.jsx(t,{...n,children:e.jsx(o,{...n})}):o(n)}export{m as default};

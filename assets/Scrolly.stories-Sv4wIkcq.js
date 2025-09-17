@@ -1,0 +1,8 @@
+import{p as d,V as p,g as y,h as g,d as m,W as f,f as u,b as v}from"./iframe-DkBoYltS.js";import{i as _}from"./lifecycle-BcE5ET0k.js";import{S as t}from"./Scrolly-BR5g82LY.js";import{c as h,d as S}from"./create-runtime-stories-CMVs6-vI.js";const e={title:"Components/Scrolly",component:t,argTypes:{slides:{control:"array"},foregroundWidth:{options:["body","wide","full"],control:{type:"select"}},textLayout:{options:["center","left","right"],control:{type:"select"}},textAlign:{options:["center","left","right"],control:{type:"select"}}},parameters:{githubLink:{url:"/Scrolly/Scrolly.svelte"}}},{Story:b}=S(),w=["Slide 1","Slide 2","Slide 3"];var $=u('<div slot="background" style="width: 100%; height: 100vh; color: var(--color-white); font-weight: var(--font-weight-bold); background: var(--color-blue); display: flex; align-items: center; justify-content: center;">Scrolly background</div>');function o(r,l){d(l,!1),_();const s=g(()=>({slides:w}));b(r,{name:"Primary",get args(){return y(s)},template:(a,n=p)=>{t(a,f(n,{$$slots:{background:(i,C)=>{var c=$();v(i,c)}}}))},$$slots:{template:!0},parameters:{__svelteCsf:{rawCode:`<Scrolly {...args}>
+  <div
+    slot="background"
+    style="width: 100%; height: 100vh; color: var(--color-white); font-weight: var(--font-weight-bold); background: var(--color-blue); display: flex; align-items: center; justify-content: center;"
+  >
+    Scrolly background
+  </div>
+</Scrolly>`}}}),m()}o.__docgen={data:[],name:"Scrolly.stories.svelte"};const k=h(o,e),x=["Primary"],P={...k.Primary,tags:["svelte-csf-v5"]},W=Object.freeze(Object.defineProperty({__proto__:null,Primary:P,__namedExportsOrder:x,default:e},Symbol.toStringTag,{value:"Module"}));export{P as $,W as S};
