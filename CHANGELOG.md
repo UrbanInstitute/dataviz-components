@@ -6,6 +6,7 @@
 - Feat: Tooltip has pointerEvents prop
 - Fix: ColorLegend story now displays correctly
 - Fix: BasicPage and CustomSVGMap examples display in the correct section in the navigation
+- Feat: Add Threads and Bluesky to social share component
 
 ## v1.0.6
 

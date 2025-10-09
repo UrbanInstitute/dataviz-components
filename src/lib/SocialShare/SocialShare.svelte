@@ -1,9 +1,11 @@
 <script>
-  import twitterIcon from "./IconTwitter.svelte";
-  import xIcon from "./IconX.svelte";
+  import blueskyIcon from "./IconBluesky.svelte";
   import facebookIcon from "./IconFacebook.svelte";
   import linkedinIcon from "./IconLinkedin.svelte";
   import mailIcon from "./IconMail.svelte";
+  import threadsIcon from "./IconThreads.svelte";
+  import twitterIcon from "./IconTwitter.svelte";
+  import xIcon from "./IconX.svelte";
 
   /**
    * URL to share on social media platforms
@@ -35,6 +37,21 @@
 
   $: socials = [
     {
+      name: "linkedin",
+      icon: linkedinIcon,
+      url: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrlToShare}`
+    },
+    {
+      name: "bluesky",
+      icon: blueskyIcon,
+      url: `https://bsky.app/intent/compose?text=${encodedUrlToShare}`
+    },
+    {
+      name: "threads",
+      icon: threadsIcon,
+      url: `https://threads.net/intent/post?url=${encodedUrlToShare}`
+    },
+    {
       name: "facebook",
       icon: facebookIcon,
       url: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrlToShare}`
@@ -43,11 +60,6 @@
       name: "X",
       icon: xIcon,
       url: `https://twitter.com/intent/tweet?text=&url=${encodedUrlToShare}`
-    },
-    {
-      name: "linkedin",
-      icon: linkedinIcon,
-      url: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrlToShare}`
     },
     {
       name: "email",
