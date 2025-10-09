@@ -1,6 +1,6 @@
 {
   "name": "@urbaninstitute/dataviz-components",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "scripts": {
     "dev": "npm run storybook",
     "build": "vite build && npm run package",
