@@ -5,6 +5,7 @@
 - Fix: Syntax error in toggle component
 - Feat: Tooltip has pointerEvents prop
 - Fix: ColorLegend story now displays correctly
+- Fix: BasicPage and CustomSVGMap examples display in the correct section in the navigation
 
 ## v1.0.6
 
