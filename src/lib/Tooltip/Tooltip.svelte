@@ -91,6 +91,12 @@
    */
   export let containParent = false;
 
+  /**
+   * Whether the tooltip container should allow pointer events. Set to true when rendering interactive content like links.
+   * @type {boolean} [pointerEvents = false]
+   */
+  export let pointerEvents = false;
+
   // lookup to convert semantic sizes to pixel widths
   const sizes = {
     small: 138,
@@ -395,6 +401,7 @@
   style={`left: ${tooltipCoords[0]}px; top: ${tooltipCoords[1]}px; width: ${sizes[size]}px;`}
   bind:this={tooltipEl}
   style:--tooltip-triangle-size="{$$slots.tooltipOverride ? 0 : triangleSize}px"
+  style:pointer-events={pointerEvents ? "auto" : "none"}
 >
   <!-- The tooltipOverride slot allows you to provide custom markup that will override all of the default styling of the tooltip while still adhering to the positioning logic -->
   <slot name="tooltipOverride" orientation={tooltipOrientation}>
@@ -419,7 +426,6 @@
 
 <style>
   .tooltip-outer {
-    pointer-events: none;
     position: absolute;
     left: 0;
     top: 0;
