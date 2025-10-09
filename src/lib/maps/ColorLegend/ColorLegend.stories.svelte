@@ -4,7 +4,7 @@
   import docs from "./ColorLegend.docs.md?raw";
   import { defineMeta } from "@storybook/addon-svelte-csf";
 
-  export const { Story } = defineMeta({
+  const { Story } = defineMeta({
     title: "Maps/ColorLegend",
     component: ColorLegend,
     tags: ["autodocs"],
