@@ -2,6 +2,7 @@
 
 ## Next
 - Fix: Syntax error in toggle component
+- Feat: Tooltip has pointerEvents prop
 
 ## v1.0.6
 - Fix: LogoUrbanWide height is derived from width instead of being hard-coded
