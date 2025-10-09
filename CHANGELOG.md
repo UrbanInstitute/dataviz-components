@@ -2,6 +2,8 @@
 
 ## Next
 
+## v1.0.7
+
 - Fix: Syntax error in toggle component
 - Feat: Tooltip has pointerEvents prop
 - Fix: ColorLegend story now displays correctly
