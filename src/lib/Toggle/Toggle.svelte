@@ -37,7 +37,7 @@
   }}
   style:direction={labelPosition === "right" ? "rtl" : "ltr"}
   ><p class="label {labelPosition}">{label}</p>
-  <span class="toggle" aria-hidden="true"><span> class="circle"></span></span>
+  <span class="toggle" aria-hidden="true"><span class="circle"></span></span>
 </button>
 
 <style>

@@ -1,6 +1,7 @@
 # @UrbanInstitute/dataviz-components Changelog
 
 ## Next
+- Fix: Syntax error in toggle component
 
 ## v1.0.5
 - Fix: SVGMap layers set pointer-events style property correctly
