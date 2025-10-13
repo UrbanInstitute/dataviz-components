@@ -1,10 +1,14 @@
+<!-- Portions of this code have been written or edited by generative-AI tools. -->
 <script>
   import urbanColors from "$lib/utils/urbanColors.js";
+
   /**
-   * Hex color for arrow fill
-   * @type {string}
+   * @typedef {Object} Props
+   * @property {string} [fill] - Hex color for arrow fill
    */
-  export let fill = urbanColors.blue;
+
+  /** @type {Props} */
+  let { fill = urbanColors.blue } = $props();
 </script>
 
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="18" viewBox="0 0 16 18" fill="none">
