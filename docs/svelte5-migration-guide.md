@@ -104,6 +104,7 @@ This guide covers common patterns for migrating from Svelte 4 to Svelte 5, with 
 When a component spreads `$$restProps` onto markup, destructure the remaining props from `$props()` and spread them manually.
 
 **Before (Svelte 4):**
+
 ```svelte
 <script>
   export let label;
@@ -116,6 +117,7 @@ When a component spreads `$$restProps` onto markup, destructure the remaining pr
 ```
 
 **After (Svelte 5):**
+
 ```svelte
 <script>
   /**
@@ -128,7 +130,7 @@ When a component spreads `$$restProps` onto markup, destructure the remaining pr
   let { label, disabled = false, ...restProps } = $props();
 </script>
 
-<button disabled={disabled} {...restProps}>
+<button {disabled} {...restProps}>
   {label}
 </button>
 ```
@@ -137,8 +139,8 @@ If you need to merge class names before spreading:
 
 ```svelte
 <script>
-  let { class: externalClass = '', ...restProps } = $props();
-  const className = ['button', externalClass].filter(Boolean).join(' ');
+  let { class: externalClass = "", ...restProps } = $props();
+  const className = ["button", externalClass].filter(Boolean).join(" ");
 </script>
 
 <button class={className} {...restProps}>
@@ -541,7 +543,7 @@ Leave third-party or shared external stores in place and bridge them into rune-m
 
 ```svelte
 <script>
-  import { highlightStore } from 'layercake'; // example external store
+  import { highlightStore } from "layercake"; // example external store
 
   let highlight = $state(null);
 
@@ -554,7 +556,7 @@ Leave third-party or shared external stores in place and bridge them into rune-m
   });
 </script>
 
-<p>Highlighted series: {highlight?.id ?? 'none'}</p>
+<p>Highlighted series: {highlight?.id ?? "none"}</p>
 ```
 
 If you only need to read a store synchronously, use `get` from `svelte/store`, but avoid template shorthand like `$storeName`. Explicit subscriptions keep teardown behavior predictable and work across non-SvelteKit environments.
@@ -887,7 +889,7 @@ Avoid nesting additional `$effect()` calls inside a root effect—use plain call
 
 ### Using `$effect.pre()`
 
-`$effect.pre()` mirrors the old `beforeUpdate` timing. Run it when you must read layout or perform work *before* Svelte updates the DOM.
+`$effect.pre()` mirrors the old `beforeUpdate` timing. Run it when you must read layout or perform work _before_ Svelte updates the DOM.
 
 ```svelte
 $effect.pre(() => {
@@ -904,17 +906,18 @@ $effect(() => {
 `beforeUpdate` and `afterUpdate` still exist in Svelte 5, but you can replace both with a single `$effect()` by using its cleanup function. The effect body runs after DOM updates (like `afterUpdate`), and the cleanup runs before the next update or on destroy (like `beforeUpdate`).
 
 **Before (Svelte 4):**
+
 ```javascript
 <script>
   import { beforeUpdate, afterUpdate } from 'svelte';
-  
+
   let count = 0;
   let previous = 0;
-  
+
   beforeUpdate(() => {
     previous = count;
   });
-  
+
   afterUpdate(() => {
     console.log(`count changed from ${previous} to ${count}`);
   });
@@ -922,6 +925,7 @@ $effect(() => {
 ```
 
 **After (Svelte 5):**
+
 ```javascript
 <script>
   let count = $state(0);
@@ -1023,6 +1027,7 @@ The `tick()` function is still available from `svelte` and works the same way. U
 Runes use standard DOM attributes (`onclick`, etc.), so Svelte’s modifier syntax (`on:click|preventDefault`) is no longer available. Wrap the handler and perform the modifier work yourself before calling the callback prop.
 
 **Before (Svelte 4):**
+
 ```svelte
 <!-- FormButton.svelte -->
 <button on:click|preventDefault|stopPropagation={handleClick}>
@@ -1034,6 +1039,7 @@ Runes use standard DOM attributes (`onclick`, etc.), so Svelte’s modifier synt
 ```
 
 **After (Svelte 5):**
+
 ```svelte
 <!-- FormButton.svelte -->
 <script>

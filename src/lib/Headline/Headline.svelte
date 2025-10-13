@@ -1,63 +1,50 @@
+<!-- Portions of this code have been written or edited by generative AI tools. -->
 <script>
   import Block from "../Block/Block.svelte";
   import SocialShare from "../SocialShare/SocialShare.svelte";
 
   /**
-   * Text that should be displayed in headline.
-   * @type {string}
+   * @typedef {Object} Props
+   * @property {string} [headline] - Text that should be displayed in headline
+   * @property {string | null} [description] - Optional description to be displayed below headline
+   * @property {string | null} [eyebrow] - Optional eyebrow to be displayed above the headline
+   * @property {string | null} [date] - Date to be displayed below headline
+   * @property {string} [datePrefix] - Optional prefix for the date
+   * @property {string | null} [shareUrl] - Optional URL to share on social media
+   * @property {import('../Block/Block.svelte').blockWidth} [width] - Width of the headline
+   * @property {"dark" | "light"} [variant] - The color variant of the social media icons
+   * @property {import('svelte').Snippet} [eyebrowSnippet] - Optional snippet for custom eyebrow content
+   * @property {import('svelte').Snippet} [headlineSnippet] - Optional snippet for custom headline content
+   * @property {import('svelte').Snippet} [descriptionSnippet] - Optional snippet for custom description content
+   * @property {import('svelte').Snippet} [dateSnippet] - Optional snippet for custom date content
+   * @property {import('svelte').Snippet} [extra] - Optional snippet for extra content below date
    */
-  export let headline;
 
-  /**
-   * Optional description to be displayed below headline.
-   * @type {string | null}
-   */
-  export let description = null;
-
-  /**
-   * Optional eyebrow to be displayed above the headline. Determines eyebrow link.
-   * @type {string | null}
-   */
-  export let eyebrow = null;
-
-  /**
-   * Date to be displayed below headline.
-   * @type {string | null}
-   */
-  export let date = null;
-
-  /**
-   * Optional prefix for the date.
-   * @type {string}
-   */
-  export let datePrefix = "";
-
-  /**
-   * Optional URL to share on social media. Will include social buttons if defined.
-   * @type {string | null}
-   */
-  export let shareUrl = null;
-
-  /**
-   * Width of the headline. Default is "body".
-   * @type {@import("../Block/Block.svelte").BlockWidth}
-   */
-  export let width = "body";
-
-  /**
-   * The color variant of the social media icons
-   * @type {"dark" | "light"} [variant = "dark"]
-   */
-  export let variant = "dark";
+  /** @type {Props} */
+  let {
+    headline,
+    description = null,
+    eyebrow = null,
+    date = null,
+    datePrefix = "",
+    shareUrl = null,
+    width = "body",
+    variant = "dark",
+    eyebrowSnippet,
+    headlineSnippet,
+    descriptionSnippet,
+    dateSnippet,
+    extra
+  } = $props();
 </script>
 
 <Block {width}>
   <div class="headline-wrap {variant}">
-    {#if $$slots.eyebrow}
+    {#if eyebrowSnippet}
       <!--
-      Optional slot for custom content in the eyebrow slot.
+      Optional snippet for custom content in the eyebrow slot.
        -->
-      <slot name="eyebrow" />
+      {@render eyebrowSnippet()}
     {:else if eyebrow}
       {#if eyebrow.toLowerCase() == "data tool"}
         <a href="https://www.urban.org/data-tools" target="_blank"
@@ -71,27 +58,27 @@
         <p class="headline-eyebrow">{eyebrow}</p>
       {/if}
     {/if}
-    {#if $$slots.headline}
+    {#if headlineSnippet}
       <!--
-      Optional slot for custom content in the headline slot.
+      Optional snippet for custom content in the headline slot.
        -->
-      <slot name="headline" />
-    {:else}
+      {@render headlineSnippet()}
+    {:else if headline}
       <h1 class="headline-page-headline">{headline}</h1>
     {/if}
-    {#if $$slots.description}
+    {#if descriptionSnippet}
       <!--
-      Optional slot for custom content in the description slot.
+      Optional snippet for custom content in the description slot.
        -->
-      <slot name="description" />
+      {@render descriptionSnippet()}
     {:else if description}
       <p class="headline-description">{description}</p>
     {/if}
-    {#if $$slots.date}
+    {#if dateSnippet}
       <!--
-      Optional slot for custom content in the date slot.
+      Optional snippet for custom content in the date slot.
        -->
-      <slot name="date" />
+      {@render dateSnippet()}
     {:else if date}
       <p class="headline-date">
         {#if datePrefix}
@@ -101,9 +88,11 @@
       </p>
     {/if}
     <!--
-    Optional slot for extra content to include below the date and above the share buttons.
+    Optional snippet for extra content to include below the date and above the share buttons.
      -->
-    <slot name="extra" />
+    {#if extra}
+      {@render extra()}
+    {/if}
     <hr class="headline-rule" />
   </div>
   {#if shareUrl}

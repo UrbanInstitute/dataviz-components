@@ -100,7 +100,7 @@ Use `$props()` for component props with destructuring and defaults. Always inclu
    */
 
   /** @type {Props} */
-  let { name, age = 25, size = 'small' } = $props();
+  let { name, age = 25, size = "small" } = $props();
 </script>
 
 <p>{name} is {age} years old</p>
@@ -142,17 +142,17 @@ Use `$derived()` for values computed from other state:
 
 ```svelte
 <script>
-  let firstName = $state('');
-  let lastName = $state('');
+  let firstName = $state("");
+  let lastName = $state("");
 
   // Simple derived value
   let fullName = $derived(`${firstName} ${lastName}`.trim());
 
   // Complex derived value with logic
   let status = $derived.by(() => {
-    if (items.length === 0) return 'empty';
-    if (items.length > 10) return 'busy';
-    return 'normal';
+    if (items.length === 0) return "empty";
+    if (items.length > 10) return "busy";
+    return "normal";
   });
 </script>
 ```
@@ -163,16 +163,16 @@ For state shared across components, create a state class and expose it via conte
 
 ```javascript
 // state/app.svelte.js
-import { getContext, setContext } from 'svelte';
+import { getContext, setContext } from "svelte";
 
-const APP_STATE = Symbol('AppState');
+const APP_STATE = Symbol("AppState");
 
 class AppState {
   /** @type {User | null} */
   user = $state(null);
 
   /** @type {'light' | 'dark'} */
-  theme = $state('light');
+  theme = $state("light");
 
   // Derived property
   get isAuthenticated() {
@@ -189,7 +189,7 @@ export function createAppState() {
 export function useAppState() {
   const state = getContext(APP_STATE);
   if (!state) {
-    throw new Error('AppState not found. Did you call createAppState()?');
+    throw new Error("AppState not found. Did you call createAppState()?");
   }
   return state;
 }
@@ -242,7 +242,7 @@ Replace `createEventDispatcher()` with callback props:
   let { onmessage } = $props();
 
   function handleClick() {
-    onmessage?.({ text: 'Hello from child' });
+    onmessage?.({ text: "Hello from child" });
   }
 </script>
 
@@ -360,17 +360,17 @@ Still available and works the same, but with `$state()`:
 
 ```svelte
 <script>
-  import { onMount } from 'svelte';
+  import { onMount } from "svelte";
 
   let data = $state(null);
 
   onMount(async () => {
-    const response = await fetch('/api/data');
+    const response = await fetch("/api/data");
     data = await response.json();
 
     // Return cleanup function
     return () => {
-      console.log('Component unmounted');
+      console.log("Component unmounted");
     };
   });
 </script>
@@ -390,7 +390,7 @@ Use `$effect()` for reactive side effects:
 
     // Cleanup function (runs before next effect and on unmount)
     return () => {
-      console.log('Cleaning up effect');
+      console.log("Cleaning up effect");
     };
   });
 </script>
@@ -405,17 +405,17 @@ Guard effects that use browser APIs:
   let width = $state(0);
 
   $effect(() => {
-    if (typeof window === 'undefined') return;
+    if (typeof window === "undefined") return;
 
     const handleResize = () => {
       width = window.innerWidth;
     };
 
     handleResize();
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   });
 </script>
@@ -430,24 +430,24 @@ Guard effects that use browser APIs:
 - Test behavior, not implementation details
 
 ```javascript
-import { describe, it, expect } from 'vitest';
-import { render, screen } from '@testing-library/svelte';
-import Button from './Button.svelte';
+import { describe, it, expect } from "vitest";
+import { render, screen } from "@testing-library/svelte";
+import Button from "./Button.svelte";
 
-describe('Button', () => {
-  it('renders with text', () => {
-    render(Button, { children: () => 'Click me' });
-    expect(screen.getByRole('button')).toHaveTextContent('Click me');
+describe("Button", () => {
+  it("renders with text", () => {
+    render(Button, { children: () => "Click me" });
+    expect(screen.getByRole("button")).toHaveTextContent("Click me");
   });
 
-  it('calls onclick handler when clicked', async () => {
+  it("calls onclick handler when clicked", async () => {
     const handleClick = vi.fn();
     const { component } = render(Button, {
       onclick: handleClick,
-      children: () => 'Click me'
+      children: () => "Click me"
     });
 
-    await userEvent.click(screen.getByRole('button'));
+    await userEvent.click(screen.getByRole("button"));
     expect(handleClick).toHaveBeenCalled();
   });
 });
@@ -464,6 +464,7 @@ describe('Button', () => {
 ### Component Documentation
 
 Each component should have:
+
 1. JSDoc comments on props
 2. A `.docs.md` file with usage examples
 3. Storybook stories demonstrating variants
@@ -517,6 +518,7 @@ Before committing:
 4. **Document breaking changes** in [`docs/runes-breaking-changes.md`](./docs/runes-breaking-changes.md) if applicable
 
 5. **Run the full test suite**:
+
    ```bash
    npm run check
    npm run lint
@@ -526,6 +528,7 @@ Before committing:
    ```
 
 6. **Write a clear PR description**:
+
    - Link to related issues
    - Describe what changed and why
    - Include screenshots/GIFs for UI changes
