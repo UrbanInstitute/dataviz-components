@@ -1,85 +1,76 @@
+<!-- Portions of this code have been written or edited by generative AI tools. -->
 <script>
-  import blueskyIcon from "./IconBluesky.svelte";
-  import facebookIcon from "./IconFacebook.svelte";
-  import linkedinIcon from "./IconLinkedin.svelte";
-  import mailIcon from "./IconMail.svelte";
-  import threadsIcon from "./IconThreads.svelte";
-  import twitterIcon from "./IconTwitter.svelte";
-  import xIcon from "./IconX.svelte";
+  import IconBluesky from "./IconBluesky.svelte";
+  import IconFacebook from "./IconFacebook.svelte";
+  import IconLinkedin from "./IconLinkedin.svelte";
+  import IconMail from "./IconMail.svelte";
+  import IconThreads from "./IconThreads.svelte";
+  import IconTwitter from "./IconTwitter.svelte";
+  import IconX from "./IconX.svelte";
 
   /**
-   * URL to share on social media platforms
-   * @type {string}
+   * @typedef {Object} Props
+   * @property {string} shareUrl - URL to share on social media platforms
+   * @property {(evt: MouseEvent, platform: string) => void} [onclick] - An optional custom click handler to be called when any share button is clicked
+   * @property {"dark" | "light"} [variant] - The color variant of the social media icons
+   * @property {number} [iconSize] - The size of the social media icons
    */
-  export let shareUrl;
 
-  /**
-   * An optional custom click handler to be called when any share button is clicked
-   * @param {import("svelte").ComponentEvents<This>} evt - A Svelte component event
-   * @param {string} platform - The name of the social media platform the user has clicked
-   * @returns {void}
-   */
-  export let onClick = function (evt, platform) {};
+  /** @type {Props} */
+  let {
+    shareUrl = "",
+    onclick = (evt, platform) => {},
+    variant = "dark",
+    iconSize = 24
+  } = $props();
 
-  /**
-   * The color variant of the social media icons
-   * @type {"dark" | "light"} [variant = "dark"]
-   */
-  export let variant = "dark";
+  let encodedUrlToShare = $derived(encodeURIComponent(shareUrl));
 
-  /**
-   * The size of the social media icons
-   * @type {number} [iconSize = 24]
-   */
-  export let iconSize = 24;
-
-  $: encodedUrlToShare = encodeURIComponent(shareUrl);
-
-  $: socials = [
+  let socials = $derived([
     {
       name: "linkedin",
-      icon: linkedinIcon,
+      component: IconLinkedin,
       url: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrlToShare}`
     },
     {
       name: "bluesky",
-      icon: blueskyIcon,
+      component: IconBluesky,
       url: `https://bsky.app/intent/compose?text=${encodedUrlToShare}`
     },
     {
       name: "threads",
-      icon: threadsIcon,
+      component: IconThreads,
       url: `https://threads.net/intent/post?url=${encodedUrlToShare}`
     },
     {
       name: "facebook",
-      icon: facebookIcon,
+      component: IconFacebook,
       url: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrlToShare}`
     },
     {
       name: "X",
-      icon: xIcon,
+      component: IconX,
       url: `https://twitter.com/intent/tweet?text=&url=${encodedUrlToShare}`
     },
     {
       name: "email",
-      icon: mailIcon,
+      component: IconMail,
       url: `mailto: ?subject=&body=${encodedUrlToShare}`
     }
-  ];
+  ]);
 </script>
 
 <div class="social-container">
-  {#each socials as social}
+  {#each socials as { component: Icon, name, url }}
     <a
-      href={social.url}
+      href={url}
       target="_blank"
       rel="noreferrer"
       role="button"
-      aria-label={`${social.name}-share`}
-      on:click={(evt) => onClick(evt, social.name)}
-      ><span class="social-icon" style:width={iconSize} style:height={iconSize}
-        ><svelte:component this={social.icon} {variant} size={iconSize} /></span
+      aria-label={`${name}-share`}
+      onclick={(evt) => onclick(evt, name)}
+      ><span class="social-icon" style:width={`${iconSize}px`} style:height={`${iconSize}px`}
+        ><Icon {variant} size={iconSize} /></span
       ></a
     >
   {/each}

@@ -28,28 +28,28 @@ Use this tracker to coordinate task status and surface follow-up actions as the 
 
 ## Phase 2 – Presentation & Prop-only Components
 
-| Component / Area                          | Status | Notes                                                                                                                                                                                                                      |
-| ----------------------------------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Typography components                     | `done` | Migrated HeadingAlt, Headline (with snippets), SectionBreak; all use $props() and proper JSDoc typing                                                                                                                     |
+| Component / Area                          | Status | Notes                                                                                                                                                                                                                    |
+| ----------------------------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Typography components                     | `done` | Migrated HeadingAlt, Headline (with snippets), SectionBreak; all use $props() and proper JSDoc typing                                                                                                                    |
 | Iconography set                           | `done` | Migrated all 5 icons in Icons/ (IconClose, IconMinus, IconPlus, IconRefresh, IconSearch) plus IconDownload in Button/; all use $props() with size/fill props; SocialShare icons also migrated as presentation components |
-| Logo components                           | `done` | Migrated LogoTPCBadge, LogoUrban, LogoUrbanAnimated, LogoUrbanBadge; all use $derived() for responsive height/colors                                                                                                      |
-| Font wrappers & loaders                   | `done` | Added AI disclaimer to FontsUrban and FontsWorkrise (no script tags, pure markup)                                                                                                                                          |
-| Layout shells & wrappers                  | `done` | Migrated Block and TextBlock to use snippet props (children); Block updated from context="module" to module attribute                                                                                                      |
-| Mixed rune/non-rune interoperability pass | `done` | Successfully tested rune components consuming non-rune components (Headline uses SocialShare which is Phase 3); all builds and type checks passed                                                                         |
+| Logo components                           | `done` | Migrated LogoTPCBadge, LogoUrban, LogoUrbanAnimated, LogoUrbanBadge; all use $derived() for responsive height/colors                                                                                                     |
+| Font wrappers & loaders                   | `done` | Added AI disclaimer to FontsUrban and FontsWorkrise (no script tags, pure markup)                                                                                                                                        |
+| Layout shells & wrappers                  | `done` | Migrated Block and TextBlock to use snippet props (children); Block updated from context="module" to module attribute                                                                                                    |
+| Mixed rune/non-rune interoperability pass | `done` | Successfully tested rune components consuming non-rune components (Headline uses SocialShare which is Phase 3); all builds and type checks passed                                                                        |
 
 ## Phase 3 – Data & Wrapper Components
 
-| Component / Area | Status | Notes |
-| ---------------- | ------ | ----- |
-| Meta             | `todo` |       |
-| Analytics        | `todo` |       |
-| ProjectCredits   | `todo` |       |
-| LoadingWrapper   | `todo` |       |
-| Theme            | `todo` |       |
-| Navbar           | `todo` |       |
-| Scorecard        | `todo` |       |
-| SocialShare      | `todo` |       |
-| ReturnTop        | `todo` |       |
+| Component / Area | Status | Notes                                                              |
+| ---------------- | ------ | ------------------------------------------------------------------ |
+| Meta             | `done` | Story updated to rune module syntax; component already rune-ready  |
+| Analytics        | `done` | Guarded window access; kept onMount per guidance                   |
+| ProjectCredits   | `done` | Story uses snippets + module script                                |
+| LoadingWrapper   | `done` | Converted to $bindable prop and rune story                         |
+| Theme            | `done` | Story/docs align with snippet usage                                |
+| Navbar           | `done` | Normalized project URL; story updated to module script             |
+| Scorecard        | `done` | Story converted to module script                                   |
+| SocialShare      | `done` | Renders icon components directly; story/docs use lowercase handler |
+| ReturnTop        | `done` | Story converted to module script                                   |
 
 ## Phase 4 – External Integrations & Complex Reactivity
 

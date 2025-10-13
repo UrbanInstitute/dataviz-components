@@ -1,4 +1,5 @@
-<script context="module">
+<!-- Portions of this code have been written or edited by generative AI tools. -->
+<script module>
   import Theme from "./Theme.svelte";
   import { defineMeta } from "@storybook/addon-svelte-csf";
 

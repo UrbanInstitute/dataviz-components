@@ -1,32 +1,24 @@
+<!-- Portions of this code have been written or edited by generative AI tools. -->
 <script>
   import LogoUrban from "$lib/LogoUrbanBadge/LogoUrbanBadge.svelte";
   import LogoTPC from "$lib/LogoTPCBadge/LogoTPCBadge.svelte";
 
   /**
-   * Title to display in the navbar
-   * @type {string}
+   * @typedef {Object} Props
+   * @property {string} [title] - Title to display in the navbar
+   * @property {string} [projectUrl] - URL to link to from the title
+   * @property {"urban" | "tpc"} [brand] - Brand to use for the logo
+   * @property {boolean} [sticky] - Option to make the navbar sticky
    */
-  export let title = "";
 
-  /**
-   * URL to link to from the title
-   * @type {string}
-   */
-  export let projectUrl = "";
+  /** @type {Props} */
+  let { title = "", projectUrl = "", brand = "urban", sticky = false } = $props();
 
-  /**
-   * Brand to use for the logo
-   * @type {"urban" | "tpc"}
-   */
-  export let brand = "urban";
+  let homeURL = $derived(
+    brand === "tpc" ? "https://www.taxpolicycenter.org" : "https://www.urban.org"
+  );
 
-  /**
-   * Option to make the navbar sticky
-   * @type {boolean} [sticky=false]
-   */
-  export let sticky = false;
-
-  $: homeURL = brand == "tpc" ? "https://www.taxpolicycenter.org" : "https://www.urban.org";
+  let projectHref = $derived(projectUrl ? `${projectUrl.replace(/\/$/, "")}/` : projectUrl);
 </script>
 
 <nav class:sticky>
@@ -41,7 +33,7 @@
   </div>
   {#if title}
     {#if projectUrl}
-      <a href="{projectUrl}/">
+      <a href={projectHref}>
         <p class="nav--page-title">{title}</p>
       </a>
     {:else}

@@ -1,5 +1,16 @@
+<!-- Portions of this code have been written or edited by generative AI tools. -->
+<script>
+  /**
+   * @typedef {Object} Props
+   * @property {import('svelte').Snippet} [children]
+   */
+
+  /** @type {Props} */
+  let { children } = $props();
+</script>
+
 <div class="theme">
-  <slot />
+  {@render children?.()}
 </div>
 
 <style>
