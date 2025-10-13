@@ -1,9 +1,15 @@
+<!-- Portions of this code have been written or edited by generative AI tools. -->
 <script>
-  /** @type {"dark" | "light"} [variant = "dark"]  */
-  export let variant = "dark";
-  export let size = 49;
+  /**
+   * @typedef {Object} Props
+   * @property {"dark" | "light"} [variant] - The color variant of the icon
+   * @property {number} [size] - The width and height dimension for the icon
+   */
 
-  $: fill = variant == "dark" ? "#000000" : "#FFFFFF";
+  /** @type {Props} */
+  let { variant = "dark", size = 49 } = $props();
+
+  let fill = $derived(variant == "dark" ? "#000000" : "#FFFFFF");
 </script>
 
 <svg

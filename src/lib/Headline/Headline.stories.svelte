@@ -113,24 +113,25 @@
   }}
 />
 
-<Story name="With custom slots" asChild>
+<!-- Portions of this code have been written or edited by generative AI tools. -->
+<Story name="With custom snippets" asChild>
   <Headline shareUrl="https://urban.org">
-    {#snippet eyebrow()}
+    {#snippet eyebrowSnippet()}
       <img src="urban-logo.svg" alt="An Urban institute logo" width="120px" />
     {/snippet}
-    {#snippet headline()}
+    {#snippet headlineSnippet()}
       <h1 style="color: var(--color-blue); font-weight: var(--font-weight-bold)">
-        Custom headline slot
+        Custom headline snippet
       </h1>
     {/snippet}
-    {#snippet description()}
-      <p>This is a custom description slot</p>
+    {#snippet descriptionSnippet()}
+      <p>This is a custom description snippet</p>
     {/snippet}
-    {#snippet date()}
-      <p>Custom date slot: January 1, 1968</p>
+    {#snippet dateSnippet()}
+      <p>Custom date snippet: January 1, 1968</p>
     {/snippet}
     {#snippet extra()}
-      <Button>Extra slot</Button>
+      <Button>Extra snippet</Button>
       <p style="font-size: var(--font-size-small); color: var(--color-gray-darker)">
         (Custom button)
       </p>

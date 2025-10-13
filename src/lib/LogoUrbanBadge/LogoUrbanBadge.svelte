@@ -1,6 +1,14 @@
+<!-- Portions of this code have been written or edited by generative AI tools. -->
 <script>
-  export let width = 80;
-  $: height = width * (90 / 80);
+  /**
+   * @typedef {Object} Props
+   * @property {number} [width] - The width of the logo
+   */
+
+  /** @type {Props} */
+  let { width = 80 } = $props();
+
+  let height = $derived(width * (90 / 80));
 </script>
 
 <svg

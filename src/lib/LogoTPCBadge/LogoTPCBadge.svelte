@@ -1,8 +1,17 @@
+<!-- Portions of this code have been written or edited by generative AI tools. -->
 <script>
   const naturalWidth = 100;
   const naturalHeight = 85;
-  export let width = 100;
-  $: height = width * (naturalHeight / naturalWidth);
+
+  /**
+   * @typedef {Object} Props
+   * @property {number} [width] - The width of the logo
+   */
+
+  /** @type {Props} */
+  let { width = 100 } = $props();
+
+  let height = $derived(width * (naturalHeight / naturalWidth));
 </script>
 
 <svg

@@ -42,7 +42,7 @@
       {id}
       class={`dropdown-select ${variant}`}
       aria-label={inlineLabel}
-      onchange={onchange}
+      {onchange}
     >
       <!-- options -->
       {#if placeholder}
@@ -58,14 +58,12 @@
       <span class="dropdown-chevron">
         {#if icon}
           {@render icon()}
-        {:else}
-          {#if variant === "primary"}
-            <IconChevronFull />
-          {:else if variant === "secondary-blue" || variant === "secondary-black"}
-            <IconChevronOutline />
-          {:else if variant === "secondary-yellow"}
-            <IconChevronOutline fill={urbanColors.black} />
-          {/if}
+        {:else if variant === "primary"}
+          <IconChevronFull />
+        {:else if variant === "secondary-blue" || variant === "secondary-black"}
+          <IconChevronOutline />
+        {:else if variant === "secondary-yellow"}
+          <IconChevronOutline fill={urbanColors.black} />
         {/if}
       </span>
     </div>
