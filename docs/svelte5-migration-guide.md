@@ -2,7 +2,7 @@
 
 This guide covers common patterns for migrating from Svelte 4 to Svelte 5, with a focus on runes-based syntax and replacing stores with class-based state management. Use it alongside the sequencing outlined in [`docs/runes-plan-combined.md`](./runes-plan-combined.md), and log any intentional API changes in [`docs/runes-breaking-changes.md`](./runes-breaking-changes.md) as you go.
 
-> Reminder: whenever you modify a source or test file during the migration, add the comment `Portions of this code have been written or edited by generative-AI tools.` at the top. Documentation files (including this guide) are exempt.
+> Reminder: whenever you modify a source or test file during the migration, add the comment `Portions of this code have been written or edited by generative AI tools.` at the top. Documentation files (including this guide) are exempt.
 
 ## Table of Contents
 

@@ -1,4 +1,4 @@
-<!-- Portions of this code have been written or edited by generative-AI tools. -->
+<!-- Portions of this code have been written or edited by generative AI tools. -->
 <script context="module">
   import { defineMeta } from "@storybook/addon-svelte-csf";
   import { fireEvent, within, expect } from "storybook/test";
