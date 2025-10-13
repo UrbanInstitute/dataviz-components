@@ -1,4 +1,5 @@
-<script context="module">
+<!-- Portions of this code have been written or edited by generative AI tools. -->
+<script module>
   import SocialShare from "./SocialShare.svelte";
   import docs from "./SocialShare.docs.md?raw";
   import { fn, userEvent, within, expect } from "storybook/test";
@@ -47,12 +48,12 @@
   parameters={{ backgrounds: { default: "dark" } }}
 />
 <Story
-  name="With custom onClick handler"
+  name="With custom onclick handler"
   args={{
-    onClick: fn()
+    onclick: fn()
   }}
   play={async ({ args, canvasElement }) => {
     await userEvent.click(within(canvasElement).getByLabelText("email-share"));
-    await expect(args.onClick).toHaveBeenCalled();
+    await expect(args.onclick).toHaveBeenCalled();
   }}
 />

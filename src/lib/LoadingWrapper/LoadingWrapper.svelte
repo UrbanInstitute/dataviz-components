@@ -1,25 +1,32 @@
+<!-- Portions of this code have been written or edited by generative AI tools. -->
 <script>
   import urbanColors from "../utils/urbanColors.js";
   import LogoUrbanAnimated from "../LogoUrbanAnimated/LogoUrbanAnimated.svelte";
 
   /**
-   * Boolean indicating whether the child component is loading or not
-   * @type {boolean}
+   * @typedef {Object} Props
+   * @property {boolean} [isChildLoading]
+   * @property {string | null} [backgroundColor]
+   * @property {import('svelte').Snippet<[void]>} [graphic]
+   * @property {import('svelte').Snippet<[{
+   *   setChildLoading: () => void;
+   *   setChildLoaded: () => void;
+   * }]>} [children]
    */
-  export let isChildLoading = true;
 
-  /**
-   * The background color of the loading container (can be null for transparent background)
-   * @type {string | null} ["white"]
-   */
-  export let backgroundColor = urbanColors.white;
+  /** @type {Props} */
+  let {
+    isChildLoading = $bindable(true),
+    backgroundColor = urbanColors.white,
+    graphic,
+    children
+  } = $props();
 
-  // define functions to expose that set isChildLoading
-  let setChildLoaded = () => {
+  const setChildLoaded = () => {
     isChildLoading = false;
   };
 
-  let setChildLoading = () => {
+  const setChildLoading = () => {
     isChildLoading = true;
   };
 </script>
@@ -27,12 +34,14 @@
 <div class="container">
   {#if isChildLoading}
     <div class="loading" id="loading" style:background-color={backgroundColor}>
-      <slot name="graphic">
+      {#if graphic}
+        {@render graphic()}
+      {:else}
         <LogoUrbanAnimated width={50} duration="1500ms" />
-      </slot>
+      {/if}
     </div>
   {/if}
-  <slot {setChildLoading} {setChildLoaded} />
+  {@render children?.({ setChildLoading, setChildLoaded })}
 </div>
 
 <style>

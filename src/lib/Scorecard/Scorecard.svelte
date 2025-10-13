@@ -1,12 +1,13 @@
+<!-- Portions of this code have been written or edited by generative AI tools. -->
 <script>
   /**
-   * @type {string} Scorecard value
+   * @typedef {Object} Props
+   * @property {string} value - Scorecard value
+   * @property {string} label - Scorecard label
    */
-  export let value;
-  /**
-   * @type {string} Scorecard label
-   */
-  export let label;
+
+  /** @type {Props} */
+  let { value, label } = $props();
 </script>
 
 <div class="scorecard-container">

@@ -1,68 +1,35 @@
+<!-- Portions of this code have been written or edited by generative AI tools. -->
 <!-- @component `Meta` Meta tags to be included the <head> of your HTML document -->
 <script>
   /**
-   * The title to be used for the HTML page
-   * @type {string}
+   * @typedef {Object} Props
+   * @property {string} [title] - The title to be used for the HTML page
+   * @property {string} [description] - The description to be used for the HTML page
+   * @property {string} [url] - The URL to be used for the og:url and the canonical URL of the HTML page
+   * @property {string} [siteName] - The site_name to be used for the og:site_name property for the page
+   * @property {string[]} [authors] - A list of author names to be included in the schema.org metadata for the page
+   * @property {string[]} [keywords] - A list of keywords to be included in the schema.org metadata for the page
+   * @property {string} [socialImage] - URL path to an image to be used as the social media image for the HTML page
+   * @property {string} [publishDate] - The publication date for the page in the format of 1968-01-01
+   * @property {string} [articleSection] - The section of the article for the schema.org metadata
+   * @property {boolean} [robotsNoIndex] - Should the page be hidden from search engines?
    */
-  export let title = "";
 
-  /** @type {string} */
+  /** @type {Props} */
+  let {
+    title = "",
+    description = "",
+    url = "",
+    siteName = "Urban Institute",
+    authors = [],
+    keywords = [],
+    socialImage = "",
+    publishDate,
+    articleSection = "Data Tool",
+    robotsNoIndex = false
+  } = $props();
 
-  /**
-   * The description to be used for the HTML page
-   * @type {string}
-   */
-  export let description = "";
-
-  /**
-   * The URL to be used for the og:url and the canonical URL of the HTML page
-   * @type {string}
-   */
-  export let url = "";
-
-  /**
-   * The site_name to be used for the og:site_name property for the page
-   * @type {string}
-   */
-  export let siteName = "Urban Institute";
-
-  /**
-   * A list of author names to be included in the schema.org metadata for the page
-   * @type {string[]}
-   */
-  export let authors = [];
-
-  /**
-   * A list of keywords to be included in the schema.org metadata for the page
-   * @type {string[]}
-   */
-  export let keywords = [];
-
-  /**
-   * URL path to an image to be used as the social media image for the HTML page
-   * @type {string}
-   */
-  export let socialImage = "";
-
-  /**
-   * The publication date for the page in the format of 1968-01-01
-   * @type {string}
-   */
-  export let publishDate;
-
-  /**
-   * The section of the article for the schema.org metadata
-   * @type {string}
-   */
-  export let articleSection = "Data Tool";
-
-  /**
-   * Should the page be hidden from search engines?
-   * @type {boolean}
-   */
-  export let robotsNoIndex = false;
-
-  $: schemaMeta = {
+  let schemaMeta = $derived({
     "@context": "http://schema.org",
     "@type": "NewsArticle",
     headline: title,
@@ -72,10 +39,11 @@
     articleSection: articleSection,
     creator: authors,
     keywords: keywords
-  };
-  $: schemaMetaMarkup = `<script type="application/ld+json">${JSON.stringify(
-    schemaMeta
-  )}<\/script>`;
+  });
+
+  let schemaMetaMarkup = $derived(
+    `<script type="application/ld+json">${JSON.stringify(schemaMeta)}<\/script>`
+  );
 </script>
 
 <svelte:head>
