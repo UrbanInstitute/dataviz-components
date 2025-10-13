@@ -20,10 +20,10 @@ Use this tracker to coordinate task status and surface follow-up actions as the 
 
 | Component / Area                               | Status      | Notes |
 | ---------------------------------------------- | ----------- | ----- |
-| Toggle                                         | `todo`      |       |
-| BasicDropdown                                  | `todo`      |       |
-| Shared chevron icons                           | `todo`      |       |
-| Update companion docs/stories for rune events  | `todo`      |       |
+| Toggle                                         | `done`      | Migrated to $props(), $bindable(), callback events; stories updated |
+| BasicDropdown                                  | `done`      | Migrated to $props(), $bindable(), callback events, snippet props; stories updated |
+| Shared chevron icons                           | `done`      | IconChevronFull and IconChevronOutline migrated to $props() |
+| Update companion docs/stories for rune events  | `done`      | Toggle.stories.svelte and BasicDropdown.stories.svelte updated |
 
 ## Phase 2 – Presentation & Prop-only Components
 
