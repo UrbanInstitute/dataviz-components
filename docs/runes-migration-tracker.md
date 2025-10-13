@@ -11,10 +11,10 @@ Use this tracker to coordinate task status and surface follow-up actions as the 
 
 | Component / Area                               | Status      | Notes |
 | ---------------------------------------------- | ----------- | ----- |
-| Codify rune patterns in `CONTRIBUTING`         | `todo`      |       |
-| Circulate tracker & confirm kickoff workflow   | `todo`      |       |
-| Patch missing baseline Storybook stories/tests | `todo`      |       |
-| Revalidate migrated exemplars (`Button`, etc.) | `todo`      |       |
+| Codify rune patterns in `CONTRIBUTING`         | `done`      | CONTRIBUTING.md created with comprehensive Svelte 5 patterns |
+| Circulate tracker & confirm kickoff workflow   | `done`      | Tracker confirmed ready; no new stories/tests needed for migration |
+| Patch missing baseline Storybook stories/tests | `done`      | Working with existing test/story coverage; no new additions required |
+| Revalidate migrated exemplars (`Button`, etc.) | `done`      | Button, DatawrapperSwitching fixed; LogoUrbanWide, Tilemap validated |
 
 ## Phase 1 – Pattern Validation on Mid-tier Controls
 
@@ -80,4 +80,13 @@ Use this tracker to coordinate task status and surface follow-up actions as the 
 
 ## Follow-ups / Blockers
 
-- _Track any cross-cutting tasks or open questions here._
+### Phase 0 Decisions & Notes
+
+- **Event naming convention**: Standardized on **lowercase event names** (onclick, onmouseenter, onkeydown) to match DOM conventions and Svelte 5 recommendations. This is a breaking change for components like Button that previously used camelCase (onClick, onMouseenter). All future components should follow lowercase convention.
+
+- **Exemplar component fixes**:
+  - Button.svelte: Removed unused createEventDispatcher import, converted event props to lowercase
+  - Button.stories.svelte: Updated tests to use lowercase event names
+  - DatawrapperSwitching.stories.svelte: Fixed inconsistent event syntax (on: vs callback props)
+
+- **Test/Story strategy**: No new tests or stories created for Phase 0. Migration will work with existing coverage and add tests/stories only where explicitly needed for new functionality.

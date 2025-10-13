@@ -1,3 +1,4 @@
+<!-- Portions of this code have been written or edited by generative-AI tools. -->
 <script context="module">
   import Button from "./Button.svelte";
   import IconDownload from "./IconDownload.svelte";
@@ -22,9 +23,9 @@
       }
     },
     args: {
-      onClick: fn(),
-      onMouseenter: fn(),
-      onMouseleave: fn()
+      onclick: fn(),
+      onmouseenter: fn(),
+      onmouseleave: fn()
     },
     parameters: {
       docs: {
@@ -47,11 +48,11 @@
     const canvas = within(canvasElement);
     const button = canvas.getByRole("button");
     await userEvent.click(button);
-    await expect(args.onClick).toHaveBeenCalled();
+    await expect(args.onclick).toHaveBeenCalled();
     await userEvent.hover(button);
-    await expect(args.onMouseenter).toHaveBeenCalled();
+    await expect(args.onmouseenter).toHaveBeenCalled();
     await userEvent.unhover(button);
-    await expect(args.onMouseleave).toHaveBeenCalled();
+    await expect(args.onmouseleave).toHaveBeenCalled();
   }}
 >
   Button text
