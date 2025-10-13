@@ -1,4 +1,4 @@
-<!-- Portions of this code have been written or edited by generative-AI tools. -->
+<!-- Portions of this code have been written or edited by generative AI tools. -->
 <script>
   import IconChevronFull from "./IconChevronFull.svelte";
   import IconChevronOutline from "./IconChevronOutline.svelte";

@@ -15,7 +15,7 @@
 - Keep [`docs/runes-migration-tracker.md`](./runes-migration-tracker.md) current; each row is pre-populated by phase so the team can update the `todo` → `in-progress` → `review` → `done` statuses as work advances.
 - When you pick up a component or phase below, jump to the matching sections in the migration guide (see the reference map that follows).
 - Phases outline a recommended order; teams can work in parallel as long as overlapping dependencies are coordinated.
-- Every code or test file modified during the migration must start with `Portions of this code have been written or edited by generative-AI tools.`; documentation like this plan is exempt.
+- Every code or test file modified during the migration must start with `Portions of this code have been written or edited by generative AI tools.`; documentation like this plan is exempt.
 
 ## Project Snapshot
 
@@ -83,7 +83,7 @@
 ## Per-Component Checklist
 
 - [ ] Update the component (and any siblings) using the patterns linked above; replace internal stores and bridge external store subscriptions with the rune patterns.
-- [ ] Add the comment `Portions of this code have been written or edited by generative-AI tools.` at the top of every source or test file you touch as part of the migration (plan/docs files are excluded).
+- [ ] Add the comment `Portions of this code have been written or edited by generative AI tools.` at the top of every source or test file you touch as part of the migration (plan/docs files are excluded).
 - [ ] Refresh colocated tests and Storybook stories to rune syntax only if the component change requires it; expect existing tests to pass without adjustment unless issues are discovered.
 - [ ] Note any API or behavior changes in [`docs/runes-breaking-changes.md`](./runes-breaking-changes.md) and update the migration tracker row with status and supporting links.
 - [ ] Run targeted lint/tests locally; once the batch is complete, execute the full suite before committing.

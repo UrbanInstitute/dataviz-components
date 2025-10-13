@@ -1,4 +1,4 @@
-<!-- Portions of this code have been written or edited by generative-AI tools. -->
+<!-- Portions of this code have been written or edited by generative AI tools. -->
 <script>
   import urbanColors from "$lib/utils/urbanColors.js";
 
