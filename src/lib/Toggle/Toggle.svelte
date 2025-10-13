@@ -1,29 +1,22 @@
+<!-- Portions of this code have been written or edited by generative-AI tools. -->
 <script>
-  import { createEventDispatcher } from "svelte";
-  const dispatch = createEventDispatcher();
   /**
-   * Whether the toggle is active or not
-   * @type {boolean}
-   **/
-  export let active = false;
+   * @typedef {Object} Props
+   * @property {boolean} [active] - Whether the toggle is active or not
+   * @property {string} [label] - Label for the toggle
+   * @property {"left" | "right"} [labelPosition] - Position of the label relative to the toggle
+   * @property {boolean} [disabled] - Whether the toggle is disabled or not
+   * @property {(event: MouseEvent) => void} [onclick] - Callback fired when toggle is clicked
+   */
 
-  /**
-   * Label for the toggle
-   * @type {string}
-   **/
-  export let label = "Enim id qui labore labore";
-
-  /**
-   * Position of the label relative to the toggle
-   * @type {"left" | "right"}
-   **/
-  export let labelPosition = "left";
-
-  /**
-   * Whether the toggle is disabled or not
-   * @type {boolean}
-   **/
-  export let disabled = false;
+  /** @type {Props} */
+  let {
+    active = $bindable(false),
+    label = "Enim id qui labore labore",
+    labelPosition = "left",
+    disabled = false,
+    onclick
+  } = $props();
 </script>
 
 <button
@@ -31,9 +24,9 @@
   {disabled}
   role="switch"
   aria-checked={active}
-  on:click={() => {
-    dispatch("click");
+  onclick={(event) => {
     active = !active;
+    onclick?.(event);
   }}
   style:direction={labelPosition === "right" ? "rtl" : "ltr"}
   ><p class="label {labelPosition}">{label}</p>

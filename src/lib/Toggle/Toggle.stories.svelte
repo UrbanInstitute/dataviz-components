@@ -1,3 +1,4 @@
+<!-- Portions of this code have been written or edited by generative-AI tools. -->
 <script context="module">
   import Toggle from "./Toggle.svelte";
   import docs from "./Toggle.docs.md?raw";
