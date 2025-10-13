@@ -1,6 +1,13 @@
+<!-- Portions of this code have been written or edited by generative AI tools. -->
 <script>
-  export let fill = "#FFFFFF";
-  export let size = 48;
+  /**
+   * @typedef {Object} Props
+   * @property {string} [fill] - The color to fill the icon
+   * @property {number} [size] - The width and height dimension for the icon
+   */
+
+  /** @type {Props} */
+  let { fill = "#FFFFFF", size = 48 } = $props();
 </script>
 
 <svg width={size} height={size} viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">

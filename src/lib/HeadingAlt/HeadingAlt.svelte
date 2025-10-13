@@ -1,5 +1,12 @@
+<!-- Portions of this code have been written or edited by generative AI tools. -->
 <script>
-  export let content = "";
+  /**
+   * @typedef {Object} Props
+   * @property {string} [content] - The text content to display in the heading
+   */
+
+  /** @type {Props} */
+  let { content = "" } = $props();
 </script>
 
 <h3 class="heading-alt">{content}</h3>

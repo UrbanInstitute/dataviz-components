@@ -21,23 +21,17 @@ Use this document to record any intentional breaking changes introduced while mi
 **Migration Guide**:
 
 Before (Svelte 4 / old Button):
+
 ```svelte
-<Button
-  onClick={handleClick}
-  onMouseenter={handleHover}
-  onMouseleave={handleUnhover}
->
+<Button onClick={handleClick} onMouseenter={handleHover} onMouseleave={handleUnhover}>
   Click me
 </Button>
 ```
 
 After (Svelte 5 / updated Button):
+
 ```svelte
-<Button
-  onclick={handleClick}
-  onmouseenter={handleHover}
-  onmouseleave={handleUnhover}
->
+<Button onclick={handleClick} onmouseenter={handleHover} onmouseleave={handleUnhover}>
   Click me
 </Button>
 ```
@@ -53,6 +47,7 @@ After (Svelte 5 / updated Button):
 **Components Affected**: Toggle
 
 **Changes**:
+
 1. **Event handler**: Custom event dispatched via `createEventDispatcher()` replaced with `onclick` callback prop
 2. **Two-way binding**: `active` prop now uses `$bindable()` to support two-way binding with `bind:active`
 
@@ -61,27 +56,23 @@ After (Svelte 5 / updated Button):
 **Migration Guide**:
 
 Before (Svelte 4):
+
 ```svelte
 <script>
   let isActive = false;
 </script>
 
-<Toggle
-  bind:active={isActive}
-  on:click={() => console.log('toggled')}
-/>
+<Toggle bind:active={isActive} on:click={() => console.log("toggled")} />
 ```
 
 After (Svelte 5):
+
 ```svelte
 <script>
   let isActive = $state(false);
 </script>
 
-<Toggle
-  bind:active={isActive}
-  onclick={() => console.log('toggled')}
-/>
+<Toggle bind:active={isActive} onclick={() => console.log("toggled")} />
 ```
 
 **Impact**: Consumers must update `on:click` to `onclick`. Two-way binding with `bind:active` continues to work as before.
@@ -95,6 +86,7 @@ After (Svelte 5):
 **Components Affected**: BasicDropdown
 
 **Changes**:
+
 1. **Event handler**: `on:change` forwarding replaced with `onchange` callback prop
 2. **Custom icon slot**: `<slot name="icon">` replaced with snippet prop pattern
 3. **Two-way binding**: `value` prop now uses `$bindable()` to support two-way binding with `bind:value`
@@ -104,23 +96,17 @@ After (Svelte 5):
 **Migration Guide**:
 
 Before (Svelte 4):
+
 ```svelte
-<BasicDropdown
-  {data}
-  bind:value={selectedValue}
-  on:change={handleChange}
->
+<BasicDropdown {data} bind:value={selectedValue} on:change={handleChange}>
   <CustomIcon slot="icon" />
 </BasicDropdown>
 ```
 
 After (Svelte 5):
+
 ```svelte
-<BasicDropdown
-  {data}
-  bind:value={selectedValue}
-  onchange={handleChange}
->
+<BasicDropdown {data} bind:value={selectedValue} onchange={handleChange}>
   {#snippet icon()}
     <CustomIcon />
   {/snippet}
@@ -128,6 +114,7 @@ After (Svelte 5):
 ```
 
 **Impact**:
+
 - Consumers must update `on:change` to `onchange` callback
 - Custom icon usage requires snippet syntax instead of slot
 - Two-way binding with `bind:value` continues to work as before

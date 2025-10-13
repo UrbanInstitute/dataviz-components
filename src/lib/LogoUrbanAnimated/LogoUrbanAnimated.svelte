@@ -1,7 +1,15 @@
+<!-- Portions of this code have been written or edited by generative AI tools. -->
 <script>
-  export let width = 50;
-  export let duration = "1500ms";
-  $: height = width * (90 / 80);
+  /**
+   * @typedef {Object} Props
+   * @property {number} [width] - The width of the logo
+   * @property {string} [duration] - The animation duration (e.g., "1500ms")
+   */
+
+  /** @type {Props} */
+  let { width = 50, duration = "1500ms" } = $props();
+
+  let height = $derived(width * (90 / 80));
 </script>
 
 <svg
