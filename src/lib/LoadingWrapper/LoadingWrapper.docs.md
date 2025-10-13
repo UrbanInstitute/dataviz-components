@@ -10,7 +10,7 @@ import { LoadingWrapper } from "@urbaninstitute/dataviz-components";
     <CustomSpinner />
   {/snippet}
   {#snippet children({ setChildLoading, setChildLoaded })}
-    <RemoteViz on:initializing={setChildLoading} on:ready={setChildLoaded} />
+    <RemoteViz oninitializing={setChildLoading} onready={setChildLoaded} />
   {/snippet}
 </LoadingWrapper>
 ```
