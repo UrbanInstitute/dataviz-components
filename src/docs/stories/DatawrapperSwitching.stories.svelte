@@ -1,3 +1,4 @@
+<!-- Portions of this code have been written or edited by generative-AI tools. -->
 <script module>
   import { defineMeta } from "@storybook/addon-svelte-csf";
   import LoadingWrapper from "$lib/LoadingWrapper/LoadingWrapper.svelte";
@@ -122,9 +123,9 @@
   // see first code chunk for setup
 </script>
 
-<Button onClick={() => (selectedChart = "AHpJL")}>Chart #1</Button>
-<Button onClick={() => (selectedChart = "91Q0t")}>Chart #2</Button>
-<Button onClick={() => (selectedChart = "eaD2D")}>Chart #3</Button>
+<Button onclick={() => (selectedChart = "AHpJL")}>Chart #1</Button>
+<Button onclick={() => (selectedChart = "91Q0t")}>Chart #2</Button>
+<Button onclick={() => (selectedChart = "eaD2D")}>Chart #3</Button>
 
 {#if selectedChartMetadata}
   <DatawrapperIframe
@@ -135,9 +136,9 @@
 {/if}
   `}
 >
-  <Button onClick={() => (selectedChart = "AHpJL")}>Chart #1</Button>
-  <Button onClick={() => (selectedChart = "91Q0t")}>Chart #2</Button>
-  <Button onClick={() => (selectedChart = "eaD2D")}>Chart #3</Button>
+  <Button onclick={() => (selectedChart = "AHpJL")}>Chart #1</Button>
+  <Button onclick={() => (selectedChart = "91Q0t")}>Chart #2</Button>
+  <Button onclick={() => (selectedChart = "eaD2D")}>Chart #3</Button>
   {#if selectedChart}
     <DatawrapperIframe
       datawrapperId={selectedChartMetadata.value}
@@ -156,8 +157,8 @@
   // see first code chunk for setup
 </script>
 
-<Button onClick={() => (selectedChart = "Toh1S")}>Chart #1</Button>
-<Button onClick={() => (selectedChart = "rgLU1")}>Chart #2</Button>
+<Button onclick={() => (selectedChart = "Toh1S")}>Chart #1</Button>
+<Button onclick={() => (selectedChart = "rgLU1")}>Chart #2</Button>
 
   {#if selectedChartMetadata}
     <LoadingWrapper let:setChildLoaded let:setChildLoading>
@@ -166,16 +167,16 @@
           datawrapperId={selectedChartMetadata.value}
           title={selectedChartMetadata.label}
           ariaLabel={selectedChartMetadata.ariaLabel}
-          onstartrender={setChildLoading}
-          onvisrendered={setChildLoaded}
+          on:startrender={setChildLoading}
+          on:visrendered={setChildLoaded}
         />
       {/key}
     </LoadingWrapper>
   {/if}
 `}
 >
-  <Button onClick={() => (selectedChartLoading = "Toh1S")}>Chart #1</Button>
-  <Button onClick={() => (selectedChartLoading = "rgLU1")}>Chart #2</Button>
+  <Button onclick={() => (selectedChartLoading = "Toh1S")}>Chart #1</Button>
+  <Button onclick={() => (selectedChartLoading = "rgLU1")}>Chart #2</Button>
 
   {#if selectedChartLoadingMetadata}
     <LoadingWrapper let:setChildLoaded let:setChildLoading>

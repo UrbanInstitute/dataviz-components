@@ -1,15 +1,15 @@
 <!-- @component Button a basic HTML button with Urban styling-->
+<!-- Portions of this code have been written or edited by generative-AI tools. -->
 <script>
-  import { createEventDispatcher } from "svelte";
   /**
    * @typedef Props
    * @type Object
    * @property {"primary" | "primary-black" | "secondary" | "secondary-black" | "tertiary"} variant - Which variant of button to use
    * @property {"standard" | "small" } size
    * @property { boolean } disabled - Is the button disabled?
-   * @property {Function} onMouseEnter - Callback for mouse enter event
-   * @property {Function} onMouseLeave - Callback for mouse leave event
-   * @property {Function} onClick - Callback for click event
+   * @property {Function} onmouseenter - Callback for mouse enter event
+   * @property {Function} onmouseleave - Callback for mouse leave event
+   * @property {Function} onclick - Callback for click event
    */
 
   /**
@@ -19,9 +19,9 @@
     variant = "primary",
     size = "standard",
     disabled = false,
-    onMouseenter = () => {},
-    onMouseleave = () => {},
-    onClick = () => {},
+    onmouseenter = () => {},
+    onmouseleave = () => {},
+    onclick = () => {},
     children = () => {},
     icon = (iconColor) => {}
   } = $props();
@@ -36,17 +36,17 @@
     return iconColor;
   }
 
-  function _onMouseenter(e) {
+  function _onmouseenter(e) {
     hovered = true;
-    onMouseenter(e);
+    onmouseenter(e);
   }
-  function _onMouseleave(e) {
+  function _onmouseleave(e) {
     hovered = false;
-    onMouseleave(e);
+    onmouseleave(e);
   }
 
-  function _onClick(e) {
-    onClick(e);
+  function _onclick(e) {
+    onclick(e);
   }
 
   let iconColor = $derived(getIconColor(variant, hovered, el));
@@ -57,9 +57,9 @@
   bind:this={el}
   {disabled}
   aria-disabled={disabled}
-  onmouseenter={_onMouseenter}
-  onmouseleave={_onMouseleave}
-  onclick={_onClick}
+  onmouseenter={_onmouseenter}
+  onmouseleave={_onmouseleave}
+  onclick={_onclick}
 >
   {@render children()}
   {#if icon}
