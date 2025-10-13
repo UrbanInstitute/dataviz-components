@@ -1,3 +1,4 @@
+<!-- Portions of this code have been written or edited by generative-AI tools. -->
 <script context="module">
   import { defineMeta } from "@storybook/addon-svelte-csf";
   import { fireEvent, within, expect } from "storybook/test";
@@ -147,8 +148,9 @@
     id="dropdown-story-11"
     data={sampleData}
     inlineLabel="Dropdown label"
-    on:change
   >
-    <IconDownload slot="icon" size={16} fill={urbanColors.blue_shade_darker} />
+    {#snippet icon()}
+      <IconDownload size={16} fill={urbanColors.blue_shade_darker} />
+    {/snippet}
   </BasicDropdown>
 </Story>
