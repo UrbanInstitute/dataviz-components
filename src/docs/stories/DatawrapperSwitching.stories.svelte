@@ -139,7 +139,7 @@
   <Button onclick={() => (selectedChart = "AHpJL")}>Chart #1</Button>
   <Button onclick={() => (selectedChart = "91Q0t")}>Chart #2</Button>
   <Button onclick={() => (selectedChart = "eaD2D")}>Chart #3</Button>
-  {#if selectedChart}
+  {#if selectedChartMetadata}
     <DatawrapperIframe
       datawrapperId={selectedChartMetadata.value}
       title={selectedChartMetadata.label}
@@ -157,20 +157,22 @@
   // see first code chunk for setup
 </script>
 
-<Button onclick={() => (selectedChart = "Toh1S")}>Chart #1</Button>
-<Button onclick={() => (selectedChart = "rgLU1")}>Chart #2</Button>
+<Button onclick={() => (selectedChartLoading = "Toh1S")}>Chart #1</Button>
+<Button onclick={() => (selectedChartLoading = "rgLU1")}>Chart #2</Button>
 
-  {#if selectedChartMetadata}
-    <LoadingWrapper let:setChildLoaded let:setChildLoading>
-      {#key selectedChart}
-        <DatawrapperIframe
-          datawrapperId={selectedChartMetadata.value}
-          title={selectedChartMetadata.label}
-          ariaLabel={selectedChartMetadata.ariaLabel}
-          on:startrender={setChildLoading}
-          on:visrendered={setChildLoaded}
-        />
-      {/key}
+  {#if selectedChartLoadingMetadata}
+    <LoadingWrapper>
+      {#snippet children({ setChildLoading, setChildLoaded })}
+        {#key selectedChartLoading}
+          <DatawrapperIframe
+            datawrapperId={selectedChartLoadingMetadata.value}
+            title={selectedChartLoadingMetadata.label}
+            ariaLabel={selectedChartLoadingMetadata.ariaLabel}
+            onstartrender={setChildLoading}
+            onvisrendered={setChildLoaded}
+          />
+        {/key}
+      {/snippet}
     </LoadingWrapper>
   {/if}
 `}
@@ -179,14 +181,18 @@
   <Button onclick={() => (selectedChartLoading = "rgLU1")}>Chart #2</Button>
 
   {#if selectedChartLoadingMetadata}
-    <LoadingWrapper let:setChildLoaded let:setChildLoading>
-      {#key selectedChartLoading}
-        <DatawrapperIframe
-          datawrapperId={selectedChartLoadingMetadata.value}
-          on:startrender={setChildLoading}
-          on:visrendered={setChildLoaded}
-        />
-      {/key}
+    <LoadingWrapper>
+      {#snippet children({ setChildLoading, setChildLoaded })}
+        {#key selectedChartLoading}
+          <DatawrapperIframe
+            datawrapperId={selectedChartLoadingMetadata.value}
+            title={selectedChartLoadingMetadata.label}
+            ariaLabel={selectedChartLoadingMetadata.ariaLabel}
+            onstartrender={setChildLoading}
+            onvisrendered={setChildLoaded}
+          />
+        {/key}
+      {/snippet}
     </LoadingWrapper>
   {/if}
 </Story>

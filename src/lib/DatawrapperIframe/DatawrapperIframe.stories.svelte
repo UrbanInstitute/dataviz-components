@@ -1,3 +1,4 @@
+<!-- Portions of this code have been written or edited by generative AI tools. -->
 <script context="module">
   import DatawrapperIframe from "./DatawrapperIframe.svelte";
   import docs from "./DatawrapperIframe.docs.md?raw";
@@ -35,13 +36,10 @@
   {#snippet template(args)}
     <DatawrapperIframe
       {...args}
-      on:regionclick
-      on:regionmouseenter
-      on:regionmouseleave
-      on:regionclick={(e) => (test = e.detail.data.fips)}
-      on:regionmouseenter={(e) => (test = e.detail.data.fips)}
-      on:regionmouseleave={() => (test = "Hover over a region to change this text")}
-      on:visrendered
+      onregionclick={(event) => (test = event.detail.data.fips)}
+      onregionmouseenter={(event) => (test = event.detail.data.fips)}
+      onregionmouseleave={() => (test = "Hover over a region to change this text")}
+      onvisrendered={() => {}}
     />
     <p>{test}</p>
   {/snippet}

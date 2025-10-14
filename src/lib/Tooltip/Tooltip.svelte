@@ -1,154 +1,166 @@
+<!-- Portions of this code have been written or edited by generative AI tools. -->
 <script>
   /**
-   * Content to render inside the tooltip. This can include custom HTML.
-   * @type { string }
+   * @typedef {"dark" | "light"} TooltipStyle
+   * @typedef {"small" | "large"} TooltipSize
+   * @typedef {"top" | "bottom" | "left" | "right" | "bottom-left" | "bottom-right" | "top-left" | "top-right" | "dynamic"} TooltipOrientation
+   * @typedef {Object} TooltipProps
+   * @property {string} [content=""]
+   * @property {TooltipStyle} [style="light"]
+   * @property {number} [x=0]
+   * @property {number} [y=0]
+   * @property {HTMLElement | undefined} [el]
+   * @property {number} [elOffset=0]
+   * @property {TooltipSize} [size="small"]
+   * @property {string} [fontSize="var(--font-size-small)"]
+   * @property {boolean} [boxShadow=false]
+   * @property {string | undefined} [backgroundColor]
+   * @property {string | undefined} [fontColor]
+   * @property {string} [borderColor="var(--color-gray)"]
+   * @property {number} [triangleSize=8]
+   * @property {TooltipOrientation} [orientation="dynamic"]
+   * @property {boolean} [containParent=false]
+   * @property {boolean} [pointerEvents=false]
+   * @property {import("svelte").Snippet<[void]> | undefined} [children]
+   * @property {import("svelte").Snippet<[ { orientation: TooltipOrientation } ]> | undefined} [tooltipOverride]
    */
-  export let content = "";
 
-  /**
-   * The color style of the tooltip
-   * @type {"dark" | "light"} [style = "light"]
-   */
-  export let style = "light";
+  let {
+    content = "",
+    style: styleVariant = "light",
+    x = 0,
+    y = 0,
+    el = undefined,
+    elOffset = 0,
+    size = "small",
+    fontSize = "var(--font-size-small)",
+    boxShadow = false,
+    backgroundColor = undefined,
+    fontColor = undefined,
+    borderColor = "var(--color-gray)",
+    triangleSize = 8,
+    orientation = "dynamic",
+    containParent = false,
+    pointerEvents = false,
+    children,
+    tooltipOverride
+  } = $props();
 
-  /**
-   * The x position of the tooltip. This should be an absolute position relative to the page, like you would get from a pointer event's `pageX` property.
-   * @type {number}
-   */
-  export let x = 0;
-
-  /**
-   * The y position of the tooltip. This should be an absolute position relative to the page, like you would get from a pointer event's `pageY` property.
-   * @type {number}
-   */
-  export let y = 0;
-
-  /**
-   * An optional HTMLElement to bind the tooltip position to
-   * @type {HTMLElement} [el = undefined]
-   */
-  export let el = undefined;
-
-  /**
-   * The offset distance from the el in pixels
-   * @type {number}
-   */
-  export let elOffset = 0;
-
-  /**
-   * whether to use a small (138px) or large (198px) width
-   * @type {"small" | "large"}
-   * @default "small"
-   */
-  export let size = "small";
-
-  /**
-   * Font size for tooltip as CSS string.
-   * @type {string} [fontSize="--var(font-size-small)"]
-   */
-  export let fontSize = "var(--font-size-small)";
-
-  /**
-   * Whether to use a box shadow
-   * @type {boolean}
-   * @default false
-   */
-  export let boxShadow = false;
-
-  /**
-   * Color of tooltip background. Overrides the default style.
-   * @type { string } [backgroundColor = undefined]
-   */
-  export let backgroundColor = undefined;
-
-  /**
-   * Color of tooltip text. Overrides the default style.
-   * @type { string } [fontColor = undefined]
-   */
-  export let fontColor = undefined;
-
-  /**
-   * Color of tooltip border
-   * @type { string } [borderColor = "var(--color-gray)"]
-   */
-  export let borderColor = "var(--color-gray)";
-
-  /**
-   * Size of the tooltip triangle. Set to 0 for no triangle.
-   * @type { number } [triangleSize = 0]
-   */
-  export let triangleSize = 8;
-
-  /**
-   * Orientation of the tooltip. Default to dynamic, which attempts to prevent tooltip from overflowing the bounds of the viewport or parent element if `containParent` is true.
-   * @type {"top" | "bottom" | "left" | "right" | "bottom-left" | "bottom-right" | "top-left" | "top-right" | "dynamic"} [orientation = "dynamic"]
-   */
-  export let orientation = "dynamic";
-
-  /**
-   * Should the tooltip contain with the parent element instead of the window?
-   * @type { boolean } [ containParent = false ]
-   */
-  export let containParent = false;
-
-  /**
-   * Whether the tooltip container should allow pointer events. Set to true when rendering interactive content like links.
-   * @type {boolean} [pointerEvents = false]
-   */
-  export let pointerEvents = false;
-
-  // lookup to convert semantic sizes to pixel widths
   const sizes = {
     small: 138,
     large: 198
   };
-
-  // bind to wrapper element
-  let tooltipEl;
-
-  // store width and height of the tooltip
-  $: tooltipWidth = sizes[size];
-  $: tooltipHeight = tooltipEl ? tooltipEl.offsetHeight : 20;
 
   const defaultFontColors = {
     light: "var(--color-gray-shade-darkest)",
     dark: "var(--color-white)"
   };
 
-  // font and background colors
-  $: tooltipFontColor = fontColor ? fontColor : defaultFontColors[style];
-
   const defaultBgColors = {
     light: "var(--color-white)",
     dark: "var(--color-black)"
   };
 
-  // font and background colors
-  $: tooltipBackgroundColor = backgroundColor || defaultBgColors[style];
+  let pointerEventsValue = $derived(pointerEvents ? "auto" : "none");
 
-  // bound to window height and width and scroll values
-  let windowWidth = 0;
-  let windowHeight = 0;
-  let windowScrollY = 0;
-  let windowScrollX = 0;
-
-  // Hold a reference to parent element if necessary
+  let tooltipEl;
   let parentEl;
 
-  // Hold the current state of the orientation of the tooltip
-  let tooltipOrientation;
+  let tooltipX = $state(x);
+  let tooltipY = $state(y);
+  let tooltipOrientation = $state(orientation === "dynamic" ? "top" : orientation);
 
-  function measureParent(scrollX, scrollY) {
-    // if the parentEl isn't stored already, grab a reference to it
+  let windowWidth = $state(0);
+  let windowHeight = $state(0);
+  let windowScrollY = $state(0);
+  let windowScrollX = $state(0);
+
+  let tooltipWidth = $derived(sizes[size] ?? sizes.small);
+  let tooltipHeight = $derived(tooltipEl ? tooltipEl.offsetHeight : 20);
+  let tooltipFontColor = $derived(fontColor ?? defaultFontColors[styleVariant]);
+  let tooltipBackgroundColor = $derived(backgroundColor ?? defaultBgColors[styleVariant]);
+  let triangleSizeValue = $derived(tooltipOverride ? 0 : triangleSize);
+
+  let tooltipBounds = $derived(
+    containParent && tooltipEl
+      ? measureParent(windowScrollX, windowScrollY, windowWidth, windowHeight)
+      : {
+          top: windowScrollY,
+          right: windowWidth + windowScrollX,
+          bottom: windowHeight + windowScrollY,
+          left: windowScrollX
+        }
+  );
+
+  let tooltipCoords = $derived(
+    getTooltipCoords(tooltipEl, tooltipX ?? 0, tooltipY ?? 0, windowScrollX, windowScrollY)
+  );
+
+  $effect(() => {
+    if (!el || typeof el.getBoundingClientRect !== "function") return;
+
+    const {
+      x: elementX,
+      y: elementY,
+      orientation: elementOrientation
+    } = getPositionFromEl(
+      el,
+      tooltipBounds,
+      windowScrollX,
+      windowScrollY,
+      orientation,
+      elOffset,
+      tooltipWidth,
+      tooltipHeight,
+      triangleSize
+    );
+
+    tooltipX = elementX;
+    tooltipY = elementY;
+    tooltipOrientation = elementOrientation;
+  });
+
+  $effect(() => {
+    if (el) return;
+
+    const nextX = x ?? 0;
+    const nextY = y ?? 0;
+
+    tooltipX = nextX;
+    tooltipY = nextY;
+    tooltipOrientation =
+      orientation === "dynamic"
+        ? getTooltipOrientation(
+            nextX,
+            nextY,
+            tooltipBounds,
+            tooltipWidth,
+            tooltipHeight,
+            triangleSize
+          )
+        : orientation;
+  });
+
+  function measureParent(scrollX, scrollY, winWidth, winHeight) {
+    if (!tooltipEl) {
+      return { top: 0, right: 0, bottom: 0, left: 0 };
+    }
+
     if (!parentEl) {
       parentEl = tooltipEl.parentNode;
     }
 
-    // get the bounding box of the parentEl.
-    // https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect
+    if (!parentEl || typeof parentEl.getBoundingClientRect !== "function") {
+      return {
+        top: scrollY,
+        right: winWidth + scrollX,
+        bottom: winHeight + scrollY,
+        left: scrollX
+      };
+    }
+
     const parentBbox = parentEl.getBoundingClientRect();
 
-    // return bounding box, adjusting for x and y scroll of window
     return {
       top: parentBbox.top + scrollY,
       right: parentBbox.right + scrollX,
@@ -157,83 +169,75 @@
     };
   }
 
-  function findRelativeAncestor(el) {
-    if (!el) return;
-    // traverse the tree upwards to see if there are any absolutely, fixed or relatively positioned ancestors
-    let ancestor = el.parentNode;
-    // loop through all ancestors until we reach the document element
+  function findRelativeAncestor(element) {
+    if (typeof window === "undefined" || !element) return null;
+    let ancestor = element.parentNode;
     while (ancestor && ancestor !== document.documentElement) {
-      // check if ancestor is a shadow root with a host element
       if (ancestor instanceof ShadowRoot) {
-        // if it is, set ancestor to the host element instead
         ancestor = ancestor.host;
       }
-      // make sure ancestor is instance of element
       if (ancestor instanceof Element) {
-        // if it is, check if it is relative, absolute or fixed position
         const position = window.getComputedStyle(ancestor).position;
-        // return it if so
         if (position === "relative" || position === "absolute" || position === "fixed") {
           return ancestor;
         }
-        // check next ancestor
         ancestor = ancestor.parentNode;
       } else {
-        // if ancestor is not an element, break the loop
         break;
       }
     }
     return null;
   }
 
-  /**
-   * Take the provided coordinates and adjust them if necessary.
-   * @param {number} x
-   * @param {number} y
-   * @returns {[number, number]}
-   **/
-  function getTooltipCoords(el, x, y) {
-    const relativeParent = findRelativeAncestor(el);
+  function getTooltipCoords(element, xPos, yPos, scrollX, scrollY) {
+    if (typeof window === "undefined") {
+      return [xPos, yPos];
+    }
+    const relativeParent = findRelativeAncestor(element);
     if (relativeParent) {
       const ancestorStyles = window.getComputedStyle(relativeParent);
-      const leftPadding = parseInt(ancestorStyles.paddingLeft.replace("px", ""));
-      const topPadding = parseInt(ancestorStyles.paddingTop.replace("px", ""));
+      const leftPadding = parseInt(ancestorStyles.paddingLeft.replace("px", ""), 10) || 0;
+      const topPadding = parseInt(ancestorStyles.paddingTop.replace("px", ""), 10) || 0;
       const ancestorBbox = relativeParent.getBoundingClientRect();
-      const adjustedX = x - ancestorBbox.left - windowScrollX - leftPadding;
-      const adjustedY = y - ancestorBbox.top - windowScrollY - topPadding;
+      const adjustedX = xPos - ancestorBbox.left - scrollX - leftPadding;
+      const adjustedY = yPos - ancestorBbox.top - scrollY - topPadding;
       return [adjustedX, adjustedY];
     }
-    return [x, y];
+    return [xPos, yPos];
   }
 
-  // simple utilities to detect edge collision
-  // used in getTooltipOrientation and getPositionFromEl
-  function leftIntersect(x, bounds) {
-    return x < tooltipWidth / 2 + bounds.left;
+  function leftIntersect(xPos, bounds, width) {
+    return xPos < width / 2 + bounds.left;
   }
 
-  function rightIntersect(x, bounds) {
-    return x > bounds.right - tooltipWidth / 2;
+  function rightIntersect(xPos, bounds, width) {
+    return xPos > bounds.right - width / 2;
   }
 
-  function topIntersect(y, bounds) {
-    return y < tooltipHeight + triangleSize + bounds.top;
+  function topIntersect(yPos, bounds, height, triangle) {
+    return yPos < height + triangle + bounds.top;
   }
 
-  function bottomIntersect(y, bounds) {
-    return y > bounds.bottom - (tooltipHeight / 2 + triangleSize);
+  function bottomIntersect(yPos, bounds, height, triangle) {
+    return yPos > bounds.bottom - (height / 2 + triangle);
   }
 
-  /**
-   * Get the center of an element
-   * @param {HTMLElement} el
-   * @param {"top" | "bottom" | "left" | "right"} alignment
-   * @returns {{x: number, y: number, orientation: string}}
-   */
-  function getPositionFromEl(el, bounds, scrollX, scrollY) {
-    const elBbox = el.getBoundingClientRect();
+  function getPositionFromEl(
+    element,
+    bounds,
+    scrollX,
+    scrollY,
+    orientationPref,
+    offset,
+    width,
+    height,
+    triangle
+  ) {
+    if (!element || typeof element.getBoundingClientRect !== "function") {
+      return { x: tooltipX, y: tooltipY, orientation: tooltipOrientation };
+    }
 
-    // adjust positions for scroll to convert to absolute coordinates on the page
+    const elBbox = element.getBoundingClientRect();
     const elLeftX = elBbox.left + scrollX;
     const elRightX = elBbox.right + scrollX;
     const elTopY = elBbox.top + scrollY;
@@ -245,149 +249,100 @@
     let yPos = elCenterY;
     let newOrientation = "top";
 
-    // if orientation is not dynamic, just calculate the correct position
-    if (orientation !== "dynamic") {
-      newOrientation = orientation;
-      if (orientation.includes("left")) {
-        xPos = elLeftX - elOffset;
+    if (orientationPref !== "dynamic") {
+      newOrientation = orientationPref;
+      if (orientationPref.includes("left")) {
+        xPos = elLeftX - offset;
       }
-      if (orientation.includes("right")) {
-        xPos = elRightX + elOffset;
+      if (orientationPref.includes("right")) {
+        xPos = elRightX + offset;
       }
-      if (orientation.includes("bottom")) {
-        yPos = elBottomY + elOffset;
+      if (orientationPref.includes("bottom")) {
+        yPos = elBottomY + offset;
       }
-      if (orientation.includes("top")) {
-        yPos = elTopY - elOffset;
+      if (orientationPref.includes("top")) {
+        yPos = elTopY - offset;
       }
     } else {
-      // if position is dynamic, things are more complicated. We'll need to check for intersections based on the dynamic positions until we find one that works
-      if (topIntersect(elTopY, bounds) && leftIntersect(elCenterX, bounds)) {
-        xPos = elRightX + elOffset;
-        yPos = elBottomY + elOffset;
+      if (
+        topIntersect(elTopY, bounds, height, triangle) &&
+        leftIntersect(elCenterX, bounds, width)
+      ) {
+        xPos = elRightX + offset;
+        yPos = elBottomY + offset;
         newOrientation = "bottom-right";
-      } else if (topIntersect(elTopY, bounds) && rightIntersect(elCenterX, bounds)) {
-        xPos = elLeftX - elOffset;
-        yPos = elBottomY + elOffset;
+      } else if (
+        topIntersect(elTopY, bounds, height, triangle) &&
+        rightIntersect(elCenterX, bounds, width)
+      ) {
+        xPos = elLeftX - offset;
+        yPos = elBottomY + offset;
         newOrientation = "bottom-left";
-      } else if (bottomIntersect(elBottomY, bounds) && leftIntersect(elCenterX, bounds)) {
-        xPos = elRightX + elOffset;
-        yPos = elTopY - elOffset;
+      } else if (
+        bottomIntersect(elBottomY, bounds, height, triangle) &&
+        leftIntersect(elCenterX, bounds, width)
+      ) {
+        xPos = elRightX + offset;
+        yPos = elTopY - offset;
         newOrientation = "top-right";
-      } else if (bottomIntersect(elBottomY, bounds) && rightIntersect(elCenterX, bounds)) {
-        xPos = elLeftX - elOffset;
-        yPos = elTopY - elOffset;
+      } else if (
+        bottomIntersect(elBottomY, bounds, height, triangle) &&
+        rightIntersect(elCenterX, bounds, width)
+      ) {
+        xPos = elLeftX - offset;
+        yPos = elTopY - offset;
         newOrientation = "top-left";
-      } else if (leftIntersect(elCenterX, bounds)) {
-        xPos = elRightX + elOffset;
+      } else if (leftIntersect(elCenterX, bounds, width)) {
+        xPos = elRightX + offset;
         yPos = elCenterY;
         newOrientation = "right";
-      } else if (rightIntersect(elCenterX, bounds)) {
-        xPos = elLeftX - elOffset;
+      } else if (rightIntersect(elCenterX, bounds, width)) {
+        xPos = elLeftX - offset;
         yPos = elCenterY;
         newOrientation = "left";
-      } else if (topIntersect(elTopY, bounds)) {
+      } else if (topIntersect(elTopY, bounds, height, triangle)) {
         xPos = elCenterX;
-        yPos = elBottomY + elOffset;
+        yPos = elBottomY + offset;
         newOrientation = "bottom";
       } else {
         xPos = elCenterX;
-        yPos = elTopY - elOffset;
+        yPos = elTopY - offset;
         newOrientation = "top";
       }
     }
-    return { x: xPos, y: yPos, orientation: newOrientation };
+
+    return { x: xPos, y: yPos, orientation: /** @type {TooltipOrientation} */ (newOrientation) };
   }
 
-  /**
-   * Calculate which direction the tooltip should go based on the provided x and y position and a given bounding box relative to the document.
-   * @param {number} x - the x position of the tooltip
-   * @param {number} y - the y position of the tooltip
-   * @param {{top: number, right: number, bottom: number, left: number}} - the bounds to contain within, relative to the entire document
-   * @returns {"top" | "bottom" | "left" | "right" | "top-left" | "top-right" | "bottom-left" | "bottom-right"}
-   */
-  function getTooltipOrientation(x, y, bounds) {
-    const left = leftIntersect(x, bounds);
-    const top = topIntersect(y, bounds);
-    const right = rightIntersect(x, bounds);
-    const bottom = bottomIntersect(y, bounds);
+  function getTooltipOrientation(xPos, yPos, bounds, width, height, triangle) {
+    const left = leftIntersect(xPos, bounds, width);
+    const top = topIntersect(yPos, bounds, height, triangle);
+    const right = rightIntersect(xPos, bounds, width);
+    const bottom = bottomIntersect(yPos, bounds, height, triangle);
 
-    // check for corner cases first
     if (left && top) {
       return "bottom-right";
     }
     if (right && top) {
       return "bottom-left";
     }
-
     if (bottom && left) {
       return "top-right";
     }
-
     if (bottom && right) {
       return "top-left";
     }
-
-    // first check if tooltip is too far to the left
     if (left) {
       return "right";
     }
-    // next check if tooltip is too far to the right
     if (right) {
       return "left";
     }
-    // next check if tooltip is too far up
     if (top) {
       return "bottom";
     }
-    // default to top
     return "top";
   }
-
-  // compute the bounding box the tooltip should stay within
-  // either a parent Element or the current viewport
-  $: tooltipBounds =
-    containParent && tooltipEl
-      ? measureParent(windowScrollX, windowScrollY)
-      : {
-          top: windowScrollY,
-          right: windowWidth + windowScrollX,
-          bottom: windowHeight + windowScrollY,
-          left: windowScrollX
-        };
-
-  // hold calculated tooltip x an y positions
-  let tooltipX;
-  let tooltipY;
-  // if el is provided, calculate the position for the tooltip
-  // getPositionFromEl also sets the tooltipOrientation variable based on its own calculations
-  $: if (el) {
-    // calculate position and orientation from element
-    const { x, y, orientation } = getPositionFromEl(
-      el,
-      tooltipBounds,
-      windowScrollX,
-      windowScrollY
-    );
-    // set global state
-    tooltipX = x;
-    tooltipY = y;
-    tooltipOrientation = orientation;
-  }
-
-  // if tooltipOrientation isn't determined by the element placement already and is dynamic, set it here
-  $: if (!el) {
-    if (orientation === "dynamic") {
-      tooltipOrientation = getTooltipOrientation(tooltipX, tooltipY, tooltipBounds);
-    } else {
-      tooltipOrientation = orientation;
-    }
-    tooltipX = x;
-    tooltipY = y;
-  }
-
-  // calculate tooltipCoords, which are based on tooltipX and tooltipY and adjusted for any positioned ancestor elements with the getTooltipCoords function
-  $: tooltipCoords = getTooltipCoords(tooltipEl, tooltipX, tooltipY);
 </script>
 
 <svelte:window
@@ -396,32 +351,37 @@
   bind:innerWidth={windowWidth}
   bind:innerHeight={windowHeight}
 />
+
 <div
   class="tooltip-outer tooltip-orientation-{tooltipOrientation}"
-  style={`left: ${tooltipCoords[0]}px; top: ${tooltipCoords[1]}px; width: ${sizes[size]}px;`}
   bind:this={tooltipEl}
-  style:--tooltip-triangle-size="{$$slots.tooltipOverride ? 0 : triangleSize}px"
-  style:pointer-events={pointerEvents ? "auto" : "none"}
+  style:left={`${tooltipCoords[0]}px`}
+  style:top={`${tooltipCoords[1]}px`}
+  style:width={`${tooltipWidth}px`}
+  style:--tooltip-triangle-size={`${triangleSizeValue}px`}
+  style:pointer-events={pointerEventsValue}
 >
-  <!-- The tooltipOverride slot allows you to provide custom markup that will override all of the default styling of the tooltip while still adhering to the positioning logic -->
-  <slot name="tooltipOverride" orientation={tooltipOrientation}>
+  {#if tooltipOverride}
+    {@render tooltipOverride({ orientation: tooltipOrientation })}
+  {:else}
     <div
-      class="tooltip tooltip-{tooltipOrientation} tooltip-{style} tooltip-{size}"
+      class="tooltip tooltip-{tooltipOrientation} tooltip-{styleVariant} tooltip-{size}"
       class:box-shadow={boxShadow}
       style:--tooltip-font-size={fontSize}
       style:--tooltip-border-color={borderColor}
-      style:--tooltip-border-width="{1}px"
+      style:--tooltip-border-width="1px"
       style:--tooltip-font-color={tooltipFontColor}
       style:--tooltip-background-color={tooltipBackgroundColor}
     >
       <div class="tooltip-text">
-        <!-- Content in the default slot renders inside the styled tooltop -->
-        <slot>
+        {#if typeof children === "function"}
+          {@render children()}
+        {:else}
           {@html content}
-        </slot>
+        {/if}
       </div>
     </div>
-  </slot>
+  {/if}
 </div>
 
 <style>

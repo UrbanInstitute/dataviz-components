@@ -1,15 +1,32 @@
+<!-- Portions of this code have been written or edited by generative AI tools. -->
 <script>
-  import { onMount } from "svelte";
   import pym from "pym.js";
-  import { pymChildStore } from "./stores.js";
+  import { createPymChildState } from "./stores.svelte.js";
 
-  /** Pym.js polling interval */
-  export let polling = 500;
+  /**
+   * @typedef {Object} Props
+   * @property {number} [polling]
+   * @property {import('svelte').Snippet} [children]
+   */
 
-  let pymChild;
+  /** @type {Props} */
+  let { polling = 500, children } = $props();
 
-  onMount(() => {
-    pymChild = new pym.Child({ polling });
-    pymChildStore.set(pymChild);
+  const pymChildState = createPymChildState();
+
+  $effect.root(() => {
+    if (typeof window === "undefined") return;
+
+    const child = new pym.Child({ polling });
+    pymChildState.setChild(child);
+
+    return () => {
+      child?.remove?.();
+      pymChildState.clear();
+    };
   });
 </script>
+
+{#if children}
+  {@render children()}
+{/if}

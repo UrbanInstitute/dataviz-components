@@ -10,6 +10,68 @@ Use this document to record any intentional breaking changes introduced while mi
 
 ## Entries
 
+### 2025-01-XX: DatawrapperIframe & PymChild Rune Migration
+
+**Components Affected**: DatawrapperIframe, PymChild, `usePymChild()`
+
+**Change**:
+
+- DatawrapperIframe now exposes Datawrapper integration events via lowercase callback props (e.g., `onregionclick`, `onvisrendered`, `onstartrender`) instead of Svelte's `on:` directive.
+- The legacy `pymChildStore` writable has been removed. Consumers should call the rune helpers `createPymChildState()` / `usePymChild()` instead.
+
+**Rationale**: Svelte 5 rune components use DOM-style callback props instead of dispatchers/stores. The singleton helper keeps the Pym child instance in rune state without relying on Svelte 4 stores.
+
+**Migration Guide**:
+
+```svelte
+<!-- Before -->
+<DatawrapperIframe on:regionclick={handleRegion} />
+
+<!-- After -->
+<DatawrapperIframe onregionclick={(event) => handleRegion(event.detail)} />
+```
+
+```js
+// Before
+import { pymChildStore } from "@urbaninstitute/dataviz-components/stores";
+
+if ($pymChildStore) {
+  $pymChildStore.sendHeight();
+}
+
+// After
+import { usePymChild } from "@urbaninstitute/dataviz-components/Pym/stores.js";
+
+const pymChild = usePymChild();
+pymChild.sendHeight();
+```
+
+**Impact**: Update any Storybook stories or consuming applications that relied on `on:` event syntax or the exported store. `usePymChild()` returns a singleton state; the helper mirrors the previous store API via `.child` and `.sendHeight()`.
+
+**Reference**: Phase 4 migration – External Integrations & Complex Reactivity.
+
+### `usePymChild()` Return Type
+
+**Change**: `usePymChild()` now returns `PymChildState | undefined` instead of always returning a state object.
+
+**Before**: The function maintained a module-level singleton and always returned an initialized state, even when called outside a `<PymChild>` component tree.
+
+**After**: The function returns `undefined` if called without a `<PymChild>` ancestor in the component tree.
+
+**Migration**: Use optional chaining when accessing methods:
+
+```javascript
+const pymChild = usePymChild();
+
+// Before
+pymChild.sendHeight();
+
+// After
+pymChild?.sendHeight();
+```
+
+**Rationale**: This change makes the component hierarchy dependency explicit, prevents bugs from uninitialized state, and aligns with Svelte 5's context patterns. Multiple `<PymChild>` instances can now coexist in different component trees without interference.
+
 ### 2025-01-XX: Event Handler Naming Convention Change
 
 **Components Affected**: Button (and all future migrated components)

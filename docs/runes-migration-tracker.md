@@ -53,13 +53,13 @@ Use this tracker to coordinate task status and surface follow-up actions as the 
 
 ## Phase 4 – External Integrations & Complex Reactivity
 
-| Component / Area                            | Status | Notes |
-| ------------------------------------------- | ------ | ----- |
-| DatawrapperIframe                           | `todo` |       |
-| PymChild                                    | `todo` |       |
-| Tooltip                                     | `todo` |       |
-| Reactive utility components & helpers pass  | `todo` |       |
-| Integration validation in Storybook/sandbox | `todo` |       |
+| Component / Area                            | Status | Notes                                                          |
+| ------------------------------------------- | ------ | -------------------------------------------------------------- |
+| DatawrapperIframe                           | `done` | Callback props replace `on:` listeners; docs + stories updated |
+| PymChild                                    | `done` | `usePymChild()` singleton helper replaces `pymChildStore`      |
+| Tooltip                                     | `done` | Rune effects drive geometry, snippet override migrated         |
+| Reactive utility components & helpers pass  | `done` | Shared Pym state converted to rune singleton                   |
+| Integration validation in Storybook/sandbox | `done` | Storybook smokes completed for Phase 4 components              |
 
 ## Phase 5 – Visualization Suite
 

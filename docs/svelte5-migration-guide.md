@@ -63,6 +63,8 @@ This guide covers common patterns for migrating from Svelte 4 to Svelte 5, with 
 <p>{name} is {age} years old</p>
 ```
 
+> **Common pitfall:** Destructure `$props()` directly into `let` bindings. Capturing the result in a `const` (for example `const props = $props();`) freezes the initial values and breaks reactivity.
+
 ### Rest Props
 
 **Before (Svelte 4):**
@@ -655,6 +657,115 @@ export function useMapState() {
 }
 ```
 
+### Context-Only State Pattern
+
+When migrating stores to class-based state, prefer strict context-only patterns that return `undefined` when context is unavailable rather than maintaining module-level singletons.
+
+**Anti-pattern (Singleton fallback):**
+
+```javascript
+let singletonState;
+
+function ensureState() {
+  if (!singletonState) {
+    singletonState = new State();
+  }
+  return singletonState;
+}
+
+export function useState() {
+  if (hasContext(STATE_CONTEXT)) {
+    return getContext(STATE_CONTEXT);
+  }
+  return ensureState(); // Always returns something
+}
+```
+
+**Preferred pattern (Context-only):**
+
+```javascript
+export function createState() {
+  const state = new State();
+  setContext(STATE_CONTEXT, state);
+  return state;
+}
+
+export function useState() {
+  return hasContext(STATE_CONTEXT) ? getContext(STATE_CONTEXT) : undefined;
+}
+```
+
+**Advantages:**
+
+- Makes component hierarchy dependencies explicit
+- Fails fast when misconfigured (accessing undefined throws immediately)
+- Better TypeScript inference (`State | undefined`)
+- Supports multiple instances in different component trees
+- Aligns with Svelte 5's philosophy of explicit reactivity
+
+**Consumer usage:**
+
+```javascript
+const state = useState();
+
+// Use optional chaining to safely access methods
+state?.doSomething();
+
+// Or check explicitly if you need branching logic
+if (state) {
+  state.doSomething();
+}
+```
+
+**Context Propagation Note:**
+
+Remember that Svelte context only flows to descendants, not siblings. When using this pattern, ensure your provider component wraps (not sits alongside) any components that need the context:
+
+```svelte
+<!-- ❌ Wrong: Sibling placement -->
+<StateProvider />
+<Consumer />
+<!-- Cannot access context! -->
+
+<!-- ✅ Correct: Descendant placement -->
+<StateProvider>
+  <Consumer />
+  <!-- Can access context -->
+</StateProvider>
+```
+
+If your descendants need context access, you'll need to add a `children` prop to your provider component and render it:
+
+```javascript
+// In your provider component
+/**
+ * @typedef {Object} Props
+ * @property {import('svelte').Snippet} [children]
+ */
+
+let { children } = $props();
+
+// At the end of your component template
+{#if children}
+  {@render children()}
+{/if}
+```
+
+**Alternative: Throwing errors**
+
+For stricter validation, you can throw an error instead of returning undefined:
+
+```javascript
+export function useState() {
+  if (!hasContext(STATE_CONTEXT)) {
+    throw new Error("useState() must be called within a component tree that has <StateProvider>");
+  }
+  return getContext(STATE_CONTEXT);
+}
+```
+
+This approach catches misuse immediately but requires proper error handling in consumers. Choose based on your library's ergonomics—returning `undefined` is more forgiving, while throwing is more explicit about requirements.
+
 ---
 
 ## Reactivity
@@ -741,6 +852,17 @@ let status = $derived.by(() => {
   return 'normal';
 });
 ```
+
+### Choosing `$effect()` vs `$effect.root()`
+
+- Default to `$effect()` for most side effects; it mirrors the Svelte 4 `$:` pattern and keeps teardown logic straightforward.
+- Reach for `$effect.root()` only when you need to orchestrate multiple cleanups within the same effect (for example, subscribing to external stores or registering several event listeners).
+- Using `$effect.root()` everywhere adds nesting without benefit and makes it harder to reason about component lifecycles.
+
+### Guarding Browser APIs
+
+- Place a single guard at the top of the effect when working with browser globals (`if (typeof window === 'undefined') return;`).
+- Avoid repeating the same guard inside helper functions called by that effect—the top-level check keeps the intent clear and removes unnecessary branching.
 
 ### Effect Ordering
 

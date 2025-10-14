@@ -58,9 +58,9 @@
    - [ ] Standardize derived values with `$derived()` and convert event forwarding to callback props (`onShare`, `onReturnTop`, etc.).
    - [ ] Guard browser-only logic with `$effect` checks and log any breaking changes discovered.
 5. **Phase 4 – External Integrations & Complex Reactivity**
-   - [ ] Convert `DatawrapperIframe` and `PymChild`, ensuring rest props and postMessage handlers match rune expectations.
-   - [ ] Migrate `Tooltip` and similar reactive chains, replacing `$:` with `$derived()`/`$effect()` while preserving ordering.
-   - [ ] Validate integrations in Storybook or dedicated sandboxes before closing tasks.
+   - [x] Convert `DatawrapperIframe` and `PymChild`, ensuring rest props and postMessage handlers match rune expectations.
+   - [x] Migrate `Tooltip` and similar reactive chains, replacing `$:` with `$derived()`/`$effect()` while preserving ordering.
+   - [x] Validate integrations in Storybook or dedicated sandboxes before closing tasks.
 6. **Phase 5 – Visualization Suite**
    - [ ] Tackle `ChartBlock`, Layercake axes, `Scrolly`, and the `maps` directory (SVG map, layers, color legend, zoom controls).
    - [ ] Rebuild context + store subscriptions manually (e.g., `subscribe` within `$effect.root()`) and convert custom dispatchers to callback props (`onregionclick`, `onhover`, etc.).
