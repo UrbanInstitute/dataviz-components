@@ -1,4 +1,5 @@
-<script context="module">
+<!-- Portions of this code have been written or edited by generative AI tools. -->
+<script module>
   /**
    * @typedef { "continuous" | "sequential" | "threshold" | "ordinal" } scaleType
    */
@@ -12,190 +13,102 @@
   import urbanColors from "$lib/utils/urbanColors.js";
 
   /**
-   * D3 scale to base legend on
-   * @type { Function } [scale]
+   * @typedef {Object} Props
+   * @property {Function} scale - D3 scale to base legend on
+   * @property {string} [title] - Optional title for the legend
+   * @property {number} [height=10] - Height of the visual element of the legend
+   * @property {number} [ticks=5] - Optional number of ticks to pass to d3's generator
+   * @property {Array<any>} [tickValues] - Optional array of exact values to use as ticks
+   * @property {number} [tickSize=14] - Optional size for tick labels
+   * @property {"top" | "bottom"} [tickPosition="bottom"] - Should ticks be positioned above or below the color bars?
+   * @property {number} [tickMargin=5] - Optional size of space between color and tick labels
+   * @property {"auto" | "middle" | "start" | "end"} [tickTextAnchor="auto"] - Optionally set the text-anchor of all tick marks
+   * @property {string | ((a: Object) => string)} [tickFormat] - Optional tick formatting string or function
+   * @property {number} [tickLineWidth=1] - Width of tick line. Set to 0 if no line is needed.
+   * @property {string} [tickLineColor] - Color of tick line.
+   * @property {{top: number, right: number, bottom: number, left: number}} [margin] - Optional margin object
+   * @property {number} [maxWidth] - Optional max width for the legend
+   * @property {boolean} [swatch=false] - Display ordinal scale as swatches rather than bars
+   * @property {"row" | "column"} [swatchLayout="row"] - Display swatches in a row or column layout
+   * @property {"flex-start" | "center" | "flex-end"} [swatchAlign="flex-start"] - A flexbox alignment value
+   * @property {number} [swatchSize=16] - Size of swatch in pixels
+   * @property {boolean} [swatchCircle=false] - Display swatches as circles rather than squares
+   * @property {string} [swatchSpacing] - Optional override space between swatch items
+   * @property {string} [naFill] - Optional color to indicate for NA values
+   * @property {string} [naLabel="NA"] - Optional string label for NA values
+   * @property {number} [naSize=16] - Optional size in pixels for naLabel
+   * @property {number} [naSpacing=16] - Optional amount of spacing in pixels for NA swatch and label
    */
-  export let scale;
 
-  /**
-   * Optional title for the legend
-   * @type { string } [title = undefined]
-   */
-  export let title = undefined;
-
-  /**
-   * Height of the visual element of the legend
-   * @type { number } [height = 20]
-   */
-  export let height = 10;
-
-  /**
-   * Optional number of ticks to pass to d3's generator
-   * @type { number } [ticks = 3]
-   */
-  export let ticks = 5;
-
-  /**
-   * Optional array of exact values to use as ticks
-   * @type {Array<any>} [tickValues = undefined]
-   */
-  export let tickValues = undefined;
-
-  /**
-   * Optional size for tick labels
-   * @type { number } [ticksSize = 14]
-   */
-  export let tickSize = 14;
-
-  /**
-   * Should ticks be positioned above or below the color bars?
-   * @type { "top" | "bottom" } [ticksPosition = "bottom"]
-   */
-  export let tickPosition = "bottom";
-
-  /**
-   * Optional size of space between color and tick labels
-   * @type { number } [ticksMargin = 6]
-   */
-  export let tickMargin = 5;
-
-  /**
-   * Optionally set the `text-anchor` of all tick marks in the legend. If set to auto, tick marks use `text-anchor: middle` unless they represent the minumum or maximum value of the scale. Min value is set to `text-anchor: start` and max value is set to `text-anchor: end`.
-   * @type { "auto" | "middle" | "start" | "end" } [tickTextAnchor = "auto"]
-   */
-  export let tickTextAnchor = "auto";
-
-  /**
-   * Optional tick formatting string or function
-   * @type { string | (a: Object) => string } [tickFormat = undefined]
-   */
-  export let tickFormat = undefined;
-
-  /**
-   * Width of tick line. Set to 0 if no line is needed.
-   * @type { number } [tickLineWidth = 1]
-   */
-  export let tickLineWidth = 1;
-
-  /**
-   * Color of tick line.
-   * @type { string } [tickLineColor = urbanColors.black]
-   */
-  export let tickLineColor = urbanColors.black;
-
-  /**
-   * Optional margin object that defines space around legend within the SVG element
-   * @type {{top: Number, right: Number, bottom: Number, left: Number}}
-   */
-  export let margin = {
-    top: 0,
-    right: 0,
-    bottom: 5,
-    left: 0
-  };
-
-  /**
-   * Optional max width for the legend. Legend will resize to fill the space of the container by default.
-   * @type { number } [ maxWidth = undefined ]
-   */
-  export let maxWidth = undefined;
-
-  /**
-   * Display ordinal scale as swatches rather than bars. Does nothing for other scale types.
-   * @type { boolean } [swatch = false]
-   */
-  export let swatch = false;
-
-  /**
-   * Display swatches in a row or column layout.
-   * @type { "row" | "column" } [swatchLayout = "row"]
-   */
-  export let swatchLayout = "row";
-
-  /**
-   * A flexbox alignment value for the swatch layout.
-   * @type { "flex-start" | "center" | "flex-end" } [swatchAlign = "flex-start"]
-   */
-  export let swatchAlign = "flex-start";
-
-  /**
-   * Size of swatch in pixels
-   * @type { number } [swatchSize = 16]
-   */
-  export let swatchSize = 16;
-
-  /**
-   * Display swatches as circles rather than squares.
-   * @type { boolean } [swatchCircle = false]
-   */
-  export let swatchCircle = false;
-
-  /**
-   * Optional override space between swatch items. Should be a css compatable string.
-   * @type { string } [swatchSpacing = undefined]
-   */
-  export let swatchSpacing = undefined;
-
-  /**
-   * Optional color to indicate for NA values
-   * @type { string } [naFill = undefined]
-   */
-  export let naFill = undefined;
-
-  /**
-   * Optional string label for NA values
-   * @type { string } [naLabel = "NA"]
-   */
-  export let naLabel = "NA";
-
-  /**
-   * Optional size in pixels for naLabel
-   * @type { string } [naLabel = "NA"]
-   */
-  export let naSize = 16;
-
-  /**
-   * Optional amount of spacing in pixels for NA swatch and label
-   * @type { number}  [naSpacing = 16]
-   */
-  export let naSpacing = 16;
+  /** @type {Props} */
+  let {
+    scale,
+    title = undefined,
+    height = 10,
+    ticks = 5,
+    tickValues = undefined,
+    tickSize = 14,
+    tickPosition = "bottom",
+    tickMargin = 5,
+    tickTextAnchor = "auto",
+    tickFormat = undefined,
+    tickLineWidth = 1,
+    tickLineColor = urbanColors.black,
+    margin = {
+      top: 0,
+      right: 0,
+      bottom: 5,
+      left: 0
+    },
+    maxWidth = undefined,
+    swatch = false,
+    swatchLayout = "row",
+    swatchAlign = "flex-start",
+    swatchSize = 16,
+    swatchCircle = false,
+    swatchSpacing = undefined,
+    naFill = undefined,
+    naLabel = "NA",
+    naSize = 16,
+    naSpacing = 16
+  } = $props();
 
   // will hold width of DOM element
-  let width;
+  let width = $state(0);
 
-  $: domain = scale.domain();
-  $: range = scale.range();
+  // Derived values
+  let domain = $derived(scale.domain());
+  let range = $derived(scale.range());
 
-  $: legendWidth = naFill
-    ? width - margin.left - margin.right - naSize - naSpacing
-    : width - margin.left - margin.right;
+  let legendWidth = $derived(
+    naFill
+      ? width - margin.left - margin.right - naSize - naSpacing
+      : width - margin.left - margin.right
+  );
 
   /**
    * @type { scaleType }
    */
-  $: scaleType = getScaleType(scale);
-
-  // will hold scale to compute x position of labels
-  // set by `updateScales`
-  $: xScale = getXScale(scale, scaleType, legendWidth);
-
-  let scaleId = uid();
+  let scaleType = $derived(getScaleType(scale));
 
   // holds reference to scale thresholds when a threshold scale is used
-  let thresholds;
+  let thresholds = $derived(
+    scaleType === "threshold"
+      ? scale.thresholds
+        ? scale.thresholds() // scaleQuantize
+        : scale.quantiles
+          ? scale.quantiles() // scaleQuantile
+          : scale.domain() // scaleThreshold
+      : undefined
+  );
 
-  $: if (scaleType === "threshold") {
-    thresholds = scale.thresholds
-      ? scale.thresholds() // scaleQuantize
-      : scale.quantiles
-        ? scale.quantiles() // scaleQuantile
-        : scale.domain(); // scaleThreshold
-  } else {
-    thresholds = undefined;
-  }
+  // will hold scale to compute x position of labels
+  let xScale = $derived(getXScale(scale, scaleType, legendWidth, range));
 
-  $: tickFormatFn = getTickFormatFn(tickFormat, thresholds);
-  $: legendTicks = getTicks(scaleType, xScale, thresholds);
+  let tickFormatFn = $derived(getTickFormatFn(tickFormat, thresholds));
+  let legendTicks = $derived(getTicks(scaleType, xScale, thresholds, tickValues, ticks));
+
+  const scaleId = uid();
 
   function getTickFormatFn(tickFormat, thresholds) {
     // respect any user provided options first
@@ -219,7 +132,7 @@
     return (d) => d;
   }
 
-  function getXScale(scale, scaleType, legendWidth) {
+  function getXScale(scale, scaleType, legendWidth, range) {
     if (scaleType === "continuous") {
       const n = Math.min(scale.domain().length, scale.range().length);
       return scale.copy().rangeRound(quantize(interpolate(0, legendWidth), n));
@@ -255,13 +168,13 @@
     }
   }
 
-  function getTicks(scaleType, xScale, thresholds) {
+  function getTicks(scaleType, xScale, thresholds, tickValues, ticks) {
     if (tickValues) {
       return tickValues;
     }
     let xDomain = xScale.domain();
     if (scaleType === "sequential" && !xScale.ticks) {
-      // if the scale doesn’t implement ticks, generate tick values manually
+      // if the scale doesn't implement ticks, generate tick values manually
       // https://observablehq.com/@d3/color-legend
       const n = Math.round(ticks + 1);
       return d3Range(n).map((i) => quantile(xDomain, i / (n - 1)));
@@ -277,7 +190,7 @@
     return Date.now().toString(36) + Math.random().toString(36).substring(2);
   }
 
-  function getTextAnchor(val, domain) {
+  function getTextAnchor(val, domain, tickTextAnchor, scaleType, thresholds) {
     if (tickTextAnchor !== "auto") {
       return tickTextAnchor;
     }
@@ -297,7 +210,7 @@
 <div
   class="legend-wrapper"
   bind:clientWidth={width}
-  style:max-width="{maxWidth}px"
+  style:max-width={maxWidth != null ? maxWidth + "px" : null}
   style:padding-bottom="10px"
 >
   {#if title}
@@ -382,7 +295,8 @@
                   y={yPosition}
                   x={xPosition}
                   font-size="{tickSize}px"
-                  text-anchor={getTextAnchor(tick, domain)}>{tickFormatFn(tick)}</text
+                  text-anchor={getTextAnchor(tick, domain, tickTextAnchor, scaleType, thresholds)}
+                  >{tickFormatFn(tick)}</text
                 >
               {/each}
               {#if naFill}
