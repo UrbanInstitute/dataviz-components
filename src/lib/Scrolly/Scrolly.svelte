@@ -1,133 +1,61 @@
+<!-- Portions of this code have been written or edited by generative AI tools. -->
 <script>
   import Scroller from "@sveltejs/svelte-scroller";
   import Block from "../Block/Block.svelte";
-  import { writable } from "svelte/store";
-  import { setContext } from "svelte";
+  import { createScrollyState } from "./state.svelte.js";
 
   /**
-   * An array of content blocks with text or HTML to use in the foreground of the scrolly component. For default behaviour, this should be an array of strings, but if you are using a custom `foreground` slot, you can use any type of data structure your project requires
-   * @type {any[]}
+   * @typedef {Object} ScrollyProps
+   * @property {any[]} [slides=[]] - An array of content blocks with text or HTML to use in the foreground of the scrolly component. For default behaviour, this should be an array of strings, but if you are using a custom `foreground` snippet, you can use any type of data structure your project requires
+   * @property {number} [top=0] - The vertical position that the top of the foreground must scroll past before the background becomes fixed, as a proportion of window height
+   * @property {number} [bottom=1] - The inverse of top — once the bottom of the foreground passes this point, the background becomes unfixed
+   * @property {number} [threshold=0.75] - Once a section crosses this point, it becomes 'active'
+   * @property {number} [spacing=0.75] - The spacing between sections, as a proportion of window height
+   * @property {number} [startOffset=0.5] - The spacing before the first section
+   * @property {number} [endOffset=0.75] - The spacing after the last section
+   * @property {string} [query="section"] - A CSS selector that describes the individual sections of your foreground
+   * @property {boolean} [parallax=false] - If true, the background will scroll such that the bottom edge reaches the bottom at the same time as the foreground. This effect can be unpleasant for people with high motion sensitivity, so use it advisedly
+   * @property {import("../Block/Block.svelte").blockWidth} [foregroundWidth="wide"] - The foreground is wrapped in a layout `Block` component. This property allows you to adjust the width of the layout block for the foreground text.
+   * @property {"center" | "left" | "right"} [textLayout="center"] - The layout of the foreground text
+   * @property {"center" | "left" | "right"} [textAlign="center"] - The text alignment of the foreground text
+   * @property {number} [textMaxWidth=580] - The max width of the foreground text box
+   * @property {string} [textBackground="var(--color-white)"] - The color to use for the background of the text box
+   * @property {string} [textColor="var(--color-gray-darker)"] - The color to use for the foreground text
+   * @property {boolean} [boxShadow=true] - Should the text box include a box shadow?
+   * @property {import('svelte').Snippet} [background] - Optional snippet for custom background component
+   * @property {import('svelte').Snippet<[any, number]>} [foreground] - Optional snippet for custom foreground content, receives (slide, index)
    */
-  export let slides = [];
 
-  /**
-   * The vertical position that the top of the foreground must scroll past before the background becomes fixed, as a proportion of window height
-   * @type {number}
-   */
-  export let top = 0;
+  /** @type {ScrollyProps} */
+  let {
+    slides = [],
+    top = 0,
+    bottom = 1,
+    threshold = 0.75,
+    spacing = 0.75,
+    startOffset = 0.5,
+    endOffset = 0.75,
+    query = "section",
+    parallax = false,
+    foregroundWidth = "wide",
+    textLayout = "center",
+    textAlign = "center",
+    textMaxWidth = 580,
+    textBackground = "var(--color-white)",
+    textColor = "var(--color-gray-darker)",
+    boxShadow = true,
+    background,
+    foreground
+  } = $props();
 
-  /**
-   * The inverse of top —  once the bottom of the foreground passes this point, the background becomes unfixed
-   * @type {number} [bottom=1]
-   */
-  export let bottom = 1;
-
-  /**
-   * Once a section crosses this point, it becomes 'active'
-   * @type {number} [threshold=0.75]
-   */
-  export let threshold = 0.75;
-
-  /**
-   * The spacing between sections, as a proportion of window height
-   * @type {number} [spacing=0.75]
-   */
-  export let spacing = 0.75;
-
-  /**
-   * The spacing before the first section
-   * @type {number} [startOffset=0.5]
-   */
-  export let startOffset = 0.5;
-
-  /**
-   * The spacing after the last section
-   * @type {number} [endOffset=0.75]
-   */
-  export let endOffset = 0.75;
-
-  /**
-   * A CSS selector that describes the individual sections of your foreground
-   * @type {string}
-   */
-  export let query = "section";
-
-  /**
-   * If true, the background will scroll such that the bottom edge reaches the bottom at the same time as the foreground. This effect can be unpleasant for people with high motion sensitivity, so use it advisedly
-   * @type {boolean}
-   */
-  export let parallax = false;
-
-  /**
-   * The foreground is wrapped in a layout `Block` component. This property allows you to adjust the width of the layout block for the foreground text.
-   * @type {import("../Block/Block.svelte").blockWidth} [foregroundWidth="wide"]
-   */
-  export let foregroundWidth = "wide";
-
-  /**
-   * The layout of the foreground text
-   * @type {"center" | "left" | "right"}
-   */
-  export let textLayout = "center";
-
-  /**
-   * The text alignment of the foreground text
-   * @type {"center" | "left" | "right"}
-   */
-  export let textAlign = "center";
-
-  /**
-   * The max width of the foreground text box
-   * @type {number}
-   */
-  export let textMaxWidth = 580;
-
-  /**
-   * The color to use for the background of the text box
-   * @type {string}
-   */
-  export let textBackground = "var(--color-white)";
-
-  /**
-   * The color to use for the foreground text
-   * @type {string}
-   */
-  export let textColor = "var(--color-gray-darker)";
-
-  /**
-   * Should the text box include a box shadow?
-   * @type {boolean} [boxShadow=true]
-   */
-  export let boxShadow = true;
-
-  // setup stores to add to context
-
-  // index of the current slide
-  const index = writable(0);
-
-  // how far the section has scrolled past the threshold, as a value between 0 and 1
-  const offset = writable(0);
-
-  // how far the foreground has travelled, where 0 is the top of the foreground crossing top, and 1 is the bottom crossing bottom
-  const progress = writable(0);
-
-  // the height of the slide, set to window.outerHeight - outer not inner because inner changes on some devices causing user to jump out of sequence
-  const slideHeight = writable(0);
-
-  // the width of the slide
-  const slideWidth = writable(0);
-
-  // set to window.innerHeight - the viewable area of the window
-  const innerHeight = writable(0);
-
-  $: context = { index: index, offset: offset, progress: progress, slideHeight, slideWidth };
-  $: setContext("scrolly", context);
+  // Create rune-based state and set into context
+  const scrolly = createScrollyState();
 </script>
 
 <svelte:window
-  bind:innerHeight={$innerHeight}
-  bind:outerHeight={$slideHeight}
-  bind:innerWidth={$slideWidth}
+  bind:innerHeight={scrolly.innerHeight}
+  bind:outerHeight={scrolly.slideHeight}
+  bind:innerWidth={scrolly.slideWidth}
 />
 <div
   class="scrolly-wrapper"
@@ -142,15 +70,17 @@
     {threshold}
     {query}
     {parallax}
-    bind:index={$index}
-    bind:offset={$offset}
-    bind:progress={$progress}
+    bind:index={scrolly.index}
+    bind:offset={scrolly.offset}
+    bind:progress={scrolly.progress}
   >
     <svelte:fragment slot="background">
-      <!-- 
+      <!--
         The background component that will render behind the foreground slides.
          -->
-      <slot name="background" />
+      {#if background}
+        {@render background()}
+      {/if}
     </svelte:fragment>
     <Block width={foregroundWidth} slot="foreground">
       <div class="foreground layout-{textLayout}">
@@ -158,18 +88,21 @@
           {@const firstSlide = i === 0}
           {@const lastSlide = i === slides.length - 1}
           <section
-            style:margin-top="{firstSlide ? $slideHeight * startOffset : 0}px"
-            style:margin-bottom="{lastSlide ? $slideHeight * endOffset : $slideHeight * spacing}px"
+            style:margin-top="{firstSlide ? scrolly.slideHeight * startOffset : 0}px"
+            style:margin-bottom="{lastSlide
+              ? scrolly.slideHeight * endOffset
+              : scrolly.slideHeight * spacing}px"
           >
-            <!-- 
+            <!--
                   Optional custom foreground component or markup, renders once for each `slide`.
-                  @param prop slide
                  -->
-            <slot {slide} name="foreground">
+            {#if foreground}
+              {@render foreground(slide, i)}
+            {:else}
               <div class="scrolly-text-box" class:box-shadow={boxShadow}>
                 <p>{@html slide}</p>
               </div>
-            </slot>
+            {/if}
           </section>
         {/each}
       </div>

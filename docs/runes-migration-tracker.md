@@ -63,13 +63,13 @@ Use this tracker to coordinate task status and surface follow-up actions as the 
 
 ## Phase 5 – Visualization Suite
 
-| Component / Area                 | Status | Notes |
-| -------------------------------- | ------ | ----- |
-| ChartBlock                       | `todo` |       |
-| Layercake axes                   | `todo` |       |
-| Scrolly                          | `todo` |       |
-| Maps suite (map, layers, legend) | `todo` |       |
-| Zoom & interaction controls      | `todo` |       |
+| Component / Area                 | Status | Notes                                                                              |
+| -------------------------------- | ------ | ---------------------------------------------------------------------------------- |
+| ChartBlock                       | `todo` |                                                                                    |
+| Layercake axes                   | `done` | Migrated to runes with $props(), axes rendering preserved                          |
+| Scrolly                          | `done` | Rune state + snippet props complete; useScrollyState() exported; docs/stories done |
+| Maps suite (map, layers, legend) | `todo` |                                                                                    |
+| Zoom & interaction controls      | `todo` |                                                                                    |
 
 ## Phase 6 – Docs & Stories
 

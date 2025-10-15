@@ -350,3 +350,94 @@ After (Svelte 5):
 - **Non-breaking**: Internal context implementation changed to runes but maintains functional parity
 
 **Reference**: Completed in Phase 5 of the Svelte 5 migration.
+
+---
+
+### 2025-01-XX: Scrolly Component Migration to Svelte 5 Runes
+
+**Components Affected**: Scrolly
+
+**Changes**:
+
+1. **Context API**: Scrolly no longer exposes Svelte stores via context. Instead, it provides a rune-based state class accessible via the `useScrollyState()` helper function.
+2. **Background slot → snippet**: The `background` named slot is replaced with a `background` snippet prop.
+3. **Foreground slot → snippet**: The `foreground` named slot is replaced with a `foreground` snippet prop that receives `(slide, index)` parameters.
+4. **State properties**: All scrolly state properties (`index`, `offset`, `progress`, `slideHeight`, `slideWidth`, `innerHeight`) are now reactive `$state` fields on the state object returned by `useScrollyState()`.
+
+**Rationale**: Svelte 5 runes use context-based state management with rune classes instead of stores. Snippets replace named slots for content customization. This provides better type safety, clearer component hierarchy dependencies, and aligns with Svelte 5's reactivity model.
+
+**Migration Guide**:
+
+**1. Background slot → snippet:**
+
+```svelte
+<!-- Before -->
+<Scrolly {slides}>
+  <div slot="background">Background content</div>
+</Scrolly>
+
+<!-- After -->
+<Scrolly {slides}>
+  {#snippet background()}
+    <div>Background content</div>
+  {/snippet}
+</Scrolly>
+```
+
+**2. Foreground slot → snippet:**
+
+```svelte
+<!-- Before -->
+<Scrolly {slides}>
+  <div slot="foreground" let:slide>
+    <h2>{slide.title}</h2>
+  </div>
+</Scrolly>
+
+<!-- After -->
+<Scrolly {slides}>
+  {#snippet foreground(slide, index)}
+    <div>
+      <h2>{slide.title}</h2>
+    </div>
+  {/snippet}
+</Scrolly>
+```
+
+**3. Accessing scrolly state in background components:**
+
+```svelte
+<!-- Before -->
+<script>
+  import { getContext } from "svelte";
+
+  const { index, offset, progress, slideHeight, slideWidth } = getContext("scrolly");
+
+  // Use with $ store syntax
+  $: currentSlide = $index;
+</script>
+
+<div>Current slide: {$index}</div>
+
+<!-- After -->
+<script>
+  import { useScrollyState } from "@urbaninstitute/dataviz-components";
+
+  const scrolly = useScrollyState();
+
+  // Use properties directly (reactive)
+  $derived(currentSlide = scrolly.index);
+</script>
+
+<div>Current slide: {scrolly.index}</div>
+```
+
+**Impact**:
+
+- **Breaking**: Background and foreground customization now requires snippet syntax instead of named slots
+- **Breaking**: Context API changed from Svelte stores (`getContext("scrolly")`) to rune state helper (`useScrollyState()`)
+- **Breaking**: State access changed from `$storeName` to `scrolly.propertyName`
+- **New export**: `useScrollyState` is now exported from the package root for use in background/foreground components
+- **Non-breaking**: All prop names and behavior remain the same; only the customization API has changed
+
+**Reference**: Completed in Phase 5, Step 6 of the Svelte 5 migration.
