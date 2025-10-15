@@ -1,3 +1,4 @@
+<!-- Portions of this code have been written or edited by generative AI tools. -->
 <script context="module">
   import ChartBlock from "./ChartBlock.svelte";
   import DatawrapperIframe from "../DatawrapperIframe/DatawrapperIframe.svelte";
@@ -38,11 +39,13 @@
 
 {#snippet template(args)}
   <ChartBlock {...args}>
-    <div
-      style="height: 350px; width: 100%; background: #dededd; color: #000000; display: flex; align-items: center; justify-content: center;"
-    >
-      Chart area
-    </div>
+    {#snippet children()}
+      <div
+        style="height: 350px; width: 100%; background: #dededd; color: #000000; display: flex; align-items: center; justify-content: center;"
+      >
+        Chart area
+      </div>
+    {/snippet}
   </ChartBlock>
 {/snippet}
 
@@ -63,10 +66,12 @@
     source="Chart source"
     notes="Chart notes"
   >
-    <DatawrapperIframe
-      title="Datawrapper title"
-      ariaLabel="This is an accessible title for the visualization"
-      datawrapperId="RMnkX"
-    />
+    {#snippet children()}
+      <DatawrapperIframe
+        title="Datawrapper title"
+        ariaLabel="This is an accessible title for the visualization"
+        datawrapperId="RMnkX"
+      />
+    {/snippet}
   </ChartBlock>
 </Story>

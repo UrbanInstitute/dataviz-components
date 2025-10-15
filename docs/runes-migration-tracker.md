@@ -65,7 +65,7 @@ Use this tracker to coordinate task status and surface follow-up actions as the 
 
 | Component / Area                 | Status | Notes                                                                              |
 | -------------------------------- | ------ | ---------------------------------------------------------------------------------- |
-| ChartBlock                       | `todo` |                                                                                    |
+| ChartBlock                       | `done` | Migrated to $props() and children snippet; stories and docs updated                |
 | Layercake axes                   | `done` | Migrated to runes with $props(), axes rendering preserved                          |
 | Scrolly                          | `done` | Rune state + snippet props complete; useScrollyState() exported; docs/stories done |
 | Maps suite (map, layers, legend) | `todo` |                                                                                    |
