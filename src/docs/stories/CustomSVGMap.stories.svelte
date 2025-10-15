@@ -13,6 +13,10 @@
   import { urbanColors } from "$lib/utils";
   import us_cities from "../../docs/sample-data/us_cities.json";
   import { scaleQuantile } from "d3-scale";
+  import { createMatchMedia } from "$lib/stores";
+
+  // Initialize media query context for all stories
+  createMatchMedia();
 
   const county_air_quality = topojson.feature(county_air_quality_topo, "county_air_quality");
 

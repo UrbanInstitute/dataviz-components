@@ -1,5 +1,6 @@
+<!-- Portions of this code have been written or edited by generative AI tools. -->
 <script>
-  import { reducedMotion } from "../../stores";
+  import { useMatchMedia } from "../../stores";
   import { readable, writable } from "svelte/store";
   import { setContext, onMount, createEventDispatcher } from "svelte";
   import { geoAlbersUsa } from "d3-geo";
@@ -88,6 +89,9 @@
   export let tooltipSize = "small";
 
   const dispatch = createEventDispatcher();
+
+  // get media query state from context
+  const media = useMatchMedia();
 
   // create stores of map global settings to add to context
   $: featuresStore = readable(features);
@@ -186,7 +190,7 @@
   }
 
   function zoomIn() {
-    if ($reducedMotion) {
+    if (media.reducedMotion) {
       svgSelection.call(mapZoom.scaleBy, 2);
     } else {
       svgSelection.transition().call(mapZoom.scaleBy, 2);
@@ -194,7 +198,7 @@
   }
 
   function zoomOut() {
-    if ($reducedMotion) {
+    if (media.reducedMotion) {
       svgSelection.call(mapZoom.scaleBy, 0.5);
     } else {
       svgSelection.transition().call(mapZoom.scaleBy, 0.5);
@@ -202,7 +206,7 @@
   }
 
   function zoomReset() {
-    if ($reducedMotion) {
+    if (media.reducedMotion) {
       svgSelection.call(mapZoom.transform, zoomIdentity);
     } else {
       svgSelection.transition().call(mapZoom.transform, zoomIdentity);

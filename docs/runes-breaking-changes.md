@@ -10,6 +10,89 @@ Use this document to record any intentional breaking changes introduced while mi
 
 ## Entries
 
+### 2025-01-XX: Media Query State Migration to Rune Context Helper (matchMedia)
+
+**Components Affected**: SVGMap (internal), and any consumers using the `reducedMotion` store directly
+
+**Status**: The legacy `reducedMotion` readable store is **deprecated** (not removed) for backward compatibility. It will be removed in a future major version (target: v2.0.0).
+
+**Change**:
+
+- The recommended API has changed from a readable store to a rune-based context helper with a more generic name to support future media queries.
+- The new pattern requires calling `createMatchMedia()` at the app root and using `useMatchMedia()` to access the state.
+- The reduced motion value is accessed via the `reducedMotion` property on the returned media query state object.
+- The legacy `reducedMotion` readable store is still exported but deprecated. A console warning will appear in development when using the deprecated store.
+- The module is now called `matchMedia` to reflect its broader purpose of tracking media query preferences (with future support for color scheme, contrast, etc.).
+
+**Rationale**: Svelte 5 runes use context-based state management instead of stores. The new pattern provides better cleanup, explicit component hierarchy dependencies, and aligns with Svelte 5's reactivity model. The generic naming allows for future extensibility to track additional media queries in a single state object.
+
+**Migration Guide**:
+
+**Option 1: Keep using the deprecated store (temporary)**
+
+The legacy store is still available for backward compatibility:
+
+```svelte
+<script>
+  import { reducedMotion } from "@urbaninstitute/dataviz-components/stores";
+
+  function animate() {
+    if ($reducedMotion) {
+      // Skip animation
+    } else {
+      // Perform animation
+    }
+  }
+</script>
+```
+
+> **Note:** This will show a deprecation warning in development and will be removed in v2.0.0.
+
+**Option 2: Migrate to the new matchMedia helpers (recommended)**
+
+```svelte
+<!-- In your root layout/app component -->
+<script>
+  import { createMatchMedia } from "@urbaninstitute/dataviz-components/stores";
+
+  // Initialize the media query context once at app root
+  createMatchMedia();
+</script>
+
+<!-- In any descendant component -->
+<script>
+  import { useMatchMedia } from "@urbaninstitute/dataviz-components/stores";
+
+  const media = useMatchMedia();
+
+  function animate() {
+    if (media.reducedMotion) {
+      // Skip animation
+    } else {
+      // Perform animation
+    }
+  }
+</script>
+```
+
+**Impact**:
+
+- **Non-breaking (for now):** The old `reducedMotion` store export is still available
+- **Migration required eventually:** The deprecated store will be removed in v2.0.0
+- **New setup required:** The rune pattern requires setting up the context provider in your root component
+- **Access pattern changes:** From `$reducedMotion` to `media.reducedMotion`
+- **Benefits of migration:** Better cleanup, supports multiple component trees, more explicit dependencies, extensible for future media queries
+
+**Timeline**:
+
+- **Current release:** Deprecated store available with warning
+- **Target removal:** v2.0.0 (major version bump)
+- **Recommended action:** Begin migration to new helpers at your earliest convenience
+
+**Reference**: Phase 5, Step 1 of the Svelte 5 migration.
+
+---
+
 ### 2025-01-XX: DatawrapperIframe & PymChild Rune Migration
 
 **Components Affected**: DatawrapperIframe, PymChild, `usePymChild()`
