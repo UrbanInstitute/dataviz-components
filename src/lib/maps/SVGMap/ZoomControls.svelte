@@ -1,24 +1,24 @@
+<!-- Portions of this code have been written or edited by generative AI tools. -->
 <script>
-  export let zoomIn;
-  export let zoomOut;
-  export let zoomReset;
-  export let showReset = false;
+  let {
+    zoomIn,
+    zoomOut,
+    zoomReset,
+    showReset = false,
+    disableZoomIn = false,
+    disableZoomOut = false,
+    /**
+     * Where the zoom control UI should be positioned.
+     * @type {"bottom-left" | "bottom-right" | "top-left" | "top-right"}
+     */
+    controlPosition
+  } = $props();
 
-  export let disableZoomIn = false;
-  export let disableZoomOut = false;
-
-  /*
-   * Where the zoom control UI should be positioned.
-   * @type {"bottom-left" | "bottom-right" | "top-left" | "top-right"}
-   */
-  export let controlPosition;
-
-  $: top = controlPosition.includes("top");
+  let top = $derived(controlPosition.includes("top"));
 </script>
-
 <div class="zoom-controls {controlPosition}">
   {#if showReset && top}
-    <button class="zoom-button zoom-reset" on:click={zoomReset} aria-label="Reset map zoom">
+    <button class="zoom-button zoom-reset" onclick={zoomReset} aria-label="Reset map zoom">
       <svg
         width="15"
         height="15"
@@ -51,7 +51,7 @@
   <button
     class="zoom-button zoom-out"
     disabled={disableZoomOut}
-    on:click={zoomOut}
+    onclick={zoomOut}
     aria-label="Zoom out map"
   >
     <svg width="11" height="3" viewBox="0 0 11 3" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -66,7 +66,7 @@
   <button
     class="zoom-button zoom-in"
     disabled={disableZoomIn}
-    on:click={zoomIn}
+    onclick={zoomIn}
     aria-label="Zoom in map"
   >
     <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -79,7 +79,7 @@
     </svg>
   </button>
   {#if showReset && !top}
-    <button class="zoom-button zoom-reset" on:click={zoomReset} aria-label="Reset map zoom">
+    <button class="zoom-button zoom-reset" onclick={zoomReset} aria-label="Reset map zoom">
       <svg
         width="15"
         height="15"

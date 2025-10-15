@@ -1,177 +1,137 @@
 <!-- Portions of this code have been written or edited by generative AI tools. -->
 <script>
   import { useMatchMedia } from "../../stores";
-  import { readable, writable } from "svelte/store";
-  import { setContext, onMount, createEventDispatcher } from "svelte";
+  import { writable } from "svelte/store";
+  import { setContext, onMount } from "svelte";
   import { geoAlbersUsa } from "d3-geo";
   import { zoom, zoomIdentity } from "d3-zoom";
   import { select } from "d3-selection";
+  import { createSVGMapContext } from "./context.svelte.js";
   import ZoomControls from "./ZoomControls.svelte";
   import Tooltip from "$lib/Tooltip/Tooltip.svelte";
 
   /**
-   * An array of geojson features to be displayed on the map. The map will scale the projection to fit this set of features.
-   * @type {Object[]}
+   * @typedef {Object} SVGMapProps
+   * @property {Object[]} features - An array of geojson features to be displayed on the map. The map will scale the projection to fit this set of features.
+   * @property {function} [projection = geoAlbersUsa] - A D3 geo projection to use with this map. Defaults to geoAlbersUsa.
+   * @property {"bottom-left" | "bottom-right" | "top-left" | "top-right"} [controlPosition = "bottom-right"] - Where the zoom control UI should be positioned.
+   * @property {number} [height = 600] - The height of the map in pixels.
+   * @property {number} [aspectRatio = undefined] - Set the height of the map to a fixed aspect ratio based on width. This overrides the `height` property.
+   * @property {string} [ariaRole = undefined] - Optional aria role string to be applied to SVG container. By default, the SVG is hidden from the accessibility tree. If you add an ariaRole here, any layers should also be given an ariaRole.
+   * @property {string} [ariaLabel = undefined] - Optional aria label string to be applied to SVG container. By default, the SVG is hidden from the accessibility tree and should include a descriptive label. If you add an ariaRole this property can be left undefined;
+   * @property {boolean} [zoomable = false] - Should the map allow zoom and pan?
+   * @property {number} [maxZoom = 8] - If map is zoomable, sets a maximum zoom factor relative to the initial view.
+   * @property {"no" | "yes" | "ctrl"} [scrollWheel = "ctrl"] - Whether or not the map should zoom when scroll wheel is used on map.
+   * @property {string} [backgroundColor = "transparent"] - Fill for the background of the map
+   * @property {boolean} [tooltipContainParent = false] - If there is a tooltip on the map, should it be contained to the parent element
+   * @property {"small" | "large"} [tooltipSize = "small"] - whether to use a small (138px) or large (198px) width tooltip
+   * @property {(e: CustomEvent) => void} [onclick] - Callback fired when a layer element is clicked
+   * @property {(e: CustomEvent) => void} [onmousemove] - Callback fired when mouse moves over layer elements
+   * @property {(e: CustomEvent) => void} [onmouseout] - Callback fired when mouse leaves layer elements
+   * @property {(e: CustomEvent) => void} [onbgclick] - Callback fired when the map background is clicked
+   * @property {import('svelte').Snippet<[any]>} [tooltip] - Snippet for rendering tooltip content
+   * @property {import('svelte').Snippet} [children] - Default slot content (map layers)
    */
-  export let features;
 
-  /**
-   * A D3 geo projection to use with this map. Defaults to geoAlbersUsa.
-   * @type { function } [projection = geoAlbersUsa]
-   */
-  export let projection = geoAlbersUsa;
+  let {
+    features,
+    projection = geoAlbersUsa,
+    controlPosition = "bottom-right",
+    height = 600,
+    aspectRatio = undefined,
+    ariaRole = undefined,
+    ariaLabel = undefined,
+    zoomable = false,
+    maxZoom = 8,
+    scrollWheel = "ctrl",
+    backgroundColor = "transparent",
+    tooltipContainParent = false,
+    tooltipSize = "small",
+    onclick = undefined,
+    onmousemove = undefined,
+    onmouseout = undefined,
+    onbgclick = undefined,
+    tooltip = undefined,
+    children
+  } = $props();
 
-  /**
-   * Where the zoom control UI should be positioned.
-   * @type {"bottom-left" | "bottom-right" | "top-left" | "top-right"} [ controlPosition = "bottom-right" ]
-   */
-  export let controlPosition = "bottom-right";
-
-  /**
-   * The height of the map in pixels.
-   * @type { number } [ height = 600 ]
-   */
-  export let height = 600;
-
-  /**
-   * Set the height of the map to a fixed aspect ratio based on width. This overrides the `height` property.
-   * @type { number } [ aspectRatio = undefined ]
-   */
-  export let aspectRatio = undefined;
-
-  /**
-   * Optional aria role string to be applied to SVG container. By default, the SVG is hidden from the accessiblity tree. If you add an ariaRole here, any layers should also be given an ariaRole.
-   * @type { string } [ariaRole = undefined]
-   */
-  export let ariaRole = undefined;
-
-  /**
-   * Optional aria label string to be applied to SVG container. By default, the SVG is hidden from the accessiblity tree and should include a descriptive label. If you add an ariaRole this property can be left undefined;
-   * @type { string } [ariaRole = undefined]
-   */
-  export let ariaLabel = undefined;
-
-  /**
-   * Should the map allow zoom and pan?
-   * @type { boolean } [zoomable = false]
-   */
-  export let zoomable = false;
-
-  /**
-   * If map is zoomable, sets a maximum zoom factor relative to the initial view.
-   * @type { number } [maxZoom = 8]
-   */
-  export let maxZoom = 8;
-
-  /**
-   * Whether or not the map should zoom when scroll wheel is used on map.
-   * @type {"no" | "yes" | "ctrl"}
-   */
-  export let scrollWheel = "ctrl";
-
-  /**
-   * Fill for the background of the map
-   * @type { string } [backgroundColor = "transparent"]
-   */
-  export let backgroundColor = "transparent";
-
-  /**
-   * If there is a tooltip on the map, should it be contained to the parent element
-   * @type { boolean } [tooltipContainParent = false]
-   */
-  export let tooltipContainParent = false;
-
-  /**
-   * whether to use a small (138px) or large (198px) width tooltip
-   * @type {"small" | "large"}
-   * @default "small"
-   */
-  export let tooltipSize = "small";
-
-  const dispatch = createEventDispatcher();
-
-  // get media query state from context
+  // Get media query state from context
   const media = useMatchMedia();
 
-  // create stores of map global settings to add to context
-  $: featuresStore = readable(features);
-  let width = 500;
+  // Create the rune-based map context
+  const mapState = createSVGMapContext();
 
-  $: mapHeight = getMapHeight(width, height, aspectRatio);
+  // Internal state
+  let width = $state(500);
+  let tooltipState = $state(undefined);
 
-  // size to fit projection to
-  $: fitSizeRange = [width, mapHeight];
-
-  // setup the scaled projection function
-  $: projectionFn = projection().fitSize(fitSizeRange, {
-    type: "FeatureCollection",
-    features: features
+  // Set the tooltip callback in the context
+  mapState.setTooltipCallback((tooltipProps) => {
+    tooltipState = tooltipProps;
   });
 
-  // set up a store to hold the scaled projection function
-  const projectionStore = writable(projectionFn);
-  // update the store any time the projection function updates
-  $: projectionStore.set(projectionFn);
+  // Derived map height
+  const mapHeight = $derived(getMapHeight(width, height, aspectRatio));
 
-  // initialize a transform store in case zoom is turned on
-  // this will be where we store the output of the d3-zoom behaviour and broadcast it
-  let transformStore = writable(zoomIdentity);
+  // Derived projection
+  const projectionFn = $derived(
+    projection().fitSize([width, mapHeight], {
+      type: "FeatureCollection",
+      features: features
+    })
+  );
 
-  // will hold d3.zoom instance if zoomable
-  let mapZoom;
+  // Update context when projection or features change
+  $effect(() => {
+    mapState.setProjection(projectionFn);
+  });
 
-  // will hold svg selection if zoomable
-  let svgSelection;
+  $effect(() => {
+    mapState.setFeatures(features);
+  });
 
-  // internal tooltip state, only used for default tooltip functionality
+  // LEGACY ADAPTER - Temporary compatibility layer for layers
+  // Create writable stores that sync with the context class
+  const projectionStore = writable(mapState.projection);
+  const transformStore = writable(mapState.transform);
+  const featuresStore = writable(mapState.features);
+  const stickyHighlightStore = writable(mapState.stickyHighlight);
 
-  // will hold the tooltip Obj if set
-  let tooltip;
+  // Sync stores with context state via effects
+  $effect(() => {
+    projectionStore.set(mapState.projection);
+  });
 
-  // will hold the map highlight feature if set
-  let stickyHighlightStore = writable(null);
+  $effect(() => {
+    transformStore.set(mapState.transform);
+  });
 
-  // function to provide via context to children layers
-  function handleLayerMousemove(tooltipProps) {
-    // if map has a current highlight, mousemove should do nothing and return
-    if ($stickyHighlightStore) {
-      return;
-    }
-    // otherwise, show a tooltip based on this event
-    tooltip = tooltipProps;
-  }
+  $effect(() => {
+    featuresStore.set(mapState.features);
+  });
 
-  // function to provide via context to children layers
-  function handleLayerClick(tooltipProps) {
-    // if map has a current highlight, clear it and clear the tooltip on click and return
-    if ($stickyHighlightStore) {
-      tooltip = undefined;
-      $stickyHighlightStore = null;
-      return;
-    }
-    // if map doesn't have a current highlight, set it and render the tooltip based on this event
-    $stickyHighlightStore = tooltipProps.props;
-    tooltip = tooltipProps;
-  }
+  $effect(() => {
+    stickyHighlightStore.set(mapState.stickyHighlight);
+  });
 
-  // how do we store the sticky highlgiht in the context or something similar?
-  // or can we just do away with the need for the ID, by just storing the entire object? or at least the props, especially since this is internal?
-  // may need to add the callbacks to the context
-
-  // add global stores to context
-  $: setContext("map", {
+  // Set legacy context for backward compatibility with layers
+  setContext("map", {
     projection: projectionStore,
     features: featuresStore,
     transform: transformStore,
     stickyHighlight: stickyHighlightStore,
-    handleLayerMousemove,
-    handleLayerClick
+    handleLayerMousemove: mapState.handleLayerMousemove.bind(mapState),
+    handleLayerClick: mapState.handleLayerClick.bind(mapState)
   });
 
+  // Zoom-related state
+  let mapZoom;
+  let svgSelection;
+
   function setupZoom(el) {
-    // create d3 selection of the svg
+    // Create d3 selection of the svg
     svgSelection = select(el.querySelector("svg"));
-    // create zoom instance
+    // Create zoom instance
     mapZoom = zoom()
       .scaleExtent([1, maxZoom])
       .filter((event) => {
@@ -185,7 +145,7 @@
         // All events
         return true;
       })
-      .on("zoom", ({ transform }) => transformStore.set(transform));
+      .on("zoom", ({ transform }) => mapState.setTransform(transform));
     svgSelection.call(mapZoom);
   }
 
@@ -221,22 +181,27 @@
   }
 
   function handleBgMousemove(e) {
-    if (!$stickyHighlightStore) {
-      tooltip = undefined;
+    if (!mapState.stickyHighlight) {
+      tooltipState = undefined;
     }
-    dispatch("mousemove");
-  }
-  function handleBgClick(e) {
-    $stickyHighlightStore = null;
-    tooltip = undefined;
-    dispatch("click");
+    onmousemove?.(new CustomEvent("mousemove", { detail: { e } }));
   }
 
-  // to hold reference to root dom node via bind:this
+  function handleBgClick(e) {
+    mapState.clearStickyHighlight();
+    tooltipState = undefined;
+    onbgclick?.(new CustomEvent("click", { detail: { e } }));
+  }
+
+  function handleBgMouseout(e) {
+    onmouseout?.(new CustomEvent("mouseout", { detail: { e } }));
+  }
+
+  // To hold reference to root dom node via bind:this
   let el;
 
   onMount(() => {
-    // if zoom is enabled, initialize
+    // If zoom is enabled, initialize
     if (zoomable) {
       setupZoom(el);
     }
@@ -261,36 +226,44 @@
       {width}
       height={mapHeight}
       fill={backgroundColor}
-      on:mousemove={handleBgMousemove}
-      on:click={handleBgClick}
-      on:mouseout={(e) => dispatch("mouseout")}
-      on:blur={(e) => dispatch("mouseout")}
+      onmousemove={handleBgMousemove}
+      onclick={handleBgClick}
+      onmouseout={handleBgMouseout}
+      onblur={handleBgMouseout}
     ></rect>
     <g
       class="zoom-group"
-      transform="translate({$transformStore.x}, {$transformStore.y}) scale({$transformStore.k})"
+      transform="translate({mapState.transform.x}, {mapState.transform.y}) scale({mapState.transform
+        .k})"
     >
-      <slot />
+      {@render children()}
     </g>
   </svg>
   {#if zoomable}
     <div class="map-controls {controlPosition}">
       <ZoomControls
         {controlPosition}
-        showReset={$transformStore.k !== zoomIdentity.k ||
-          $transformStore.x !== zoomIdentity.x ||
-          $transformStore.y !== zoomIdentity.y}
+        showReset={mapState.transform.k !== zoomIdentity.k ||
+          mapState.transform.x !== zoomIdentity.x ||
+          mapState.transform.y !== zoomIdentity.y}
         {zoomIn}
         {zoomOut}
         {zoomReset}
-        disableZoomOut={$transformStore.k === zoomIdentity.k}
-        disableZoomIn={$transformStore.k === maxZoom}
+        disableZoomOut={mapState.transform.k === zoomIdentity.k}
+        disableZoomIn={mapState.transform.k === maxZoom}
       />
     </div>
   {/if}
-  {#if tooltip}
-    <Tooltip x={tooltip.x} y={tooltip.y} containParent={tooltipContainParent} size={tooltipSize}>
-      <slot name="tooltip" props={tooltip.props}></slot>
+  {#if tooltipState}
+    <Tooltip
+      x={tooltipState.x}
+      y={tooltipState.y}
+      containParent={tooltipContainParent}
+      size={tooltipSize}
+    >
+      {#if tooltip}
+        {@render tooltip(tooltipState.props)}
+      {/if}
     </Tooltip>
   {/if}
 </div>

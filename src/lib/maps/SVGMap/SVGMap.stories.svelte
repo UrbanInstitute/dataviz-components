@@ -109,10 +109,10 @@
       getLabel={(d) => d.properties.name}
       fontSize={13}
     />
-    <div slot="tooltip" let:props>
+    {#snippet tooltip(props)}
       <h5>{props.NAME}</h5>
       <p>Air quality index:<strong>{props.index_air_quality}</strong></p>
-    </div>
+    {/snippet}
   </SVGMap>
 </Story>
 

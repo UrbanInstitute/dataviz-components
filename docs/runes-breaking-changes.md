@@ -265,3 +265,88 @@ After (Svelte 5):
 - Two-way binding with `bind:value` continues to work as before
 
 **Reference**: Completed in Phase 1 of the Svelte 5 migration.
+
+---
+
+### 2025-01-XX: SVGMap Component Migration to Svelte 5 Runes
+
+**Components Affected**: SVGMap, SVGPolygonLayer, SVGPointLayer, SVGLabelLayer, ZoomControls
+
+**Changes**:
+
+1. **Background event**: New `onbgclick` callback prop for background clicks; background clicks no longer invoke `onclick`
+2. **Tooltip customization**: Named slot `tooltip` replaced with snippet prop `tooltip`
+3. **Event handlers (staged)**:
+   - Map-level events: `SVGMap` now uses lowercase callback props (e.g., `onclick`, `onmousemove`, `onmouseout`, `onbgclick`).
+   - Layer events: remain Svelte 4 `on:` custom event directives in Step 2; will migrate to callback props in Phase 5 Step 3.
+4. **Internal implementation**: SVGMap internals now use a rune-based context class instead of Svelte stores (internal change, public API updated as noted above)
+
+**Rationale**: Svelte 5 runes use callback props instead of event dispatchers and snippets instead of named slots. The new `onbgclick` handler provides clearer separation between feature clicks and background clicks.
+
+**Migration Guide**:
+
+**Background click handling:**
+
+```svelte
+<!-- Before -->
+<SVGMap {features} on:click={handleClick}>
+  <!-- Background clicks and feature clicks both called handleClick -->
+</SVGMap>
+
+<!-- After -->
+<SVGMap {features} onclick={handleFeatureClick} onbgclick={handleBackgroundClick}>
+  <!-- Background clicks now use separate handler -->
+</SVGMap>
+```
+
+**Tooltip customization:**
+
+```svelte
+<!-- Before -->
+<SVGMap {features}>
+  <div slot="tooltip" let:props>
+    <h3>{props.name}</h3>
+    <p>{props.value}</p>
+  </div>
+</SVGMap>
+
+<!-- After -->
+<SVGMap {features}>
+  {#snippet tooltip(props)}
+    <div>
+      <h3>{props.name}</h3>
+      <p>{props.value}</p>
+    </div>
+  {/snippet}
+</SVGMap>
+```
+
+**Event handlers:**
+
+```svelte
+<!-- Before -->
+<SVGMap {features} on:mousemove={handleMouseMove} on:mouseout={handleMouseOut}>
+  <SVGPolygonLayer {data} on:click={handleClick} on:mousemove={handleHover} />
+</SVGMap>
+
+<!-- After (Step 2) -->
+<SVGMap {features} onmousemove={handleMouseMove} onmouseout={handleMouseOut}>
+  <!-- Layers still dispatch custom events in Step 2 -->
+  <SVGPolygonLayer {data} on:click={handleClick} on:mousemove={handleHover} />
+</SVGMap>
+
+<!-- After (Step 3) -->
+<SVGMap {features} onmousemove={handleMouseMove} onmouseout={handleMouseOut}>
+  <!-- Layers migrated to callback props -->
+  <SVGPolygonLayer {data} onclick={handleClick} onmousemove={handleHover} />
+</SVGMap>
+```
+
+**Impact**:
+
+- **Breaking**: `on:click` on the map background now requires `onbgclick` callback; `onclick` only fires for feature clicks
+- **Breaking**: Tooltip customization requires snippet syntax instead of named slot
+- **Breaking (staged)**: Map event handlers use lowercase callback props; layer event handlers remain `on:` until Step 3
+- **Non-breaking**: Internal context implementation changed to runes but maintains functional parity
+
+**Reference**: Completed in Phase 5 of the Svelte 5 migration.

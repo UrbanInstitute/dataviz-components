@@ -72,6 +72,18 @@ Putting these all together, you can render your map like this:
 
 <Canvas of={Stories.ColorsLayersAndTooltips} sourceState="shown" />
 
+Note: The tooltip is rendered using Svelte 5's snippet syntax. Pass a snippet prop to `SVGMap` instead of using a named slot:
+
+```svelte
+<SVGMap features={county_air_quality.features}>
+  <SVGPolygonLayer tooltip />
+  {#snippet tooltip(props)}
+    <h5>{props.NAME}</h5>
+    <p>Air quality index: <strong>{props.index_air_quality}</strong></p>
+  {/snippet}
+</SVGMap>
+```
+
 ## Zoomable maps, custom projections and limiting labels to higher zoom
 
 Maps can include zoom and pan functionality out of the box by passing the `zoomable` prop to the `SVGMap`. Some times you may want to limit the visibility of a `SVGLabelLayer` to a minumum zoom multiplyer. Consider this example of mapping average household income in New York City at the census tract level. You may want to display labels if the user has zoomed in far enough, but hide them when zoomed out to avoid overlapping text.
@@ -132,9 +144,56 @@ const clevelandBikeScale = scaleQuantize()
 let clevelandHighlight = "39035197700";
 ```
 
-Now you can pass a `featureHighlight` object that sets the highlighted feature based on the `clevelandHighlight` variable. We can also update the value of this variable in the `on:click` handler, allowing the user to set a highlighted feature when clicking. Combining this together would like like the following example:
+Now you can pass a `featureHighlight` object that sets the highlighted feature based on the `clevelandHighlight` variable. We can also update the value of this variable in the `onclick` callback, allowing the user to set a highlighted feature when clicking. Combining this together would like like the following example:
 
 <Canvas of={Stories.FeatureHighlight} sourceState="shown" />
+
+## Event handling (Step 2)
+
+- Map-level events: `SVGMap` uses lowercase callback props (`onclick`, `onmousemove`, `onmouseout`, and `onbgclick`).
+- Layer events: In Step 2, layers still dispatch Svelte 4 custom events. Use `on:` directives on layers (migration to callback props happens in Step 3).
+
+Layer events (current):
+
+```svelte
+<SVGPolygonLayer
+  on:click={(e) => {
+    console.log("Feature clicked:", e.detail.props);
+  }}
+  on:mousemove={(e) => {
+    console.log("Mouse over feature:", e.detail.props);
+  }}
+  on:mouseout={() => {
+    console.log("Mouse left feature");
+  }}
+/>
+```
+
+Map-level callbacks (now):
+
+```svelte
+<SVGMap
+  features={myFeatures}
+  onclick={(e) => {
+    console.log("Feature clicked (from layer)");
+  }}
+  onbgclick={(e) => {
+    console.log("Background clicked");
+  }}
+  onmousemove={(e) => {
+    console.log("Mouse moved over map");
+  }}
+  onmouseout={(e) => {
+    console.log("Mouse left map");
+  }}
+>
+  <SVGPolygonLayer />
+</SVGMap>
+```
+
+Note: Background clicks trigger `onbgclick` only - they do not trigger `onclick`. This allows you to handle background and feature clicks separately.
+
+Coming in Step 3: Layers will adopt lowercase callback props (e.g., `onclick`, `onmousemove`). The examples above will be updated accordingly when that migration lands.
 
 ## Bubble map
 
@@ -157,3 +216,18 @@ const paPopRadiusScale = scaleSqrt()
 And then you can render the bubble map here:
 
 <Canvas of={Stories.BubbleMap} sourceState="shown" />
+
+## Advanced: Internal context changes
+
+For developers extending or customizing map layers, `SVGMap` now uses a rune-based context system internally. The context is created with `createSVGMapContext()` and consumed by layers using `useSVGMapContext()`. This replaces the previous Svelte store-based context.
+
+The context provides:
+
+- `projection` - The D3 projection function (updated via `fitSize`)
+- `transform` - The D3 zoom transform state
+- `features` - The feature collection used for fitting
+- `stickyHighlight` - Currently highlighted feature props (or `null`)
+- `handleLayerMousemove(tooltipProps)` - Method for layers to call on mousemove
+- `handleLayerClick(tooltipProps)` - Method for layers to call on click
+
+This is primarily an internal implementation detail. Layer components (`SVGPolygonLayer`, `SVGPointLayer`, `SVGLabelLayer`) will be migrated to use this new context in a future update. For now, both the new rune-based context and the legacy context are maintained for compatibility.
