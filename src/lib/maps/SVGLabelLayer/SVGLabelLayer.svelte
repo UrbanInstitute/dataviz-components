@@ -3,7 +3,7 @@
   import { geoPath } from "d3-geo";
   import { urbanColors } from "$lib/utils";
   import { fade } from "svelte/transition";
-  import { raise, getTooltipProps } from "../lib.js";
+  import { raise } from "../lib.js";
   import { useSVGMapContext } from "../SVGMap/context.svelte.js";
 
   /**
@@ -19,9 +19,9 @@
    * @property {boolean=} pointerEvents Whether the layer responds to pointer events.
    * @property {(feature: any) => string=} getLabel Function that returns the label text for a feature.
    * @property {boolean=} tooltip Whether the layer should populate the tooltip slot.
-   * @property {(event: CustomEvent<{ e: MouseEvent; props: any }>) => void=} onclick Optional click callback.
-   * @property {(event: CustomEvent<{ e: MouseEvent; props: any }>) => void=} onmousemove Optional mousemove callback.
-   * @property {(event: CustomEvent<{ e: MouseEvent }>) => void=} onmouseout Optional mouseout callback.
+   * @property {(event: CustomEvent<{ e: PointerEvent; props: any }>) => void=} onclick Optional click callback.
+   * @property {(event: CustomEvent<{ e: PointerEvent; props: any }>) => void=} onmousemove Optional mousemove callback.
+   * @property {(event: CustomEvent<{ e: PointerEvent }>) => void=} onmouseout Optional mouseout callback.
    * @property {import("svelte").Snippet<[props: any]>=} children Optional snippet to render label content.
    */
 
@@ -48,11 +48,9 @@
 
   const geoPathFn = $derived(geoPath(map.projection));
 
-  function handleMousemove(e, feature) {
+  function handlePointermove(e, feature) {
     raise(e.target);
-    if (tooltip) {
-      map.handleLayerMousemove(getTooltipProps(e, feature));
-    }
+    map.onPointerMove(e, feature.properties, { tooltip });
     onmousemove?.(
       new CustomEvent("mousemove", {
         detail: { e, props: feature.properties }
@@ -60,11 +58,9 @@
     );
   }
 
-  function handleClick(e, feature) {
+  function handlePointerdown(e, feature) {
     raise(e.target);
-    if (tooltip) {
-      map.handleLayerClick(getTooltipProps(e, feature));
-    }
+    map.onPointerDown(e, feature.properties, { tooltip });
     onclick?.(
       new CustomEvent("click", {
         detail: { e, props: feature.properties }
@@ -72,7 +68,8 @@
     );
   }
 
-  function handleMouseout(e) {
+  function handlePointerout(e) {
+    map.onPointerOut(e);
     onmouseout?.(
       new CustomEvent("mouseout", {
         detail: { e }
@@ -86,8 +83,8 @@
   <g
     class="map-layer label-layer"
     role="presentation"
-    onmouseout={handleMouseout}
-    onblur={handleMouseout}
+    onpointerout={handlePointerout}
+    onblur={handlePointerout}
     transition:fade={{ duration: 250 }}
     style:pointer-events={pointerEvents ? "auto" : "none"}
   >
@@ -105,8 +102,8 @@
           opacity={0.5}
           stroke-linejoin="round"
           role="presentation"
-          onmousemove={(e) => handleMousemove(e, feature)}
-          onclick={(e) => handleClick(e, feature)}
+          onpointermove={(e) => handlePointermove(e, feature)}
+          onpointerdown={(e) => handlePointerdown(e, feature)}
           text-anchor={textAnchor}
         >
           <!-- Default slot overrides output of `getLabel` prop -->

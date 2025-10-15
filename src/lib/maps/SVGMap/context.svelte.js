@@ -25,6 +25,15 @@ class SVGMapContext {
   /** @type {Function | null} - Private callback for tooltip updates */
   #tooltipCallback = null;
 
+  /** @type {Function | null} - Map-level onclick callback */
+  onclick = null;
+
+  /** @type {Function | null} - Map-level onmousemove callback */
+  onmousemove = null;
+
+  /** @type {Function | null} - Map-level onmouseout callback */
+  onmouseout = null;
+
   /**
    * Set the tooltip callback function
    * @param {Function} callback - Function to call when tooltip should be updated
@@ -34,38 +43,52 @@ class SVGMapContext {
   }
 
   /**
-   * Handle mousemove events from layers
-   * @param {Object} tooltipProps - Tooltip properties { x, y, props }
+   * Handle pointer move events from layers
+   * @param {PointerEvent} e - The pointer event
+   * @param {any} props - Feature properties
+   * @param {Object} [opts] - Options
+   * @param {boolean} [opts.tooltip] - Whether to show tooltip
    */
-  handleLayerMousemove(tooltipProps) {
-    // If map has a current highlight, mousemove should do nothing and return
-    if (this.stickyHighlight) {
-      return;
+  onPointerMove(e, props, opts) {
+    // Show tooltip if enabled and not sticky highlighted
+    if (opts?.tooltip && !this.stickyHighlight) {
+      this.#tooltipCallback?.({ x: e.pageX, y: e.pageY, props });
     }
-    // Otherwise, show a tooltip based on this event
-    if (this.#tooltipCallback) {
-      this.#tooltipCallback(tooltipProps);
-    }
+    // Fire map-level callback
+    this.onmousemove?.(new CustomEvent("mousemove", { detail: { e, props } }));
   }
 
   /**
-   * Handle click events from layers
-   * @param {Object} tooltipProps - Tooltip properties { x, y, props }
+   * Handle pointer down events from layers
+   * @param {PointerEvent} e - The pointer event
+   * @param {any} props - Feature properties
+   * @param {Object} [opts] - Options
+   * @param {boolean} [opts.tooltip] - Whether to show tooltip
    */
-  handleLayerClick(tooltipProps) {
-    // If map has a current highlight, clear it and clear the tooltip on click and return
+  onPointerDown(e, props, opts) {
+    // Toggle sticky highlight
     if (this.stickyHighlight) {
-      if (this.#tooltipCallback) {
-        this.#tooltipCallback(undefined);
-      }
+      // Clear sticky highlight and tooltip
+      this.#tooltipCallback?.(undefined);
       this.stickyHighlight = null;
-      return;
+    } else {
+      // Set sticky highlight
+      this.stickyHighlight = props;
+      if (opts?.tooltip) {
+        this.#tooltipCallback?.({ x: e.pageX, y: e.pageY, props });
+      }
     }
-    // If map doesn't have a current highlight, set it and render the tooltip based on this event
-    this.stickyHighlight = tooltipProps.props;
-    if (this.#tooltipCallback) {
-      this.#tooltipCallback(tooltipProps);
-    }
+    // Fire map-level callback
+    this.onclick?.(new CustomEvent("click", { detail: { e, props } }));
+  }
+
+  /**
+   * Handle pointer out events from layers
+   * @param {PointerEvent} e - The pointer event
+   */
+  onPointerOut(e) {
+    // Fire map-level callback
+    this.onmouseout?.(new CustomEvent("mouseout", { detail: { e } }));
   }
 
   /**

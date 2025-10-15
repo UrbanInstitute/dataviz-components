@@ -16,6 +16,7 @@
 
   let top = $derived(controlPosition.includes("top"));
 </script>
+
 <div class="zoom-controls {controlPosition}">
   {#if showReset && top}
     <button class="zoom-button zoom-reset" onclick={zoomReset} aria-label="Reset map zoom">

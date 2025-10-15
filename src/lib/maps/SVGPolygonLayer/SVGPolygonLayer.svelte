@@ -2,7 +2,7 @@
 <script>
   import urbanColors from "$lib/utils/urbanColors.js";
   import { geoPath } from "d3-geo";
-  import { getFill, getStroke, raise, getTooltipProps, getHighlightFeature } from "../lib.js";
+  import { getFill, getStroke, raise, getHighlightFeature } from "../lib.js";
   import { useSVGMapContext } from "../SVGMap/context.svelte.js";
 
   /**
@@ -20,9 +20,9 @@
    * @property {string | ((feature: any) => string)=} ariaLabel Optional aria label string or function applied to each feature.
    * @property {Record<string, any>=} highlightFeature Optional object matched against feature properties to determine highlight state.
    * @property {boolean=} tooltip Boolean that determines if this layer should populate the tooltip slot when interacted with.
-   * @property {(event: CustomEvent<{ e: MouseEvent; props: any }>) => void=} onclick Optional click callback.
-   * @property {(event: CustomEvent<{ e: MouseEvent; props: any }>) => void=} onmousemove Optional mousemove callback.
-   * @property {(event: CustomEvent<{ e: MouseEvent }>) => void=} onmouseout Optional mouseout callback.
+   * @property {(event: CustomEvent<{ e: PointerEvent; props: any }>) => void=} onclick Optional click callback.
+   * @property {(event: CustomEvent<{ e: PointerEvent; props: any }>) => void=} onmousemove Optional mousemove callback.
+   * @property {(event: CustomEvent<{ e: PointerEvent }>) => void=} onmouseout Optional mouseout callback.
    */
 
   /** @type {Props} */
@@ -66,12 +66,10 @@
     }
   }
 
-  function handleMousemove(e, feature) {
+  function handlePointermove(e, feature) {
     raise(e.target);
     raiseHighlight();
-    if (tooltip) {
-      map.handleLayerMousemove(getTooltipProps(e, feature));
-    }
+    map.onPointerMove(e, feature.properties, { tooltip });
     onmousemove?.(
       new CustomEvent("mousemove", {
         detail: { e, props: feature.properties }
@@ -79,12 +77,10 @@
     );
   }
 
-  function handleClick(e, feature) {
+  function handlePointerdown(e, feature) {
     raise(e.target);
     raiseHighlight();
-    if (tooltip) {
-      map.handleLayerClick(getTooltipProps(e, feature));
-    }
+    map.onPointerDown(e, feature.properties, { tooltip });
     onclick?.(
       new CustomEvent("click", {
         detail: { e, props: feature.properties }
@@ -92,7 +88,8 @@
     );
   }
 
-  function handleMouseout(e) {
+  function handlePointerout(e) {
+    map.onPointerOut(e);
     onmouseout?.(
       new CustomEvent("mouseout", {
         detail: { e }
@@ -113,8 +110,8 @@
 <g
   class="map-layer polygon-layer"
   role="presentation"
-  onmouseout={handleMouseout}
-  onblur={handleMouseout}
+  onpointerout={handlePointerout}
+  onblur={handlePointerout}
   style:--hover-fill={hoverFill || null}
   style:--hover-stroke={hoverStroke || null}
   style:--hover-stroke-width={`${(hoverStrokeWidth || strokeWidth) / map.transform.k}px`}
@@ -133,8 +130,8 @@
       stroke={getStroke(feature, stroke)}
       stroke-width={strokeWidth / map.transform.k}
       d={geoPathFn(feature)}
-      onmousemove={(e) => handleMousemove(e, feature)}
-      onmousedown={(e) => handleClick(e, feature)}
+      onpointermove={(e) => handlePointermove(e, feature)}
+      onpointerdown={(e) => handlePointerdown(e, feature)}
     ></path>
   {/each}
 </g>

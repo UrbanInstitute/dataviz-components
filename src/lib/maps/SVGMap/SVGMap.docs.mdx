@@ -148,28 +148,29 @@ Now you can pass a `featureHighlight` object that sets the highlighted feature b
 
 <Canvas of={Stories.FeatureHighlight} sourceState="shown" />
 
-## Event handling (Step 2)
+## Event handling
 
-- Map-level events: `SVGMap` uses lowercase callback props (`onclick`, `onmousemove`, `onmouseout`, and `onbgclick`).
-- Layer events: In Step 2, layers still dispatch Svelte 4 custom events. Use `on:` directives on layers (migration to callback props happens in Step 3).
+`SVGMap` and its layers use lowercase callback props for event handling. Both map-level and layer-level events can be handled using `onclick`, `onmousemove`, and `onmouseout` props.
 
-Layer events (current):
+Layer and map callbacks fire from pointer events internally (pointerdown/move/out), exposed as onclick, onmousemove, onmouseout props for API compatibility.
+
+Layer events use callback props:
 
 ```svelte
 <SVGPolygonLayer
-  on:click={(e) => {
+  onclick={(e) => {
     console.log("Feature clicked:", e.detail.props);
   }}
-  on:mousemove={(e) => {
+  onmousemove={(e) => {
     console.log("Mouse over feature:", e.detail.props);
   }}
-  on:mouseout={() => {
+  onmouseout={() => {
     console.log("Mouse left feature");
   }}
 />
 ```
 
-Map-level callbacks (now):
+Map-level callbacks:
 
 ```svelte
 <SVGMap
@@ -193,8 +194,6 @@ Map-level callbacks (now):
 
 Note: Background clicks trigger `onbgclick` only - they do not trigger `onclick`. This allows you to handle background and feature clicks separately.
 
-Coming in Step 3: Layers will adopt lowercase callback props (e.g., `onclick`, `onmousemove`). The examples above will be updated accordingly when that migration lands.
-
 ## Bubble map
 
 You can use the `<SVGPointLayer>` feature to create a bubble map based on a data value. In order to do this, you'll just need to use a D3 scale and pass a data value to it for the `r` property of the layer. Looking at county popluation for the state of Pennsylvania, you could set this up by importing your data and setting up the scale:
@@ -217,9 +216,9 @@ And then you can render the bubble map here:
 
 <Canvas of={Stories.BubbleMap} sourceState="shown" />
 
-## Advanced: Internal context changes
+## Advanced: Custom layers with rune-based context
 
-For developers extending or customizing map layers, `SVGMap` now uses a rune-based context system internally. The context is created with `createSVGMapContext()` and consumed by layers using `useSVGMapContext()`. This replaces the previous Svelte store-based context.
+For developers creating custom map layers, `SVGMap` uses a rune-based context system via `useSVGMapContext()`. The legacy Svelte 4 context has been removed.
 
 The context provides:
 
@@ -227,7 +226,40 @@ The context provides:
 - `transform` - The D3 zoom transform state
 - `features` - The feature collection used for fitting
 - `stickyHighlight` - Currently highlighted feature props (or `null`)
-- `handleLayerMousemove(tooltipProps)` - Method for layers to call on mousemove
-- `handleLayerClick(tooltipProps)` - Method for layers to call on click
+- `onPointerMove(e, props, opts)` - Method for layers to call on pointer move
+- `onPointerDown(e, props, opts)` - Method for layers to call on pointer down
+- `onPointerOut(e)` - Method for layers to call on pointer out
 
-This is primarily an internal implementation detail. Layer components (`SVGPolygonLayer`, `SVGPointLayer`, `SVGLabelLayer`) will be migrated to use this new context in a future update. For now, both the new rune-based context and the legacy context are maintained for compatibility.
+### External custom layer example
+
+To create a custom layer outside this component library:
+
+```javascript
+import { useSVGMapContext } from "@urbaninstitute/dataviz-components/maps";
+import { geoPath } from "d3-geo";
+
+// Inside your custom layer component:
+const map = useSVGMapContext();
+
+// Derive a geoPath generator from the projection
+const pathGenerator = $derived(geoPath(map.projection));
+
+// Respect transform.k for size/width adjustments
+const scaledStrokeWidth = $derived(1 / map.transform.k);
+
+// Use map.onPointerMove, onPointerDown, and onPointerOut for interaction
+function handleFeaturePointerdown(event, feature) {
+  // Call context method with tooltip option
+  map.onPointerDown(event, feature.properties, { tooltip: true });
+}
+
+function handleFeaturePointermove(event, feature) {
+  map.onPointerMove(event, feature.properties, { tooltip: true });
+}
+
+function handleFeaturePointerout(event) {
+  map.onPointerOut(event);
+}
+```
+
+All built-in layers (`SVGPolygonLayer`, `SVGPointLayer`, `SVGLabelLayer`) now use this rune-based context internally.

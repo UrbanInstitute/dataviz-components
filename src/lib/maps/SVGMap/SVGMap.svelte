@@ -1,8 +1,7 @@
 <!-- Portions of this code have been written or edited by generative AI tools. -->
 <script>
   import { useMatchMedia } from "../../stores";
-  import { writable } from "svelte/store";
-  import { setContext, onMount } from "svelte";
+  import { onMount } from "svelte";
   import { geoAlbersUsa } from "d3-geo";
   import { zoom, zoomIdentity } from "d3-zoom";
   import { select } from "d3-selection";
@@ -25,10 +24,10 @@
    * @property {string} [backgroundColor = "transparent"] - Fill for the background of the map
    * @property {boolean} [tooltipContainParent = false] - If there is a tooltip on the map, should it be contained to the parent element
    * @property {"small" | "large"} [tooltipSize = "small"] - whether to use a small (138px) or large (198px) width tooltip
-   * @property {(e: CustomEvent) => void} [onclick] - Callback fired when a layer element is clicked
-   * @property {(e: CustomEvent) => void} [onmousemove] - Callback fired when mouse moves over layer elements
-   * @property {(e: CustomEvent) => void} [onmouseout] - Callback fired when mouse leaves layer elements
-   * @property {(e: CustomEvent) => void} [onbgclick] - Callback fired when the map background is clicked
+   * @property {(e: CustomEvent<{ e: PointerEvent; props: any }>) => void} [onclick] - Callback fired when a layer element is clicked
+   * @property {(e: CustomEvent<{ e: PointerEvent; props: any }>) => void} [onmousemove] - Callback fired when mouse moves over layer elements
+   * @property {(e: CustomEvent<{ e: PointerEvent }>) => void} [onmouseout] - Callback fired when mouse leaves layer elements
+   * @property {(e: CustomEvent<{ e: PointerEvent }>) => void} [onbgclick] - Callback fired when the map background is clicked
    * @property {import('svelte').Snippet<[any]>} [tooltip] - Snippet for rendering tooltip content
    * @property {import('svelte').Snippet} [children] - Default slot content (map layers)
    */
@@ -91,38 +90,11 @@
     mapState.setFeatures(features);
   });
 
-  // LEGACY ADAPTER - Temporary compatibility layer for layers
-  // Create writable stores that sync with the context class
-  const projectionStore = writable(mapState.projection);
-  const transformStore = writable(mapState.transform);
-  const featuresStore = writable(mapState.features);
-  const stickyHighlightStore = writable(mapState.stickyHighlight);
-
-  // Sync stores with context state via effects
+  // Register map-level callbacks in context
   $effect(() => {
-    projectionStore.set(mapState.projection);
-  });
-
-  $effect(() => {
-    transformStore.set(mapState.transform);
-  });
-
-  $effect(() => {
-    featuresStore.set(mapState.features);
-  });
-
-  $effect(() => {
-    stickyHighlightStore.set(mapState.stickyHighlight);
-  });
-
-  // Set legacy context for backward compatibility with layers
-  setContext("map", {
-    projection: projectionStore,
-    features: featuresStore,
-    transform: transformStore,
-    stickyHighlight: stickyHighlightStore,
-    handleLayerMousemove: mapState.handleLayerMousemove.bind(mapState),
-    handleLayerClick: mapState.handleLayerClick.bind(mapState)
+    mapState.onclick = onclick;
+    mapState.onmousemove = onmousemove;
+    mapState.onmouseout = onmouseout;
   });
 
   // Zoom-related state
@@ -181,20 +153,20 @@
     return height;
   }
 
-  function handleBgMousemove(e) {
+  function handleBgPointermove(e) {
     if (!mapState.stickyHighlight) {
       tooltipState = undefined;
     }
     onmousemove?.(new CustomEvent("mousemove", { detail: { e } }));
   }
 
-  function handleBgClick(e) {
+  function handleBgPointerdown(e) {
     mapState.clearStickyHighlight();
     tooltipState = undefined;
     onbgclick?.(new CustomEvent("click", { detail: { e } }));
   }
 
-  function handleBgMouseout(e) {
+  function handleBgPointerout(e) {
     onmouseout?.(new CustomEvent("mouseout", { detail: { e } }));
   }
 
@@ -227,10 +199,10 @@
       {width}
       height={mapHeight}
       fill={backgroundColor}
-      onmousemove={handleBgMousemove}
-      onclick={handleBgClick}
-      onmouseout={handleBgMouseout}
-      onblur={handleBgMouseout}
+      onpointermove={handleBgPointermove}
+      onpointerdown={handleBgPointerdown}
+      onpointerout={handleBgPointerout}
+      onblur={handleBgPointerout}
     ></rect>
     <g
       class="zoom-group"
