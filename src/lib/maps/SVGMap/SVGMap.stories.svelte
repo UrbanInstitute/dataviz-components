@@ -1,3 +1,4 @@
+<!-- Portions of this code have been written or edited by generative AI tools. -->
 <script context="module">
   import SVGMap from "./SVGMap.svelte";
   import SVGPolygonLayer from "../SVGPolygonLayer/SVGPolygonLayer.svelte";
@@ -140,7 +141,7 @@
       hoverStroke={urbanColors.yellow}
       hoverStrokeWidth={2}
       highlightFeature={{ GEOID: clevelandHighlight }}
-      on:click={(e) => {
+      onclick={(e) => {
         if (clevelandHighlight === e.detail.props.GEOID) {
           clevelandHighlight = null;
         } else {

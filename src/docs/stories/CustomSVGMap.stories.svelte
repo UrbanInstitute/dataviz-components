@@ -1,3 +1,4 @@
+<!-- Portions of this code have been written or edited by generative AI tools. -->
 <script context="module">
   import { defineMeta } from "@storybook/addon-svelte-csf";
   const { Story } = defineMeta({
@@ -59,10 +60,10 @@
         fontSize={13}
         pointerEvents={false}
       />
-      <div slot="tooltip" let:props>
+      {#snippet tooltip(props)}
         <h5>{props.NAME} county</h5>
         <p>Air quality index: <strong>{props.index_air_quality}</strong></p>
-      </div>
+      {/snippet}
     </SVGMap>
   </ChartBlock>
 </Story>

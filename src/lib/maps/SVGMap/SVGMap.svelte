@@ -11,7 +11,7 @@
   import Tooltip from "$lib/Tooltip/Tooltip.svelte";
 
   /**
-   * @typedef {Object} SVGMapProps
+   * @typedef {Object} Props
    * @property {Object[]} features - An array of geojson features to be displayed on the map. The map will scale the projection to fit this set of features.
    * @property {function} [projection = geoAlbersUsa] - A D3 geo projection to use with this map. Defaults to geoAlbersUsa.
    * @property {"bottom-left" | "bottom-right" | "top-left" | "top-right"} [controlPosition = "bottom-right"] - Where the zoom control UI should be positioned.
@@ -33,6 +33,7 @@
    * @property {import('svelte').Snippet} [children] - Default slot content (map layers)
    */
 
+  /** @type {Props} */
   let {
     features,
     projection = geoAlbersUsa,

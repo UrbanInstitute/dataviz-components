@@ -1,3 +1,4 @@
+<!-- Portions of this code have been written or edited by generative AI tools. -->
 <script context="module">
   import SVGMap from "../SVGMap/SVGMap.svelte";
   import SVGPointLayer from "./SVGPointLayer.svelte";
@@ -30,10 +31,13 @@
 <script>
   import states from "../../../docs/sample-data/states_geo.json";
   import { urbanColors } from "$lib/utils";
+  import { createMatchMedia } from "$lib/stores";
 
   let mousemoveHandler = fn();
   let mouseoutHandler = fn();
   let clickHandler = fn();
+
+  createMatchMedia();
 </script>
 
 <Story
@@ -58,12 +62,9 @@
     <SVGMap features={args.features}>
       <SVGPointLayer
         {...args}
-        on:click
-        on:mouseout
-        on:mousemove
-        on:click={clickHandler}
-        on:mouseout={mouseoutHandler}
-        on:mousemove={mousemoveHandler}
+        onclick={clickHandler}
+        onmouseout={mouseoutHandler}
+        onmousemove={mousemoveHandler}
       ></SVGPointLayer>
     </SVGMap>
   {/snippet}

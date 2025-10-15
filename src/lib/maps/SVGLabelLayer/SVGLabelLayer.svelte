@@ -1,114 +1,97 @@
+<!-- Portions of this code have been written or edited by generative AI tools. -->
 <script>
-  import { getContext, createEventDispatcher } from "svelte";
   import { geoPath } from "d3-geo";
   import { urbanColors } from "$lib/utils";
   import { fade } from "svelte/transition";
   import { raise, getTooltipProps } from "../lib.js";
-
-  const {
-    projection,
-    features: globalFeatures,
-    transform,
-    handleLayerClick,
-    handleLayerMousemove
-  } = getContext("map");
+  import { useSVGMapContext } from "../SVGMap/context.svelte.js";
 
   /**
-   * A list of GeoJSON features. By default this component will render the features set in the parent SVGMap, but if `features` is defined, it plots those instead. Features are rendered as SVG `text` elements. Polygon features are converted to points with `d3.geoPath().centroid`.
-   * @type {Array} [features]
+   * @typedef {Object} Props
+   * @property {import("d3-geo").GeoPermissibleObjects[]=} features A list of GeoJSON features rendered as labels.
+   * @property {string=} fontColor Color of the text label.
+   * @property {number=} fontSize Font size of the label text.
+   * @property {string=} stroke Color of the text outline.
+   * @property {number=} strokeWidth Width of the text outline.
+   * @property {string=} textAnchor Text anchor value for the label.
+   * @property {string=} dy SVG `dy` offset applied to the label.
+   * @property {number=} minZoom Minimum zoom factor at which to render the layer.
+   * @property {boolean=} pointerEvents Whether the layer responds to pointer events.
+   * @property {(feature: any) => string=} getLabel Function that returns the label text for a feature.
+   * @property {boolean=} tooltip Whether the layer should populate the tooltip slot.
+   * @property {(event: CustomEvent<{ e: MouseEvent; props: any }>) => void=} onclick Optional click callback.
+   * @property {(event: CustomEvent<{ e: MouseEvent; props: any }>) => void=} onmousemove Optional mousemove callback.
+   * @property {(event: CustomEvent<{ e: MouseEvent }>) => void=} onmouseout Optional mouseout callback.
+   * @property {import("svelte").Snippet<[props: any]>=} children Optional snippet to render label content.
    */
-  export let features = undefined;
 
-  /**
-   * Color of the text label
-   * @type { string } [fontColor=urbanColors.white]
-   */
-  export let fontColor = urbanColors.white;
+  /** @type {Props} */
+  let {
+    features = undefined,
+    fontColor = urbanColors.white,
+    fontSize = 12,
+    stroke = urbanColors.black,
+    strokeWidth = 3,
+    textAnchor = "middle",
+    dy = "-.5em",
+    minZoom = 0,
+    pointerEvents = true,
+    getLabel = (d) => d,
+    tooltip = false,
+    onclick = undefined,
+    onmousemove = undefined,
+    onmouseout = undefined,
+    children = undefined
+  } = $props();
 
-  /**
-   * Font size of the text label
-   * @type { number } [fontSize=12]
-   */
-  export let fontSize = 12;
+  const map = useSVGMapContext();
 
-  /**
-   * Color of the text label outline
-   * @type { string } [stroke=urbanColors.black]
-   */
-  export let stroke = urbanColors.black;
-
-  /**
-   * Width of the outline of the text label
-   * @type { number } [strokeWidth=3]
-   */
-  export let strokeWidth = 3;
-  /**
-   * Text anchor property of the label
-   * @type { string } [textAnchor="middle"]
-   */
-  export let textAnchor = "middle";
-  /**
-   * `dy` property of the label
-   * @type { string } [dy="-.5em"]
-   */
-  export let dy = "-.5em";
-
-  /**
-   * Minumum zoom factor at which to render layer relative to the default zoom
-   * @type { number } [minZoom = 0]
-   */
-  export let minZoom = 0;
-
-  /**
-   * Boolean that determines if this layer should respond to pointer events and dispatch events.
-   * @type {boolean} [pointerEvents]
-   */
-  export let pointerEvents = true;
-
-  /**
-   * Function that returns the string to be displayed in the label when passed a feature object
-   * @param { Object } d the feature on which the label will be based
-   * @returns { string }
-   */
-  export let getLabel = (d) => d;
-
-  /**
-   * Boolean that determines if this layer should populate the tooltip slot when interacted with.
-   * @type {boolean} [tooltip = false]
-   */
-  export let tooltip = false;
-
-  const dispatch = createEventDispatcher();
-
-  $: geoPathFn = geoPath($projection);
+  const geoPathFn = $derived(geoPath(map.projection));
 
   function handleMousemove(e, feature) {
     raise(e.target);
     if (tooltip) {
-      handleLayerMousemove(getTooltipProps(e, feature));
+      map.handleLayerMousemove(getTooltipProps(e, feature));
     }
-    dispatch("mousemove", { e, props: feature.properties });
+    onmousemove?.(
+      new CustomEvent("mousemove", {
+        detail: { e, props: feature.properties }
+      })
+    );
   }
 
   function handleClick(e, feature) {
     raise(e.target);
     if (tooltip) {
-      handleLayerClick(getTooltipProps(e, feature));
+      map.handleLayerClick(getTooltipProps(e, feature));
     }
-    dispatch("click", { e, props: feature.properties });
+    onclick?.(
+      new CustomEvent("click", {
+        detail: { e, props: feature.properties }
+      })
+    );
+  }
+
+  function handleMouseout(e) {
+    onmouseout?.(
+      new CustomEvent("mouseout", {
+        detail: { e }
+      })
+    );
   }
 </script>
 
-{#if !minZoom || $transform.k >= minZoom}
+{#if !minZoom || map.transform.k >= minZoom}
   <!-- svelte-ignore a11y-no-static-element-interactions -->
   <g
     class="map-layer label-layer"
-    on:mouseout={(e) => dispatch("mouseout")}
-    on:blur={(e) => dispatch("mouseout")}
+    role="presentation"
+    onmouseout={handleMouseout}
+    onblur={handleMouseout}
     transition:fade={{ duration: 250 }}
     style:pointer-events={pointerEvents ? "auto" : "none"}
   >
-    {#each features || $globalFeatures as feature}
+    {#each features || map.features as feature}
       {@const [x, y] = geoPathFn.centroid(feature)}
       <!-- svelte-ignore a11y-click-events-have-key-events -->
       <g class="label-feature">
@@ -116,25 +99,31 @@
           {x}
           {y}
           {dy}
-          style:font-size="{fontSize / $transform.k}px"
-          stroke-width="{strokeWidth / $transform.k}px"
+          style:font-size={`${fontSize / map.transform.k}px`}
+          stroke-width={`${strokeWidth / map.transform.k}px`}
           {stroke}
           opacity={0.5}
           stroke-linejoin="round"
-          on:mousemove={(e) => handleMousemove(e, feature)}
-          on:click={(e) => handleClick(e, feature)}
+          role="presentation"
+          onmousemove={(e) => handleMousemove(e, feature)}
+          onclick={(e) => handleClick(e, feature)}
           text-anchor={textAnchor}
         >
           <!-- Default slot overrides output of `getLabel` prop -->
-          <slot props={feature.properties}>{getLabel(feature)}</slot>
+          {#if children}
+            {@render children(feature.properties)}
+          {:else}
+            {getLabel(feature)}
+          {/if}
         </text>
         <text
           {x}
           {y}
           {dy}
-          style:font-size="{fontSize / $transform.k}px"
+          style:font-size={`${fontSize / map.transform.k}px`}
           fill={fontColor}
-          text-anchor={textAnchor}><slot props={feature.properties}>{getLabel(feature)}</slot></text
+          text-anchor={textAnchor}
+          >{#if children}{@render children(feature.properties)}{:else}{getLabel(feature)}{/if}</text
         >
       </g>
     {/each}

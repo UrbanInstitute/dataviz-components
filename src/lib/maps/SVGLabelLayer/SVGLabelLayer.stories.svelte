@@ -1,3 +1,4 @@
+<!-- Portions of this code have been written or edited by generative AI tools. -->
 <script context="module">
   import SVGMap from "../SVGMap/SVGMap.svelte";
   import SVGLabelLayer from "./SVGLabelLayer.svelte";
@@ -28,24 +29,26 @@
 
 <script>
   import states from "../../../docs/sample-data/states_geo.json";
+  import { createMatchMedia } from "$lib/stores";
 
   let mousemoveHandler = fn();
   let mouseoutHandler = fn();
   let clickHandler = fn();
+
+  createMatchMedia();
 </script>
 
 {#snippet template(args)}
   <SVGMap features={states.features}>
     <SVGLabelLayer
       {...args}
-      on:click
-      on:mouseout
-      on:mousemove
-      on:click={clickHandler}
-      on:mouseout={mouseoutHandler}
-      on:mousemove={mousemoveHandler}
+      onclick={clickHandler}
+      onmouseout={mouseoutHandler}
+      onmousemove={mousemoveHandler}
     >
-      <svelte:fragment let:props>{props.STUSPS}</svelte:fragment>
+      {#snippet children(props)}
+        {props.STUSPS}
+      {/snippet}
     </SVGLabelLayer>
   </SVGMap>
 {/snippet}
@@ -66,14 +69,17 @@
     await expect(clickHandler).toHaveBeenCalled();
   }}
   source={`<SVGMap features={states.features}>
-  <SVGLabelLayer getLabel={(feature) => feature.properties.STUSPS}>
-    <svelte:fragment let:props>{props.STUSPS}</svelte:fragment>
+  <SVGLabelLayer
+    getLabel={(feature) => feature.properties.STUSPS}
+  >
+    {#snippet children(props)}
+      {props.STUSPS}
+    {/snippet}
   </SVGLabelLayer>
 </SVGMap>`}
 />
 <Story
   name="Slot"
-  }}
   asChild
   play={async ({ canvasElement, userEvent }) => {
     const feature = canvasElement.querySelector(".label-feature text");
@@ -87,13 +93,13 @@
 >
   <SVGMap features={states.features}>
     <SVGLabelLayer
-      on:click
-      on:mouseout
-      on:mousemove
-      on:click={clickHandler}
-      on:mouseout={mouseoutHandler}
-      on:mousemove={mousemoveHandler}
-      ><svelte:fragment let:props>{props.STUSPS}</svelte:fragment></SVGLabelLayer
+      onclick={clickHandler}
+      onmouseout={mouseoutHandler}
+      onmousemove={mousemoveHandler}
     >
+      {#snippet children(props)}
+        {props.STUSPS}
+      {/snippet}
+    </SVGLabelLayer>
   </SVGMap>
 </Story>
