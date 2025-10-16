@@ -15,7 +15,7 @@
 </script>
 
 <script>
-  import { usePymChild } from "./stores.svelte.js";
+  import { usePymChildContext } from "./context.svelte.js";
 
   let sendCount = $state(0);
   let pymStatus = $state("Not initialized");
@@ -26,7 +26,7 @@
 <Story name="With Context Consumer">
   <PymChild>
     {#if typeof window !== "undefined"}
-      {@const pymChild = usePymChild()}
+      {@const pymChild = usePymChildContext()}
       <div style="padding: 20px; border: 1px solid #ccc; border-radius: 4px;">
         <h3>Child Component Using Context</h3>
         <p>
@@ -42,7 +42,7 @@
           }}
           style="padding: 8px 16px; border: 1px solid #1696d2; background: #1696d2; color: white; cursor: pointer;"
         >
-          Send Height via usePymChild()
+          Send Height via usePymChildContext()
         </button>
         <p style="margin-top: 16px; font-size: 14px; color: #666;">
           This component is a descendant of PymChild and can access the context.

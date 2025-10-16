@@ -1,6 +1,6 @@
 <!-- A generative AI model wrote or edited portions of this file with the supervision of a human developer and careful human review. -->
 <script>
-  import { useMatchMedia } from "../../stores";
+  import { useMatchMediaContext } from "../../context";
   import { onMount } from "svelte";
   import { geoAlbersUsa } from "d3-geo";
   import { zoom, zoomIdentity } from "d3-zoom";
@@ -55,8 +55,8 @@
     children
   } = $props();
 
-  // Get media query state from context
-  const media = useMatchMedia();
+  // Get media query context
+  const media = useMatchMediaContext();
 
   // Create the rune-based map context
   const mapState = createSVGMapContext();

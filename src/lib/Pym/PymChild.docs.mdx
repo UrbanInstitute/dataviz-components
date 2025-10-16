@@ -30,24 +30,24 @@ In order to add PymChild functionality to your page, simply import and use this 
   language="svelte"
 />
 
-If you need to access the Pym child instance itself, grab the shared rune state and read the `child` property:
+If you need to access the Pym child instance itself, grab the shared rune context and read the `child` property:
 
 <Source dark code={`
-import { usePymChild } from "@urbaninstitute/dataviz-components/Pym/stores.svelte.js";
+import { usePymChildContext } from "@urbaninstitute/dataviz-components/context";
 
-const pymChild = usePymChild();
+const pymChild = usePymChildContext();
 
 pymChild?.child?.sendHeight();
 `} language="js" />
 
 ### Context Requirement
 
-`usePymChild()` must be called within a component tree that has a `<PymChild>` component as an ancestor. If called outside this context, it returns `undefined`. Always use optional chaining when accessing properties or methods:
+`usePymChildContext()` must be called within a component tree that has a `<PymChild>` component as an ancestor. If called outside this context, it returns `undefined`. Always use optional chaining when accessing properties or methods:
 
 <Source
   dark
   code={`
-const pymChild = usePymChild();
+const pymChild = usePymChildContext();
 pymChild?.sendHeight(); // Safe
 pymChild?.child?.sendHeight(); // Also safe
 `}
@@ -58,7 +58,7 @@ pymChild?.child?.sendHeight(); // Also safe
 
 **Wrapper Pattern (Recommended)**
 
-When descendant components need to access `usePymChild()`, wrap them with `<PymChild>`:
+When descendant components need to access `usePymChildContext()`, wrap them with `<PymChild>`:
 
 <Source
   dark
@@ -73,18 +73,18 @@ When descendant components need to access `usePymChild()`, wrap them with `<PymC
 </PymChild>
 `} language="svelte" />
 
-Inside `MyChart.svelte`, you can then safely call `usePymChild()`:
+Inside `MyChart.svelte`, you can then safely call `usePymChildContext()`:
 
 <Source
   dark
   code={`
 <script>
-  import { usePymChild } from "@urbaninstitute/dataviz-components/Pym/stores.svelte.js";
+  import { usePymChildContext } from "@urbaninstitute/dataviz-components/context";
 
-const pymChild = usePymChild();
+const pymChild = usePymChildContext();
 
 function notifyResize() {
-pymChild?.sendHeight();
+  pymChild?.sendHeight();
 }
 
 </script>
@@ -104,7 +104,7 @@ If no descendants need context access, you can use it standalone:
   language="svelte"
 />
 
-**Important**: Context only flows down to descendants, not across to siblings. If you place `<PymChild />` as a sibling to components that need `usePymChild()`, those components won't be able to access the context.
+**Important**: Context only flows down to descendants, not across to siblings. If you place `<PymChild />` as a sibling to components that need `usePymChildContext()`, those components won't be able to access the context.
 
 ## Properties
 

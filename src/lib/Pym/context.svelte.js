@@ -1,9 +1,9 @@
 // A generative AI model wrote or edited portions of this file with the supervision of a human developer and careful human review.
 import { getContext, hasContext, setContext } from "svelte";
 
-const PYM_CHILD_CONTEXT = Symbol("pym-child-context");
+const PYM_CHILD_CONTEXT_KEY = Symbol("pym-child-context");
 
-class PymChildState {
+class PymChildContext {
   /**
    * @type {import("pym.js").Child | null}
    */
@@ -30,20 +30,22 @@ class PymChildState {
 }
 
 /**
- * Ensure a global Pym child state exists and seed it into context so descendants can access it.
- * @returns {PymChildState}
+ * Ensure a global Pym child context exists and seed it into Svelte context so descendants can access it.
+ * @returns {PymChildContext}
  */
-export function createPymChildState() {
-  const state = new PymChildState();
-  setContext(PYM_CHILD_CONTEXT, state);
-  return state;
+export function createPymChildContext() {
+  const context = new PymChildContext();
+  setContext(PYM_CHILD_CONTEXT_KEY, context);
+  return context;
 }
 
 /**
- * Consume the Pym child state from context.
+ * Consume the Pym child context from Svelte context.
  * Returns undefined if called outside a <PymChild> component tree.
- * @returns {PymChildState | undefined}
+ * @returns {PymChildContext | undefined}
  */
-export function usePymChild() {
-  return hasContext(PYM_CHILD_CONTEXT) ? getContext(PYM_CHILD_CONTEXT) : undefined;
+export function usePymChildContext() {
+  return hasContext(PYM_CHILD_CONTEXT_KEY)
+    ? getContext(PYM_CHILD_CONTEXT_KEY)
+    : undefined;
 }

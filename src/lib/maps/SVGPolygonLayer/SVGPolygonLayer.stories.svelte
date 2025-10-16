@@ -31,13 +31,13 @@
   import { userEvent, expect, fn } from "storybook/test";
   import states from "../../../docs/sample-data/states_geo.json";
   import { urbanColors } from "$lib/utils";
-  import { createMatchMedia } from "$lib/stores";
+  import { createMatchMediaContext } from "$lib/context";
 
   let mousemoveHandler = fn();
   let mouseoutHandler = fn();
   let clickHandler = fn();
 
-  createMatchMedia();
+  createMatchMediaContext();
 </script>
 
 {#snippet template(args)}

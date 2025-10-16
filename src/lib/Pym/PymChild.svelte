@@ -1,7 +1,7 @@
 <!-- A generative AI model wrote or edited portions of this file with the supervision of a human developer and careful human review. -->
 <script>
   import pym from "pym.js";
-  import { createPymChildState } from "./stores.svelte.js";
+  import { createPymChildContext } from "./context.svelte.js";
 
   /**
    * @typedef {Object} Props
@@ -12,17 +12,17 @@
   /** @type {Props} */
   let { polling = 500, children } = $props();
 
-  const pymChildState = createPymChildState();
+  const pymChildContext = createPymChildContext();
 
   $effect.root(() => {
     if (typeof window === "undefined") return;
 
     const child = new pym.Child({ polling });
-    pymChildState.setChild(child);
+    pymChildContext.setChild(child);
 
     return () => {
       child?.remove?.();
-      pymChildState.clear();
+      pymChildContext.clear();
     };
   });
 </script>

@@ -1,13 +1,13 @@
 // A generative AI model wrote or edited portions of this file with the supervision of a human developer and careful human review.
 import { getContext, hasContext, setContext } from "svelte";
 
-export const SCROLLY_STATE = Symbol("SCROLLY_STATE");
+export const SCROLLY_CONTEXT_KEY = Symbol("SCROLLY_CONTEXT");
 
 /**
- * Rune-based state class for Scrolly component context.
+ * Rune-based context class for the Scrolly component.
  * Tracks scroll position, dimensions, and progress through slides.
  */
-class ScrollyState {
+class ScrollyContext {
   /**
    * The index of the current slide
    * @type {number}
@@ -46,28 +46,28 @@ class ScrollyState {
 }
 
 /**
- * Creates a new ScrollyState instance and sets it into context.
+ * Creates a new Scrolly context instance and sets it into context.
  * Call this once from within the Scrolly component.
- * @returns {ScrollyState}
+ * @returns {ScrollyContext}
  */
-export function createScrollyState() {
-  const state = new ScrollyState();
-  setContext(SCROLLY_STATE, state);
-  return state;
+export function createScrollyContext() {
+  const context = new ScrollyContext();
+  setContext(SCROLLY_CONTEXT_KEY, context);
+  return context;
 }
 
 /**
- * Retrieves the Scrolly state from context.
+ * Retrieves the Scrolly context from Svelte context.
  * Must be called from within a component that is a descendant of a Scrolly component.
- * @returns {ScrollyState}
+ * @returns {ScrollyContext}
  * @throws {Error} If called outside of a Scrolly component tree
  */
-export function useScrollyState() {
-  if (!hasContext(SCROLLY_STATE)) {
+export function useScrollyContext() {
+  if (!hasContext(SCROLLY_CONTEXT_KEY)) {
     throw new Error(
-      "useScrollyState() must be called from within a Scrolly component tree. " +
+      "useScrollyContext() must be called from within a Scrolly component tree. " +
         "Make sure your component is a child of <Scrolly>."
     );
   }
-  return getContext(SCROLLY_STATE);
+  return getContext(SCROLLY_CONTEXT_KEY);
 }

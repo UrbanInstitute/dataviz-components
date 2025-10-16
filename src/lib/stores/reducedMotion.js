@@ -1,6 +1,6 @@
 // A generative AI model wrote or edited portions of this file with the supervision of a human developer and careful human review.
 /**
- * @deprecated Use createMatchMedia()/useMatchMedia() from matchMedia.svelte.js instead.
+ * @deprecated Use createMatchMediaContext()/useMatchMediaContext() from matchMediaContext.svelte.js instead.
  * This store will be removed in a future major version.
  *
  * Legacy readable store to detect if client has reduced motion turned on.
@@ -16,7 +16,7 @@ const reducedMotionQuery = "(prefers-reduced-motion: reduce)";
 
 /**
  * Readable store that tracks the user's reduced motion preference.
- * @deprecated Use createMatchMedia()/useMatchMedia() from matchMedia.svelte.js
+ * @deprecated Use createMatchMediaContext()/useMatchMediaContext() from matchMediaContext.svelte.js
  */
 export const reducedMotion = readable(false, (set) => {
   // SSR-safe initialization

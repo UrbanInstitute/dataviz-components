@@ -40,10 +40,10 @@
   import { extent, max } from "d3-array";
   import cleveland_bike_data_topo from "../../../docs/sample-data/cleveland_bike_to_work.json";
   import pa_population_topo from "../../../docs/sample-data/pa_county_population_topo.json";
-  import { createMatchMedia } from "../../stores";
+  import { createMatchMediaContext } from "../../context";
 
   // Initialize media query context for all stories
-  createMatchMedia();
+  createMatchMediaContext();
 
   // nyc census tracts with average hh income
   const nyc_income = topojson.feature(nyc_income_topo, "nyc_income_geo1");

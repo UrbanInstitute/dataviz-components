@@ -1,0 +1,29 @@
+import { Meta, Source } from "@storybook/addon-docs/blocks";
+
+<Meta title="context/usePymChildContext" />
+
+# usePymChildContext
+
+[![github](https://badgen.net/badge/icon/GitHub?icon=github&label)](https://github.com/UrbanInstitute/dataviz-components/blob/main/src/lib/Pym/context.svelte.js)
+
+A shared rune helper that exposes the active [`pym.js`](https://github.com/pymjs/pym.js/) child instance created by the `<PymChild />` component. Internally it uses Svelte context to share state between the `<PymChild />` component and its descendants.
+
+`<PymChild />` calls `createPymChildContext()` automatically, so most projects can just call `usePymChildContext()` to access the currently active child:
+
+<Source dark code={`
+<script>
+  import { usePymChildContext } from "@urbaninstitute/dataviz-components/context";
+
+  const pymChild = usePymChildContext();
+
+  function resize() {
+    pymChild?.sendHeight();
+  }
+</script>
+`} language="svelte" />
+
+**Note**: `usePymChildContext()` returns `undefined` if called outside a `<PymChild>` component tree. Use optional chaining (`?.`) when calling methods on the returned context.
+
+Advanced scenarios that render the Pym child outside the `<PymChild />` component can invoke `createPymChildContext()` manually to seed the context before instantiating the child.
+
+[Read more about how to use the PymChild component here](/docs/components-pymchild--docs).

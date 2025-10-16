@@ -47,7 +47,11 @@
       "svelte": "./dist/Icons/index.js"
     },
     "./style": "./dist/style/main.css",
-    "./style/theme": "./dist/style/theme.css"
+    "./style/theme": "./dist/style/theme.css",
+    "./context": {
+      "types": "./dist/context/index.d.ts",
+      "svelte": "./dist/context/index.js"
+    }
   },
   "files": [
     "dist",

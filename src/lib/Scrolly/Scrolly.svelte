@@ -2,7 +2,7 @@
 <script>
   import Scroller from "@sveltejs/svelte-scroller";
   import Block from "../Block/Block.svelte";
-  import { createScrollyState } from "./state.svelte.js";
+  import { createScrollyContext } from "./context.svelte.js";
 
   /**
    * @typedef {Object} ScrollyProps
@@ -48,8 +48,8 @@
     foreground
   } = $props();
 
-  // Create rune-based state and set into context
-  const scrolly = createScrollyState();
+  // Create rune-based context and set into Svelte context
+  const scrolly = createScrollyContext();
 </script>
 
 <svelte:window

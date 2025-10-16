@@ -3,12 +3,12 @@
 ## Next
 
 - Fix: Typo; Theme size for h2 on smaller screens now renders at proper font size
-- Breaking: <Scrolly> now accepts snippet props for custom background/foreground content and replaces getContext("scrolly") stores with the new useScrollyState() helper; update slot markup and context access accordingly.
+- Breaking: <Scrolly> now accepts snippet props for custom background/foreground content and replaces getContext("scrolly") stores with the new useScrollyContext() helper; update slot markup and context access accordingly.
 - Breaking: SVGMap and its layer components now expose pointer interaction callbacks via props (onclick/onmousemove/onmouseout/onbgclick) instead of on:event listeners, and shared state is provided through useSVGMapContext()—replace any getContext("map") usage and update handler wiring.
 - Breaking: DatawrapperIframe emits interaction hooks through lowercase callback props such as
 onvisrendered/onregionclick instead of Svelte on:event listeners; pass handler functions as props to receive chart events.
 - Breaking: The exported pymChildStore writable has been removed in favor of the rune-based
-usePymChild() helper returned by <PymChild>; import usePymChild() to interact with the active pym.js child instance.
+usePymChildContext() helper returned by <PymChild>; import usePymChildContext() to interact with the active pym.js child instance.
 - Feat: All components use Svelte 5 runes syntax and move away from store-based state where possible.
 
 

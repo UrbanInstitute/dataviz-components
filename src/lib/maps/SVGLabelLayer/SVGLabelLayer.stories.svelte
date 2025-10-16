@@ -29,13 +29,13 @@
 
 <script>
   import states from "../../../docs/sample-data/states_geo.json";
-  import { createMatchMedia } from "$lib/stores";
+  import { createMatchMediaContext } from "$lib/context";
 
   let mousemoveHandler = fn();
   let mouseoutHandler = fn();
   let clickHandler = fn();
 
-  createMatchMedia();
+  createMatchMediaContext();
 </script>
 
 {#snippet template(args)}

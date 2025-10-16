@@ -5,7 +5,7 @@ import { Meta, Controls, ArgTypes, Markdown, Story } from "@storybook/addon-docs
 
 # Scrolly
 
-A component that can be used to create "scrolly" sections and pages. This component is a wrapper around the [svelte-scroller](https://github.com/sveltejs/svelte-scroller) library with a rune-based `ScrollyState` context under the hood. If you need behavior beyond what is provided here, compose directly with `svelte-scroller`, but for most editorial scrollytelling use cases this component is designed to be the starting point. Customization happens through snippet props and the context helper described below.
+A component that can be used to create "scrolly" sections and pages. This component is a wrapper around the [svelte-scroller](https://github.com/sveltejs/svelte-scroller) library with a rune-based `ScrollyContext` under the hood. If you need behavior beyond what is provided here, compose directly with `svelte-scroller`, but for most editorial scrollytelling use cases this component is designed to be the starting point. Customization happens through snippet props and the context helper described below.
 
 Basic usage:
 
@@ -32,7 +32,7 @@ Basic usage:
 
 ## Background components
 
-While this component provides much of what you need to get started with a scrolly segment, you'll supply your own background functionality via the `background` snippet. The `<Scrolly>` component creates a rune-based state class (`createScrollyState()`) and exposes it through the `useScrollyState()` helper. Call that helper inside any descendant (for example, your background component) to read reactive values without juggling stores or prop drilling. The state instance exposes the following properties:
+While this component provides much of what you need to get started with a scrolly segment, you'll supply your own background functionality via the `background` snippet. The `<Scrolly>` component creates a rune-based context class (`createScrollyContext()`) and exposes it through the `useScrollyContext()` helper. Call that helper inside any descendant (for example, your background component) to read reactive values without juggling stores or prop drilling. The context instance exposes the following properties:
 
 <Markdown>
   {`| property    | description                                                                                   |
@@ -46,12 +46,12 @@ While this component provides much of what you need to get started with a scroll
 `}
 </Markdown>
 
-Access these values by calling the `useScrollyState()` helper function from within a descendant component or snippet:
+Access these values by calling the `useScrollyContext()` helper function from within a descendant component or snippet:
 
 ```svelte
 <script>
-  import { useScrollyState } from "@urbaninstitute/dataviz-components";
-  const scrolly = useScrollyState();
+  import { useScrollyContext } from "@urbaninstitute/dataviz-components/context";
+  const scrolly = useScrollyContext();
 </script>
 
 <div>
@@ -153,7 +153,7 @@ If you're upgrading from a previous version of this component, here are the brea
 </Scrolly>
 ```
 
-### 3. Context API: getContext → useScrollyState
+### 3. Context API: getContext → useScrollyContext
 
 **Before:**
 
@@ -172,9 +172,9 @@ If you're upgrading from a previous version of this component, here are the brea
 
 ```svelte
 <script>
-  import { useScrollyState } from "@urbaninstitute/dataviz-components";
+  import { useScrollyContext } from "@urbaninstitute/dataviz-components/context";
 
-  const scrolly = useScrollyState();
+  const scrolly = useScrollyContext();
 
   // Use properties directly (reactive)
   console.log(scrolly.index);
