@@ -52,7 +52,7 @@ dist/                 # Compiled package (generated, do not edit)
 
 - **Development**: `npm run dev` - Launch Storybook at http://localhost:6006
 - **Build**: `npm run build` - Compile the package for distribution
-- **Tests**: `npm test` - Run Vitest unit tests  and `npm run test-storybook-all` - Run component browser tests
+- **Tests**: `npm test` - Run Vitest unit tests and `npm run test-storybook-all` - Run component browser tests
 - **Type checking**: `npm run check` - Validate Svelte components
 - **Linting**: `npm run lint` - Check code style
 - **Format**: `npm run format` - Auto-format code with Prettier
@@ -154,7 +154,6 @@ Use `$derived()` for values computed from other state:
 </script>
 ```
 
-
 #### Shared State (Context)
 
 For state shared across components, create a state class and expose it via context. Place state files in the same directory as their related components with a `.svelte.js` extension.
@@ -215,7 +214,6 @@ export function useMyState() {
 ### Event Handlers
 
 **Use lowercase event names** matching DOM conventions: `onclick`, `onmouseenter`, `onkeydown`, etc.
-
 
 ### Storybook Stories
 
