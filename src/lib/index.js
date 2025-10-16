@@ -33,4 +33,3 @@ export { default as LoadingWrapper } from "./LoadingWrapper/LoadingWrapper.svelt
 export { default as Tooltip } from "./Tooltip/Tooltip.svelte";
 export { default as AxisY } from "./Layercake/AxisY.svelte";
 export { default as AxisX } from "./Layercake/AxisX.svelte";
-export { useScrollyContext } from "./Scrolly/context.svelte.js";
