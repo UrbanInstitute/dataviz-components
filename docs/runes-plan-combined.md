@@ -62,10 +62,10 @@
    - [x] Migrate `Tooltip` and similar reactive chains, replacing `$:` with `$derived()`/`$effect()` while preserving ordering.
    - [x] Validate integrations in Storybook or dedicated sandboxes before closing tasks.
 6. **Phase 5 – Visualization Suite**
-   - [ ] Tackle `ChartBlock`, Layercake axes, `Scrolly`, and the `maps` directory (SVG map, layers, color legend, zoom controls).
-   - [ ] Rebuild context + store subscriptions manually (e.g., `subscribe` within `$effect.root()`) and convert custom dispatchers to callback props (`onregionclick`, `onhover`, etc.).
-   - [ ] Keep Layercake-provided stores/context helpers intact and bridge their values via `$effect.root()` subscriptions instead of rewriting them.
-   - [ ] Run interaction smoke tests in Storybook and any existing regression suites.
+   - [x] Tackle `ChartBlock`, Layercake axes, `Scrolly`, and the `maps` directory (SVG map, layers, color legend, zoom controls).
+   - [x] Rebuild context + store subscriptions manually (e.g., `subscribe` within `$effect.root()`) and convert custom dispatchers to callback props (`onregionclick`, `onhover`, etc.).
+   - [x] Keep Layercake-provided stores/context helpers intact and bridge their values via `$effect.root()` subscriptions instead of rewriting them.
+   - [x] Run interaction smoke tests in Storybook and any existing regression suites.
 7. **Phase 6 – Docs & Stories**
    - [ ] Update `src/docs` content and Storybook stories to rune syntax, highlighting listener/slot changes.
    - [ ] Run `npm run build-storybook` and `npm run build-storybook:test` for the docs batch once updates are complete.
