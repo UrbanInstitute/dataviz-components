@@ -142,7 +142,7 @@
   }}
 />
 
-<Story name="Custom icon (uncommon)">
+<Story name="Custom icon (uncommon)" asChild>
   <BasicDropdown
     variant="primary"
     id="dropdown-story-11"
