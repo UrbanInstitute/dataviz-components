@@ -120,7 +120,9 @@
           style:font-size={`${fontSize / map.transform.k}px`}
           fill={fontColor}
           text-anchor={textAnchor}
-          >{#if children}{@render children(feature.properties)}{:else if getLabel}{getLabel(feature)}{/if}</text
+          >{#if children}{@render children(feature.properties)}{:else if getLabel}{getLabel(
+              feature
+            )}{/if}</text
         >
       </g>
     {/each}

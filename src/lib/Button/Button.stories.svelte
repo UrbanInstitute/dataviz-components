@@ -1,4 +1,5 @@
-<!-- Portions of this code have been written or edited by generative-AI tools. -->
+<!-- A generative AI model wrote or edited portions of this file with
+     the supervision of a human developer and careful human review. -->
 <script module>
   import Button from "./Button.svelte";
   import IconDownload from "./IconDownload.svelte";
