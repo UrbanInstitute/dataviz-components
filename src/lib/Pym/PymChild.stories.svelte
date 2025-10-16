@@ -1,5 +1,5 @@
 <!-- Portions of this code have been written or edited by generative AI tools. -->
-<script context="module">
+<script module>
   import PymChild from "./PymChild.svelte";
   import { defineMeta } from "@storybook/addon-svelte-csf";
 

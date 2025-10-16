@@ -1,4 +1,4 @@
-<script context="module">
+<script module>
   import IconPlus from "./IconPlus.svelte";
   import { defineMeta } from "@storybook/addon-svelte-csf";
   import urbanColors from "$lib/utils/urbanColors.js";

@@ -1,5 +1,5 @@
 <!-- Portions of this code have been written or edited by generative AI tools. -->
-<script context="module">
+<script module>
   import { defineMeta } from "@storybook/addon-svelte-csf";
   import { fireEvent, within, expect } from "storybook/test";
   import BasicDropdown from "./BasicDropdown.svelte";

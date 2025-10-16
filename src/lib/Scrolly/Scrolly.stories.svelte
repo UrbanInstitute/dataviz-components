@@ -1,5 +1,5 @@
 <!-- Portions of this code have been written or edited by generative AI tools. -->
-<script context="module">
+<script module>
   import Scrolly from "./Scrolly.svelte";
   import { defineMeta } from "@storybook/addon-svelte-csf";
 

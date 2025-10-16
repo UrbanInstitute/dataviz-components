@@ -1,4 +1,4 @@
-<script context="module">
+<script module>
   import ColorLegend from "./ColorLegend.svelte";
   import urbanColors from "$lib/utils/urbanColors.js";
   import docs from "./ColorLegend.docs.md?raw";

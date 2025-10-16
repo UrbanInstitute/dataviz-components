@@ -1,4 +1,4 @@
-<script context="module">
+<script module>
   import Headline from "./Headline.svelte";
   import { Button } from "$lib";
   import docs from "./Headline.docs.md?raw";

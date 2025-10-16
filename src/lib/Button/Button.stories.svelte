@@ -1,5 +1,5 @@
 <!-- Portions of this code have been written or edited by generative-AI tools. -->
-<script context="module">
+<script module>
   import Button from "./Button.svelte";
   import IconDownload from "./IconDownload.svelte";
   import docs from "./Button.docs.md?raw";

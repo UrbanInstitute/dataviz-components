@@ -1,5 +1,5 @@
 <!-- Portions of this code have been written or edited by generative AI tools. -->
-<script context="module">
+<script module>
   import ChartBlock from "./ChartBlock.svelte";
   import DatawrapperIframe from "../DatawrapperIframe/DatawrapperIframe.svelte";
   import docs from "./ChartBlock.docs.md?raw";

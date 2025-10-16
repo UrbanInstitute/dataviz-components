@@ -79,7 +79,7 @@
 </script>
 
 {#if !minZoom || map.transform.k >= minZoom}
-  <!-- svelte-ignore a11y-no-static-element-interactions -->
+  <!-- svelte-ignore a11y_no_static_element_interactions -->
   <g
     class="map-layer label-layer"
     role="presentation"
@@ -90,7 +90,7 @@
   >
     {#each features || map.features as feature}
       {@const [x, y] = geoPathFn.centroid(feature)}
-      <!-- svelte-ignore a11y-click-events-have-key-events -->
+      <!-- svelte-ignore a11y_click_events_have_key_events -->
       <g class="label-feature">
         <text
           {x}

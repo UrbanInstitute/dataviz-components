@@ -1,4 +1,4 @@
-<script context="module">
+<script module>
   import Analytics from "./Analytics.svelte";
   import { defineMeta } from "@storybook/addon-svelte-csf";
 

@@ -1,5 +1,5 @@
 <!-- Portions of this code have been written or edited by generative AI tools. -->
-<script context="module">
+<script module>
   import SVGMap from "../SVGMap/SVGMap.svelte";
   import SVGPointLayer from "./SVGPointLayer.svelte";
   import docs from "./SVGPointLayer.docs.md?raw";

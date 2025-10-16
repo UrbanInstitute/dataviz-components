@@ -1,4 +1,4 @@
-<script context="module">
+<script module>
   import LogoUrbanBadge from "./LogoUrbanBadge.svelte";
   import docs from "./LogoUrbanBadge.docs.md?raw";
   import { defineMeta } from "@storybook/addon-svelte-csf";

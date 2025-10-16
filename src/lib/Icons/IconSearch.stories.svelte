@@ -1,4 +1,4 @@
-<script context="module">
+<script module>
   import IconSearch from "./IconSearch.svelte";
   import { defineMeta } from "@storybook/addon-svelte-csf";
 
