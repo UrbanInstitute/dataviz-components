@@ -1,64 +1,34 @@
 import { Meta } from "@storybook/addon-docs/blocks";
 
-<Meta title="stores/matchMedia" />
+<Meta title="stores/reducedMotion" />
 
-# Media Query State (matchMedia)
+# prefers-reduced-motion Svelte Store
 
-[![github](https://badgen.net/badge/icon/GitHub?icon=github&label)](https://github.com/UrbanInstitute/dataviz-components/blob/main/src/lib/stores/matchMedia.svelte.js)
+[![github](https://badgen.net/badge/icon/GitHub?icon=github&label)](https://github.com/UrbanInstitute/dataviz-components/blob/main/src/lib/stores/reducedMotion.js)
 
-A rune-based state module that tracks media query preferences using the browser's `window.matchMedia()` API, adapted from [Geoff Rich's Accessible Svelte Transitions article](https://geoffrich.net/posts/accessible-svelte-transitions/).
+**Note:** This module has been deprecated. It remains available for support, but may be removed in a future version. This functionality has been superceded by the [matchMedia](/docs/stores-matchmedia--docs) module .
 
-This module currently tracks the user's `prefers-reduced-motion` preference, with a design that supports adding additional media queries in the future (e.g., `prefers-color-scheme`, `prefers-contrast`, viewport sizes).
+A Svelte store that tracks the user's preference for reduced motion, adapted from [Geoff Rich's Accessible Svelte Transitions article](https://geoffrich.net/posts/accessible-svelte-transitions/).
+
+Sometimes users may turn on "prefers-reduced-motion" in their accessibility settings. If this is this is the case, they expect to see no animations or transitions. This store uses `window.matchMedia()` to track the user's preference for reduced motion and can be used for conditional rendering.
 
 ## Usage
 
-This module provides two functions for managing media query state:
+In the example below, the tweened store can be used to animate a component position. If the user has reduced motion enabled, the animation duration is reduced to 0.
 
-- `createMatchMedia()` - Creates and initializes the media query state. Call this once at the root of your component tree (e.g., in your app layout).
-- `useMatchMedia()` - Gets the media query state from context. Call this in any child component that needs to access media query preferences.
+```js
+import { reducedMotion } from "@urbaninstitute/dataviz-components/stores";
+import { tweened } from "svelte/motion";
 
-### Setup
-
-First, initialize the media query context in your root layout:
-
-```svelte
-<!-- +layout.svelte -->
-<script>
-  import { createMatchMedia } from "@urbaninstitute/dataviz-components/stores";
-
-  // Initialize media query context for the entire app
-  createMatchMedia();
-</script>
+const tween = tweened(0, {
+  duration: $reducedMotion ? 0 : 500,
+  easing: cubicOut
+});
 ```
-
-### Using in Components
-
-Then, in any child component, access the media query state:
-
-```svelte
-<script>
-  import { useMatchMedia } from "@urbaninstitute/dataviz-components/stores";
-  import { tweened } from "svelte/motion";
-  import { cubicOut } from "svelte/easing";
-
-  const media = useMatchMedia();
-
-  const tween = tweened(0, {
-    duration: media.reducedMotion ? 0 : 500,
-    easing: cubicOut
-  });
-</script>
-```
-
-### Available Properties
-
-The media query state object currently provides:
-
-- `reducedMotion` (boolean) - `true` when the user has enabled "prefers-reduced-motion" in their accessibility settings
 
 ## Additional CSS for prefers-reduced-motion
 
-It's worth noting that CSS like the following will disable most native Svelte transitions and animations. The `reducedMotion` state above is useful if an animation function is not covered by this media query.
+It's worth noting that CSS like the following will disable most native Svelte transitions and animations. The `$reducedMotion` store above is useful if an animation function is not covered by this media query.
 
 ```css
 @media (prefers-reduced-motion: reduce) {
@@ -70,33 +40,3 @@ It's worth noting that CSS like the following will disable most native Svelte tr
 }
 ```
 
-## Deprecated API
-
-> **Warning:** The legacy `reducedMotion` readable store is deprecated and will be removed in a future major version. Please migrate to `createMatchMedia()`/`useMatchMedia()` as shown above.
-
-For backward compatibility, the legacy Svelte 4 readable store is still available:
-
-```svelte
-<script>
-  import { reducedMotion } from "@urbaninstitute/dataviz-components/stores";
-  import { tweened } from "svelte/motion";
-  import { cubicOut } from "svelte/easing";
-
-  const tween = tweened(0, {
-    duration: $reducedMotion ? 0 : 500,
-    easing: cubicOut
-  });
-</script>
-```
-
-**Migration path:**
-
-This legacy pattern requires no setup and uses Svelte's `$store` subscription syntax. However, it does not clean up properly in all contexts and doesn't support multiple component trees.
-
-To migrate:
-
-1. Add `createMatchMedia()` to your root layout (one time setup)
-2. Replace `import { reducedMotion }` with `import { useMatchMedia }`
-3. Replace `$reducedMotion` with `media.reducedMotion` (where `const media = useMatchMedia()`)
-
-See the [breaking changes log](https://github.com/UrbanInstitute/dataviz-components/blob/main/docs/runes-breaking-changes.md) for complete migration examples.

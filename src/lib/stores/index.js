@@ -8,3 +8,5 @@ export { createMatchMedia, useMatchMedia } from "./matchMedia.svelte.js";
 // Deprecated: Legacy readable store for backward compatibility
 // @deprecated Use createMatchMedia()/useMatchMedia() instead
 export { reducedMotion } from "./reducedMotion.js";
+
+export { usePymChild } from "../Pym/stores.svelte.js";
