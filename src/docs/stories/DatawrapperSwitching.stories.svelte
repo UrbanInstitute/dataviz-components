@@ -57,7 +57,7 @@
   source={`
 <script>
   import { BasicDropdown, DatawrapperIframe } from "@urbaninstitute/dataviz-components";
-  let selectedChart = $state();
+  let selectedChart = $state("AHpJL");
 
   const dropdownData = [
     {
@@ -89,7 +89,7 @@
   placeholder={null}
 />
 
-{#if selectedChartMetaData}
+{#if selectedChartMetadata}
   <DatawrapperIframe
     datawrapperId={selectedChartMetadata.value}
     title={selectedChartMetadata.label}
