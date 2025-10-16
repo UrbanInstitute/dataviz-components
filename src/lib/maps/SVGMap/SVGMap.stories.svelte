@@ -134,7 +134,13 @@
 </Story>
 
 <Story name="Feature highlight" asChild>
-  <SVGMap features={cleveland_bike_data.features} projection={geoMercator}>
+  <SVGMap
+    features={cleveland_bike_data.features}
+    projection={geoMercator}
+    onbgclick={() => {
+      clevelandHighlight = null;
+    }}
+  >
     <SVGPolygonLayer
       fill={(d) => clevelandBikeScale(d.properties.bike_to_work)}
       stroke="white"

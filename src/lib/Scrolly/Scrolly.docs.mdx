@@ -5,7 +5,7 @@ import { Meta, Controls, ArgTypes, Markdown, Story } from "@storybook/addon-docs
 
 # Scrolly
 
-A component that can be used to create "scrolly" sections and pages. This component is a wrapper around the [svelte-scroller](https://github.com/sveltejs/svelte-scroller) library. If your project has needs that go beyond what this component can support, you should consider using `svelte-scroller` directly. But for many common scenarious, the options provided here should have you covered.
+A component that can be used to create "scrolly" sections and pages. This component is a wrapper around the [svelte-scroller](https://github.com/sveltejs/svelte-scroller) library with a rune-based `ScrollyState` context under the hood. If you need behavior beyond what is provided here, compose directly with `svelte-scroller`, but for most editorial scrollytelling use cases this component is designed to be the starting point. Customization happens through snippet props and the context helper described below.
 
 Basic usage:
 
@@ -32,36 +32,31 @@ Basic usage:
 
 ## Background components
 
-While this component provides much of what you need to get started with a scrolly segment, you'll need to create your own background component. This can range from a very simple component that displays an image or a chart, to something highly complex with bespoke animations and transitions. The sky is the limit, and how you build your background component is up to you and the needs of your project. There are a few core pieces of functionality this component provides that will help you out. The `<Scrolly>` component provides key information about the current state of the scrolly via [Svelte's context API](https://svelte.dev/docs/svelte#setcontext), accessible through the `useScrollyState()` helper function. This means you don't need to worry about `let` bindings or passing the correct props to your background component inside your app. The following properties can be accessed from inside your background component:
+While this component provides much of what you need to get started with a scrolly segment, you'll supply your own background functionality via the `background` snippet. The `<Scrolly>` component creates a rune-based state class (`createScrollyState()`) and exposes it through the `useScrollyState()` helper. Call that helper inside any descendant (for example, your background component) to read reactive values without juggling stores or prop drilling. The state instance exposes the following properties:
 
 <Markdown>
   {`| property    | description                                                                                   |
 | ----------- | --------------------------------------------------------------------------------------------- |
-| index       | The index of the current slide. This variable can be used to determine what content should be displayed in the background|
-| offset      | How far the section has scrolled past the threshold, as a value between 0 and 1. |
-| progress    | How far the foreground has travelled, where 0 is the top of the foreground crossing \`top\`, and 1 is the bottom crossing \`bottom\`.|
-| slideHeight | The height in pixels of the current slide based on browser conditions. Can be used for sizing content in the background.|
-| slideWidth  | The width in pixels of the current slide based on browser conditions. Can be used for sizing content in the background.|
-| innerHeight | The viewable area of the window in pixels.|
+| index       | The zero-based index of the active slide. Use this to coordinate scene changes in the background.|
+| offset      | How far the current slide has scrolled past the threshold (0–1). Useful for triggering progressive animations.|
+| progress    | How far the foreground has travelled overall, where 0 is the top crossing \`top\` and 1 is the bottom crossing \`bottom\`.|
+| slideHeight | The height in pixels of the current slide. Use for sizing or positioning background content.|
+| slideWidth  | The width in pixels of the current slide.|
+| innerHeight | The viewport height in pixels.|
 `}
 </Markdown>
 
-You can access these values by calling the `useScrollyState()` helper function from within your background component:
+Access these values by calling the `useScrollyState()` helper function from within a descendant component or snippet:
 
 ```svelte
 <script>
   import { useScrollyState } from "@urbaninstitute/dataviz-components";
-
-  // Access scrolly state from context
   const scrolly = useScrollyState();
-
-  // Use scrolly state properties directly (they are reactive)
-  console.log("The current index is", scrolly.index);
-  console.log("The slideWidth is", scrolly.slideWidth);
 </script>
 
 <div>
-  Current slide: {scrolly.index}
+  <p>Current slide: {scrolly.index + 1}</p>
+  <p>Progress: {Math.round(scrolly.progress * 100)}%</p>
 </div>
 ```
 

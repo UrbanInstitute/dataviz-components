@@ -10,7 +10,7 @@ Use this document to record any intentional breaking changes introduced while mi
 
 ## Entries
 
-### 2025-01-XX: Media Query State Migration to Rune Context Helper (matchMedia)
+### 2025-10-15: Media Query State Migration to Rune Context Helper (matchMedia)
 
 **Components Affected**: SVGMap (internal), and any consumers using the `reducedMotion` store directly
 
@@ -77,17 +77,17 @@ The legacy store is still available for backward compatibility:
 
 **Impact**:
 
-- **Non-breaking (for now):** The old `reducedMotion` store export is still available
-- **Migration required eventually:** The deprecated store will be removed in v2.0.0
-- **New setup required:** The rune pattern requires setting up the context provider in your root component
-- **Access pattern changes:** From `$reducedMotion` to `media.reducedMotion`
-- **Benefits of migration:** Better cleanup, supports multiple component trees, more explicit dependencies, extensible for future media queries
+- **Non-breaking (for now):** The old `reducedMotion` store export remains available for consumers that cannot migrate immediately.
+- **Migration required eventually:** The deprecated store will be removed in v2.0.0. A console warning is emitted in development today.
+- **New setup required:** The rune pattern requires calling `createMatchMedia()` once at the root of your layout or app shell.
+- **Access pattern changes:** Replace `$reducedMotion` checks with `media.reducedMotion` from the returned state object.
+- **Benefits of migration:** Better SSR safety and cleanup, works across multiple component trees, and scales to additional media queries without new stores.
 
 **Timeline**:
 
-- **Current release:** Deprecated store available with warning
-- **Target removal:** v2.0.0 (major version bump)
-- **Recommended action:** Begin migration to new helpers at your earliest convenience
+- **Current release (Phase 5)**: Rune helpers shipped and docs/stories updated. Deprecated store still exported with warning.
+- **Target removal (v2.0.0)**: Legacy store slated for removal once downstream teams confirm adoption.
+- **Recommended action**: Adopt `createMatchMedia()`/`useMatchMedia()` now to avoid churn during the v2.0.0 upgrade window.
 
 **Reference**: Phase 5, Step 1 of the Svelte 5 migration.
 
@@ -268,92 +268,163 @@ After (Svelte 5):
 
 ---
 
-### 2025-01-XX: SVGMap Component Migration to Svelte 5 Runes
+### 2025-10-15: SVGMap Background Click Handling
 
-**Components Affected**: SVGMap, SVGPolygonLayer, SVGPointLayer, SVGLabelLayer, ZoomControls
+**Components Affected**: SVGMap and any consumers listening for map-level click events
 
-**Changes**:
+**Change**: Introduced a dedicated `onbgclick` callback prop that fires only when the map background (not a feature) is clicked. The existing `onclick` callback now fires exclusively for feature interactions propagated from layers.
 
-1. **Background event**: New `onbgclick` callback prop for background clicks; background clicks no longer invoke `onclick`
-2. **Tooltip customization**: Named slot `tooltip` replaced with snippet prop `tooltip`
-3. **Event handlers (staged)**:
-   - Map-level events: `SVGMap` now uses lowercase callback props (e.g., `onclick`, `onmousemove`, `onmouseout`, `onbgclick`).
-   - Layer events: remain Svelte 4 `on:` custom event directives in Step 2; will migrate to callback props in Phase 5 Step 3.
-4. **Internal implementation**: SVGMap internals now use a rune-based context class instead of Svelte stores (internal change, public API updated as noted above)
-
-**Rationale**: Svelte 5 runes use callback props instead of event dispatchers and snippets instead of named slots. The new `onbgclick` handler provides clearer separation between feature clicks and background clicks.
+**Rationale**: Downstream apps need to distinguish between background deselection and feature selection. Splitting the callbacks removes the need for defensive checks in every handler and matches the DOM-style event naming pattern adopted across the migration.
 
 **Migration Guide**:
-
-**Background click handling:**
 
 ```svelte
 <!-- Before -->
 <SVGMap {features} on:click={handleClick}>
-  <!-- Background clicks and feature clicks both called handleClick -->
+  <!-- Both background and feature clicks routed to handleClick -->
 </SVGMap>
 
 <!-- After -->
-<SVGMap {features} onclick={handleFeatureClick} onbgclick={handleBackgroundClick}>
-  <!-- Background clicks now use separate handler -->
+<SVGMap
+  {features}
+  onclick={(event) => handleFeatureClick(event.detail.props)}
+  onbgclick={() => clearSelection()}
+>
+  <!-- Background clicks are now isolated to onbgclick -->
 </SVGMap>
 ```
 
-**Tooltip customization:**
+**Impact**:
+
+- **Breaking**: Any handler previously wired to `on:click` must now accept two callbacks (`onclick` for features, `onbgclick` for the background).
+- **Non-breaking**: Event payloads remain `{ detail: { e, props } }`, so handler bodies require only the new dispatch location.
+
+**Timeline**:
+
+- **Released**: Phase 5 (2025-10-15) alongside the SVGMap rune migration.
+- **Action**: Update consuming apps immediately; the old `on:click` signature is no longer invoked for background clicks.
+
+**Reference**: Phase 5 – Visualization Suite background click decision.
+
+---
+
+### 2025-10-15: Map & Layer Snippet Prop Migration
+
+**Components Affected**: SVGMap, SVGPolygonLayer, SVGPointLayer, SVGLabelLayer, ZoomControls, associated docs/stories
+
+**Change**:
+
+1. All Svelte 4 named slots (`tooltip`, `children`, etc.) are now snippet props.
+2. Layer interaction hooks moved from Svelte 4 `on:` directives to lowercase callback props (`onclick`, `onmousemove`, `onmouseout`).
+
+**Rationale**: Snippet props and lowercase callbacks are the standard Svelte 5 patterns. They remove reliance on `let:` slot props, simplify TypeScript inference, and align with the migration guide so Storybook args and docs illustrate the canonical rune approach.
+
+**Migration Guide**:
 
 ```svelte
+<!-- Tooltip customization -->
 <!-- Before -->
 <SVGMap {features}>
   <div slot="tooltip" let:props>
     <h3>{props.name}</h3>
-    <p>{props.value}</p>
   </div>
 </SVGMap>
 
 <!-- After -->
 <SVGMap {features}>
   {#snippet tooltip(props)}
-    <div>
-      <h3>{props.name}</h3>
-      <p>{props.value}</p>
-    </div>
+    <h3>{props.name}</h3>
   {/snippet}
 </SVGMap>
 ```
 
-**Event handlers:**
+```svelte
+<!-- Layer events -->
+<!-- Before -->
+<SVGPolygonLayer on:click={handleClick} on:mousemove={handleHover} />
+
+<!-- After -->
+<SVGPolygonLayer onclick={handleClick} onmousemove={handleHover} />
+```
 
 ```svelte
+<!-- Label content -->
 <!-- Before -->
-<SVGMap {features} on:mousemove={handleMouseMove} on:mouseout={handleMouseOut}>
-  <SVGPolygonLayer {data} on:click={handleClick} on:mousemove={handleHover} />
-</SVGMap>
+<SVGLabelLayer let:props>
+  <span slot="children">{props.name}</span>
+</SVGLabelLayer>
 
-<!-- After (Step 2) -->
-<SVGMap {features} onmousemove={handleMouseMove} onmouseout={handleMouseOut}>
-  <!-- Layers still dispatch custom events in Step 2 -->
-  <SVGPolygonLayer {data} on:click={handleClick} on:mousemove={handleHover} />
-</SVGMap>
-
-<!-- After (Step 3) -->
-<SVGMap {features} onmousemove={handleMouseMove} onmouseout={handleMouseOut}>
-  <!-- Layers migrated to callback props -->
-  <SVGPolygonLayer {data} onclick={handleClick} onmousemove={handleHover} />
-</SVGMap>
+<!-- After -->
+<SVGLabelLayer>
+  {#snippet children(props)}
+    <span>{props.name}</span>
+  {/snippet}
+</SVGLabelLayer>
 ```
 
 **Impact**:
 
-- **Breaking**: `on:click` on the map background now requires `onbgclick` callback; `onclick` only fires for feature clicks
-- **Breaking**: Tooltip customization requires snippet syntax instead of named slot
-- **Breaking (staged)**: Map event handlers use lowercase callback props; layer event handlers remain `on:` until Step 3
-- **Non-breaking**: Internal context implementation changed to runes but maintains functional parity
+- **Breaking**: Named slots must be rewritten as snippet props; Storybook stories now demonstrate the new syntax.
+- **Breaking**: Layer callbacks must use lowercase props; `on:` directives no longer fire.
+- **Docs/Stories**: Updated examples highlight snippet usage and lowercase callbacks so downstream teams can copy/paste.
 
-**Reference**: Completed in Phase 5 of the Svelte 5 migration.
+**Timeline**:
+
+- **Released**: Phase 5 (2025-10-15) with updated docs and Storybook stories.
+- **Action**: Refactor custom map implementations to snippet props before upgrading.
+
+**Reference**: Phase 5 – Visualization Suite snippet conversion spec.
 
 ---
 
-### 2025-01-XX: Scrolly Component Migration to Svelte 5 Runes
+### 2025-10-15: SVGMap Rune Context Helpers
+
+**Components Affected**: SVGMap internals, SVGPolygonLayer, SVGPointLayer, SVGLabelLayer, and third-party custom layers
+
+**Change**: Replaced the legacy Svelte 4 context stores (`projectionStore`, `transformStore`, etc.) with a rune-based context class exposed via `createSVGMapContext()`/`useSVGMapContext()`.
+
+**Rationale**: Rune classes provide lifecycle-aware cleanup, remove implicit store subscriptions, and expose a single state object that can be extended in future map iterations. This mirrors the migration guide guidance for complex shared state.
+
+**Migration Guide**:
+
+```svelte
+<!-- Before -->
+<script>
+  import { getContext } from "svelte";
+
+  const { projection, transform } = getContext("map");
+
+  const path = geoPath($projection);
+</script>
+
+<!-- After -->
+<script>
+  import { useSVGMapContext } from "@urbaninstitute/dataviz-components/maps";
+  import { geoPath } from "d3-geo";
+
+  const map = useSVGMapContext();
+  const path = $derived(geoPath(map.projection));
+</script>
+
+<path d={path(feature)} />
+```
+
+**Impact**:
+
+- **Breaking**: Custom layers that referenced the legacy `"map"` context key must switch to `useSVGMapContext()`.
+- **Non-breaking**: Built-in layers already migrated; consumers only need to update external overrides.
+- **Extension point**: The rune context exposes helper methods (`onPointerMove`, `onPointerDown`, `onPointerOut`) and shared state in one place.
+
+**Timeline**:
+
+- **Released**: Phase 5 (2025-10-15). Legacy context stores removed in the same release.
+- **Action**: Update any custom layers or forks immediately to avoid runtime errors when `getContext("map")` is undefined.
+
+**Reference**: Phase 5 – SVGMap context refactor.
+
+---
+
+### 2025-10-15: Scrolly Component Migration to Svelte 5 Runes
 
 **Components Affected**: Scrolly
 
@@ -434,10 +505,15 @@ After (Svelte 5):
 
 **Impact**:
 
-- **Breaking**: Background and foreground customization now requires snippet syntax instead of named slots
-- **Breaking**: Context API changed from Svelte stores (`getContext("scrolly")`) to rune state helper (`useScrollyState()`)
-- **Breaking**: State access changed from `$storeName` to `scrolly.propertyName`
-- **New export**: `useScrollyState` is now exported from the package root for use in background/foreground components
-- **Non-breaking**: All prop names and behavior remain the same; only the customization API has changed
+- **Breaking**: Background and foreground customization now requires snippet syntax instead of named slots.
+- **Breaking**: Context API changed from Svelte stores (`getContext("scrolly")`) to rune state helper (`useScrollyState()`).
+- **Breaking**: State access changed from `$storeName` to `scrolly.propertyName`.
+- **New export**: `useScrollyState` is exported from the package root for reuse across backgrounds/foregrounds.
+- **Non-breaking**: Prop names and core behavior remain the same; only customization and context APIs changed.
+
+**Timeline**:
+
+- **Released**: Phase 5 (2025-10-15) with updated docs and stories demonstrating `useScrollyState()`.
+- **Action**: Migrate background components before upgrading to the Phase 5 release to avoid runtime errors.
 
 **Reference**: Completed in Phase 5, Step 6 of the Svelte 5 migration.

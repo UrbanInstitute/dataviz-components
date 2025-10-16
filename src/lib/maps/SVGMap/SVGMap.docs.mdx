@@ -1,7 +1,7 @@
 import * as Stories from "./SVGMap.stories.svelte";
 import { Meta, Controls, ArgTypes, Markdown, Canvas } from "@storybook/addon-docs/blocks";
 
-<Meta component={Stories.SVGMap} of={Stories} />
+<Meta of={Stories} />
 
 # SVGMap
 
@@ -218,7 +218,7 @@ And then you can render the bubble map here:
 
 ## Advanced: Custom layers with rune-based context
 
-For developers creating custom map layers, `SVGMap` uses a rune-based context system via `useSVGMapContext()`. The legacy Svelte 4 context has been removed.
+For developers creating custom map layers, `SVGMap` uses a rune-based context system via `createSVGMapContext()` and `useSVGMapContext()`. The map component calls `createSVGMapContext()` internally, so layer components (including external ones) only need to call `useSVGMapContext()` to access the shared state. The legacy Svelte 4 context has been removed.
 
 The context provides:
 

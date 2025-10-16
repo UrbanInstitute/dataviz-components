@@ -63,21 +63,21 @@ Use this tracker to coordinate task status and surface follow-up actions as the 
 
 ## Phase 5 – Visualization Suite
 
-| Component / Area                 | Status | Notes                                                                              |
-| -------------------------------- | ------ | ---------------------------------------------------------------------------------- |
-| ChartBlock                       | `done` | Migrated to $props() and children snippet; stories and docs updated                |
-| Layercake axes                   | `done` | Migrated to runes with $props(), axes rendering preserved                          |
-| Scrolly                          | `done` | Rune state + snippet props complete; useScrollyState() exported; docs/stories done |
-| Maps suite (map, layers, legend) | `todo` |                                                                                    |
-| Zoom & interaction controls      | `todo` |                                                                                    |
+| Component / Area                 | Status | Notes                                                                                |
+| -------------------------------- | ------ | ------------------------------------------------------------------------------------ |
+| ChartBlock                       | `done` | Migrated to $props() and children snippet; stories and docs updated                  |
+| Layercake axes                   | `done` | Migrated to runes with $props(), axes rendering preserved                            |
+| Scrolly                          | `done` | Rune state + snippet props complete; useScrollyState() exported; docs/stories done   |
+| Maps suite (map, layers, legend) | `done` | Docs & stories refreshed for snippet props, lowercase callbacks, onbgclick validated |
+| Zoom & interaction controls      | `done` | Zoom controls confirmed post-migration; Storybook stories exercise new docs          |
 
 ## Phase 6 – Docs & Stories
 
-| Component / Area                         | Status | Notes |
-| ---------------------------------------- | ------ | ----- |
-| Docs content updates (`src/docs`)        | `todo` |       |
-| Storybook story migrations               | `todo` |       |
-| `build-storybook` + smoke test batch run | `todo` |       |
+| Component / Area                         | Status | Notes                                                                                  |
+| ---------------------------------------- | ------ | -------------------------------------------------------------------------------------- |
+| Docs content updates (`src/docs`)        | `done` | Phase 5 sweep completed (`SVGMap`, `Scrolly`, reducedMotion) with migration-guide tone |
+| Storybook story migrations               | `done` | Map, Scrolly, ChartBlock stories updated for snippet props + lowercase callbacks       |
+| `build-storybook` + smoke test batch run | `done` | `npm run build-storybook` + `build-storybook:test` passed 2025-10-15                   |
 
 ## Follow-ups / Blockers
 

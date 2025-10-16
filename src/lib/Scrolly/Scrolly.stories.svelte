@@ -30,16 +30,26 @@
   const slides = ["Slide 1", "Slide 2", "Slide 3"];
 </script>
 
-<Story name="Primary" args={{ slides }}>
-  {#snippet template(args)}
-    <Scrolly {...args}>
-      {#snippet background()}
-        <div
-          style="width: 100%; height: 100vh; color: var(--color-white); font-weight: var(--font-weight-bold); background: var(--color-blue); display: flex; align-items: center; justify-content: center;"
-        >
-          Scrolly background
+<script>
+  import { useScrollyState } from "$lib";
+</script>
+
+{#snippet template(args)}
+  <Scrolly {...args}>
+    {#snippet background()}
+      {@const scrolly = useScrollyState()}
+      {@const totalSlides = args.slides?.length ?? 0}
+      <div
+        style="width: 100%; height: 100vh; color: var(--color-white); font-weight: var(--font-weight-bold); background: var(--color-blue); display: flex; flex-direction: column; gap: var(--spacing-4); align-items: center; justify-content: center;"
+      >
+        <div>Scrolly background</div>
+        <div>
+          Slide {scrolly.index + 1} of {totalSlides}
         </div>
-      {/snippet}
-    </Scrolly>
-  {/snippet}
-</Story>
+        <div>Progress: {Math.round(scrolly.progress * 100)}%</div>
+      </div>
+    {/snippet}
+  </Scrolly>
+{/snippet}
+
+<Story name="Primary" args={{ slides }} {template} />
