@@ -28,7 +28,7 @@
     .range(urbanColors.getDivergingColors());
 </script>
 
-<Story name="Primary">
+<Story name="Primary" asChild>
   <ChartBlock
     title="Air quality index by U.S. county"
     source="Urban Institute Upward Mobility Framework"
