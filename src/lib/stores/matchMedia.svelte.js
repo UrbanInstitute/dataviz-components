@@ -67,10 +67,8 @@ export function createMatchMedia() {
  */
 export function useMatchMedia() {
   if (!hasContext(MATCH_MEDIA_KEY)) {
-    throw new Error(
-      "useMatchMedia() must be called within a component tree that has called createMatchMedia(). " +
-        "Call createMatchMedia() in your root layout or a parent component."
-    );
+    // if a component wants to use MatchMedia and no ancestor has initialized it in the contex, go ahead and create a new context
+    return createMatchMedia();
   }
   return getContext(MATCH_MEDIA_KEY);
 }
