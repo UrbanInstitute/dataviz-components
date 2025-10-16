@@ -2,7 +2,7 @@
   @component
   Generates an SVG x-axis. This component is also configured to detect if your x-scale is an ordinal scale. If so, it will place the markers in the middle of the bandwidth.
  -->
-<!-- Portions of this code have been written or edited by generative AI tools. -->
+<!-- A generative AI model wrote or edited portions of this file with the supervision of a human developer and careful human review. -->
 <script>
   import { getContext } from "svelte";
   const { width, height, xScale, yRange } = getContext("LayerCake");

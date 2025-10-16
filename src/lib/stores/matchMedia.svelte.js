@@ -1,4 +1,4 @@
-// Portions of this code have been written or edited by generative AI tools.
+// A generative AI model wrote or edited portions of this file with the supervision of a human developer and careful human review.
 // Rune-based state module for tracking media query preferences
 // Replaces the legacy Svelte 4 store implementation
 

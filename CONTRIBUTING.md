@@ -79,7 +79,7 @@ All components in this library use **Svelte 5 runes** for props, state, reactivi
 When modifying source or test files as part of the Svelte 5 migration, add this comment at the top of the file:
 
 ```svelte
-<!-- Portions of this code have been written or edited by generative AI tools. -->
+<!-- A generative AI model wrote or edited portions of this file with the supervision of a human developer and careful human review. -->
 ```
 
 **Note**: Documentation files (`.md`) do not require this comment.
