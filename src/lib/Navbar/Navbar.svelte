@@ -5,10 +5,10 @@
 
   /**
    * @typedef {Object} Props
-   * @property {string} [title] - Title to display in the navbar
-   * @property {string} [projectUrl] - URL to link to from the title
-   * @property {"urban" | "tpc"} [brand] - Brand to use for the logo
-   * @property {boolean} [sticky] - Option to make the navbar sticky
+   * @property {string} [title=""] - Title to display in the navbar
+   * @property {string} [projectUrl=""] - URL to link to from the title
+   * @property {"urban" | "tpc"} [brand="urban"] - Brand to use for the logo
+   * @property {boolean} [sticky=false] - Option to make the navbar sticky
    */
 
   /** @type {Props} */

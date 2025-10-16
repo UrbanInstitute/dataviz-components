@@ -7,25 +7,25 @@
 
   /**
    * @typedef {Object} Props
-   * @property {import("d3-geo").GeoPermissibleObjects[]=} features A list of GeoJSON features rendered by this layer.
-   * @property {(feature: any) => string | string=} fill A color string or function applied to fills.
-   * @property {string=} hoverFill Optional fill override when hovered.
-   * @property {string=} naFill Color for NA or undefined values.
-   * @property {(feature: any) => string | string=} stroke Stroke color or accessor.
-   * @property {string=} hoverStroke Optional stroke override when hovered.
-   * @property {number=} strokeWidth Stroke width of each feature.
-   * @property {number=} hoverStrokeWidth Stroke width when hovered.
-   * @property {number | ((feature: any) => number)=} r Function or static radius for the circle fallback.
-   * @property {number=} opacity Opacity of point circles.
-   * @property {string=} ariaRole Optional aria role string applied to each feature.
-   * @property {string | ((feature: any) => string)=} ariaLabel Optional aria label string or accessor.
-   * @property {Record<string, any>=} highlightFeature Object compared to feature properties for highlight.
-   * @property {boolean=} pointerEvents Whether the layer responds to pointer events.
-   * @property {boolean=} tooltip Whether the layer should populate the tooltip slot.
+   * @property {import("d3-geo").GeoPermissibleObjects[]} [features] A list of GeoJSON features rendered by this layer.
+   * @property {(feature: any) => string | string} [fill=urbanColors.white] A color string or function applied to fills.
+   * @property {string} [hoverFill] Optional fill override when hovered.
+   * @property {string} [naFill=urbanColors.gray_shade_light] Color for NA or undefined values.
+   * @property {(feature: any) => string | string} [stroke=urbanColors.black] Stroke color or accessor.
+   * @property {string} [hoverStroke] Optional stroke override when hovered.
+   * @property {number} [strokeWidth=0] Stroke width of each feature.
+   * @property {number} [hoverStrokeWidth] Stroke width when hovered.
+   * @property {number | ((feature: any) => number)} [r=4] Function or static radius for the circle fallback.
+   * @property {number} [opacity=1] Opacity of point circles.
+   * @property {string} [ariaRole] Optional aria role string applied to each feature.
+   * @property {string | ((feature: any) => string)} [ariaLabel] Optional aria label string or accessor.
+   * @property {Record<string, any>} [highlightFeature] Object compared to feature properties for highlight.
+   * @property {boolean} [pointerEvents=true] Whether the layer responds to pointer events.
+   * @property {boolean} [tooltip=false] Whether the layer should populate the tooltip slot.
    * @property {(event: CustomEvent<{ e: PointerEvent; props: any }>) => void=} onclick Optional click callback.
    * @property {(event: CustomEvent<{ e: PointerEvent; props: any }>) => void=} onmousemove Optional mousemove callback.
    * @property {(event: CustomEvent<{ e: PointerEvent }>) => void=} onmouseout Optional mouseout callback.
-   * @property {import("svelte").Snippet<[feature: any, x: number, y: number]>=} children Optional snippet used to render each point.
+   * @property {import("svelte").Snippet<[feature: any, x: number, y: number]>} [children] Optional snippet used to render each point.
    */
 
   /** @type {Props} */

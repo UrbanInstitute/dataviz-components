@@ -4,12 +4,14 @@
   /**
    * @typedef Props
    * @type Object
-   * @property {"primary" | "primary-black" | "secondary" | "secondary-black" | "tertiary"} variant - Which variant of button to use
-   * @property {"standard" | "small" } size
-   * @property { boolean } disabled - Is the button disabled?
-   * @property {Function} onmouseenter - Callback for mouse enter event
-   * @property {Function} onmouseleave - Callback for mouse leave event
-   * @property {Function} onclick - Callback for click event
+   * @property {"primary" | "primary-black" | "secondary" | "secondary-black" | "tertiary"} [variant="primary"] - Which variant of button to use
+   * @property {"standard" | "small"} [size="standard"]
+   * @property {boolean} [disabled=false] - Is the button disabled?
+   * @property {(event: MouseEvent) => void} [onmouseenter=() => {}] - Callback for mouse enter event
+   * @property {(event: MouseEvent) => void} [onmouseleave=() => {}] - Callback for mouse leave event
+   * @property {(event: MouseEvent) => void} [onclick=() => {}] - Callback for click event
+   * @property {import('svelte').Snippet} [children=() => {}] - Content rendered inside the button
+   * @property {import('svelte').Snippet<[string]>} [icon=(iconColor) => {}] - Optional icon snippet that receives the computed icon color
    */
 
   /**

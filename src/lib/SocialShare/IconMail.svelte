@@ -2,8 +2,8 @@
 <script>
   /**
    * @typedef {Object} Props
-   * @property {"dark" | "light"} [variant] - The color variant of the icon
-   * @property {number} [size] - The width and height dimension for the icon
+   * @property {"dark" | "light"} [variant="dark"] - The color variant of the icon
+   * @property {number} [size=49] - The width and height dimension for the icon
    */
 
   /** @type {Props} */

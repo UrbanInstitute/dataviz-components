@@ -5,8 +5,8 @@
 
   /**
    * @typedef {Object} Props
-   * @property {boolean} [isChildLoading]
-   * @property {string | null} [backgroundColor]
+   * @property {boolean} [isChildLoading=true]
+   * @property {string | null} [backgroundColor=urbanColors.white]
    * @property {import('svelte').Snippet<[void]>} [graphic]
    * @property {import('svelte').Snippet<[{
    *   setChildLoading: () => void;

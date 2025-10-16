@@ -10,10 +10,10 @@
 
   /**
    * @typedef {Object} Props
-   * @property {string} shareUrl - URL to share on social media platforms
-   * @property {(evt: MouseEvent, platform: string) => void} [onclick] - An optional custom click handler to be called when any share button is clicked
-   * @property {"dark" | "light"} [variant] - The color variant of the social media icons
-   * @property {number} [iconSize] - The size of the social media icons
+   * @property {string} [shareUrl=""] - URL to share on social media platforms
+   * @property {(evt: MouseEvent, platform: string) => void} [onclick=(evt, platform) => {}] - An optional custom click handler to be called when any share button is clicked
+   * @property {"dark" | "light"} [variant="dark"] - The color variant of the social media icons
+   * @property {number} [iconSize=24] - The size of the social media icons
    */
 
   /** @type {Props} */

@@ -5,7 +5,7 @@
 
   /**
    * @typedef {Object} Props
-   * @property {number} [width] - The width of the logo
+   * @property {number} [width=100] - The width of the logo
    */
 
   /** @type {Props} */

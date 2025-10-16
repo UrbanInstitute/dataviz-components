@@ -4,7 +4,7 @@
 
   /**
    * @typedef {Object} Props
-   * @property {string} [fill] - Hex color for arrow fill
+   * @property {string} [fill=urbanColors.white] - Hex color for arrow fill
    */
 
   /** @type {Props} */

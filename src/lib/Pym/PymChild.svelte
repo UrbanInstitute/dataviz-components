@@ -5,7 +5,7 @@
 
   /**
    * @typedef {Object} Props
-   * @property {number} [polling]
+   * @property {number} [polling=500]
    * @property {import('svelte').Snippet} [children]
    */
 

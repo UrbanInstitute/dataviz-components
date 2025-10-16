@@ -6,14 +6,14 @@
 
   /**
    * @typedef {Object} Props
-   * @property {"primary" | "secondary-blue" | "secondary-black" | "secondary-yellow"} [variant] - Variant of dropdown
+   * @property {"primary" | "secondary-blue" | "secondary-black" | "secondary-yellow"} [variant="primary"] - Variant of dropdown
    * @property {string} id - Unique id given to the dropdown DOM node
-   * @property {string | null} value - Binds to the current value for the dropdown (data.value)
+   * @property {string | null} [value] - Binds to the current value for the dropdown (data.value)
    * @property {{ value: string, label: string}[]} data - Source data as an array of objects (value and label attributes)
    * @property {string} inlineLabel - Label for the dropdown (used for accessibility even if showLabel is set to false)
-   * @property {boolean} [showLabel] - Show label above dropdown
-   * @property {string | null} [placeholder] - Placeholder for when no option is selected (accepts a null value)
-   * @property {number} [dropdownWidth] - Width (px) of the dropdown
+   * @property {boolean} [showLabel=false] - Show label above dropdown
+   * @property {string | null} [placeholder="Select..."] - Placeholder for when no option is selected (accepts a null value)
+   * @property {number} [dropdownWidth=260] - Width (px) of the dropdown
    * @property {(event: Event) => void} [onchange] - Callback fired when dropdown value changes
    * @property {import('svelte').Snippet} [icon] - Custom icon snippet to replace default chevron
    */

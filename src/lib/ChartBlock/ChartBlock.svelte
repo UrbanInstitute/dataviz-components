@@ -5,7 +5,7 @@
 
   /**
    * @typedef {Object} ChartBlockProps
-   * @property {import("../Block/Block.svelte").BlockWidth} [width="body"] - The width of the text block. Defaults to "body" (max-width: 760px)
+   * @property {import("../Block/Block.svelte").blockWidth} [width="body"] - The width of the text block. Defaults to "body" (max-width: 760px)
    * @property {string} [title] - The title of the chart block
    * @property {string} [description] - The description of the chart block
    * @property {string} [source] - The source to include below the chart body - accepts HTML

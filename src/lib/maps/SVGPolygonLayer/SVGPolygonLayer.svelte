@@ -7,19 +7,19 @@
 
   /**
    * @typedef {Object} Props
-   * @property {import("d3-geo").GeoPermissibleObjects[]=} features A list of GeoJSON features. By default this component will render the features set in the parent SVGMap, but if `features` is defined, it plots those instead.
-   * @property {boolean=} pointerEvents Boolean that determines if this layer should respond to pointer events and dispatch events.
-   * @property {(feature: any) => string | string=} fill A color string or a function that takes a feature and returns a color string. Use in combination with a D3 scale for a dynamic color encoding.
-   * @property {string=} hoverFill Optional color to use for a feature's fill when hovered.
-   * @property {string=} naFill Color to use for values that are NA or otherwise undefined in the color scale.
-   * @property {(feature: any) => string | string=} stroke A color string or a function that takes a feature and returns a color string.
-   * @property {string=} hoverStroke Optional color string for hovered feature stroke.
-   * @property {number=} strokeWidth Stroke width of each feature.
-   * @property {number=} hoverStrokeWidth Stroke width of each feature when hovered.
-   * @property {string=} ariaRole Optional aria role string applied to each feature.
-   * @property {string | ((feature: any) => string)=} ariaLabel Optional aria label string or function applied to each feature.
-   * @property {Record<string, any>=} highlightFeature Optional object matched against feature properties to determine highlight state.
-   * @property {boolean=} tooltip Boolean that determines if this layer should populate the tooltip slot when interacted with.
+   * @property {import("d3-geo").GeoPermissibleObjects[]} [features] A list of GeoJSON features. By default this component will render the features set in the parent SVGMap, but if `features` is defined, it plots those instead.
+   * @property {boolean} [pointerEvents=true] Boolean that determines if this layer should respond to pointer events and dispatch events.
+   * @property {(feature: any) => string | string} [fill=urbanColors.blue] A color string or a function that takes a feature and returns a color string. Use in combination with a D3 scale for a dynamic color encoding.
+   * @property {string} [hoverFill] Optional color to use for a feature's fill when hovered.
+   * @property {string} [naFill=urbanColors.gray_shade_light] Color to use for values that are NA or otherwise undefined in the color scale.
+   * @property {(feature: any) => string | string} [stroke=urbanColors.white] A color string or a function that takes a feature and returns a color string.
+   * @property {string} [hoverStroke] Optional color string for hovered feature stroke.
+   * @property {number} [strokeWidth=0.5] Stroke width of each feature.
+   * @property {number} [hoverStrokeWidth] Stroke width of each feature when hovered.
+   * @property {string} [ariaRole] Optional aria role string applied to each feature.
+   * @property {string | ((feature: any) => string)} [ariaLabel] Optional aria label string or function applied to each feature.
+   * @property {Record<string, any>} [highlightFeature] Optional object matched against feature properties to determine highlight state.
+   * @property {boolean} [tooltip=false] Boolean that determines if this layer should populate the tooltip slot when interacted with.
    * @property {(event: CustomEvent<{ e: PointerEvent; props: any }>) => void=} onclick Optional click callback.
    * @property {(event: CustomEvent<{ e: PointerEvent; props: any }>) => void=} onmousemove Optional mousemove callback.
    * @property {(event: CustomEvent<{ e: PointerEvent }>) => void=} onmouseout Optional mouseout callback.

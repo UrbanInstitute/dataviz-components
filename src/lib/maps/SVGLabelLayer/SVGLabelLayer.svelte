@@ -8,21 +8,21 @@
 
   /**
    * @typedef {Object} Props
-   * @property {import("d3-geo").GeoPermissibleObjects[]=} features A list of GeoJSON features rendered as labels.
-   * @property {string=} fontColor Color of the text label.
-   * @property {number=} fontSize Font size of the label text.
-   * @property {string=} stroke Color of the text outline.
-   * @property {number=} strokeWidth Width of the text outline.
-   * @property {string=} textAnchor Text anchor value for the label.
-   * @property {string=} dy SVG `dy` offset applied to the label.
-   * @property {number=} minZoom Minimum zoom factor at which to render the layer.
-   * @property {boolean=} pointerEvents Whether the layer responds to pointer events.
-   * @property {(feature: any) => string=} getLabel Function that returns the label text for a feature.
-   * @property {boolean=} tooltip Whether the layer should populate the tooltip slot.
+   * @property {import("d3-geo").GeoPermissibleObjects[]} [features] A list of GeoJSON features rendered as labels.
+   * @property {string} [fontColor=urbanColors.white] Color of the text label.
+   * @property {number} [fontSize=12] Font size of the label text.
+   * @property {string} [stroke=urbanColors.black] Color of the text outline.
+   * @property {number} [strokeWidth=3] Width of the text outline.
+   * @property {string} [textAnchor="middle"] Text anchor value for the label.
+   * @property {string} [dy="-.5em"] SVG `dy` offset applied to the label.
+   * @property {number} [minZoom=0] Minimum zoom factor at which to render the layer.
+   * @property {boolean} [pointerEvents=true] Whether the layer responds to pointer events.
+   * @property {(feature: any) => string} [getLabel] Function that returns the label text for a feature.
+   * @property {boolean} [tooltip=false] Whether the layer should populate the tooltip slot.
    * @property {(event: CustomEvent<{ e: PointerEvent; props: any }>) => void=} onclick Optional click callback.
    * @property {(event: CustomEvent<{ e: PointerEvent; props: any }>) => void=} onmousemove Optional mousemove callback.
    * @property {(event: CustomEvent<{ e: PointerEvent }>) => void=} onmouseout Optional mouseout callback.
-   * @property {import("svelte").Snippet<[props: any]>=} children Optional snippet to render label content.
+   * @property {import("svelte").Snippet<[props: any]>} [children] Optional snippet to render label content.
    */
 
   /** @type {Props} */
@@ -36,7 +36,7 @@
     dy = "-.5em",
     minZoom = 0,
     pointerEvents = true,
-    getLabel = (d) => d,
+    getLabel,
     tooltip = false,
     onclick = undefined,
     onmousemove = undefined,
@@ -109,7 +109,7 @@
           <!-- Default slot overrides output of `getLabel` prop -->
           {#if children}
             {@render children(feature.properties)}
-          {:else}
+          {:else if getLabel}
             {getLabel(feature)}
           {/if}
         </text>
@@ -120,7 +120,7 @@
           style:font-size={`${fontSize / map.transform.k}px`}
           fill={fontColor}
           text-anchor={textAnchor}
-          >{#if children}{@render children(feature.properties)}{:else}{getLabel(feature)}{/if}</text
+          >{#if children}{@render children(feature.properties)}{:else if getLabel}{getLabel(feature)}{/if}</text
         >
       </g>
     {/each}

@@ -34,8 +34,8 @@
   /**
    * @typedef {Object} Props
    * @property {string} title - A descriptive title for your project. Used to collect events within GA.
-   * @property {boolean} [sendPageview] - Set to false to skip initial pageview. Useful for projects that are primarily embedded on pages with their own analytics.
-   * @property {string} [mode] - If set to "development", logClickToGA will print debugging info rather than sending events to GA. Set to "production" to send actual events.
+   * @property {boolean} [sendPageview=true] - Set to false to skip initial pageview. Useful for projects that are primarily embedded on pages with their own analytics.
+   * @property {string} [mode="production"] - If set to "development", logClickToGA will print debugging info rather than sending events to GA. Set to "production" to send actual events.
    */
 
   /** @type {Props} */

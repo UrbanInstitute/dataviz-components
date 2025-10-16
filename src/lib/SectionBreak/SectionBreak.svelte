@@ -5,8 +5,8 @@
    * @typedef {Object} Props
    * @property {string} number - String to display as the "number" of the section
    * @property {string} subhead - String to display as the subhead
-   * @property {string} [accentColor] - Color to be used for the number
-   * @property {string} [fontWeight] - Font weight of the number
+   * @property {string} [accentColor="#9d9d9d"] - Color to be used for the number
+   * @property {string} [fontWeight="var(--font-weight-light)"] - Font weight of the number
    */
 
   /** @type {Props} */
