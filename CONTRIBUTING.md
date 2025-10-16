@@ -92,8 +92,8 @@ Use `$props()` for component props with destructuring and defaults. Always inclu
   /**
    * @typedef {Object} Props
    * @property {string} name - User's name
-   * @property {number} [age] - User's age (optional)
-   * @property {'small' | 'large'} [size] - Component size
+   * @property {number} [age=25] - User's age (optional)
+   * @property {'small' | 'large'} [size="small"] - Component size
    */
 
   /** @type {Props} */
@@ -209,8 +209,6 @@ export function useMyState() {
 </button>
 ```
 
-**Important**: When migrating from stores to state classes, **do not modify external stores** from third-party libraries (e.g., Layercake). Subscribe to them using the legacy `$store` syntax instead.
-
 ### Event Handlers
 
 **Use lowercase event names** matching DOM conventions: `onclick`, `onmouseenter`, `onkeydown`, etc.
@@ -254,7 +252,7 @@ Follow this pattern for commit messages:
 **Examples:**
 
 ```
-Button: add disabled state styling
+Feat: add disabled state styling to Button component
 Fix: correct event handler naming in Toggle component
 Docs: refresh component usage guide
 ```
@@ -292,7 +290,6 @@ Before committing:
 
    - Link to related issues
    - Describe what changed and why
-   - Include screenshots/GIFs for UI changes
    - Note any breaking changes
    - Call out packaging considerations
 
@@ -307,6 +304,7 @@ Before committing:
 - [ ] Breaking changes logged (if any)
 - [ ] No linting errors
 - [ ] Build completes successfully
+- [ ] Changelog updated
 
 ## Style Guide
 
@@ -340,11 +338,12 @@ Order sections in your component as follows:
 8. Helper functions
 9. Lifecycle hooks
 10. Template (`<div>...</div>`)
-11. `<style>` (scoped by default)
+11. `<style>`
 
 ## Additional Resources
 
 - [Svelte 5 Official Docs](https://svelte.dev/docs/svelte/overview) - Official Svelte 5 documentation
+- [Layercake docs](https://layercake.graphics/) - Layercake documentation for working with visualization components
 
 ## Questions?
 
