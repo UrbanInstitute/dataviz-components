@@ -135,7 +135,7 @@ Use `$state()` for reactive values within a component:
 
 #### Derived State
 
-Use `$derived()` for values computed from other state:
+Use `$derived()` for values computed from other states:
 
 ```svelte
 <script>
