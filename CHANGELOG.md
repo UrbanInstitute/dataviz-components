@@ -2,6 +2,8 @@
 
 ## Next
 
+- Fix: Typo; Theme size for h2 on smaller screens now renders at proper font size
+
 ## v1.0.7
 
 - Fix: Syntax error in toggle component
