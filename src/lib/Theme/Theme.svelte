@@ -167,7 +167,7 @@
   .theme :global(h2) {
     color: var(--color-black);
     font-family: var(--font-family-sans-alt);
-    font-size: var(--font-size-3_5xl);
+    font-size: var(--font-size-3-5xl);
     font-variant-ligatures: none;
     font-weight: var(--font-weight-bold);
     line-height: 40px;
