@@ -2,7 +2,7 @@
 <script>
   /**
    * @typedef {Object} Props
-   * @property {number} [width] - The width of the logo
+   * @property {number} [width=80] - The width of the logo
    */
 
   /** @type {Props} */
