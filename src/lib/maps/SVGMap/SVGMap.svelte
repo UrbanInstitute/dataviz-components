@@ -11,25 +11,25 @@
 
   /**
    * @typedef {Object} Props
-   * @property {Object[]} features - An array of geojson features to be displayed on the map. The map will scale the projection to fit this set of features.
-   * @property {function} [projection = geoAlbersUsa] - A D3 geo projection to use with this map. Defaults to geoAlbersUsa.
-   * @property {"bottom-left" | "bottom-right" | "top-left" | "top-right"} [controlPosition = "bottom-right"] - Where the zoom control UI should be positioned.
-   * @property {number} [height = 600] - The height of the map in pixels.
-   * @property {number} [aspectRatio = undefined] - Set the height of the map to a fixed aspect ratio based on width. This overrides the `height` property.
-   * @property {string} [ariaRole = undefined] - Optional aria role string to be applied to SVG container. By default, the SVG is hidden from the accessibility tree. If you add an ariaRole here, any layers should also be given an ariaRole.
-   * @property {string} [ariaLabel = undefined] - Optional aria label string to be applied to SVG container. By default, the SVG is hidden from the accessibility tree and should include a descriptive label. If you add an ariaRole this property can be left undefined;
-   * @property {boolean} [zoomable = false] - Should the map allow zoom and pan?
-   * @property {number} [maxZoom = 8] - If map is zoomable, sets a maximum zoom factor relative to the initial view.
-   * @property {"no" | "yes" | "ctrl"} [scrollWheel = "ctrl"] - Whether or not the map should zoom when scroll wheel is used on map.
-   * @property {string} [backgroundColor = "transparent"] - Fill for the background of the map
-   * @property {boolean} [tooltipContainParent = false] - If there is a tooltip on the map, should it be contained to the parent element
-   * @property {"small" | "large"} [tooltipSize = "small"] - whether to use a small (138px) or large (198px) width tooltip
-   * @property {(e: CustomEvent<{ e: PointerEvent; props: any }>) => void} [onclick] - Callback fired when a layer element is clicked
-   * @property {(e: CustomEvent<{ e: PointerEvent; props: any }>) => void} [onmousemove] - Callback fired when mouse moves over layer elements
-   * @property {(e: CustomEvent<{ e: PointerEvent }>) => void} [onmouseout] - Callback fired when mouse leaves layer elements
-   * @property {(e: CustomEvent<{ e: PointerEvent }>) => void} [onbgclick] - Callback fired when the map background is clicked
-   * @property {import('svelte').Snippet<[any]>} [tooltip] - Snippet for rendering tooltip content
-   * @property {import('svelte').Snippet} [children] - Default slot content (map layers)
+   * @property {Object[]} features An array of geojson features to be displayed on the map. The map will scale the projection to fit this set of features.
+   * @property {function} [projection = geoAlbersUsa] A D3 geo projection to use with this map. Defaults to geoAlbersUsa.
+   * @property {"bottom-left" | "bottom-right" | "top-left" | "top-right"} [controlPosition = "bottom-right"] Where the zoom control UI should be positioned.
+   * @property {number} [height = 600] The height of the map in pixels.
+   * @property {number} [aspectRatio = undefined] Set the height of the map to a fixed aspect ratio based on width. This overrides the `height` property.
+   * @property {string} [ariaRole = undefined] Optional aria role string to be applied to SVG container. By default, the SVG is hidden from the accessibility tree. If you add an ariaRole here, any layers should also be given an ariaRole.
+   * @property {string} [ariaLabel = undefined] Optional aria label string to be applied to SVG container. By default, the SVG is hidden from the accessibility tree and should include a descriptive label. If you add an ariaRole this property can be left undefined;
+   * @property {boolean} [zoomable = false] Should the map allow zoom and pan?
+   * @property {number} [maxZoom = 8] If map is zoomable, sets a maximum zoom factor relative to the initial view.
+   * @property {"no" | "yes" | "ctrl"} [scrollWheel = "ctrl"] Whether or not the map should zoom when scroll wheel is used on map.
+   * @property {string} [backgroundColor = "transparent"] Fill for the background of the map
+   * @property {boolean} [tooltipContainParent = false] If there is a tooltip on the map, should it be contained to the parent element
+   * @property {"small" | "large"} [tooltipSize = "small"] whether to use a small (138px) or large (198px) width tooltip
+   * @property {(e: CustomEvent<{ e: PointerEvent; props: any }>) => void} [onclick] Callback fired when a layer element is clicked
+   * @property {(e: CustomEvent<{ e: PointerEvent; props: any }>) => void} [onmousemove] Callback fired when mouse moves over layer elements
+   * @property {(e: CustomEvent<{ e: PointerEvent }>) => void} [onmouseout] Callback fired when mouse leaves layer elements
+   * @property {(e: CustomEvent<{ e: PointerEvent }>) => void} [onbgclick] Callback fired when the map background is clicked
+   * @property {import('svelte').Snippet<[any]>} [tooltip] Snippet for rendering tooltip content
+   * @property {import('svelte').Snippet} [children] Default slot content (map layers)
    */
 
   /** @type {Props} */

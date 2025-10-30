@@ -2,8 +2,8 @@
 <script>
   /**
    * @typedef {Object} Props
-   * @property {string} value - Scorecard value
-   * @property {string} label - Scorecard label
+   * @property {string} value Scorecard value
+   * @property {string} label Scorecard label
    */
 
   /** @type {Props} */

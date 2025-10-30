@@ -1,7 +1,7 @@
 <script>
   /** @typedef {object} Props
-   * @property {"color" | "white"} [variant="color"] - The color variant of the logo.
-   * @property {number} [width=172.88] - The width of the logo in pixels.
+   * @property {"color" | "white"} [variant="color"] The color variant of the logo.
+   * @property {number} [width=172.88] The width of the logo in pixels.
    */
 
   /** @type {Props} */

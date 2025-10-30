@@ -5,8 +5,8 @@
 
   /**
    * @typedef {Object} Props
-   * @property {number} [width=540] - The width of the logo
-   * @property {"color" | "white"} [variant="color"] - The color variant of the logo
+   * @property {number} [width=540] The width of the logo
+   * @property {"color" | "white"} [variant="color"] The color variant of the logo
    */
 
   /** @type {Props} */

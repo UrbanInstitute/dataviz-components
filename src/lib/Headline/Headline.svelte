@@ -5,19 +5,19 @@
 
   /**
    * @typedef {Object} Props
-   * @property {string} [headline] - Text that should be displayed in headline
-   * @property {string | null} [description=null] - Optional description to be displayed below headline
-   * @property {string | null} [eyebrow=null] - Optional eyebrow to be displayed above the headline
-   * @property {string | null} [date=null] - Date to be displayed below headline
-   * @property {string} [datePrefix=""] - Optional prefix for the date
-   * @property {string | null} [shareUrl=null] - Optional URL to share on social media
-   * @property {import('../Block/Block.svelte').blockWidth} [width="body"] - Width of the headline
-   * @property {"dark" | "light"} [variant="dark"] - The color variant of the social media icons
-   * @property {import('svelte').Snippet} [eyebrowSnippet] - Optional snippet for custom eyebrow content
-   * @property {import('svelte').Snippet} [headlineSnippet] - Optional snippet for custom headline content
-   * @property {import('svelte').Snippet} [descriptionSnippet] - Optional snippet for custom description content
-   * @property {import('svelte').Snippet} [dateSnippet] - Optional snippet for custom date content
-   * @property {import('svelte').Snippet} [extra] - Optional snippet for extra content below date
+   * @property {string} [headline] Text that should be displayed in headline
+   * @property {string | null} [description=null] Optional description to be displayed below headline
+   * @property {string | null} [eyebrow=null] Optional eyebrow to be displayed above the headline
+   * @property {string | null} [date=null] Date to be displayed below headline
+   * @property {string} [datePrefix=""] Optional prefix for the date
+   * @property {string | null} [shareUrl=null] Optional URL to share on social media
+   * @property {import('../Block/Block.svelte').blockWidth} [width="body"] Width of the headline
+   * @property {"dark" | "light"} [variant="dark"] The color variant of the social media icons
+   * @property {import('svelte').Snippet} [eyebrowSnippet] Optional snippet for custom eyebrow content
+   * @property {import('svelte').Snippet} [headlineSnippet] Optional snippet for custom headline content
+   * @property {import('svelte').Snippet} [descriptionSnippet] Optional snippet for custom description content
+   * @property {import('svelte').Snippet} [dateSnippet] Optional snippet for custom date content
+   * @property {import('svelte').Snippet} [extra] Optional snippet for extra content below date
    */
 
   /** @type {Props} */

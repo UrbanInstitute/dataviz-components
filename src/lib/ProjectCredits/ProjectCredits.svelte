@@ -12,10 +12,10 @@
 
   /**
    * @typedef {Object} Props
-   * @property {string} heading - Heading to display above credits block
-   * @property {CreditItem[]} items - The credit items to display
-   * @property {string | null} [githubUrl=null] - An optional link to a Github repo to display
-   * @property {import('svelte').Snippet} [intro] - Content to render between the heading and the items
+   * @property {string} heading Heading to display above credits block
+   * @property {CreditItem[]} items The credit items to display
+   * @property {string | null} [githubUrl=null] An optional link to a Github repo to display
+   * @property {import('svelte').Snippet} [intro] Content to render between the heading and the items
    */
 
   /** @type {Props} */

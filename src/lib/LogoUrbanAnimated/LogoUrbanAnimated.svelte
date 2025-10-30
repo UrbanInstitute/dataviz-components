@@ -2,8 +2,8 @@
 <script>
   /**
    * @typedef {Object} Props
-   * @property {number} [width=50] - The width of the logo
-   * @property {string} [duration="1500ms"] - The animation duration (e.g., "1500ms")
+   * @property {number} [width=50] The width of the logo
+   * @property {string} [duration="1500ms"] The animation duration (e.g., "1500ms")
    */
 
   /** @type {Props} */

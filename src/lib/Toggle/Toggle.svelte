@@ -2,11 +2,11 @@
 <script>
   /**
    * @typedef {Object} Props
-   * @property {boolean} [active=false] - Whether the toggle is active or not
-   * @property {string} [label="Enim id qui labore labore"] - Label for the toggle
-   * @property {"left" | "right"} [labelPosition="left"] - Position of the label relative to the toggle
-   * @property {boolean} [disabled=false] - Whether the toggle is disabled or not
-   * @property {(event: MouseEvent) => void} [onclick] - Callback fired when toggle is clicked
+   * @property {boolean} [active=false] Whether the toggle is active or not
+   * @property {string} [label="Enim id qui labore labore"] Label for the toggle
+   * @property {"left" | "right"} [labelPosition="left"] Position of the label relative to the toggle
+   * @property {boolean} [disabled=false] Whether the toggle is disabled or not
+   * @property {(event: MouseEvent) => void} [onclick] Callback fired when toggle is clicked
    */
 
   /** @type {Props} */

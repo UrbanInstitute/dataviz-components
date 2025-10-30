@@ -2,8 +2,8 @@
 <script>
   /**
    * @typedef {Object} Props
-   * @property {string} [fill="#FFFFFF"] - The color to fill the icon
-   * @property {number} [size=48] - The width and height dimension for the icon
+   * @property {string} [fill="#FFFFFF"] The color to fill the icon
+   * @property {number} [size=48] The width and height dimension for the icon
    */
 
   /** @type {Props} */

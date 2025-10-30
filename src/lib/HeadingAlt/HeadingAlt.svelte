@@ -2,7 +2,7 @@
 <script>
   /**
    * @typedef {Object} Props
-   * @property {string} [content] - The text content to display in the heading
+   * @property {string} [content] The text content to display in the heading
    */
 
   /** @type {Props} */

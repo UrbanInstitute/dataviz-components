@@ -14,30 +14,30 @@
 
   /**
    * @typedef {Object} Props
-   * @property {Function} scale - D3 scale to base legend on
-   * @property {string} [title] - Optional title for the legend
-   * @property {number} [height=10] - Height of the visual element of the legend
-   * @property {number} [ticks=5] - Optional number of ticks to pass to d3's generator
-   * @property {Array<any>} [tickValues] - Optional array of exact values to use as ticks
-   * @property {number} [tickSize=14] - Optional size for tick labels
-   * @property {"top" | "bottom"} [tickPosition="bottom"] - Should ticks be positioned above or below the color bars?
-   * @property {number} [tickMargin=5] - Optional size of space between color and tick labels
-   * @property {"auto" | "middle" | "start" | "end"} [tickTextAnchor="auto"] - Optionally set the text-anchor of all tick marks
-   * @property {string | ((a: Object) => string)} [tickFormat] - Optional tick formatting string or function
-   * @property {number} [tickLineWidth=1] - Width of tick line. Set to 0 if no line is needed.
-   * @property {string} [tickLineColor=urbanColors.black] - Color of tick line.
-   * @property {{top: number, right: number, bottom: number, left: number}} [margin={ top: 0, right: 0, bottom: 5, left: 0 }] - Optional margin object
-   * @property {number} [maxWidth] - Optional max width for the legend
-   * @property {boolean} [swatch=false] - Display ordinal scale as swatches rather than bars
-   * @property {"row" | "column"} [swatchLayout="row"] - Display swatches in a row or column layout
-   * @property {"flex-start" | "center" | "flex-end"} [swatchAlign="flex-start"] - A flexbox alignment value
-   * @property {number} [swatchSize=16] - Size of swatch in pixels
-   * @property {boolean} [swatchCircle=false] - Display swatches as circles rather than squares
-   * @property {string} [swatchSpacing=undefined] - Optional override space between swatch items
-   * @property {string} [naFill=undefined] - Optional color to indicate for NA values
-   * @property {string} [naLabel="NA"] - Optional string label for NA values
-   * @property {number} [naSize=16] - Optional size in pixels for naLabel
-   * @property {number} [naSpacing=16] - Optional amount of spacing in pixels for NA swatch and label
+   * @property {Function} scale D3 scale to base legend on
+   * @property {string} [title] Optional title for the legend
+   * @property {number} [height=10] Height of the visual element of the legend
+   * @property {number} [ticks=5] Optional number of ticks to pass to d3's generator
+   * @property {Array<any>} [tickValues] Optional array of exact values to use as ticks
+   * @property {number} [tickSize=14] Optional size for tick labels
+   * @property {"top" | "bottom"} [tickPosition="bottom"] Should ticks be positioned above or below the color bars?
+   * @property {number} [tickMargin=5] Optional size of space between color and tick labels
+   * @property {"auto" | "middle" | "start" | "end"} [tickTextAnchor="auto"] Optionally set the text-anchor of all tick marks
+   * @property {string | ((a: Object) => string)} [tickFormat] Optional tick formatting string or function
+   * @property {number} [tickLineWidth=1] Width of tick line. Set to 0 if no line is needed.
+   * @property {string} [tickLineColor=urbanColors.black] Color of tick line.
+   * @property {{top: number, right: number, bottom: number, left: number}} [margin={ top: 0, right: 0, bottom: 5, left: 0 }] Optional margin object
+   * @property {number} [maxWidth] Optional max width for the legend
+   * @property {boolean} [swatch=false] Display ordinal scale as swatches rather than bars
+   * @property {"row" | "column"} [swatchLayout="row"] Display swatches in a row or column layout
+   * @property {"flex-start" | "center" | "flex-end"} [swatchAlign="flex-start"] A flexbox alignment value
+   * @property {number} [swatchSize=16] Size of swatch in pixels
+   * @property {boolean} [swatchCircle=false] Display swatches as circles rather than squares
+   * @property {string} [swatchSpacing=undefined] Optional override space between swatch items
+   * @property {string} [naFill=undefined] Optional color to indicate for NA values
+   * @property {string} [naLabel="NA"] Optional string label for NA values
+   * @property {number} [naSize=16] Optional size in pixels for naLabel
+   * @property {number} [naSpacing=16] Optional amount of spacing in pixels for NA swatch and label
    */
 
   /** @type {Props} */

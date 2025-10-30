@@ -4,10 +4,10 @@
 
   /**
    * @typedef {Object} Props
-   * @property {import('$lib/Block/Block.svelte').blockWidth} [width="body"] - The width of the text block
-   * @property {"primary" | "reverse"} [variant="primary"] - The theme of the text block
-   * @property {string | null} [color=null] - Optional override of variant to specify a color for the text block
-   * @property {import('svelte').Snippet} [children] - HTML or text content to render inside of the component
+   * @property {import('$lib/Block/Block.svelte').blockWidth} [width="body"] The width of the text block
+   * @property {"primary" | "reverse"} [variant="primary"] The theme of the text block
+   * @property {string | null} [color=null] Optional override of variant to specify a color for the text block
+   * @property {import('svelte').Snippet} [children] HTML or text content to render inside of the component
    */
 
   /** @type {Props} */

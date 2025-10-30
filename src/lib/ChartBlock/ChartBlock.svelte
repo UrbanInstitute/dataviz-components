@@ -5,13 +5,13 @@
 
   /**
    * @typedef {Object} ChartBlockProps
-   * @property {import("../Block/Block.svelte").blockWidth} [width="body"] - The width of the text block. Defaults to "body" (max-width: 760px)
-   * @property {string} [title] - The title of the chart block
-   * @property {string} [description] - The description of the chart block
-   * @property {string} [source] - The source to include below the chart body - accepts HTML
-   * @property {string} [notes] - The notes line to include below source - accepts HTML
-   * @property {string} [color="var(--color-black)"] - Optional color override for text
-   * @property {import('svelte').Snippet} [children] - Optional snippet for chart content
+   * @property {import("../Block/Block.svelte").blockWidth} [width="body"] The width of the text block. Defaults to "body" (max-width: 760px)
+   * @property {string} [title] The title of the chart block
+   * @property {string} [description] The description of the chart block
+   * @property {string} [source] The source to include below the chart body - accepts HTML
+   * @property {string} [notes] The notes line to include below source - accepts HTML
+   * @property {string} [color="var(--color-black)"] Optional color override for text
+   * @property {import('svelte').Snippet} [children] Optional snippet for chart content
    */
 
   /** @type {ChartBlockProps} */

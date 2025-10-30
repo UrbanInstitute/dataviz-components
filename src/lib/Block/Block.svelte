@@ -8,8 +8,8 @@
 <script>
   /**
    * @typedef {Object} Props
-   * @property {blockWidth} [width="body"] - The width of the block
-   * @property {import('svelte').Snippet} [children] - The content to render inside the block
+   * @property {blockWidth} [width="body"] The width of the block
+   * @property {import('svelte').Snippet} [children] The content to render inside the block
    */
 
   /** @type {Props} */

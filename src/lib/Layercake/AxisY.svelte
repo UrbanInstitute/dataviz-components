@@ -10,18 +10,18 @@
 
   /**
    * @typedef {Object} Props
-   * @property {boolean} [gridlines=true] - Extend lines from the ticks into the chart space
-   * @property {boolean} [tickMarks=false] - Show a vertical mark for each tick.
-   * @property {Function} [formatTick=d => d] - A function that passes the current tick value and expects a nicely formatted value in return.
-   * @property {number | Array | Function} [ticks=4] - If this is a number, it passes that along to the [d3Scale.ticks](https://github.com/d3/d3-scale) function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return.
-   * @property {number} [xTick=0] - How far over to position the text marker.
-   * @property {number} [yTick=0] - How far up and down to position the text marker.
-   * @property {number} [dxTick=-4] - Any optional value passed to the `dx` attribute on the text marker and tick mark (if visible). This is ignored on the text marker if your scale is ordinal.
-   * @property {number} [dyTick=0] - Any optional value passed to the `dy` attribute on the text marker and tick mark (if visible). This is ignored on the text marker if your scale is ordinal.
-   * @property {string} [textAnchor="end"] - The CSS `text-anchor` passed to the label. This is automatically set to "end" if the scale has a bandwidth method, like in ordinal scales.
-   * @property {string} [tickLabelColor="#000000"] - The color of the tick labels and axis label
-   * @property {string} [axisLabel=""] - An optional label for the y axis
-   * @property {number} [labelDx=0] - Optional dx offset for the axis label
+   * @property {boolean} [gridlines=true] Extend lines from the ticks into the chart space
+   * @property {boolean} [tickMarks=false] Show a vertical mark for each tick.
+   * @property {Function} [formatTick=d => d] A function that passes the current tick value and expects a nicely formatted value in return.
+   * @property {number | Array | Function} [ticks=4] If this is a number, it passes that along to the [d3Scale.ticks](https://github.com/d3/d3-scale) function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return.
+   * @property {number} [xTick=0] How far over to position the text marker.
+   * @property {number} [yTick=0] How far up and down to position the text marker.
+   * @property {number} [dxTick=-4] Any optional value passed to the `dx` attribute on the text marker and tick mark (if visible). This is ignored on the text marker if your scale is ordinal.
+   * @property {number} [dyTick=0] Any optional value passed to the `dy` attribute on the text marker and tick mark (if visible). This is ignored on the text marker if your scale is ordinal.
+   * @property {string} [textAnchor="end"] The CSS `text-anchor` passed to the label. This is automatically set to "end" if the scale has a bandwidth method, like in ordinal scales.
+   * @property {string} [tickLabelColor="#000000"] The color of the tick labels and axis label
+   * @property {string} [axisLabel=""] An optional label for the y axis
+   * @property {number} [labelDx=0] Optional dx offset for the axis label
    */
 
   /** @type {Props} */

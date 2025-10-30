@@ -2,13 +2,13 @@
 <script>
   /**
    * @typedef {Object} Props
-   * @property {() => void} zoomIn - Function to handle zooming in.
-   * @property {() => void} zoomOut - Function to handle zooming out.
-   * @property {() => void} zoomReset - Function to reset zoom.
-   * @property {boolean} [showReset=false] - Whether to show the reset button. Default: false.
-   * @property {boolean} [disableZoomIn=false] - Whether the zoom-in button is disabled. Default: false.
-   * @property {boolean} [disableZoomOut=false] - Whether the zoom-out button is disabled. Default: false.
-   * @property {"bottom-left" | "bottom-right" | "top-left" | "top-right"} controlPosition - Position of the zoom controls.
+   * @property {() => void} zoomIn Function to handle zooming in.
+   * @property {() => void} zoomOut Function to handle zooming out.
+   * @property {() => void} zoomReset Function to reset zoom.
+   * @property {boolean} [showReset=false] Whether to show the reset button. Default: false.
+   * @property {boolean} [disableZoomIn=false] Whether the zoom-in button is disabled. Default: false.
+   * @property {boolean} [disableZoomOut=false] Whether the zoom-out button is disabled. Default: false.
+   * @property {"bottom-left" | "bottom-right" | "top-left" | "top-right"} controlPosition Position of the zoom controls.
    */
 
   /** @type {Props} */

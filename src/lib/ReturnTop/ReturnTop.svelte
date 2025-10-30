@@ -2,9 +2,9 @@
 <script>
   /**
    * @typedef {Object} Props
-   * @property {string} elementId - Element ID to scroll to
-   * @property {(event: MouseEvent) => void} [onclick] - Click event handler
-   * @property {(event: KeyboardEvent) => void} [onkeypress] - Keypress event handler
+   * @property {string} elementId Element ID to scroll to
+   * @property {(event: MouseEvent) => void} [onclick] Click event handler
+   * @property {(event: KeyboardEvent) => void} [onkeypress] Keypress event handler
    */
 
   /** @type {Props} */
