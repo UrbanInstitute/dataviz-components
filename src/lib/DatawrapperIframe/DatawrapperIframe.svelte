@@ -1,89 +1,85 @@
+<!-- A generative AI model wrote or edited portions of this file with the supervision of a human developer and careful human review. -->
 <script>
-  import { createEventDispatcher, onDestroy, beforeUpdate, afterUpdate } from "svelte";
   import datawrapper from "./events";
   import datawrapperEventList from "./datawrapper-event-list.json";
 
-  /**
-   * HTML title of the iframe
-   * @type {string}
-   */
-  export let title;
+  let {
+    title,
+    ariaLabel,
+    datawrapperId,
+    scrolling = "no",
+    frameborder = "0",
+    height = "500",
+    style = "width: 0; min-width: 100% !important; border: none;",
+    onstartrender = () => {},
+    ...restProps
+  } = $props();
 
-  /**
-   * HTML aria-label of the iframe
-   * @type {string}
-   */
-  export let ariaLabel;
+  const eventCallbackKeys = new Set(
+    datawrapperEventList.map((eventName) => `on${eventName.replace(/\./g, "")}`)
+  );
 
-  /**
-   * Datawrapper chart ID
-   * @type {string}
-   */
-  export let datawrapperId;
-
-  /**
-   * iframe scrolling attribute
-   * @type {string}
-   */
-  export let scrolling = "no";
-
-  /**
-   * iframe frameborder attribute
-   * @type {string}
-   */
-  export let frameborder = "0";
-
-  /**
-   * iframe height attribute (placeholder since reactivity is enabled)
-   * @type {string}
-   */
-  export let height = "500";
-
-  /**
-   * CSS styles of the iframe
-   * @type {string}
-   */
-  export let style = "width: 0; min-width: 100% !important; border: none;";
-
-  // add event dispatching for Datawrapper interaction events
-  // more: https://developer.datawrapper.de/docs/listening-to-chart-interaction-events#visualization-events
-  const dispatch = createEventDispatcher();
-
-  datawrapperEventList.forEach((eventName) => {
-    datawrapper.on(eventName, (e) => {
-      dispatch(eventName.replace(".", ""), e);
-    });
+  const iframeProps = $derived.by(() => {
+    const rest = {};
+    for (const [key, value] of Object.entries(restProps)) {
+      if (eventCallbackKeys.has(key)) continue;
+      rest[key] = value;
+    }
+    return rest;
   });
 
-  // responsive iframe code form Datawrapper
-  if (typeof window !== "undefined") {
-    window.addEventListener("message", function (a) {
-      if (void 0 !== a.data["datawrapper-height"]) {
-        var e = document.querySelectorAll("iframe");
-        for (var t in a.data["datawrapper-height"])
-          for (var r = 0; r < e.length; r++)
-            if (e[r].contentWindow === a.source) {
-              var i = a.data["datawrapper-height"][t] + "px";
-              e[r].style.height = i;
-            }
-      }
-    });
+  function createCallbackEvent(name, detail) {
+    if (typeof CustomEvent === "function") {
+      return new CustomEvent(name, { detail });
+    }
+    return { type: name, detail };
   }
 
-  // dispatch an even when the iframe starts to load
-  // (does not user beforeUpdate because it is not triggered on first load)
-  afterUpdate(() => {
-    dispatch("startrender");
+  function handleDatawrapperResize(messageEvent) {
+    if (
+      !messageEvent?.data ||
+      typeof messageEvent.data !== "object" ||
+      messageEvent.data["datawrapper-height"] === undefined
+    ) {
+      return;
+    }
+    const heights = messageEvent.data["datawrapper-height"];
+    const frames = document.querySelectorAll("iframe");
+    for (const key in heights) {
+      for (let index = 0; index < frames.length; index += 1) {
+        const frame = frames[index];
+        if (frame.contentWindow === messageEvent.source) {
+          frame.style.height = `${heights[key]}px`;
+        }
+      }
+    }
+  }
+
+  $effect(() => {
+    // Track datawrapperId to fire when iframe src changes
+    void datawrapperId;
+    onstartrender(createCallbackEvent("startrender"));
   });
 
-  // turn off interaction events on destroy
-  // (prevents multiple events when loading multiple iframes)
-  onDestroy(() => {
-    if (typeof window !== "undefined") {
-      datawrapperEventList.forEach((eventName) => {
-        datawrapper.off(eventName);
-      });
-    }
+  $effect(() => {
+    window.addEventListener("message", handleDatawrapperResize);
+
+    const cleanups = datawrapperEventList.map((eventName) => {
+      const sanitizedEvent = eventName.replace(/\./g, "");
+      const handler = (eventPayload) => {
+        const callback = restProps[`on${sanitizedEvent}`];
+        if (typeof callback === "function") {
+          callback(createCallbackEvent(sanitizedEvent, eventPayload));
+        }
+      };
+      datawrapper.on(eventName, handler);
+      return () => datawrapper.off(eventName, handler);
+    });
+
+    return () => {
+      window.removeEventListener("message", handleDatawrapperResize);
+      cleanups.forEach((cleanup) => cleanup());
+    };
   });
 </script>
 
@@ -97,5 +93,5 @@
   {style}
   {height}
   data-external="1"
-  {...$$restProps}
+  {...iframeProps}
 ></iframe>

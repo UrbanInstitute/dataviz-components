@@ -1,17 +1,21 @@
+<!-- A generative AI model wrote or edited portions of this file with the supervision of a human developer and careful human review. -->
 <script>
   const naturalWidth = 540;
   const naturalHeight = 324;
 
-  /** @type {number} */
-  export let width = naturalWidth;
-  /** @type {"color" | "white"} */
-  export let variant = "color";
+  /**
+   * @typedef {Object} Props
+   * @property {number} [width=540] The width of the logo
+   * @property {"color" | "white"} [variant="color"] The color variant of the logo
+   */
 
-  $: height = width * (naturalHeight / naturalWidth);
+  /** @type {Props} */
+  let { width = naturalWidth, variant = "color" } = $props();
 
-  $: accentColor = variant == "color" ? "#1696D2" : "#ffffff";
-  $: midColor = variant == "color" ? "#9D9FA2" : "#ffffff";
-  $: darkColor = variant == "color" ? "#231F20" : "#ffffff";
+  let height = $derived(width * (naturalHeight / naturalWidth));
+  let accentColor = $derived(variant == "color" ? "#1696D2" : "#ffffff");
+  let midColor = $derived(variant == "color" ? "#9D9FA2" : "#ffffff");
+  let darkColor = $derived(variant == "color" ? "#231F20" : "#ffffff");
 </script>
 
 <svg

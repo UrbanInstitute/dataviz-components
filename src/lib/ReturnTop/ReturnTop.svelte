@@ -1,26 +1,38 @@
+<!-- A generative AI model wrote or edited portions of this file with the supervision of a human developer and careful human review. -->
 <script>
-  import { createEventDispatcher } from "svelte";
-  const dispatch = createEventDispatcher();
+  /**
+   * @typedef {Object} Props
+   * @property {string} elementId Element ID to scroll to
+   * @property {(event: MouseEvent) => void} [onclick] Click event handler
+   * @property {(event: KeyboardEvent) => void} [onkeypress] Keypress event handler
+   */
+
+  /** @type {Props} */
+  let { elementId, onclick, onkeypress } = $props();
 
   /**
-   * Element ID to scroll to
-   * @type {string}
+   * @param {MouseEvent} e
    */
-  export let elementId;
+  function handleClick(e) {
+    onclick?.(e);
+    document.getElementById(elementId)?.scrollIntoView();
+  }
+
+  /**
+   * @param {KeyboardEvent} e
+   */
+  function handleKeypress(e) {
+    onkeypress?.(e);
+    document.getElementById(elementId)?.scrollIntoView();
+  }
 </script>
 
 <div
   class="return-top"
   role="button"
   tabindex="0"
-  on:click={(e) => {
-    dispatch("click", e);
-    document.getElementById(elementId)?.scrollIntoView();
-  }}
-  on:keypress={(e) => {
-    dispatch("keypress", e);
-    document.getElementById(elementId)?.scrollIntoView();
-  }}
+  onclick={handleClick}
+  onkeypress={handleKeypress}
 >
   <span>Return to top</span>
   <svg width="30" height="30" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">

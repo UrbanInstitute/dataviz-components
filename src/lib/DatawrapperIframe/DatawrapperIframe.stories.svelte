@@ -1,4 +1,5 @@
-<script context="module">
+<!-- A generative AI model wrote or edited portions of this file with the supervision of a human developer and careful human review. -->
+<script module>
   import DatawrapperIframe from "./DatawrapperIframe.svelte";
   import docs from "./DatawrapperIframe.docs.md?raw";
   import { defineMeta } from "@storybook/addon-svelte-csf";
@@ -35,13 +36,10 @@
   {#snippet template(args)}
     <DatawrapperIframe
       {...args}
-      on:regionclick
-      on:regionmouseenter
-      on:regionmouseleave
-      on:regionclick={(e) => (test = e.detail.data.fips)}
-      on:regionmouseenter={(e) => (test = e.detail.data.fips)}
-      on:regionmouseleave={() => (test = "Hover over a region to change this text")}
-      on:visrendered
+      onregionclick={(event) => (test = event.detail.data.fips)}
+      onregionmouseenter={(event) => (test = event.detail.data.fips)}
+      onregionmouseleave={() => (test = "Hover over a region to change this text")}
+      onvisrendered={() => {}}
     />
     <p>{test}</p>
   {/snippet}

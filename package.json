@@ -17,6 +17,7 @@
     "build-storybook:test": "storybook build --quiet --test",
     "test-storybook": "test-storybook",
     "test-storybook-run": "npx concurrently -k -s first -n 'SB,TEST' -c 'magenta,blue' 'npx http-server storybook-static --port 6006 --silent' 'npx wait-on tcp:6006 && npm run test-storybook -- --index-json'",
+    "test-storybook-all": "npm run build-storybook:test && npm run test-storybook-run",
     "compile-theme-styles": "node ./bin/compileTheme.js",
     "create-component": "node ./bin/createComponent/createComponent.js"
   },
@@ -46,7 +47,11 @@
       "svelte": "./dist/Icons/index.js"
     },
     "./style": "./dist/style/main.css",
-    "./style/theme": "./dist/style/theme.css"
+    "./style/theme": "./dist/style/theme.css",
+    "./context": {
+      "types": "./dist/context/index.d.ts",
+      "svelte": "./dist/context/index.js"
+    }
   },
   "files": [
     "dist",

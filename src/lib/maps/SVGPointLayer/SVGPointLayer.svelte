@@ -1,121 +1,62 @@
+<!-- A generative AI model wrote or edited portions of this file with the supervision of a human developer and careful human review. -->
 <script>
-  import { getContext, createEventDispatcher } from "svelte";
   import { geoPath } from "d3-geo";
   import { urbanColors } from "$lib/utils";
-  import { getFill, getStroke, raise, getTooltipProps, getHighlightFeature } from "../lib.js";
-
-  const {
-    projection,
-    features: globalFeatures,
-    transform,
-    handleLayerClick,
-    handleLayerMousemove,
-    stickyHighlight
-  } = getContext("map");
+  import { getFill, getStroke, raise, getHighlightFeature } from "../lib.js";
+  import { useSVGMapContext } from "../SVGMap/context.svelte.js";
 
   /**
-   * A list of GeoJSON features. By default this component will render the features set in the parent SVGMap, but if `features` is defined, it plots those instead. Points are rendered as SVG `circle` elements by default. Polygon features are converted to points with `d3.geoPath().centroid`.
-   * @type {Array} [features]
+   * @typedef {Object} Props
+   * @property {import("d3-geo").GeoPermissibleObjects[]} [features] A list of GeoJSON features rendered by this layer.
+   * @property {(feature: any) => string | string} [fill=urbanColors.white] A color string or function applied to fills.
+   * @property {string} [hoverFill] Optional fill override when hovered.
+   * @property {string} [naFill=urbanColors.gray_shade_light] Color for NA or undefined values.
+   * @property {(feature: any) => string | string} [stroke=urbanColors.black] Stroke color or accessor.
+   * @property {string} [hoverStroke] Optional stroke override when hovered.
+   * @property {number} [strokeWidth=0] Stroke width of each feature.
+   * @property {number} [hoverStrokeWidth] Stroke width when hovered.
+   * @property {number | ((feature: any) => number)} [r=4] Function or static radius for the circle fallback.
+   * @property {number} [opacity=1] Opacity of point circles.
+   * @property {string} [ariaRole] Optional aria role string applied to each feature.
+   * @property {string | ((feature: any) => string)} [ariaLabel] Optional aria label string or accessor.
+   * @property {Record<string, any>} [highlightFeature] Object compared to feature properties for highlight.
+   * @property {boolean} [pointerEvents=true] Whether the layer responds to pointer events.
+   * @property {boolean} [tooltip=false] Whether the layer should populate the tooltip slot.
+   * @property {(event: CustomEvent<{ e: PointerEvent; props: any }>) => void=} onclick Optional click callback.
+   * @property {(event: CustomEvent<{ e: PointerEvent; props: any }>) => void=} onmousemove Optional mousemove callback.
+   * @property {(event: CustomEvent<{ e: PointerEvent }>) => void=} onmouseout Optional mouseout callback.
+   * @property {import("svelte").Snippet<[feature: any, x: number, y: number]>} [children] Optional snippet used to render each point.
    */
-  export let features = undefined;
 
-  /**
-   * A color string or a function that takes a feature and returns a color string. Use in combination with a D3 scale for a dynamic color encoding.
-   * @type { (Object) => string | string } [fill = urbanColors.blue] A string or function that returns a string to use as this layers fill color.
-   */
-  export let fill = urbanColors.white;
+  /** @type {Props} */
+  let {
+    features = undefined,
+    fill = urbanColors.white,
+    hoverFill = undefined,
+    naFill = urbanColors.gray_shade_light,
+    stroke = urbanColors.black,
+    hoverStroke = undefined,
+    strokeWidth = 0,
+    hoverStrokeWidth = undefined,
+    r = 4,
+    opacity = 1,
+    ariaRole = undefined,
+    ariaLabel = undefined,
+    highlightFeature = undefined,
+    pointerEvents = true,
+    tooltip = false,
+    onclick = undefined,
+    onmousemove = undefined,
+    onmouseout = undefined,
+    children = undefined
+  } = $props();
 
-  /**
-   * Optional color to use for a feature's fill when hovered
-   * @type { string }
-   */
-  export let hoverFill = undefined;
+  const map = useSVGMapContext();
 
-  /**
-   * Color to use for values that are NA or otherwise undefined in the color scale
-   * @type { string }
-   */
-  export let naFill = urbanColors.gray_shade_light;
-
-  /**
-   * A color string or a function that takes a feature and returns a color string
-   * @type { (Object) => string | string } [fill = urbanColors.blue] A string or function that returns a string to use as this layers stroke color.
-   */
-  export let stroke = urbanColors.black;
-
-  /**
-   * Optional color string for hovered feature stroke
-   * @type { string }
-   */
-  export let hoverStroke = undefined;
-
-  /**
-   * Stroke width of each feature
-   * @type { number } [strokeWidth = 0.5]
-   */
-  export let strokeWidth = 0;
-
-  /**
-   * Stroke width of each feature when hovered
-   * @type { number } [strokeWidth = undefined]
-   */
-  export let hoverStrokeWidth = undefined;
-
-  /**
-   * Function or static value to use for radius of circle
-   * @type {number | (Object) => number}
-   */
-  export let r = 4;
-
-  /**
-   * Opacity of point circles
-   * @type { number }
-   */
-  export let opacity = 1;
-
-  /**
-   * Optional aria role string to be applied to each feature. Defaults to no role, assuming that SVG is hidden from the accessiblity tree.
-   * @type { string } [ariaRole = undefined]
-   */
-  export let ariaRole = undefined;
-
-  /**
-   * Optional aria label string or function to be applied to each feature. Defaults to no label, assuming that SVG is hidden from the accessiblity tree. If a function is passed, it should take a `feature` as an argument and return a label string.
-   * @type { string | (Object) => string } [ariaLabel = undefined]
-   */
-  export let ariaLabel = undefined;
-
-  /**
-   * Optional object that will be compared with each `feature` displayed in the layer. If all of the key/value pairs in `highlightFeature` are equal to the properties of a given `feature`, set that `feature` to a highlighted state.
-   * @type {{ string: any }}
-   */
-  export let highlightFeature = undefined;
-
-  /**
-   * Boolean that determines if this layer should respond to pointer events and dispatch events.
-   * @type {boolean} [pointerEvents = true]
-   */
-  export let pointerEvents = true;
-
-  /**
-   * Boolean that determines if this layer should populate the tooltip slot when interacted with.
-   * @type {boolean} [tooltip = false]
-   */
-  export let tooltip = false;
-
-  $: geoPathFn = geoPath($projection);
-
-  const dispatch = createEventDispatcher();
+  const geoPathFn = $derived(geoPath(map.projection));
 
   // holds main dom node
   let el;
-
-  // holds highlighted feature DOM element
-  let highlightFeatureNode;
-
-  $: if (highlightFeatureNode) {
-    raise(highlightFeatureNode);
-  }
 
   function getAriaLabel(feature) {
     if (typeof ariaLabel === "string" || typeof ariaLabel === "undefined") {
@@ -131,62 +72,87 @@
     return r(feature);
   }
 
-  function handleMousemove(e, feature) {
-    raise(e.target);
-    if (highlightFeatureNode) {
-      raise(highlightFeatureNode);
+  function raiseHighlight() {
+    const highlightNode = el?.querySelector(".point-feature.highlight");
+    if (highlightNode) {
+      raise(highlightNode);
     }
-    if (tooltip) {
-      handleLayerMousemove(getTooltipProps(e, feature));
-    }
-    dispatch("mousemove", { e, props: feature.properties });
   }
 
-  function handleClick(e, feature) {
+  function handlePointermove(e, feature) {
     raise(e.target);
-    if (highlightFeatureNode) {
-      raise(highlightFeatureNode);
-    }
-    if (tooltip) {
-      handleLayerClick(getTooltipProps(e, feature));
-    }
-    dispatch("click", { e, props: feature.properties });
+    raiseHighlight();
+    map.onPointerMove(e, feature.properties, { tooltip });
+    onmousemove?.(
+      new CustomEvent("mousemove", {
+        detail: { e, props: feature.properties }
+      })
+    );
   }
+
+  function handlePointerdown(e, feature) {
+    raise(e.target);
+    raiseHighlight();
+    map.onPointerDown(e, feature.properties, { tooltip });
+    onclick?.(
+      new CustomEvent("click", {
+        detail: { e, props: feature.properties }
+      })
+    );
+  }
+
+  function handlePointerout(e) {
+    map.onPointerOut(e);
+    onmouseout?.(
+      new CustomEvent("mouseout", {
+        detail: { e }
+      })
+    );
+  }
+
+  $effect(() => {
+    map.stickyHighlight;
+    highlightFeature;
+    features;
+    map.features;
+    raiseHighlight();
+  });
 </script>
 
-<!-- svelte-ignore a11y-no-static-element-interactions -->
+<!-- svelte-ignore a11y_no_static_element_interactions -->
 <g
   class="point-layer map-layer"
-  on:mouseout={(e) => dispatch("mouseout")}
-  on:blur={(e) => dispatch("mouseout")}
+  role="presentation"
+  onpointerout={handlePointerout}
+  onblur={handlePointerout}
   style:pointer-events={pointerEvents ? "auto" : "none"}
-  style:--hover-stroke-width="{(hoverStrokeWidth || strokeWidth) / $transform.k}px"
+  style:--hover-stroke-width={`${(hoverStrokeWidth || strokeWidth) / map.transform.k}px`}
+  bind:this={el}
 >
-  {#each features || $globalFeatures as feature}
+  {#each features || map.features as feature}
     {@const [x, y] = geoPathFn.centroid(feature)}
     {@const featureStroke = getStroke(feature, stroke)}
     {@const featureFill = getFill(feature, fill, naFill)}
-    {#if $$slots.default}
-      <!-- Optional slot that renders once for each feature. Overrides default SVG `<circle>` element.-->
-      <slot {feature} {x} {y} />
+    {#if children}
+      {@render children(feature, x, y)}
     {:else}
       <circle
         class="point-feature"
         role={ariaRole}
         label={getAriaLabel(feature)}
-        class:highlight={getHighlightFeature(feature, $stickyHighlight, highlightFeature)}
+        class:highlight={getHighlightFeature(feature, map.stickyHighlight, highlightFeature)}
         cx={x}
         cy={y}
         {opacity}
         fill={featureFill}
-        r={getRadius(feature) / $transform.k}
-        stroke-width={strokeWidth / $transform.k}
+        r={getRadius(feature) / map.transform.k}
+        stroke-width={strokeWidth / map.transform.k}
         style:--hover-fill={hoverFill || featureFill}
         style:--hover-stroke={hoverStroke || featureStroke}
         class:hover-fill={typeof hoverFill !== "undefined"}
         stroke={featureStroke}
-        on:mousemove={(e) => handleMousemove(e, feature)}
-        on:click={(e) => handleClick(e, feature)}
+        onpointermove={(e) => handlePointermove(e, feature)}
+        onpointerdown={(e) => handlePointerdown(e, feature)}
       />
     {/if}
   {/each}

@@ -1,4 +1,4 @@
-<script context="module">
+<script module>
   import Heading from "./HeadingAlt.svelte";
   import docs from "./HeadingAlt.docs.md?raw";
   import { defineMeta } from "@storybook/addon-svelte-csf";

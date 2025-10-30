@@ -1,25 +1,21 @@
 <!-- @component `SectionBreak` [Read the docs.](https://urbaninstitute.github.io/dataviz-components/?path=/docs/components-sectionbreak--docs) -->
+<!-- A generative AI model wrote or edited portions of this file with the supervision of a human developer and careful human review. -->
 <script>
   /**
-   * String to display as the "number" of the section
-   * @type { string }
-   **/
-  export let number;
-  /**
-   * String to display as the subhead
-   * @type { string }
-   **/
-  export let subhead;
-  /**
-   * Color to be used for the number
-   * @type { string } [accentColor="#9d9d9d"]
-   **/
-  export let accentColor = "#9d9d9d";
-  /**
-   * Font weight of the number
-   * @type { string } [fontWeight="var(--font-weight-light)"]
-   **/
-  export let fontWeight = "var(--font-weight-light)";
+   * @typedef {Object} Props
+   * @property {string} number String to display as the "number" of the section
+   * @property {string} subhead String to display as the subhead
+   * @property {string} [accentColor="#9d9d9d"] Color to be used for the number
+   * @property {string} [fontWeight="var(--font-weight-light)"] Font weight of the number
+   */
+
+  /** @type {Props} */
+  let {
+    number,
+    subhead,
+    accentColor = "#9d9d9d",
+    fontWeight = "var(--font-weight-light)"
+  } = $props();
 </script>
 
 <div class="section-break" style:--accent-color={accentColor} style:--font-weight={fontWeight}>

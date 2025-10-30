@@ -1,4 +1,4 @@
-<script context="module">
+<script module>
   import TextBlock from "./TextBlock.svelte";
   import docs from "./TextBlock.docs.md?raw";
   import { defineMeta } from "@storybook/addon-svelte-csf";

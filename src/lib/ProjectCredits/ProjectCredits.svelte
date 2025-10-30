@@ -1,25 +1,25 @@
+<!-- A generative AI model wrote or edited portions of this file with the supervision of a human developer and careful human review. -->
 <script>
   import Heading from "$lib/HeadingAlt/HeadingAlt.svelte";
   import TextBlock from "$lib/TextBlock/TextBlock.svelte";
   import Block from "$lib/Block/Block.svelte";
 
   /**
-   * Heading to display above credits block
-   * @type {string}
+   * @typedef {Object} CreditItem
+   * @property {string} label
+   * @property {string} content
    */
-  export let heading;
 
   /**
-   * The credit items to display
-   * @type {{label: string, content: string}[]}
+   * @typedef {Object} Props
+   * @property {string} heading Heading to display above credits block
+   * @property {CreditItem[]} items The credit items to display
+   * @property {string | null} [githubUrl=null] An optional link to a Github repo to display
+   * @property {import('svelte').Snippet} [intro] Content to render between the heading and the items
    */
-  export let items;
 
-  /**
-   * An optional link to a Github repo to display
-   * @type {string | null} [githubUrl=null]
-   */
-  export let githubUrl = null;
+  /** @type {Props} */
+  let { heading, items, githubUrl = null, intro } = $props();
 </script>
 
 <div class="project-credits-wrapper">
@@ -27,7 +27,9 @@
     <Heading content={heading} />
   </Block>
   <!-- Content to render between the heading and the items -->
-  <slot name="intro" />
+  {#if intro}
+    {@render intro()}
+  {/if}
   <Block>
     <ul class="credits-list">
       {#each items as item}

@@ -1,40 +1,29 @@
+<!-- A generative AI model wrote or edited portions of this file with the supervision of a human developer and careful human review. -->
 <!-- @component ChartBlock - A basic chart wrapper that includes, title, description, source, and notes. -->
 <script>
   import Block from "../Block/Block.svelte";
 
   /**
-   * The width of the text block. Defaults to "body" (max-width: 760px)
-   * @type import("../Block/Block.svelte").BlockWidth
+   * @typedef {Object} ChartBlockProps
+   * @property {import("../Block/Block.svelte").blockWidth} [width="body"] The width of the text block. Defaults to "body" (max-width: 760px)
+   * @property {string} [title] The title of the chart block
+   * @property {string} [description] The description of the chart block
+   * @property {string} [source] The source to include below the chart body - accepts HTML
+   * @property {string} [notes] The notes line to include below source - accepts HTML
+   * @property {string} [color="var(--color-black)"] Optional color override for text
+   * @property {import('svelte').Snippet} [children] Optional snippet for chart content
    */
-  export let width = "body";
 
-  /**
-   * The title of the chart block
-   * @type {string}
-   */
-  export let title;
-  /**
-   * The description of the chart block
-   * @type {string}
-   */
-  export let description;
-
-  /**
-   * The source to include below the chart body - accepts HTML
-   * @type {string}
-   */
-  export let source;
-  /**
-   * The notes line to include below source - accepts HTML
-   * @type {string}
-   */
-  export let notes;
-
-  /**
-   * Optional color override for text
-   * @type {string}
-   */
-  export let color = "var(--color-black)";
+  /** @type {ChartBlockProps} */
+  let {
+    width = "body",
+    title,
+    description,
+    source,
+    notes,
+    color = "var(--color-black)",
+    children
+  } = $props();
 </script>
 
 <Block {width}>
@@ -49,7 +38,9 @@
         {/if}
       </div>
     {/if}
-    <slot />
+    {#if children}
+      {@render children()}
+    {/if}
     {#if source || notes}
       <div class="chart-footer">
         {#if source}

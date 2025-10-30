@@ -1,23 +1,17 @@
+<!-- A generative AI model wrote or edited portions of this file with the supervision of a human developer and careful human review. -->
 <script>
   import Block from "$lib/Block/Block.svelte";
 
   /**
-   * The width of the text block. Defaults to "body" (max-width: 760px)
-   * @type import("$lib/Block/Block.svelte").BlockWidth
+   * @typedef {Object} Props
+   * @property {import('$lib/Block/Block.svelte').blockWidth} [width="body"] The width of the text block
+   * @property {"primary" | "reverse"} [variant="primary"] The theme of the text block
+   * @property {string | null} [color=null] Optional override of variant to specify a color for the text block
+   * @property {import('svelte').Snippet} [children] HTML or text content to render inside of the component
    */
-  export let width = "body";
 
-  /**
-   * The theme of the text block. Defaults to "primary"
-   * @type {"primary" | "reverse"}
-   */
-  export let variant = "primary";
-
-  /**
-   * Optional override of variant to specify a color for the text block
-   * @type {String | null} [color = null]
-   */
-  export let color = null;
+  /** @type {Props} */
+  let { width = "body", variant = "primary", color = null, children } = $props();
 </script>
 
 <Block {width}>
@@ -27,8 +21,7 @@
     style:color
     style={`--color-override: ${color}`}
   >
-    <!-- HTML or text content to render inside of the component -->
-    <slot />
+    {@render children()}
   </p>
 </Block>
 

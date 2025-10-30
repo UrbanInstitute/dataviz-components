@@ -1,4 +1,4 @@
-<script context="module">
+<script module>
   import SectionBreak from "./SectionBreak.svelte";
   import docs from "./SectionBreak.docs.md?raw";
   import { defineMeta } from "@storybook/addon-svelte-csf";

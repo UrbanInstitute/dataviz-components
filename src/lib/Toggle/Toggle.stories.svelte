@@ -1,4 +1,4 @@
-<script context="module">
+<script module>
   import Toggle from "./Toggle.svelte";
   import docs from "./Toggle.docs.md?raw";
   import { defineMeta } from "@storybook/addon-svelte-csf";

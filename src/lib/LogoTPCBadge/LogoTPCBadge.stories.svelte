@@ -1,4 +1,4 @@
-<script context="module">
+<script module>
   import LogoTPCBadge from "./LogoTPCBadge.svelte";
   import docs from "./LogoTPCBadge.docs.md?raw";
   import { defineMeta } from "@storybook/addon-svelte-csf";

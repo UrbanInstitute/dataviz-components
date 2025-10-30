@@ -1,4 +1,4 @@
-<script context="module">
+<script module>
   import IconClose from "./IconClose.svelte";
   import { defineMeta } from "@storybook/addon-svelte-csf";
 

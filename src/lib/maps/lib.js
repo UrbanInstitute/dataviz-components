@@ -54,20 +54,6 @@ export function raise(el) {
 }
 
 /**
- * Turn a PointerEvent and a feature object into the format for used for tooltips
- * @param { PointerEvent } e The event object
- * @param { {properties: Object.<string: any>} } feature The feature object
- * @returns { {x: number, y: number, props: {Object.<string, any>}}}
- */
-export function getTooltipProps(e, feature) {
-  return {
-    x: e.pageX,
-    y: e.pageY,
-    props: feature.properties
-  };
-}
-
-/**
  * Determine if a feature should be highlighted based on 2 possible comparisons
  * @param { Object } feature The feature to check
  * @param { Object } compareA The first comparison

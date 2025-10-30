@@ -30,15 +30,81 @@ In order to add PymChild functionality to your page, simply import and use this 
   language="svelte"
 />
 
-If you need to access the Pym child instance itself, you can access it by importing and using this component's store:
+If you need to access the Pym child instance itself, grab the shared rune context and read the `child` property:
 
 <Source dark code={`
-import { pymChildStore } from "@urbaninstitute/dataviz-components/stores";
+import { usePymChildContext } from "@urbaninstitute/dataviz-components/context";
 
-if ($pymChildStore) {
-$pymChildStore.sendHeight();
-}
+const pymChild = usePymChildContext();
+
+pymChild?.child?.sendHeight();
 `} language="js" />
+
+### Context Requirement
+
+`usePymChildContext()` must be called within a component tree that has a `<PymChild>` component as an ancestor. If called outside this context, it returns `undefined`. Always use optional chaining when accessing properties or methods:
+
+<Source
+  dark
+  code={`
+const pymChild = usePymChildContext();
+pymChild?.sendHeight(); // Safe
+pymChild?.child?.sendHeight(); // Also safe
+`}
+  language="js"
+/>
+
+### Usage Patterns
+
+**Wrapper Pattern (Recommended)**
+
+When descendant components need to access `usePymChildContext()`, wrap them with `<PymChild>`:
+
+<Source
+  dark
+  code={`
+<script>
+  import { PymChild } from "@urbaninstitute/dataviz-components";
+  import MyChart from "./MyChart.svelte";
+</script>
+
+<PymChild>
+  <MyChart />
+</PymChild>
+`} language="svelte" />
+
+Inside `MyChart.svelte`, you can then safely call `usePymChildContext()`:
+
+<Source
+  dark
+  code={`
+<script>
+  import { usePymChildContext } from "@urbaninstitute/dataviz-components/context";
+
+const pymChild = usePymChildContext();
+
+function notifyResize() {
+  pymChild?.sendHeight();
+}
+
+</script>
+`}
+  language="svelte"
+/>
+
+**Standalone Pattern**
+
+If no descendants need context access, you can use it standalone:
+
+<Source
+  dark
+  code={`
+<PymChild />
+`}
+  language="svelte"
+/>
+
+**Important**: Context only flows down to descendants, not across to siblings. If you place `<PymChild />` as a sibling to components that need `usePymChildContext()`, those components won't be able to access the context.
 
 ## Properties
 

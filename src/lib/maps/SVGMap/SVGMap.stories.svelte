@@ -1,4 +1,5 @@
-<script context="module">
+<!-- A generative AI model wrote or edited portions of this file with the supervision of a human developer and careful human review. -->
+<script module>
   import SVGMap from "./SVGMap.svelte";
   import SVGPolygonLayer from "../SVGPolygonLayer/SVGPolygonLayer.svelte";
   import SVGLabelLayer from "../SVGLabelLayer/SVGLabelLayer.svelte";
@@ -39,6 +40,10 @@
   import { extent, max } from "d3-array";
   import cleveland_bike_data_topo from "../../../docs/sample-data/cleveland_bike_to_work.json";
   import pa_population_topo from "../../../docs/sample-data/pa_county_population_topo.json";
+  import { createMatchMediaContext } from "../../context";
+
+  // Initialize media query context for all stories
+  createMatchMediaContext();
 
   // nyc census tracts with average hh income
   const nyc_income = topojson.feature(nyc_income_topo, "nyc_income_geo1");
@@ -105,10 +110,10 @@
       getLabel={(d) => d.properties.name}
       fontSize={13}
     />
-    <div slot="tooltip" let:props>
+    {#snippet tooltip(props)}
       <h5>{props.NAME}</h5>
       <p>Air quality index:<strong>{props.index_air_quality}</strong></p>
-    </div>
+    {/snippet}
   </SVGMap>
 </Story>
 
@@ -129,14 +134,20 @@
 </Story>
 
 <Story name="Feature highlight" asChild>
-  <SVGMap features={cleveland_bike_data.features} projection={geoMercator}>
+  <SVGMap
+    features={cleveland_bike_data.features}
+    projection={geoMercator}
+    onbgclick={() => {
+      clevelandHighlight = null;
+    }}
+  >
     <SVGPolygonLayer
       fill={(d) => clevelandBikeScale(d.properties.bike_to_work)}
       stroke="white"
       hoverStroke={urbanColors.yellow}
       hoverStrokeWidth={2}
       highlightFeature={{ GEOID: clevelandHighlight }}
-      on:click={(e) => {
+      onclick={(e) => {
         if (clevelandHighlight === e.detail.props.GEOID) {
           clevelandHighlight = null;
         } else {

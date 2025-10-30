@@ -1,4 +1,5 @@
-<script context="module">
+<!-- A generative AI model wrote or edited portions of this file with the supervision of a human developer and careful human review. -->
+<script module>
   import { defineMeta } from "@storybook/addon-svelte-csf";
   const { Story } = defineMeta({
     title: "Examples/Stories/CustomSVGMap"
@@ -13,6 +14,10 @@
   import { urbanColors } from "$lib/utils";
   import us_cities from "../../docs/sample-data/us_cities.json";
   import { scaleQuantile } from "d3-scale";
+  import { createMatchMediaContext } from "$lib/context";
+
+  // Initialize media query context for all stories
+  createMatchMediaContext();
 
   const county_air_quality = topojson.feature(county_air_quality_topo, "county_air_quality");
 
@@ -23,7 +28,7 @@
     .range(urbanColors.getDivergingColors());
 </script>
 
-<Story name="Primary">
+<Story name="Primary" asChild>
   <ChartBlock
     title="Air quality index by U.S. county"
     source="Urban Institute Upward Mobility Framework"
@@ -55,10 +60,10 @@
         fontSize={13}
         pointerEvents={false}
       />
-      <div slot="tooltip" let:props>
+      {#snippet tooltip(props)}
         <h5>{props.NAME} county</h5>
         <p>Air quality index: <strong>{props.index_air_quality}</strong></p>
-      </div>
+      {/snippet}
     </SVGMap>
   </ChartBlock>
 </Story>

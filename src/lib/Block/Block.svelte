@@ -1,19 +1,23 @@
-<script context="module">
+<script module>
   /**
    * @typedef {"body" | "full" | "wide"} blockWidth
    */
 </script>
 
+<!-- A generative AI model wrote or edited portions of this file with the supervision of a human developer and careful human review. -->
 <script>
   /**
-   * The width of the block.
-   * @type {blockWidth} [width="body"]
+   * @typedef {Object} Props
+   * @property {blockWidth} [width="body"] The width of the block
+   * @property {import('svelte').Snippet} [children] The content to render inside the block
    */
-  export let width = "body";
+
+  /** @type {Props} */
+  let { width = "body", children } = $props();
 </script>
 
 <div class="layout-block {width}">
-  <slot />
+  {@render children()}
 </div>
 
 <style>

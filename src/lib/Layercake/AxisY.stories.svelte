@@ -1,4 +1,4 @@
-<script context="module">
+<script module>
   import AxisY from "./AxisY.svelte";
   import docs from "./AxisY.docs.md?raw";
   import { defineMeta } from "@storybook/addon-svelte-csf";

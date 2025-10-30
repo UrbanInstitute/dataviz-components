@@ -1,4 +1,5 @@
-<script context="module">
+<!-- A generative AI model wrote or edited portions of this file with the supervision of a human developer and careful human review. -->
+<script module>
   import ProjectCredits from "./ProjectCredits.svelte";
   import TextBlock from "$lib/TextBlock/TextBlock.svelte";
   import docs from "./ProjectCredits.docs.md?raw";

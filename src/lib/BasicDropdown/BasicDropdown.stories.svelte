@@ -1,4 +1,5 @@
-<script context="module">
+<!-- A generative AI model wrote or edited portions of this file with the supervision of a human developer and careful human review. -->
+<script module>
   import { defineMeta } from "@storybook/addon-svelte-csf";
   import { fireEvent, within, expect } from "storybook/test";
   import BasicDropdown from "./BasicDropdown.svelte";
@@ -141,14 +142,15 @@
   }}
 />
 
-<Story name="Custom icon (uncommon)">
+<Story name="Custom icon (uncommon)" asChild>
   <BasicDropdown
     variant="primary"
     id="dropdown-story-11"
     data={sampleData}
     inlineLabel="Dropdown label"
-    on:change
   >
-    <IconDownload slot="icon" size={16} fill={urbanColors.blue_shade_darker} />
+    {#snippet icon()}
+      <IconDownload size={16} fill={urbanColors.blue_shade_darker} />
+    {/snippet}
   </BasicDropdown>
 </Story>

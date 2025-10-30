@@ -1,55 +1,36 @@
+<!-- A generative AI model wrote or edited portions of this file with the supervision of a human developer and careful human review. -->
 <script>
   import IconChevronFull from "./IconChevronFull.svelte";
   import IconChevronOutline from "./IconChevronOutline.svelte";
   import urbanColors from "$lib/utils/urbanColors.js";
 
   /**
-   * Variant of dropdown
-   * @type {string} ["primary" | "secondary-blue" | "secondary-black" | "secondary-yellow"]
+   * @typedef {Object} Props
+   * @property {"primary" | "secondary-blue" | "secondary-black" | "secondary-yellow"} [variant="primary"] Variant of dropdown
+   * @property {string} id Unique id given to the dropdown DOM node
+   * @property {string | null} [value] Binds to the current value for the dropdown (data.value)
+   * @property {{ value: string, label: string}[]} data Source data as an array of objects (value and label attributes)
+   * @property {string} inlineLabel Label for the dropdown (used for accessibility even if showLabel is set to false)
+   * @property {boolean} [showLabel=false] Show label above dropdown
+   * @property {string | null} [placeholder="Select..."] Placeholder for when no option is selected (accepts a null value)
+   * @property {number} [dropdownWidth=260] Width (px) of the dropdown
+   * @property {(event: Event) => void} [onchange] Callback fired when dropdown value changes
+   * @property {import('svelte').Snippet} [icon] Custom icon snippet to replace default chevron
    */
-  export let variant = "primary";
 
-  /**
-   * Unique id given to the dropdown DOM node
-   * @type {string}
-   */
-  export let id;
-
-  /**
-   * Binds to the current value for the dropdown (data.value)
-   * @type {string | null}
-   */
-  export let value;
-
-  /**
-   * Source data as an array of objects (value and label attributes)
-   * @type {{ value: string, label: string}[]}
-   */
-  export let data;
-
-  /**
-   * Label for the dropdown (used for accessibility even if showLabel is set to false)
-   * @type {string}
-   */
-  export let inlineLabel;
-
-  /**
-   * Show label above dropdown
-   * @type {boolean}
-   */
-  export let showLabel = false;
-
-  /**
-   * placeholder for when no option is selected (accepts a null value)
-   * @type {string | null} [placeholder="Select..."]
-   */
-  export let placeholder = "Select...";
-
-  /**
-   * Width (px) of the dropdown
-   * @type {number}
-   */
-  export let dropdownWidth = 260;
+  /** @type {Props} */
+  let {
+    variant = "primary",
+    id,
+    value = $bindable(),
+    data,
+    inlineLabel,
+    showLabel = false,
+    placeholder = "Select...",
+    dropdownWidth = 260,
+    onchange,
+    icon
+  } = $props();
 </script>
 
 <div class="dropdown-parent">
@@ -61,7 +42,7 @@
       {id}
       class={`dropdown-select ${variant}`}
       aria-label={inlineLabel}
-      on:change
+      {onchange}
     >
       <!-- options -->
       {#if placeholder}
@@ -75,15 +56,15 @@
     </select>
     <div class="icons" aria-hidden="true">
       <span class="dropdown-chevron">
-        <slot name="icon">
-          {#if variant === "primary"}
-            <IconChevronFull />
-          {:else if variant === "secondary-blue" || variant === "secondary-black"}
-            <IconChevronOutline />
-          {:else if variant === "secondary-yellow"}
-            <IconChevronOutline fill={urbanColors.black} />
-          {/if}
-        </slot>
+        {#if icon}
+          {@render icon()}
+        {:else if variant === "primary"}
+          <IconChevronFull />
+        {:else if variant === "secondary-blue" || variant === "secondary-black"}
+          <IconChevronOutline />
+        {:else if variant === "secondary-yellow"}
+          <IconChevronOutline fill={urbanColors.black} />
+        {/if}
       </span>
     </div>
   </div>

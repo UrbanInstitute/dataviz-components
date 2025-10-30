@@ -1,4 +1,5 @@
-<script context="module">
+<!-- A generative AI model wrote or edited portions of this file with the supervision of a human developer and careful human review. -->
+<script module>
   import Tooltip from "./Tooltip.svelte";
   import { defineMeta } from "@storybook/addon-svelte-csf";
   import { Button } from "$lib";
@@ -156,7 +157,7 @@
     style="position: relative; width: 800px; height: 300px; display: grid; place-content: center;"
   >
     <div bind:this={pinEl} style="display: inline-block">
-      <Button onClick={() => (showPinned = !showPinned)}>Click me</Button>
+      <Button onclick={() => (showPinned = !showPinned)}>Click me</Button>
     </div>
   </div>
   {#if showPinned}
@@ -177,7 +178,7 @@
   </div>
   {#if tooltipX && tooltipY}
     <Tooltip x={tooltipX} y={tooltipY} size="large">
-      <svelte:fragment let:orientation slot="tooltipOverride">
+      {#snippet tooltipOverride({ orientation })}
         <div
           class="custom-tooltip {orientation}"
           style="background: {urbanColors.gray_shade_lighter}; padding: var(--spacing-2); border: solid 2px {urbanColors.magenta}"
@@ -188,7 +189,7 @@
           </p>
           <Button>Custom</Button>
         </div>
-      </svelte:fragment>
+      {/snippet}
     </Tooltip>
   {/if}
 </Story>

@@ -5,7 +5,7 @@ import { Meta, Controls, ArgTypes, Markdown, Story } from "@storybook/addon-docs
 
 # Scrolly
 
-A component that can be used to create "scrolly" sections and pages. This component is a wrapper around the [svelte-scroller](https://github.com/sveltejs/svelte-scroller) library. If your project has needs that go beyond what this component can support, you should consider using `svelte-scroller` directly. But for many common scenarious, the options provided here should have you covered.
+A component that can be used to create "scrolly" sections and pages. This component is a wrapper around the [svelte-scroller](https://github.com/sveltejs/svelte-scroller) library with a rune-based `ScrollyContext` under the hood. If you need behavior beyond what is provided here, compose directly with `svelte-scroller`, but for most editorial scrollytelling use cases this component is designed to be the starting point. Customization happens through snippet props and the context helper described below.
 
 Basic usage:
 
@@ -17,12 +17,13 @@ Basic usage:
 </script>
 
 <Scrolly {slides}>
-  <div
-    slot="background"
-    style="width: 100%; height: 100vh; color: var(--color-white); font-weight: var(--font-weight-bold); background: var(--color-blue); display: flex; align-items: center; justify-content: center;"
-  >
-    Scrolly background
-  </div>
+  {#snippet background()}
+    <div
+      style="width: 100%; height: 100vh; color: var(--color-white); font-weight: var(--font-weight-bold); background: var(--color-blue); display: flex; align-items: center; justify-content: center;"
+    >
+      Scrolly background
+    </div>
+  {/snippet}
 </Scrolly>
 ```
 
@@ -31,35 +32,39 @@ Basic usage:
 
 ## Background components
 
-While this component provides much of what you need to get started with a scrolly segment, you'll need to create your own backgound component. This can range from a very simple component that displays an image or a chart, to something highly complex with bespoke animations and transitions. The sky is the limit, and how you build your background component is up to you and the needs of your project. There are a few core pieces of functionality this component provides that will help you out. The `<Scrolly>` component provides key information about the current state of the scrolly via [Svelte's context api](https://svelte.dev/docs/svelte#setcontext), with a key of `scrolly`, in the form of Svelte stores. This means you don't need to worry about `let` bindings or passing the correct props to your slotted `background` component inside your app. The following stores can be accessed from inside your background component:
+While this component provides much of what you need to get started with a scrolly segment, you'll supply your own background functionality via the `background` snippet. The `<Scrolly>` component creates a rune-based context class (`createScrollyContext()`) and exposes it through the `useScrollyContext()` helper. Call that helper inside any descendant (for example, your background component) to read reactive values without juggling stores or prop drilling. The context instance exposes the following properties:
 
 <Markdown>
-  {`| store  | description                                                                                   |
+  {`| property    | description                                                                                   |
 | ----------- | --------------------------------------------------------------------------------------------- |
-| index       | The index of the current slide. This variable can be used to determine what content should be displayed in the \`background\`|
-| offset      | How far the section has scrolled past the threshold, as a value between 0 and 1. |
-| progress |   How far the foreground has travelled, where 0 is the top of the foreground crossing \`top\`, and 1 is the bottom crossing \`bottom\`.|
-| slideHeight | The height in pixels of the current slide based on browser conditions. Can be used for sizing content in the background.|
-| slideWidth | The width in pixels of the current slide based on browser conditions. Can be used for sizing content in the background.|
+| index       | The zero-based index of the active slide. Use this to coordinate scene changes in the background.|
+| offset      | How far the current slide has scrolled past the threshold (0–1). Useful for triggering progressive animations.|
+| progress    | How far the foreground has travelled overall, where 0 is the top crossing \`top\` and 1 is the bottom crossing \`bottom\`.|
+| slideHeight | The height in pixels of the current slide. Use for sizing or positioning background content.|
+| slideWidth  | The width in pixels of the current slide.|
+| innerHeight | The viewport height in pixels.|
 `}
 </Markdown>
 
-Since these values are passed as stores, they can should be referenced using Svelte's `$` store syntax:
+Access these values by calling the `useScrollyContext()` helper function from within a descendant component or snippet:
 
-```js
-import { getContext } from "svelte";
+```svelte
+<script>
+  import { useScrollyContext } from "@urbaninstitute/dataviz-components/context";
+  const scrolly = useScrollyContext();
+</script>
 
-// access stores from scrolly context
-const { index, slideWidth } = getContext("scrolly");
-
-// use $ store syntax in your component
-console.log("The current index is", $index);
-console.log("The slideWidth is", $slideWidth);
+<div>
+  <p>Current slide: {scrolly.index + 1}</p>
+  <p>Progress: {Math.round(scrolly.progress * 100)}%</p>
+</div>
 ```
+
+**Note:** This is a breaking change from previous versions. The old API using `getContext("scrolly")` with Svelte stores is no longer supported. See the migration guide below for upgrade instructions.
 
 ## Custom foregrounds
 
-By default, the foreground expects a simple string in the `slides` array, and it renders the provided string (including any HTML formatting) within a `<p>` element inside a basic text box. This default behaviour will work for many scenarios, but you might need more flexibility beyond including simple inline HTML inside a `<p>`. If this is the case, you can override the default markup by making use of the `foreground` slot of this component. Additionally, you can pass more complex data structures through the `slides` prop and specify how these data should be rendered with a custom `foreground` slot. The contents of the corresponding item in the array will be passed to your foreground `slot` as a `slide` prop. You can use this data in your custom markup like so:
+By default, the foreground expects a simple string in the `slides` array, and it renders the provided string (including any HTML formatting) within a `<p>` element inside a basic text box. This default behaviour will work for many scenarios, but you might need more flexibility beyond including simple inline HTML inside a `<p>`. If this is the case, you can override the default markup by making use of the `foreground` snippet prop. Additionally, you can pass more complex data structures through the `slides` prop and specify how these data should be rendered with a custom `foreground` snippet. The contents of the corresponding item in the array will be passed to your foreground snippet along with the slide index. You can use this data in your custom markup like so:
 
 ```svelte
 <script>
@@ -81,16 +86,97 @@ By default, the foreground expects a simple string in the `slides` array, and it
   ];
 </script>
 
-<Scrolly>
-  <div
-    slot="background"
-    style="width: 100%; height: 100vh; color: var(--color-white); font-weight: var(--font-weight-bold); background: var(--color-blue); display: flex; align-items: center; justify-content: center;"
-  >
-    Scrolly background
-  </div>
-  <div slot="foreground" class="custom-foreground-text-box" let:slide>
+<Scrolly {slides}>
+  {#snippet background()}
+    <div
+      style="width: 100%; height: 100vh; color: var(--color-white); font-weight: var(--font-weight-bold); background: var(--color-blue); display: flex; align-items: center; justify-content: center;"
+    >
+      Scrolly background
+    </div>
+  {/snippet}
+
+  {#snippet foreground(slide, index)}
+    <div class="custom-foreground-text-box">
+      <h2>{slide.title}</h2>
+      <p>{slide.body}</p>
+      <small>Slide {index + 1}</small>
+    </div>
+  {/snippet}
+</Scrolly>
+```
+
+## Migration Guide
+
+If you're upgrading from a previous version of this component, here are the breaking changes and how to update your code:
+
+### 1. Background slot → background snippet
+
+**Before:**
+
+```svelte
+<Scrolly {slides}>
+  <div slot="background">Background content</div>
+</Scrolly>
+```
+
+**After:**
+
+```svelte
+<Scrolly {slides}>
+  {#snippet background()}
+    <div>Background content</div>
+  {/snippet}
+</Scrolly>
+```
+
+### 2. Foreground slot → foreground snippet
+
+**Before:**
+
+```svelte
+<Scrolly {slides}>
+  <div slot="foreground" let:slide>
     <h2>{slide.title}</h2>
-    <p>{slide.body}</p>
   </div>
 </Scrolly>
+```
+
+**After:**
+
+```svelte
+<Scrolly {slides}>
+  {#snippet foreground(slide, index)}
+    <div>
+      <h2>{slide.title}</h2>
+    </div>
+  {/snippet}
+</Scrolly>
+```
+
+### 3. Context API: getContext → useScrollyContext
+
+**Before:**
+
+```svelte
+<script>
+  import { getContext } from "svelte";
+
+  const { index, offset, progress, slideHeight, slideWidth } = getContext("scrolly");
+
+  // Use with $ store syntax
+  console.log($index);
+</script>
+```
+
+**After:**
+
+```svelte
+<script>
+  import { useScrollyContext } from "@urbaninstitute/dataviz-components/context";
+
+  const scrolly = useScrollyContext();
+
+  // Use properties directly (reactive)
+  console.log(scrolly.index);
+</script>
 ```

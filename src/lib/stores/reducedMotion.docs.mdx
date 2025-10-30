@@ -6,6 +6,8 @@ import { Meta } from "@storybook/addon-docs/blocks";
 
 [![github](https://badgen.net/badge/icon/GitHub?icon=github&label)](https://github.com/UrbanInstitute/dataviz-components/blob/main/src/lib/stores/reducedMotion.js)
 
+**Note:** This module has been deprecated. It remains available for support, but may be removed in a future version. This functionality has been superceded by the [matchMedia](/docs/stores-matchmedia--docs) module .
+
 A Svelte store that tracks the user's preference for reduced motion, adapted from [Geoff Rich's Accessible Svelte Transitions article](https://geoffrich.net/posts/accessible-svelte-transitions/).
 
 Sometimes users may turn on "prefers-reduced-motion" in their accessibility settings. If this is this is the case, they expect to see no animations or transitions. This store uses `window.matchMedia()` to track the user's preference for reduced motion and can be used for conditional rendering.
@@ -37,3 +39,4 @@ It's worth noting that CSS like the following will disable most native Svelte tr
   }
 }
 ```
+

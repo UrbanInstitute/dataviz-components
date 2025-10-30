@@ -15,7 +15,7 @@
   asChild
   source={`
 <script>
-  import { Theme, Navbar, ChartBlock, DatawrapperIframe, Headline, TextBlock, SocialShare, ProjectCredits } from "@urbaninstitute/dataviz-components";
+  import { Theme, Navbar, ChartBlock, DatawrapperIframe, Headline, TextBlock, ProjectCredits } from "@urbaninstitute/dataviz-components";
 </script>
 <Theme>
   <Navbar sticky={true}/>
@@ -36,7 +36,9 @@
   </TextBlock>
   <ProjectCredits heading="Credits" items={[{label: "Credits", content: "Name Name"}, {label: "Credits", content: "Name Name"}, {label: "Credits", content: "Name Name"}]}>
   <h4>About the data</h4>
-  <TextBlock slot="intro"><em>Example credits data text.</em></TextBlock>
+  {#snippet intro()}
+    <TextBlock><em>Example credits data text.</em></TextBlock>
+  {/snippet}
   </ProjectCredits>
 </Theme>
 `}
@@ -95,6 +97,8 @@
     ]}
   >
     <h4>About the data</h4>
-    <TextBlock slot="intro"><em>Example credits data text.</em></TextBlock>
+    {#snippet intro()}
+      <TextBlock><em>Example credits data text.</em></TextBlock>
+    {/snippet}
   </ProjectCredits>
 </Story>

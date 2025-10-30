@@ -1,4 +1,5 @@
-<script context="module">
+<!-- A generative AI model wrote or edited portions of this file with the supervision of a human developer and careful human review. -->
+<script module>
   import Scorecard from "./Scorecard.svelte";
   import docs from "./Scorecard.docs.md?raw";
   import { defineMeta } from "@storybook/addon-svelte-csf";

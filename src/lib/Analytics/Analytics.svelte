@@ -1,4 +1,5 @@
-<script context="module">
+<!-- A generative AI model wrote or edited portions of this file with the supervision of a human developer and careful human review. -->
+<script module>
   /**
    * A function that logs a click event to Google Analytics.
    * @param {HTMLElement} target The DOM element that triggered the event.
@@ -6,14 +7,20 @@
    * @returns {void}
    */
   export function logClickToGA(target, eventName) {
-    const DEV = window.ui_dataviz_config.analytics_mode !== "production";
+    if (typeof window === "undefined") return;
+
+    window.ui_dataviz_config = window.ui_dataviz_config || {};
+    const { analytics_mode = "production", analytics_title = "" } = window.ui_dataviz_config;
+    const DEV = analytics_mode !== "production";
+
     const eventData = {
-      dataviz_title: window.ui_dataviz_config.analytics_title,
+      dataviz_title: analytics_title,
       dataviz_target: target,
       dataviz_detail: eventName
     };
+
     if (!DEV) {
-      if (typeof window === "undefined" || !window.gtag) return;
+      if (typeof window.gtag !== "function") return;
       window.gtag("event", "dataviz_click", eventData);
     } else {
       console.log("dataviz_click fired", eventData);
@@ -25,24 +32,18 @@
   import { onMount } from "svelte";
 
   /**
-   * A descriptive title for your project. Used to collect events within GA.
-   * @type {string}
+   * @typedef {Object} Props
+   * @property {string} title A descriptive, unique title for your project. Used to collect events within GA.
+   * @property {boolean} [sendPageview=true] Set to false to skip initial pageview. Useful for projects that are primarily embedded on pages with their own analytics.
+   * @property {string} [mode="production"] If set to "development", logClickToGA will print debugging info rather than sending events to GA. Set to "production" to send actual events.
    */
-  export let title;
 
-  /**
-   * Set to false to skip initial pageview. Useful for projects that are primarily embedded on pages with their own analytics.
-   * @type {boolean} [true]
-   */
-  export let sendPageview = true;
-
-  /**
-   * If set to "development", logClickToGA will print debugging info rather than sending events to GA. Set to "production" to send actual events.
-   * @type {string} ["production"]
-   */
-  export let mode = "production";
+  /** @type {Props} */
+  let { title, sendPageview = true, mode = "production" } = $props();
 
   onMount(() => {
+    if (typeof window === "undefined") return;
+
     window.ui_dataviz_config = window.ui_dataviz_config || {};
     window.ui_dataviz_config.analytics_title = title;
     window.ui_dataviz_config.analytics_mode = mode;

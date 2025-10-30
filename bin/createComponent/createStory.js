@@ -1,5 +1,5 @@
 export function createStory(componentName) {
-  return `<script context="module">
+  return `<script module>
   import TestingTree from "./TestingTree.svelte";
   import docs from "./TestingTree.docs.md?raw";
 

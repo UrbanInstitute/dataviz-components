@@ -1,4 +1,4 @@
-<script context="module">
+<script module>
   import LogoUrbanAnimated from "./LogoUrbanAnimated.svelte";
   import docs from "./LogoUrbanAnimated.docs.md?raw";
   import { defineMeta } from "@storybook/addon-svelte-csf";

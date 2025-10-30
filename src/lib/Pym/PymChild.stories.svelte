@@ -1,4 +1,5 @@
-<script context="module">
+<!-- A generative AI model wrote or edited portions of this file with the supervision of a human developer and careful human review. -->
+<script module>
   import PymChild from "./PymChild.svelte";
   import { defineMeta } from "@storybook/addon-svelte-csf";
 
@@ -13,4 +14,40 @@
   });
 </script>
 
+<script>
+  import { usePymChildContext } from "./context.svelte.js";
+
+  let sendCount = $state(0);
+  let pymStatus = $state("Not initialized");
+</script>
+
 <Story name="Primary" />
+
+<Story name="With Context Consumer">
+  <PymChild>
+    {#if typeof window !== "undefined"}
+      {@const pymChild = usePymChildContext()}
+      <div style="padding: 20px; border: 1px solid #ccc; border-radius: 4px;">
+        <h3>Child Component Using Context</h3>
+        <p>
+          Status: <strong
+            >{pymChild ? "PymChild context available" : "PymChild context unavailable"}</strong
+          >
+        </p>
+        <p>Send height called: <strong>{sendCount}</strong> times</p>
+        <button
+          onclick={() => {
+            pymChild?.sendHeight();
+            sendCount++;
+          }}
+          style="padding: 8px 16px; border: 1px solid #1696d2; background: #1696d2; color: white; cursor: pointer;"
+        >
+          Send Height via usePymChildContext()
+        </button>
+        <p style="margin-top: 16px; font-size: 14px; color: #666;">
+          This component is a descendant of PymChild and can access the context.
+        </p>
+      </div>
+    {/if}
+  </PymChild>
+</Story>

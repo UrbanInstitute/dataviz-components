@@ -13,22 +13,22 @@
    * @property {Object<string, any>[]} data
    * @property {ShapeOption} [shape="hex"]
    * @property {import("$utils/states").FeatureOptions} [featureOption="states"]
-   * @property {string | ((d: Object<string, any>) => string)} [fill=urbanColors.blue] - A string or function that returns a string to use as this layers stroke color.
-   * @property {string | undefined} [hoverFill=undefined] - A color string to use when a feature is hovered
-   * @property {string} [naFill=urbanColors.gray_shade_light] - Color to use for values that are NA or otherwise undefined in the color scale
-   * @property {string | ((d: Object) => string)} [stroke=urbanColors.white] - A string or function that returns a string to use as this layers stroke color.
-   * @property {string | undefined} [hoverStroke=undefined] - Optional color string for hovered feature stroke
-   * @property {number} [strokeWidth=0.5] - Stroke width of each feature
-   * @property {number | undefined} [hoverStrokeWidth=undefined] - Stroke width of each feature when hovered
-   * @property {string | undefined} [highlightFeature=undefined] - ID of the feature to highlight
-   * @property {string | undefined} [ariaRole=undefined] - Optional aria role string to be applied to SVG container. By default, the SVG is hidden from the accessiblity tree. If you add an ariaRole here, any layers should also be given an ariaRole.
-   * @property {string | undefined} [ariaLabel=undefined] - Optional aria label string to be applied to SVG container. By default, the SVG is hidden from the accessiblity tree and should include a descriptive label. If you add an ariaRole this property can be left undefined;
-   * @property {string} [labelColor=urbanColors.black] - Optional color string to use for the labels on the map
-   * @property {(e: Event, props: Record<any, any>) => void} [onMousemove=() => {}] - Optional handler that fires when the mouse moves over a feature
-   * @property {(e: Event) => void} [onMouseout=() => {}] - Optional handler that fires when the mouse moves out of a feature
-   * @property {(e: Event, props: Record<any, any>) => void} [onClick=() => {}] - Optional handler that fires when the mouse clicks on a feature
-   * @property {(e: Event) => void} [onBgclick=() => {}] - Optional handler that fires when the mouse clicks on the background
-   * @property {@import("svelte").Snippet} [tooltip] - Optional snippet for rendering a tooltip, receives hovered feature props
+   * @property {string | ((d: Object<string, any>) => string)} [fill=urbanColors.blue] A string or function that returns a string to use as this layers stroke color.
+   * @property {string | undefined} [hoverFill=undefined] A color string to use when a feature is hovered
+   * @property {string} [naFill=urbanColors.gray_shade_light] Color to use for values that are NA or otherwise undefined in the color scale
+   * @property {string | ((d: Object) => string)} [stroke=urbanColors.white] A string or function that returns a string to use as this layers stroke color.
+   * @property {string | undefined} [hoverStroke=undefined] Optional color string for hovered feature stroke
+   * @property {number} [strokeWidth=0.5] Stroke width of each feature
+   * @property {number | undefined} [hoverStrokeWidth=undefined] Stroke width of each feature when hovered
+   * @property {string | undefined} [highlightFeature=undefined] ID of the feature to highlight
+   * @property {string | undefined} [ariaRole=undefined] Optional aria role string to be applied to SVG container. By default, the SVG is hidden from the accessiblity tree. If you add an ariaRole here, any layers should also be given an ariaRole.
+   * @property {string | undefined} [ariaLabel=undefined] Optional aria label string to be applied to SVG container. By default, the SVG is hidden from the accessiblity tree and should include a descriptive label. If you add an ariaRole this property can be left undefined;
+   * @property {string} [labelColor=urbanColors.black] Optional color string to use for the labels on the map
+   * @property {(e: Event, props: Record<any, any>) => void} [onMousemove=() => {}] Optional handler that fires when the mouse moves over a feature
+   * @property {(e: Event) => void} [onMouseout=() => {}] Optional handler that fires when the mouse moves out of a feature
+   * @property {(e: Event, props: Record<any, any>) => void} [onClick=() => {}] Optional handler that fires when the mouse clicks on a feature
+   * @property {(e: Event) => void} [onBgclick=() => {}] Optional handler that fires when the mouse clicks on the background
+   * @property {@import("svelte").Snippet} [tooltip] Optional snippet for rendering a tooltip, receives hovered feature props
    */
 
   /** @type {TilemapProps} */

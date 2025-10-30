@@ -1,15 +1,18 @@
 <!-- @component Button a basic HTML button with Urban styling-->
+<!-- A generative AI model wrote or edited portions of this file with
+     the supervision of a human developer and careful human review. -->
 <script>
-  import { createEventDispatcher } from "svelte";
   /**
    * @typedef Props
    * @type Object
-   * @property {"primary" | "primary-black" | "secondary" | "secondary-black" | "tertiary"} variant - Which variant of button to use
-   * @property {"standard" | "small" } size
-   * @property { boolean } disabled - Is the button disabled?
-   * @property {Function} onMouseEnter - Callback for mouse enter event
-   * @property {Function} onMouseLeave - Callback for mouse leave event
-   * @property {Function} onClick - Callback for click event
+   * @property {"primary" | "primary-black" | "secondary" | "secondary-black" | "tertiary"} [variant="primary"] Which variant of button to use
+   * @property {"standard" | "small"} [size="standard"]
+   * @property {boolean} [disabled=false] Is the button disabled?
+   * @property {(event: MouseEvent) => void} [onmouseenter=() => {}] Callback for mouse enter event
+   * @property {(event: MouseEvent) => void} [onmouseleave=() => {}] Callback for mouse leave event
+   * @property {(event: MouseEvent) => void} [onclick=() => {}] Callback for click event
+   * @property {import('svelte').Snippet} [children=() => {}] Content rendered inside the button
+   * @property {import('svelte').Snippet<[string]>} [icon=(iconColor) => {}] Optional icon snippet that receives the computed icon color
    */
 
   /**
@@ -19,9 +22,9 @@
     variant = "primary",
     size = "standard",
     disabled = false,
-    onMouseenter = () => {},
-    onMouseleave = () => {},
-    onClick = () => {},
+    onmouseenter = () => {},
+    onmouseleave = () => {},
+    onclick = () => {},
     children = () => {},
     icon = (iconColor) => {}
   } = $props();
@@ -36,17 +39,17 @@
     return iconColor;
   }
 
-  function _onMouseenter(e) {
+  function _onmouseenter(e) {
     hovered = true;
-    onMouseenter(e);
+    onmouseenter(e);
   }
-  function _onMouseleave(e) {
+  function _onmouseleave(e) {
     hovered = false;
-    onMouseleave(e);
+    onmouseleave(e);
   }
 
-  function _onClick(e) {
-    onClick(e);
+  function _onclick(e) {
+    onclick(e);
   }
 
   let iconColor = $derived(getIconColor(variant, hovered, el));
@@ -57,9 +60,9 @@
   bind:this={el}
   {disabled}
   aria-disabled={disabled}
-  onmouseenter={_onMouseenter}
-  onmouseleave={_onMouseleave}
-  onclick={_onClick}
+  onmouseenter={_onmouseenter}
+  onmouseleave={_onmouseleave}
+  onclick={_onclick}
 >
   {@render children()}
   {#if icon}

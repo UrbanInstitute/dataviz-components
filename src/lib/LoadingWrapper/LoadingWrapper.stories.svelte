@@ -1,4 +1,5 @@
-<script context="module">
+<!-- A generative AI model wrote or edited portions of this file with the supervision of a human developer and careful human review. -->
+<script module>
   import { onMount } from "svelte";
   import LoadingWrapper from "./LoadingWrapper.svelte";
   import LogoUrbanWide from "../LogoUrbanWide/LogoUrbanWide.svelte";
@@ -24,49 +25,62 @@
 </script>
 
 <script>
-  // function to create a fake await for 2sec
-  function sleep(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  }
+  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-  // set loading for paragraph examples, sleep for 2.5 sec on mount
-  $: isChildLoading = true;
+  let isChildLoading = $state(true);
+
   onMount(() => {
+    let cancelled = false;
+
     sleep(2500).then(() => {
-      isChildLoading = false;
+      if (!cancelled) {
+        isChildLoading = false;
+      }
     });
+
+    return () => {
+      cancelled = true;
+    };
   });
 </script>
 
 <Story name="Default" asChild>
   <LoadingWrapper {isChildLoading}>
-    <span
-      >Amet est Lorem qui ullamco laboris velit. Incididunt est sunt exercitation qui ea. Officia
-      Lorem est labore amet irure nostrud. Exercitation Lorem do consectetur enim esse quis mollit
-      cupidatat aliqua magna. Ipsum irure anim commodo Lorem.
-    </span>
+    {#snippet children()}
+      <span
+        >Amet est Lorem qui ullamco laboris velit. Incididunt est sunt exercitation qui ea. Officia
+        Lorem est labore amet irure nostrud. Exercitation Lorem do consectetur enim esse quis mollit
+        cupidatat aliqua magna. Ipsum irure anim commodo Lorem.
+      </span>
+    {/snippet}
   </LoadingWrapper>
 </Story>
 
 <Story name="Custom graphic" asChild>
   <LoadingWrapper {isChildLoading}>
-    <LogoUrbanWide slot="graphic" />
-    <span
-      >Amet est Lorem qui ullamco laboris velit. Incididunt est sunt exercitation qui ea. Officia
-      Lorem est labore amet irure nostrud. Exercitation Lorem do consectetur enim esse quis mollit
-      cupidatat aliqua magna. Ipsum irure anim commodo Lorem.
-    </span>
+    {#snippet graphic()}
+      <LogoUrbanWide />
+    {/snippet}
+    {#snippet children()}
+      <span
+        >Amet est Lorem qui ullamco laboris velit. Incididunt est sunt exercitation qui ea. Officia
+        Lorem est labore amet irure nostrud. Exercitation Lorem do consectetur enim esse quis mollit
+        cupidatat aliqua magna. Ipsum irure anim commodo Lorem.
+      </span>
+    {/snippet}
   </LoadingWrapper>
 </Story>
 
 <Story name="Datawrapper example" asChild>
-  <LoadingWrapper let:setChildLoading let:setChildLoaded>
-    <DatawrapperIframe
-      title="This is a title for the visualization"
-      ariaLabel="This is an accessible title for the visualization"
-      datawrapperId="qF5No"
-      on:startrender={setChildLoading}
-      on:visrendered={setChildLoaded}
-    />
+  <LoadingWrapper>
+    {#snippet children({ setChildLoading, setChildLoaded })}
+      <DatawrapperIframe
+        title="This is a title for the visualization"
+        ariaLabel="This is an accessible title for the visualization"
+        datawrapperId="qF5No"
+        onstartrender={setChildLoading}
+        onvisrendered={setChildLoaded}
+      />
+    {/snippet}
   </LoadingWrapper>
 </Story>

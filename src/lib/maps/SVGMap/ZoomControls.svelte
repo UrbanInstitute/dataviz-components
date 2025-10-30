@@ -1,24 +1,33 @@
+<!-- A generative AI model wrote or edited portions of this file with the supervision of a human developer and careful human review. -->
 <script>
-  export let zoomIn;
-  export let zoomOut;
-  export let zoomReset;
-  export let showReset = false;
-
-  export let disableZoomIn = false;
-  export let disableZoomOut = false;
-
-  /*
-   * Where the zoom control UI should be positioned.
-   * @type {"bottom-left" | "bottom-right" | "top-left" | "top-right"}
+  /**
+   * @typedef {Object} Props
+   * @property {() => void} zoomIn Function to handle zooming in.
+   * @property {() => void} zoomOut Function to handle zooming out.
+   * @property {() => void} zoomReset Function to reset zoom.
+   * @property {boolean} [showReset=false] Whether to show the reset button. Default: false.
+   * @property {boolean} [disableZoomIn=false] Whether the zoom-in button is disabled. Default: false.
+   * @property {boolean} [disableZoomOut=false] Whether the zoom-out button is disabled. Default: false.
+   * @property {"bottom-left" | "bottom-right" | "top-left" | "top-right"} controlPosition Position of the zoom controls.
    */
-  export let controlPosition;
 
-  $: top = controlPosition.includes("top");
+  /** @type {Props} */
+  let {
+    zoomIn,
+    zoomOut,
+    zoomReset,
+    showReset = false,
+    disableZoomIn = false,
+    disableZoomOut = false,
+    controlPosition
+  } = $props();
+
+  let top = $derived(controlPosition.includes("top"));
 </script>
 
 <div class="zoom-controls {controlPosition}">
   {#if showReset && top}
-    <button class="zoom-button zoom-reset" on:click={zoomReset} aria-label="Reset map zoom">
+    <button class="zoom-button zoom-reset" onclick={zoomReset} aria-label="Reset map zoom">
       <svg
         width="15"
         height="15"
@@ -51,7 +60,7 @@
   <button
     class="zoom-button zoom-out"
     disabled={disableZoomOut}
-    on:click={zoomOut}
+    onclick={zoomOut}
     aria-label="Zoom out map"
   >
     <svg width="11" height="3" viewBox="0 0 11 3" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -66,7 +75,7 @@
   <button
     class="zoom-button zoom-in"
     disabled={disableZoomIn}
-    on:click={zoomIn}
+    onclick={zoomIn}
     aria-label="Zoom in map"
   >
     <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -79,7 +88,7 @@
     </svg>
   </button>
   {#if showReset && !top}
-    <button class="zoom-button zoom-reset" on:click={zoomReset} aria-label="Reset map zoom">
+    <button class="zoom-button zoom-reset" onclick={zoomReset} aria-label="Reset map zoom">
       <svg
         width="15"
         height="15"

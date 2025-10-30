@@ -1,15 +1,33 @@
+<!-- A generative AI model wrote or edited portions of this file with the supervision of a human developer and careful human review. -->
 <script>
-  import { onMount } from "svelte";
   import pym from "pym.js";
-  import { pymChildStore } from "./stores.js";
+  import { onMount } from "svelte";
+  import { createPymChildContext } from "./context.svelte.js";
 
-  /** Pym.js polling interval */
-  export let polling = 500;
+  /**
+   * @typedef {Object} Props
+   * @property {number} [polling=500]
+   * @property {import('svelte').Snippet} [children]
+   */
 
-  let pymChild;
+  /** @type {Props} */
+  let { polling = 500, children } = $props();
+
+  const pymChildContext = createPymChildContext();
 
   onMount(() => {
-    pymChild = new pym.Child({ polling });
-    pymChildStore.set(pymChild);
+    if (typeof window === "undefined") return;
+
+    const child = new pym.Child({ polling });
+    pymChildContext.setChild(child);
+
+    return () => {
+      child?.remove?.();
+      pymChildContext.clear();
+    };
   });
 </script>
+
+{#if children}
+  {@render children()}
+{/if}

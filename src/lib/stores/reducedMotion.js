@@ -1,24 +1,43 @@
-// Svelte store to detect if client has reduced motion turned on (relevant for animations in radial visualization scrollytelling section)
-// Copied from Geoff Rich: https://geoffrich.net/posts/svelte-prefers-reduced-motion-store/
-// @ts-nocheck
+// A generative AI model wrote or edited portions of this file with the supervision of a human developer and careful human review.
+/**
+ * @deprecated Use createMatchMediaContext()/useMatchMediaContext() from matchMediaContext.svelte.js instead.
+ * This store will be removed in a future major version.
+ *
+ * Legacy readable store to detect if client has reduced motion turned on.
+ * Adapted from Geoff Rich: https://geoffrich.net/posts/svelte-prefers-reduced-motion-store/
+ */
+
 import { readable } from "svelte/store";
 
+/**
+ * @type {string}
+ */
 const reducedMotionQuery = "(prefers-reduced-motion: reduce)";
-const getInitialMotionPreference = () => {
-  if (typeof window !== "undefined") return window.matchMedia(reducedMotionQuery).matches;
-};
 
-export const reducedMotion = readable(getInitialMotionPreference(), (set) => {
+/**
+ * Readable store that tracks the user's reduced motion preference.
+ * @deprecated Use createMatchMediaContext()/useMatchMediaContext() from matchMediaContext.svelte.js
+ */
+export const reducedMotion = readable(false, (set) => {
+  // SSR-safe initialization
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  const mediaQueryList = window.matchMedia(reducedMotionQuery);
+
+  // Set initial value
+  set(mediaQueryList.matches);
+
+  // Listen for changes
   const updateMotionPreference = (event) => {
     set(event.matches);
   };
 
-  if (typeof window !== "undefined") {
-    const mediaQueryList = window.matchMedia(reducedMotionQuery);
-    mediaQueryList.addEventListener("change", updateMotionPreference);
+  mediaQueryList.addEventListener("change", updateMotionPreference);
 
-    return () => {
-      mediaQueryList.removeEventListener("change", updateMotionPreference);
-    };
-  }
+  // Cleanup function
+  return () => {
+    mediaQueryList.removeEventListener("change", updateMotionPreference);
+  };
 });
