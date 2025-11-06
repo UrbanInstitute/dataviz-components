@@ -60,10 +60,11 @@
 </Story>
 
 <Story name="primary with icon">
-  Button text <svelte:fragment slot="icon" let:iconColor
-    ><IconDownload size={16} fill={iconColor} /></svelte:fragment
-  ></Story
->
+  Button text
+  {#snippet icon(iconColor)}
+    <IconDownload size={16} fill={iconColor} />
+  {/snippet}
+</Story>
 
 <Story
   name="primary disabled"
@@ -102,13 +103,17 @@
   Button text
 </Story>
 
-<Story name="primary-black with icon">
-  Button text 
+<Story
+  name="primary-black with icon"
+  args={{
+    variant: "primary-black"
+  }}
+>
+  Button text
   {#snippet icon(iconColor)}
     <IconDownload size={16} fill={iconColor} />
   {/snippet}
-  </Story
->
+</Story>
 
 <Story
   name="primary-black-small"
@@ -139,13 +144,17 @@
   Button text
 </Story>
 
-<Story name="secondary with icon">
-  Button text 
+<Story
+  name="secondary with icon"
+  args={{
+    variant: "secondary"
+  }}
+>
+  Button text
   {#snippet icon(iconColor)}
     <IconDownload size={16} fill={iconColor} />
   {/snippet}
-</Story
->
+</Story>
 
 <Story
   name="secondary-small"
@@ -176,13 +185,17 @@
   Button text
 </Story>
 
-<Story name="secondary-black with icon">
-  Button text 
+<Story
+  name="secondary-black with icon"
+  args={{
+    variant: "secondary-black"
+  }}
+>
+  Button text
   {#snippet icon(iconColor)}
     <IconDownload size={16} fill={iconColor} />
   {/snippet}
-</Story
->
+</Story>
 <Story
   name="secondary-black-small"
   args={{
@@ -212,11 +225,16 @@
   Button text
 </Story>
 
-<Story name="tertiary with icon">
-     Button text 
-     {#snippet icon(iconColor)}
-       <IconDownload size={16} fill={iconColor} />
-     {/snippet}
+<Story
+  name="tertiary with icon"
+  args={{
+    variant: "tertiary"
+  }}
+>
+  Button text
+  {#snippet icon(iconColor)}
+    <IconDownload size={16} fill={iconColor} />
+  {/snippet}
 </Story>
 <Story
   name="tertiary-small"
