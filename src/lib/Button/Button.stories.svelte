@@ -103,9 +103,11 @@
 </Story>
 
 <Story name="primary-black with icon">
-  Button text <svelte:fragment slot="icon" let:iconColor
-    ><IconDownload size={16} fill={iconColor} /></svelte:fragment
-  ></Story
+  Button text 
+  {#snippet icon(iconColor)}
+    <IconDownload size={16} fill={iconColor} />
+  {/snippet}
+  </Story
 >
 
 <Story
@@ -138,9 +140,11 @@
 </Story>
 
 <Story name="secondary with icon">
-  Button text <svelte:fragment slot="icon" let:iconColor
-    ><IconDownload size={16} fill={iconColor} /></svelte:fragment
-  ></Story
+  Button text 
+  {#snippet icon(iconColor)}
+    <IconDownload size={16} fill={iconColor} />
+  {/snippet}
+</Story
 >
 
 <Story
@@ -173,9 +177,11 @@
 </Story>
 
 <Story name="secondary-black with icon">
-  Button text <svelte:fragment slot="icon" let:iconColor
-    ><IconDownload size={16} fill={iconColor} /></svelte:fragment
-  ></Story
+  Button text 
+  {#snippet icon(iconColor)}
+    <IconDownload size={16} fill={iconColor} />
+  {/snippet}
+</Story
 >
 <Story
   name="secondary-black-small"
@@ -207,11 +213,10 @@
 </Story>
 
 <Story name="tertiary with icon">
-  <Button variant="tertiary"
-    >Button text <svelte:fragment slot="icon" let:iconColor
-      ><IconDownload size={16} fill={iconColor} /></svelte:fragment
-    ></Button
-  >
+     Button text 
+     {#snippet icon(iconColor)}
+       <IconDownload size={16} fill={iconColor} />
+     {/snippet}
 </Story>
 <Story
   name="tertiary-small"
