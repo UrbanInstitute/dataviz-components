@@ -91,6 +91,8 @@
     "@sveltejs/vite-plugin-svelte": "^5.0.0",
     "concurrently": "^8.2.2",
     "http-server": "^14.1.1",
+    "maplibre-gl": "^5.18.0",
+    "pmtiles": "^4.4.0",
     "prettier": "^3.2.5",
     "prettier-plugin-svelte": "^3.2.2",
     "publint": "^0.1.9",
