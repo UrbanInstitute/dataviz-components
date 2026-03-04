@@ -1,0 +1,28 @@
+import * as Stories from "./MapLibreMap.stories.svelte";
+import { Meta, Controls } from "@storybook/addon-docs/blocks";
+
+<Meta of={Stories} />
+
+# MapLibreMap
+
+A map container component powered by MapLibre GL JS. Accepts a required `style` prop (URL or object) and renders WebGL-based vector tile maps. Child source and layer components are composed declaratively inside the map.
+
+## Basic usage
+
+```javascript
+import { MapLibreMap, MapLibreSource, MapLibreFillLayer } from "@urbaninstitute/dataviz-components/maplibre";
+```
+
+Compose layers inside the map by nesting `MapLibreSource` and layer components as children:
+
+```svelte
+<MapLibreMap style={styleUrl} center={[-98.5, 39.8]} zoom={3.5} height={500}>
+  <MapLibreSource data={geojson}>
+    <MapLibreFillLayer fill="#1696d2" stroke="#ffffff" />
+  </MapLibreSource>
+</MapLibreMap>
+```
+
+## Component props
+
+<Controls />

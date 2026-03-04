@@ -1,0 +1,1 @@
+A GeoJSON data source for MapLibre layers. Wraps MapLibre's GeoJSON source type and automatically manages feature ID generation for hover state support. All layer components must be children of a MapLibreSource.
