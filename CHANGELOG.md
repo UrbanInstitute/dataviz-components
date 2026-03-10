@@ -1,6 +1,7 @@
 # @UrbanInstitute/dataviz-components Changelog
 
 ## Next
+- Fix: only use sticky highlight when using tooltip in SVGMap
 
 ## v2.0.0
 
