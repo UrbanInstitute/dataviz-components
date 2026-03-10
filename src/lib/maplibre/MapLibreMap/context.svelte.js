@@ -1,23 +1,20 @@
 // A generative AI model wrote or edited portions of this file with the supervision of a human developer and careful human review.
-// Rune-based context module for SVGMap state
-// Replaces the legacy Svelte 4 store implementation
+// Rune-based context module for MapLibreMap state
+// Follows the pattern from SVGMap/context.svelte.js
 
 import { getContext, setContext, hasContext } from "svelte";
 
-const SVG_MAP_CONTEXT = Symbol("SVGMapContext");
+const MAPLIBRE_MAP_CONTEXT = Symbol("MapLibreMapContext");
 
 /**
- * State class for managing SVGMap context
+ * State class for managing MapLibreMap context
  */
-class SVGMapContext {
-  /** @type {Function | null} - D3 projection function */
-  projection = $state(null);
+class MapLibreMapContext {
+  /** @type {import("maplibre-gl").Map | null} - MapLibre GL map instance */
+  map = $state(null);
 
-  /** @type {Object} - D3 zoom transform (default zoomIdentity) */
-  transform = $state({ k: 1, x: 0, y: 0 });
-
-  /** @type {Object[]} - Array of GeoJSON features */
-  features = $state([]);
+  /** @type {boolean} - Whether the map style has loaded */
+  loaded = $state(false);
 
   /** @type {any | null} - Props of the currently highlighted feature */
   stickyHighlight = $state(null);
@@ -36,7 +33,7 @@ class SVGMapContext {
 
   /**
    * Handle pointer move events from layers
-   * @param {PointerEvent} e - The pointer event
+   * @param {any} e - The MapLibre event
    * @param {any} props - Feature properties
    * @param {Object} [opts] - Options
    * @param {boolean} [opts.tooltip] - Whether to show tooltip
@@ -44,7 +41,11 @@ class SVGMapContext {
   onPointerMove(e, props, opts) {
     // Show tooltip if enabled and not sticky highlighted
     if (opts?.tooltip && !this.stickyHighlight) {
-      this.tooltipData = { x: e.pageX, y: e.pageY, props };
+      this.tooltipData = {
+        x: e.originalEvent?.pageX,
+        y: e.originalEvent?.pageY,
+        props
+      };
     }
     // Fire map-level callback
     this.onmousemove?.(new CustomEvent("mousemove", { detail: { e, props } }));
@@ -52,7 +53,7 @@ class SVGMapContext {
 
   /**
    * Handle pointer down events from layers
-   * @param {PointerEvent} e - The pointer event
+   * @param {any} e - The MapLibre event
    * @param {any} props - Feature properties
    * @param {Object} [opts] - Options
    * @param {boolean} [opts.tooltip] - Whether to show tooltip
@@ -67,7 +68,11 @@ class SVGMapContext {
       // Set sticky highlight
       this.stickyHighlight = props;
       if (opts?.tooltip) {
-        this.tooltipData = { x: e.pageX, y: e.pageY, props };
+        this.tooltipData = {
+          x: e.originalEvent?.pageX,
+          y: e.originalEvent?.pageY,
+          props
+        };
       }
     }
     // Fire map-level callback
@@ -76,35 +81,31 @@ class SVGMapContext {
 
   /**
    * Handle pointer out events from layers
-   * @param {PointerEvent} e - The pointer event
+   * @param {any} e - The MapLibre event
    */
   onPointerOut(e) {
+    // Clear tooltip if no sticky highlight
+    if (!this.stickyHighlight) {
+      this.tooltipData = undefined;
+    }
     // Fire map-level callback
     this.onmouseout?.(new CustomEvent("mouseout", { detail: { e } }));
   }
 
   /**
-   * Update the projection function
-   * @param {Function} projectionFn - D3 projection function
+   * Update the map instance
+   * @param {import("maplibre-gl").Map} mapInstance - MapLibre GL map instance
    */
-  setProjection(projectionFn) {
-    this.projection = projectionFn;
+  setMap(mapInstance) {
+    this.map = mapInstance;
   }
 
   /**
-   * Update the transform
-   * @param {Object} transform - D3 zoom transform
+   * Update the loaded state
+   * @param {boolean} value - Whether the map style has loaded
    */
-  setTransform(transform) {
-    this.transform = transform;
-  }
-
-  /**
-   * Update the features array
-   * @param {Object[]} features - Array of GeoJSON features
-   */
-  setFeatures(features) {
-    this.features = features;
+  setLoaded(value) {
+    this.loaded = value;
   }
 
   /**
@@ -116,33 +117,33 @@ class SVGMapContext {
 }
 
 /**
- * Create and initialize the SVGMap context, setting it into context.
- * Call this within SVGMap.svelte.
- * @returns {SVGMapContext}
+ * Create and initialize the MapLibreMap context, setting it into context.
+ * Call this within MapLibreMap.svelte.
+ * @returns {MapLibreMapContext}
  */
-export function createSVGMapContext() {
+export function createMapLibreMapContext() {
   // Return existing context if already initialized (idempotent)
-  if (hasContext(SVG_MAP_CONTEXT)) {
-    return getContext(SVG_MAP_CONTEXT);
+  if (hasContext(MAPLIBRE_MAP_CONTEXT)) {
+    return getContext(MAPLIBRE_MAP_CONTEXT);
   }
 
-  const context = new SVGMapContext();
-  setContext(SVG_MAP_CONTEXT, context);
+  const context = new MapLibreMapContext();
+  setContext(MAPLIBRE_MAP_CONTEXT, context);
   return context;
 }
 
 /**
- * Get the SVGMap context from context.
- * Must be called within a component tree that has called createSVGMapContext().
- * @returns {SVGMapContext}
- * @throws {Error} if createSVGMapContext() has not been called in an ancestor component
+ * Get the MapLibreMap context from context.
+ * Must be called within a component tree that has called createMapLibreMapContext().
+ * @returns {MapLibreMapContext}
+ * @throws {Error} if createMapLibreMapContext() has not been called in an ancestor component
  */
-export function useSVGMapContext() {
-  if (!hasContext(SVG_MAP_CONTEXT)) {
+export function useMapLibreMapContext() {
+  if (!hasContext(MAPLIBRE_MAP_CONTEXT)) {
     throw new Error(
-      "useSVGMapContext() must be called within a component tree that has called createSVGMapContext(). " +
-        "This should be automatically set up by SVGMap.svelte."
+      "useMapLibreMapContext() must be called within a component tree that has called createMapLibreMapContext(). " +
+        "This should be automatically set up by MapLibreMap.svelte."
     );
   }
-  return getContext(SVG_MAP_CONTEXT);
+  return getContext(MAPLIBRE_MAP_CONTEXT);
 }

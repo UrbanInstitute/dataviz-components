@@ -1,0 +1,1 @@
+A map container component powered by MapLibre GL JS. Accepts a required `style` prop (URL or object) and renders WebGL-based vector tile maps. Child source and layer components are composed declaratively inside the map.

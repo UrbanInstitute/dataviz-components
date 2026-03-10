@@ -63,12 +63,6 @@
 
   // Internal state
   let width = $state(500);
-  let tooltipState = $state(undefined);
-
-  // Set the tooltip callback in the context
-  mapState.setTooltipCallback((tooltipProps) => {
-    tooltipState = tooltipProps;
-  });
 
   // Derived map height
   const mapHeight = $derived(getMapHeight(width, height, aspectRatio));
@@ -155,14 +149,14 @@
 
   function handleBgPointermove(e) {
     if (!mapState.stickyHighlight) {
-      tooltipState = undefined;
+      mapState.tooltipData = undefined;
     }
     onmousemove?.(new CustomEvent("mousemove", { detail: { e } }));
   }
 
   function handleBgPointerdown(e) {
     mapState.clearStickyHighlight();
-    tooltipState = undefined;
+    mapState.tooltipData = undefined;
     onbgclick?.(new CustomEvent("click", { detail: { e } }));
   }
 
@@ -227,15 +221,15 @@
       />
     </div>
   {/if}
-  {#if tooltipState}
+  {#if mapState.tooltipData}
     <Tooltip
-      x={tooltipState.x}
-      y={tooltipState.y}
+      x={mapState.tooltipData.x}
+      y={mapState.tooltipData.y}
       containParent={tooltipContainParent}
       size={tooltipSize}
     >
       {#if tooltip}
-        {@render tooltip(tooltipState.props)}
+        {@render tooltip(mapState.tooltipData.props)}
       {/if}
     </Tooltip>
   {/if}
