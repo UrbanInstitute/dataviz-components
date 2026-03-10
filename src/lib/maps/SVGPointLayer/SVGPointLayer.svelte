@@ -55,6 +55,9 @@
 
   const geoPathFn = $derived(geoPath(map.projection));
 
+  // When highlightFeature is externally set, it takes priority over stickyHighlight
+  const effectiveHighlight = $derived(highlightFeature ?? map.stickyHighlight);
+
   // holds main dom node
   let el;
 
@@ -111,11 +114,18 @@
   }
 
   $effect(() => {
-    map.stickyHighlight;
-    highlightFeature;
+    effectiveHighlight;
     features;
     map.features;
     raiseHighlight();
+  });
+
+  $effect(() => {
+    // When highlightFeature changes externally, clear any stale stickyHighlight
+    // to prevent ghost state from affecting tooltip suppression
+    if (highlightFeature) {
+      map.clearStickyHighlight();
+    }
   });
 </script>
 
@@ -140,7 +150,7 @@
         class="point-feature"
         role={ariaRole}
         label={getAriaLabel(feature)}
-        class:highlight={getHighlightFeature(feature, map.stickyHighlight, highlightFeature)}
+        class:highlight={getHighlightFeature(feature, effectiveHighlight)}
         cx={x}
         cy={y}
         {opacity}
