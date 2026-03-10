@@ -22,8 +22,8 @@ class SVGMapContext {
   /** @type {any | null} - Props of the currently highlighted feature */
   stickyHighlight = $state(null);
 
-  /** @type {Function | null} - Private callback for tooltip updates */
-  #tooltipCallback = null;
+  /** @type {{ x: number, y: number, props: any } | undefined} - Current tooltip data */
+  tooltipData = $state(undefined);
 
   /** @type {Function | null} - Map-level onclick callback */
   onclick = null;
@@ -35,14 +35,6 @@ class SVGMapContext {
   onmouseout = null;
 
   /**
-   * Set the tooltip callback function
-   * @param {Function} callback - Function to call when tooltip should be updated
-   */
-  setTooltipCallback(callback) {
-    this.#tooltipCallback = callback;
-  }
-
-  /**
    * Handle pointer move events from layers
    * @param {PointerEvent} e - The pointer event
    * @param {any} props - Feature properties
@@ -52,7 +44,7 @@ class SVGMapContext {
   onPointerMove(e, props, opts) {
     // Show tooltip if enabled and not sticky highlighted
     if (opts?.tooltip && !this.stickyHighlight) {
-      this.#tooltipCallback?.({ x: e.pageX, y: e.pageY, props });
+      this.tooltipData = { x: e.pageX, y: e.pageY, props };
     }
     // Fire map-level callback
     this.onmousemove?.(new CustomEvent("mousemove", { detail: { e, props } }));
@@ -69,13 +61,13 @@ class SVGMapContext {
     // Toggle sticky highlight
     if (this.stickyHighlight) {
       // Clear sticky highlight and tooltip
-      this.#tooltipCallback?.(undefined);
+      this.tooltipData = undefined;
       this.stickyHighlight = null;
     } else {
       // Set sticky highlight
       this.stickyHighlight = props;
       if (opts?.tooltip) {
-        this.#tooltipCallback?.({ x: e.pageX, y: e.pageY, props });
+        this.tooltipData = { x: e.pageX, y: e.pageY, props };
       }
     }
     // Fire map-level callback
