@@ -1,6 +1,9 @@
 # @UrbanInstitute/dataviz-components Changelog
 
 ## Next
+- Fix: tilemap tooltip no longer lingers after mouseout
+- Fix: tilemap strokes no longer cut off
+- Feat: tilemap supports "nodc" layout
 
 ## v2.1.0
 - Fix: only use sticky highlight when using tooltip in SVGMap
