@@ -277,14 +277,20 @@
       {#if shape === "hex"}
         <path
           d={hexPoints}
-          transform="translate({getX(columnIndex, rowIndex, shapeWidth)}, {getY(rowIndex, shapeHeight)})"
+          transform="translate({getX(columnIndex, rowIndex, shapeWidth)}, {getY(
+            rowIndex,
+            shapeHeight
+          )})"
           {...attrs}
         ></path>
       {:else if shape === "rect"}
         <rect
           width={shapeWidth}
           height={shapeHeight}
-          transform="translate({getX(columnIndex, rowIndex, shapeWidth)}, {getY(rowIndex, shapeHeight)})"
+          transform="translate({getX(columnIndex, rowIndex, shapeWidth)}, {getY(
+            rowIndex,
+            shapeHeight
+          )})"
           {...attrs}
         ></rect>
       {/if}
@@ -304,16 +310,14 @@
         onMouseout(e);
       }}
     ></rect>
-    <g
-      class="tiles"
-      style:--hover-fill={hoverFill || null}
-      class:hover-fill={hoverFill}
-    >
+    <g class="tiles" style:--hover-fill={hoverFill || null} class:hover-fill={hoverFill}>
       {#each mapTiles as row, rowIndex}
         {#each row as tile, columnIndex}
           {#if tile.trim() !== ""}
             {@render tileShape(rowIndex, columnIndex, {
-              class: "tile-shape" + (getHighlight(fipsMap.get(tile), highlightFeature) ? " highlight" : ""),
+              class:
+                "tile-shape" +
+                (getHighlight(fipsMap.get(tile), highlightFeature) ? " highlight" : ""),
               fill: getFill(getFeatureData(tile), fill, naFill),
               stroke,
               "stroke-width": strokeWidth,
@@ -330,10 +334,7 @@
     <g class="tile-outlines" pointer-events="none">
       {#each mapTiles as row, rowIndex}
         {#each row as tile, columnIndex}
-          {#if tile.trim() !== "" && (
-            (hoveredTile?.tile === tile && hoveredTile?.rowIndex === rowIndex && hoveredTile?.columnIndex === columnIndex) ||
-            getHighlight(fipsMap.get(tile), highlightFeature)
-          )}
+          {#if tile.trim() !== "" && ((hoveredTile?.tile === tile && hoveredTile?.rowIndex === rowIndex && hoveredTile?.columnIndex === columnIndex) || getHighlight(fipsMap.get(tile), highlightFeature))}
             {@render tileShape(rowIndex, columnIndex, {
               fill: "none",
               stroke: hoverStroke || stroke,
