@@ -1,6 +1,10 @@
 {
   "name": "@urbaninstitute/dataviz-components",
   "version": "2.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/UrbanInstitute/dataviz-components"
+  },
   "scripts": {
     "dev": "npm run storybook",
     "build": "vite build && npm run package",
