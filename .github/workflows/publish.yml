@@ -18,4 +18,7 @@ jobs:
           registry-url: "https://registry.npmjs.org"
       - run: npm install -g npm@latest
       - run: npm ci
-      - run: npm publish --access public
+      - name: Publish to npm (OIDC)
+        run: |
+          unset NODE_AUTH_TOKEN
+          npm publish --provenance --access public
