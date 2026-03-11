@@ -5,14 +5,14 @@
   import { fipsMap } from "./fips.js";
   import Tooltip from "$lib/Tooltip/Tooltip.svelte";
 
-  /** @typedef {"states" | "pr" | "territories"} FeatureOptions */
+  /** @typedef {"states" | "pr" | "territories" | "nodc"} FeatureOptions */
   /** @typedef {"hex" | "rext"} ShapeOption */
 
   /**
    * @typedef {Object} TilemapProps
    * @property {Object<string, any>[]} data
    * @property {ShapeOption} [shape="hex"]
-   * @property {import("$utils/states").FeatureOptions} [featureOption="states"]
+   * @property {FeatureOptions} [featureOption="states"]
    * @property {string | ((d: Object<string, any>) => string)} [fill=urbanColors.blue] A string or function that returns a string to use as this layers stroke color.
    * @property {string | undefined} [hoverFill=undefined] A color string to use when a feature is hovered
    * @property {string} [naFill=urbanColors.gray_shade_light] Color to use for values that are NA or otherwise undefined in the color scale
@@ -56,6 +56,7 @@
 
   const featureFilters = {
     states: ["PR", "VI", "MP", "GU", "AS"],
+    nodc: ["PR", "VI", "MP", "GU", "AS", "DC"],
     pr: ["VI", "MP", "GU", "AS"],
     territories: []
   };
