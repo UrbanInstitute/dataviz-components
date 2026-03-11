@@ -66,15 +66,16 @@ class SVGMapContext {
    * @param {boolean} [opts.tooltip] - Whether to show tooltip
    */
   onPointerDown(e, props, opts) {
-    // Toggle sticky highlight
-    if (this.stickyHighlight) {
-      // Clear sticky highlight and tooltip
-      this.#tooltipCallback?.(undefined);
-      this.stickyHighlight = null;
-    } else {
-      // Set sticky highlight
-      this.stickyHighlight = props;
-      if (opts?.tooltip) {
+    // Only toggle sticky highlight when the layer uses the built-in tooltip system.
+    // part of tooltip pinning, not a side effect of every click.
+    if (opts?.tooltip) {
+      if (this.stickyHighlight) {
+        // Clear sticky highlight and tooltip
+        this.#tooltipCallback?.(undefined);
+        this.stickyHighlight = null;
+      } else {
+        // Set sticky highlight
+        this.stickyHighlight = props;
         this.#tooltipCallback?.({ x: e.pageX, y: e.pageY, props });
       }
     }

@@ -54,20 +54,16 @@ export function raise(el) {
 }
 
 /**
- * Determine if a feature should be highlighted based on 2 possible comparisons
+ * Determine if a feature should be highlighted based on a comparison object
  * @param { Object } feature The feature to check
- * @param { Object } compareA The first comparison
- * @param { Object } compareB The second comparison
+ * @param { Object } compare The comparison object matched against feature properties
  * @returns { boolean }
  **/
-export function getHighlightFeature(feature, compareA, compareB) {
+export function getHighlightFeature(feature, compare) {
   if (!feature || !feature.properties) {
     return false;
   }
-  if (compareA && compareProps(compareA, feature.properties)) {
-    return true;
-  }
-  if (compareB && compareProps(compareB, feature.properties)) {
+  if (compare && compareProps(compare, feature.properties)) {
     return true;
   }
   return false;

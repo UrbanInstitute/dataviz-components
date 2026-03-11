@@ -49,6 +49,9 @@
 
   const geoPathFn = $derived(geoPath(map.projection));
 
+  // When highlightFeature is externally set, it takes priority over stickyHighlight
+  const effectiveHighlight = $derived(highlightFeature ?? map.stickyHighlight);
+
   // holds main dom node
   let el;
 
@@ -98,11 +101,18 @@
   }
 
   $effect(() => {
-    map.stickyHighlight;
-    highlightFeature;
+    effectiveHighlight;
     features;
     map.features;
     raiseHighlight();
+  });
+
+  $effect(() => {
+    // When highlightFeature changes externally, clear any stale stickyHighlight
+    // to prevent ghost state from affecting tooltip suppression
+    if (highlightFeature) {
+      map.clearStickyHighlight();
+    }
   });
 </script>
 
@@ -122,7 +132,7 @@
   {#each features || map.features as feature}
     <path
       class="polygon-feature"
-      class:highlight={getHighlightFeature(feature, map.stickyHighlight, highlightFeature)}
+      class:highlight={getHighlightFeature(feature, effectiveHighlight)}
       role={ariaRole}
       label={getAriaLabel(feature)}
       style:--hover-stroke={hoverStroke || getStroke(feature, stroke)}
