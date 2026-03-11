@@ -221,17 +221,15 @@
   /**
    * @param { Event } e
    * @param { string } tile
-   * @param { number } rowIndex
-   * @param { number } columnIndex
    */
-  function handleMousemove(e, tile, rowIndex, columnIndex) {
+  function handleMousemove(e, tile) {
     const props = getFeatureData(tile);
     tooltipData = {
       props,
       x: e.pageX,
       y: e.pageY
     };
-    hoveredTile = { tile, rowIndex, columnIndex };
+    hoveredTile = tile;
     onMousemove(e, props);
   }
 
@@ -263,6 +261,7 @@
   function getHighlight(fips, highlight) {
     return fips === highlight;
   }
+
 </script>
 
 <div
@@ -322,7 +321,7 @@
               stroke,
               "stroke-width": strokeWidth,
               role: "presentation",
-              onmousemove: (e) => handleMousemove(e, tile, rowIndex, columnIndex),
+              onmousemove: (e) => handleMousemove(e, tile),
               onmouseout: handleMouseout,
               onblur: handleMouseout,
               onmousedown: (e) => handleClick(e, tile)
@@ -334,7 +333,8 @@
     <g class="tile-outlines" pointer-events="none">
       {#each mapTiles as row, rowIndex}
         {#each row as tile, columnIndex}
-          {#if tile.trim() !== "" && ((hoveredTile?.tile === tile && hoveredTile?.rowIndex === rowIndex && hoveredTile?.columnIndex === columnIndex) || getHighlight(fipsMap.get(tile), highlightFeature))}
+          <!-- Render outlines for any hovered or highlighted tiles -->
+          {#if tile.trim() !== "" && (hoveredTile === tile || getHighlight(fipsMap.get(tile), highlightFeature))}
             {@render tileShape(rowIndex, columnIndex, {
               fill: "none",
               stroke: hoverStroke || stroke,
