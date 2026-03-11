@@ -1,7 +1,7 @@
+<!-- A generative AI model wrote or edited portions of this file with the supervision of a human developer and careful human review. -->
 <script>
   import maplayout from "./layout_territories.txt?raw";
   import { urbanColors } from "$lib/utils";
-  import { tick } from "svelte";
   import { fipsMap } from "./fips.js";
   import Tooltip from "$lib/Tooltip/Tooltip.svelte";
 
@@ -214,41 +214,23 @@
     }
   }
 
-  // holds highlighted feature DOM element
-  /** @type { Element | null} */
-  let highlightFeatureNode = $state();
-
-  /** @type { Element } */
-  let el = $state();
-
   let tooltipData = $state(null);
+  let hoveredTile = $state(null);
 
-  /**
-   * Raise a dom node to top of siblings
-   * @param { Element } el The DOM element to raise
-   * @returns void
-   */
-  export function raise(el) {
-    el.parentNode?.appendChild(el);
-  }
   /**
    * @param { Event } e
-   * @param { string } state
+   * @param { string } tile
+   * @param { number } rowIndex
+   * @param { number } columnIndex
    */
-  function handleMousemove(e, state) {
-    if (e.target && e.target instanceof Element) {
-      raise(e.target);
-    }
-    if (highlightFeatureNode) {
-      raise(highlightFeatureNode);
-    }
-
-    const props = getFeatureData(state);
+  function handleMousemove(e, tile, rowIndex, columnIndex) {
+    const props = getFeatureData(tile);
     tooltipData = {
       props,
       x: e.pageX,
       y: e.pageY
     };
+    hoveredTile = { tile, rowIndex, columnIndex };
     onMousemove(e, props);
   }
 
@@ -257,6 +239,7 @@
    */
   function handleMouseout(e) {
     tooltipData = null;
+    hoveredTile = null;
     onMouseout(e);
   }
 
@@ -266,18 +249,9 @@
    * @param { string } state
    */
   function handleClick(e, state) {
-    if (e.target instanceof Element) {
-      raise(e.target);
-    }
     const props = getFeatureData(state);
     onClick(e, props);
   }
-
-  $effect(() => {
-    if (highlightFeatureNode) {
-      raise(highlightFeatureNode);
-    }
-  });
 
   /**
    * Returns true if the given fips matches the highlight value.
@@ -288,10 +262,6 @@
   function getHighlight(fips, highlight) {
     return fips === highlight;
   }
-
-  tick(() => {
-    highlightFeatureNode = el.querySelector("path.highlight");
-  });
 </script>
 
 <div
@@ -301,7 +271,23 @@
   role={ariaRole}
   aria-label={ariaLabel}
 >
-  <svg bind:this={el} {width} {height} viewBox="0 0 {width} {height}">
+  <svg {width} {height} viewBox="0 0 {width} {height}">
+    {#snippet tileShape(rowIndex, columnIndex, attrs)}
+      {#if shape === "hex"}
+        <path
+          d={hexPoints}
+          transform="translate({getX(columnIndex, rowIndex, shapeWidth)}, {getY(rowIndex, shapeHeight)})"
+          {...attrs}
+        ></path>
+      {:else if shape === "rect"}
+        <rect
+          width={shapeWidth}
+          height={shapeHeight}
+          transform="translate({getX(columnIndex, rowIndex, shapeWidth)}, {getY(rowIndex, shapeHeight)})"
+          {...attrs}
+        ></rect>
+      {/if}
+    {/snippet}
     <rect
       role="presentation"
       class="background"
@@ -311,55 +297,47 @@
       {width}
       {height}
       onmousedown={(e) => onBgclick(e)}
+      onpointermove={(e) => {
+        tooltipData = null;
+        hoveredTile = null;
+        onMouseout(e);
+      }}
     ></rect>
     <g
       class="tiles"
       style:--hover-fill={hoverFill || null}
-      style:--hover-stroke={hoverStroke || null}
-      style:--hover-stroke-width={hoverStrokeWidth || strokeWidth}
       class:hover-fill={hoverFill}
     >
       {#each mapTiles as row, rowIndex}
         {#each row as tile, columnIndex}
           {#if tile.trim() !== ""}
-            {#if shape === "hex"}
-              <path
-                class="tile-shape"
-                d={hexPoints}
-                fill={getFill(getFeatureData(tile), fill, naFill)}
-                transform="translate({getX(columnIndex, rowIndex, shapeWidth)}, {getY(
-                  rowIndex,
-                  shapeHeight
-                )})"
-                {stroke}
-                stroke-width={strokeWidth}
-                role="presentation"
-                class:highlight={getHighlight(fipsMap.get(tile), highlightFeature)}
-                onmousemove={(e) => handleMousemove(e, tile)}
-                onmouseout={handleMouseout}
-                onblur={handleMouseout}
-                onmousedown={(e) => handleClick(e, tile)}
-              ></path>
-            {:else if shape === "rect"}
-              <rect
-                class="tile-shape"
-                width={shapeWidth}
-                height={shapeHeight}
-                transform="translate({getX(columnIndex, rowIndex, shapeWidth)}, {getY(
-                  rowIndex,
-                  shapeHeight
-                )})"
-                fill={getFill(getFeatureData(tile), fill, naFill)}
-                {stroke}
-                stroke-width={strokeWidth}
-                role="presentation"
-                class:highlight={getHighlight(fipsMap.get(tile), highlightFeature)}
-                onmousemove={(e) => handleMousemove(e, tile)}
-                onmouseout={handleMouseout}
-                onblur={handleMouseout}
-                onmousedown={(e) => handleClick(e, tile)}
-              ></rect>
-            {/if}
+            {@render tileShape(rowIndex, columnIndex, {
+              class: "tile-shape" + (getHighlight(fipsMap.get(tile), highlightFeature) ? " highlight" : ""),
+              fill: getFill(getFeatureData(tile), fill, naFill),
+              stroke,
+              "stroke-width": strokeWidth,
+              role: "presentation",
+              onmousemove: (e) => handleMousemove(e, tile, rowIndex, columnIndex),
+              onmouseout: handleMouseout,
+              onblur: handleMouseout,
+              onmousedown: (e) => handleClick(e, tile)
+            })}
+          {/if}
+        {/each}
+      {/each}
+    </g>
+    <g class="tile-outlines" pointer-events="none">
+      {#each mapTiles as row, rowIndex}
+        {#each row as tile, columnIndex}
+          {#if tile.trim() !== "" && (
+            (hoveredTile?.tile === tile && hoveredTile?.rowIndex === rowIndex && hoveredTile?.columnIndex === columnIndex) ||
+            getHighlight(fipsMap.get(tile), highlightFeature)
+          )}
+            {@render tileShape(rowIndex, columnIndex, {
+              fill: "none",
+              stroke: hoverStroke || stroke,
+              "stroke-width": hoverStrokeWidth || strokeWidth
+            })}
           {/if}
         {/each}
       {/each}
@@ -415,11 +393,6 @@
 <style>
   .tile-shape {
     cursor: pointer;
-  }
-  .tile-shape:hover,
-  .tile-shape.highlight {
-    stroke: var(--hover-stroke);
-    stroke-width: var(--hover-stroke-width);
   }
   .hover-fill .tile-shape:hover,
   .hover-fill .tile-shape.highlight {
