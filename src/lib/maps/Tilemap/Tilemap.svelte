@@ -21,10 +21,10 @@
    * @property {number} [strokeWidth=1] Stroke width of each feature
    * @property {number | undefined} [hoverStrokeWidth=undefined] Stroke width of each feature when hovered
    * @property {string | undefined} [highlightFeature=undefined] ID of the feature to highlight
-   * @property {string | undefined} [ariaTitle=undefined] Optional accessible title for the SVG. When provided, renders a <title> element inside the SVG and automatically sets role="img" with aria-labelledby. Should describe what the map shows (e.g. "U.S. state-level data map showing unemployment rates").
+   * @property {string | undefined} [ariaTitle=undefined] Accessible title for the SVG. When provided, renders a <title> element inside the SVG, sets role="img", and wires up aria-labelledby automatically. Should describe what the map shows (e.g. "U.S. state-level map showing unemployment rates"). This is the preferred way to make the map accessible.
    * @property {string | undefined} [ariaDescription=undefined] Optional longer accessible description for the SVG. When provided alongside ariaTitle, renders a <desc> element and includes it in aria-labelledby. Should convey the key takeaway of the visualization.
-   * @property {string | undefined} [ariaRole=undefined] Optional aria role string to be applied to SVG container. Overrides the automatic role="img" set by ariaTitle. By default, the SVG is hidden from the accessiblity tree.
-   * @property {string | undefined} [ariaLabel=undefined] Optional aria label string to be applied to SVG container. By default, the SVG is hidden from the accessiblity tree and should include a descriptive label. If you add an ariaRole this property can be left undefined;
+   * @property {string | undefined} [ariaRole=undefined] Optional aria role override for the SVG container. Only needed in unusual cases — ariaTitle handles role="img" automatically. When neither ariaTitle nor ariaRole is set, the SVG is hidden from the accessibility tree via aria-hidden.
+   * @property {string | undefined} [ariaLabel=undefined] @deprecated Use ariaTitle instead. If provided without ariaTitle, falls back to setting aria-label directly on the SVG. Will log a deprecation warning in development.
    * @property {string} [labelColor=urbanColors.black] Optional color string to use for the labels on the map
    * @property {(e: MouseEvent, props: Record<any, any>) => void} [onMousemove=() => {}] Optional handler that fires when the mouse moves over a feature
    * @property {(e: MouseEvent) => void} [onMouseout=() => {}] Optional handler that fires when the mouse moves out of a feature
@@ -62,14 +62,25 @@
   const titleId = `tilemap-title-${uid}`;
   const descId = `tilemap-desc-${uid}`;
 
-  let svgRole = $derived(ariaRole ?? "img");
+  // Warn when the deprecated ariaLabel prop is used
+  $effect(() => {
+    if (ariaLabel && !ariaTitle) {
+      console.warn(
+        "[Tilemap] The ariaLabel prop is deprecated. Use ariaTitle instead — it renders a proper SVG <title> element and wires up aria-labelledby automatically."
+      );
+    }
+  });
+
+  // When ariaTitle is provided, role="img" is set automatically.
+  // When ariaRole is explicitly provided, that role is used as-is.
+  // Otherwise the SVG is hidden from the accessibility tree via aria-hidden.
+  let svgRole = $derived(ariaTitle ? "img" : ariaRole);
+  let svgAriaHidden = $derived(!ariaTitle && !ariaRole ? true : undefined);
   let svgAriaLabelledby = $derived(
-    ariaTitle
-      ? ariaDescription
-        ? `${titleId} ${descId}`
-        : titleId
-      : undefined
+    ariaTitle ? (ariaDescription ? `${titleId} ${descId}` : titleId) : undefined
   );
+  // ariaLabel is deprecated: only pass it through when ariaTitle is not set
+  let svgAriaLabel = $derived(!ariaTitle ? ariaLabel : undefined);
 
   const featureFilters = {
     states: ["PR", "VI", "MP", "GU", "AS"],
@@ -291,16 +302,14 @@
   }
 </script>
 
-<div
-  class="tile-map-wrap"
-  bind:clientWidth={width}
->
+<div class="tile-map-wrap" bind:clientWidth={width}>
   <svg
     {width}
     {height}
     viewBox="0 0 {width} {height}"
     role={svgRole}
-    aria-label={ariaLabel}
+    aria-hidden={svgAriaHidden}
+    aria-label={svgAriaLabel}
     aria-labelledby={svgAriaLabelledby}
   >
     {#if ariaTitle}
