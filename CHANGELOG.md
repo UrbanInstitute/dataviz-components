@@ -9,6 +9,7 @@
 - Fix: Tilemap no longer emits an unlabelled `role="img"` by default; the SVG is now hidden from assistive technology via `aria-hidden` when no aria props are provided, consistent with SVGMap
 - Deprecated: Tilemap's `ariaLabel` prop is deprecated in favor of `ariaTitle`; `ariaLabel` still works but logs a console warning pointing to the preferred prop
 - Feat: All Tilemap Storybook stories now include `ariaTitle` demonstrating accessibility best practices; new stories added for `highlightFeature`, `hoverFill`, and accessibility props
+- Update storybook and related packages to v10.x
 
 ## v2.1.0
 
