@@ -1,34 +1,36 @@
+<!-- A generative AI model wrote or edited portions of this file with the supervision of a human developer and careful human review. -->
 <script>
   import maplayout from "./layout_territories.txt?raw";
   import { urbanColors } from "$lib/utils";
-  import { tick } from "svelte";
   import { fipsMap } from "./fips.js";
   import Tooltip from "$lib/Tooltip/Tooltip.svelte";
 
-  /** @typedef {"states" | "pr" | "territories"} FeatureOptions */
-  /** @typedef {"hex" | "rext"} ShapeOption */
+  /** @typedef {"states" | "pr" | "territories" | "nodc"} FeatureOptions */
+  /** @typedef {"hex" | "rect"} ShapeOption */
 
   /**
    * @typedef {Object} TilemapProps
    * @property {Object<string, any>[]} data
    * @property {ShapeOption} [shape="hex"]
-   * @property {import("$utils/states").FeatureOptions} [featureOption="states"]
-   * @property {string | ((d: Object<string, any>) => string)} [fill=urbanColors.blue] A string or function that returns a string to use as this layers stroke color.
+   * @property {FeatureOptions} [featureOption="states"]
+   * @property {string | ((d: Object<string, any>) => string)} [fill=urbanColors.blue] A string or function that returns a string to use as this layers fill color.
    * @property {string | undefined} [hoverFill=undefined] A color string to use when a feature is hovered
    * @property {string} [naFill=urbanColors.gray_shade_light] Color to use for values that are NA or otherwise undefined in the color scale
    * @property {string | ((d: Object) => string)} [stroke=urbanColors.white] A string or function that returns a string to use as this layers stroke color.
    * @property {string | undefined} [hoverStroke=undefined] Optional color string for hovered feature stroke
-   * @property {number} [strokeWidth=0.5] Stroke width of each feature
+   * @property {number} [strokeWidth=1] Stroke width of each feature
    * @property {number | undefined} [hoverStrokeWidth=undefined] Stroke width of each feature when hovered
    * @property {string | undefined} [highlightFeature=undefined] ID of the feature to highlight
-   * @property {string | undefined} [ariaRole=undefined] Optional aria role string to be applied to SVG container. By default, the SVG is hidden from the accessiblity tree. If you add an ariaRole here, any layers should also be given an ariaRole.
-   * @property {string | undefined} [ariaLabel=undefined] Optional aria label string to be applied to SVG container. By default, the SVG is hidden from the accessiblity tree and should include a descriptive label. If you add an ariaRole this property can be left undefined;
+   * @property {string | undefined} [ariaTitle=undefined] Accessible title for the SVG. When provided, renders a <title> element inside the SVG, sets role="img", and wires up aria-labelledby automatically. Should describe what the map shows (e.g. "U.S. state-level map showing unemployment rates"). This is the preferred way to make the map accessible.
+   * @property {string | undefined} [ariaDescription=undefined] Optional longer accessible description for the SVG. When provided alongside ariaTitle, renders a <desc> element and includes it in aria-labelledby. Should convey the key takeaway of the visualization.
+   * @property {string | undefined} [ariaRole=undefined] Optional aria role override for the SVG container. Only needed in unusual cases — ariaTitle handles role="img" automatically. When neither ariaTitle nor ariaRole is set, the SVG is hidden from the accessibility tree via aria-hidden.
+   * @property {string | undefined} [ariaLabel=undefined] @deprecated Use ariaTitle instead. If provided without ariaTitle, falls back to setting aria-label directly on the SVG. Will log a deprecation warning in development.
    * @property {string} [labelColor=urbanColors.black] Optional color string to use for the labels on the map
-   * @property {(e: Event, props: Record<any, any>) => void} [onMousemove=() => {}] Optional handler that fires when the mouse moves over a feature
-   * @property {(e: Event) => void} [onMouseout=() => {}] Optional handler that fires when the mouse moves out of a feature
-   * @property {(e: Event, props: Record<any, any>) => void} [onClick=() => {}] Optional handler that fires when the mouse clicks on a feature
+   * @property {(e: MouseEvent, props: Record<any, any>) => void} [onMousemove=() => {}] Optional handler that fires when the mouse moves over a feature
+   * @property {(e: MouseEvent) => void} [onMouseout=() => {}] Optional handler that fires when the mouse moves out of a feature
+   * @property {(e: MouseEvent, props: Record<any, any>) => void} [onClick=() => {}] Optional handler that fires when the mouse clicks on a feature
    * @property {(e: Event) => void} [onBgclick=() => {}] Optional handler that fires when the mouse clicks on the background
-   * @property {@import("svelte").Snippet} [tooltip] Optional snippet for rendering a tooltip, receives hovered feature props
+   * @property {import("svelte").Snippet} [tooltip] Optional snippet for rendering a tooltip, receives hovered feature props
    */
 
   /** @type {TilemapProps} */
@@ -41,9 +43,11 @@
     naFill = urbanColors.gray_shade_light,
     stroke = urbanColors.white,
     hoverStroke,
-    strokeWidth = 0.5,
+    strokeWidth = 1,
     hoverStrokeWidth,
     highlightFeature,
+    ariaTitle,
+    ariaDescription,
     ariaRole,
     ariaLabel,
     labelColor = urbanColors.black,
@@ -54,8 +58,33 @@
     tooltip = undefined
   } = $props();
 
+  const uid = Math.random().toString(36).slice(2, 9);
+  const titleId = `tilemap-title-${uid}`;
+  const descId = `tilemap-desc-${uid}`;
+
+  // Warn when the deprecated ariaLabel prop is used
+  $effect(() => {
+    if (ariaLabel && !ariaTitle) {
+      console.warn(
+        "[Tilemap] The ariaLabel prop is deprecated. Use ariaTitle instead — it renders a proper SVG <title> element and wires up aria-labelledby automatically."
+      );
+    }
+  });
+
+  // When ariaTitle is provided, role="img" is set automatically.
+  // When ariaRole is explicitly provided, that role is used as-is.
+  // Otherwise the SVG is hidden from the accessibility tree via aria-hidden.
+  let svgRole = $derived(ariaTitle ? "img" : ariaRole);
+  let svgAriaHidden = $derived(!ariaTitle && !ariaRole ? true : undefined);
+  let svgAriaLabelledby = $derived(
+    ariaTitle ? (ariaDescription ? `${titleId} ${descId}` : titleId) : undefined
+  );
+  // ariaLabel is deprecated: only pass it through when ariaTitle is not set
+  let svgAriaLabel = $derived(!ariaTitle ? ariaLabel : undefined);
+
   const featureFilters = {
     states: ["PR", "VI", "MP", "GU", "AS"],
+    nodc: ["PR", "VI", "MP", "GU", "AS", "DC"],
     pr: ["VI", "MP", "GU", "AS"],
     territories: []
   };
@@ -91,7 +120,7 @@
   );
   let shapeWidth = $derived(Math.floor(width / mapTiles[0].length));
   let shapeHeight = $derived(getHeight(shapeWidth, shape));
-  let height = $derived(getMapHeight(activeRows, shapeHeight, shape));
+  let height = $derived(getMapHeight(activeRows, shapeHeight, shape, hoverStrokeWidth));
 
   /**
    * @param { number } width
@@ -112,16 +141,16 @@
    * @param {ShapeOption} shapeType - The shape type of the map.
    * @returns {number}
    */
-  function getMapHeight(numRows, unitHeight, shapeType) {
+  function getMapHeight(numRows, unitHeight, shapeType, hoverStrokeW = 0) {
     if (shapeType === "hex") {
       return (
         numRows * (unitHeight / 2) +
         unitHeight * 2.25 +
         (numRows % 2) * (unitHeight * 0.25) +
-        (hoverStrokeWidth || 0)
+        (hoverStrokeW || 0)
       );
     }
-    return numRows * unitHeight + (hoverStrokeWidth || 0);
+    return numRows * unitHeight + (hoverStrokeW || 0);
   }
 
   /**
@@ -194,6 +223,18 @@
   }
 
   /**
+   * @param {Object<string, any>} feature
+   * @param {string|((feature: Object<string, any>) => string)} stroke
+   * @returns {string}
+   */
+  function getStroke(feature, stroke) {
+    if (typeof stroke === "string") {
+      return stroke;
+    }
+    return stroke(feature);
+  }
+
+  /**
    * Get the feature data for a given abbreviation.
    * @param {string} abbr - The state or territory abbreviation.
    * @returns {Object|null}
@@ -214,70 +255,41 @@
     }
   }
 
-  // holds highlighted feature DOM element
-  /** @type { Element | null} */
-  let highlightFeatureNode = $state();
-
-  /** @type { Element } */
-  let el = $state();
-
   let tooltipData = $state(null);
+  let hoveredTile = $state(null);
 
   /**
-   * Raise a dom node to top of siblings
-   * @param { Element } el The DOM element to raise
-   * @returns void
+   * @param { MouseEvent } e
+   * @param { string } tile
    */
-  export function raise(el) {
-    el.parentNode?.appendChild(el);
-  }
-  /**
-   * @param { Event } e
-   * @param { string } state
-   */
-  function handleMousemove(e, state) {
-    if (e.target && e.target instanceof Element) {
-      raise(e.target);
-    }
-    if (highlightFeatureNode) {
-      raise(highlightFeatureNode);
-    }
-
-    const props = getFeatureData(state);
+  function handleMousemove(e, tile) {
+    const props = getFeatureData(tile);
     tooltipData = {
       props,
       x: e.pageX,
       y: e.pageY
     };
+    hoveredTile = tile;
     onMousemove(e, props);
   }
 
   /**
-   * @param { Event } e
+   * @param { MouseEvent } e
    */
   function handleMouseout(e) {
     tooltipData = null;
+    hoveredTile = null;
     onMouseout(e);
   }
 
   /**
-   *
-   * @param { Event } e
+   * @param { MouseEvent } e
    * @param { string } state
    */
   function handleClick(e, state) {
-    if (e.target instanceof Element) {
-      raise(e.target);
-    }
     const props = getFeatureData(state);
     onClick(e, props);
   }
-
-  $effect(() => {
-    if (highlightFeatureNode) {
-      raise(highlightFeatureNode);
-    }
-  });
 
   /**
    * Returns true if the given fips matches the highlight value.
@@ -288,20 +300,46 @@
   function getHighlight(fips, highlight) {
     return fips === highlight;
   }
-
-  tick(() => {
-    highlightFeatureNode = el.querySelector("path.highlight");
-  });
 </script>
 
-<div
-  class="tile-map-wrap"
-  bind:clientWidth={width}
-  aria-hidden={typeof ariaRole === "undefined"}
-  role={ariaRole}
-  aria-label={ariaLabel}
->
-  <svg bind:this={el} {width} {height} viewBox="0 0 {width} {height}">
+<div class="tile-map-wrap" bind:clientWidth={width}>
+  <svg
+    {width}
+    {height}
+    viewBox="0 0 {width} {height}"
+    role={svgRole}
+    aria-hidden={svgAriaHidden}
+    aria-label={svgAriaLabel}
+    aria-labelledby={svgAriaLabelledby}
+  >
+    {#if ariaTitle}
+      <title id={titleId}>{ariaTitle}</title>
+    {/if}
+    {#if ariaDescription}
+      <desc id={descId}>{ariaDescription}</desc>
+    {/if}
+    {#snippet tileShape(rowIndex, columnIndex, attrs)}
+      {#if shape === "hex"}
+        <path
+          d={hexPoints}
+          transform="translate({getX(columnIndex, rowIndex, shapeWidth)}, {getY(
+            rowIndex,
+            shapeHeight
+          )})"
+          {...attrs}
+        ></path>
+      {:else if shape === "rect"}
+        <rect
+          width={shapeWidth}
+          height={shapeHeight}
+          transform="translate({getX(columnIndex, rowIndex, shapeWidth)}, {getY(
+            rowIndex,
+            shapeHeight
+          )})"
+          {...attrs}
+        ></rect>
+      {/if}
+    {/snippet}
     <rect
       role="presentation"
       class="background"
@@ -311,62 +349,50 @@
       {width}
       {height}
       onmousedown={(e) => onBgclick(e)}
+      onpointermove={(e) => {
+        tooltipData = null;
+        hoveredTile = null;
+        onMouseout(e);
+      }}
     ></rect>
-    <g
-      class="tiles"
-      style:--hover-fill={hoverFill || null}
-      style:--hover-stroke={hoverStroke || null}
-      style:--hover-stroke-width={hoverStrokeWidth || strokeWidth}
-      class:hover-fill={hoverFill}
-    >
-      {#each mapTiles as row, rowIndex}
-        {#each row as tile, columnIndex}
+    <g class="tiles" style:--hover-fill={hoverFill || null} class:hover-fill={hoverFill}>
+      {#each mapTiles as row, rowIndex (rowIndex)}
+        {#each row as tile, columnIndex (columnIndex)}
           {#if tile.trim() !== ""}
-            {#if shape === "hex"}
-              <path
-                class="tile-shape"
-                d={hexPoints}
-                fill={getFill(getFeatureData(tile), fill, naFill)}
-                transform="translate({getX(columnIndex, rowIndex, shapeWidth)}, {getY(
-                  rowIndex,
-                  shapeHeight
-                )})"
-                {stroke}
-                stroke-width={strokeWidth}
-                role="presentation"
-                class:highlight={getHighlight(fipsMap.get(tile), highlightFeature)}
-                onmousemove={(e) => handleMousemove(e, tile)}
-                onmouseout={handleMouseout}
-                onblur={handleMouseout}
-                onmousedown={(e) => handleClick(e, tile)}
-              ></path>
-            {:else if shape === "rect"}
-              <rect
-                class="tile-shape"
-                width={shapeWidth}
-                height={shapeHeight}
-                transform="translate({getX(columnIndex, rowIndex, shapeWidth)}, {getY(
-                  rowIndex,
-                  shapeHeight
-                )})"
-                fill={getFill(getFeatureData(tile), fill, naFill)}
-                {stroke}
-                stroke-width={strokeWidth}
-                role="presentation"
-                class:highlight={getHighlight(fipsMap.get(tile), highlightFeature)}
-                onmousemove={(e) => handleMousemove(e, tile)}
-                onmouseout={handleMouseout}
-                onblur={handleMouseout}
-                onmousedown={(e) => handleClick(e, tile)}
-              ></rect>
-            {/if}
+            {@render tileShape(rowIndex, columnIndex, {
+              class:
+                "tile-shape" +
+                (getHighlight(fipsMap.get(tile), highlightFeature) ? " highlight" : ""),
+              fill: getFill(getFeatureData(tile), fill, naFill),
+              stroke: getStroke(getFeatureData(tile), stroke),
+              "stroke-width": strokeWidth,
+              role: "presentation",
+              onmousemove: (e) => handleMousemove(e, tile),
+              onmouseout: handleMouseout,
+              onblur: handleMouseout,
+              onmousedown: (e) => handleClick(e, tile)
+            })}
+          {/if}
+        {/each}
+      {/each}
+    </g>
+    <g class="tile-outlines" pointer-events="none">
+      {#each mapTiles as row, rowIndex (rowIndex)}
+        {#each row as tile, columnIndex (columnIndex)}
+          <!-- Render outlines for any hovered or highlighted tiles -->
+          {#if tile.trim() !== "" && (hoveredTile === tile || getHighlight(fipsMap.get(tile), highlightFeature))}
+            {@render tileShape(rowIndex, columnIndex, {
+              fill: "none",
+              stroke: hoverStroke || stroke,
+              "stroke-width": hoverStrokeWidth || strokeWidth
+            })}
           {/if}
         {/each}
       {/each}
     </g>
     <g class="map-labels" style:--font-weight="bold">
-      {#each mapTiles as row, rowIndex}
-        {#each row as tile, columnIndex}
+      {#each mapTiles as row, rowIndex (rowIndex)}
+        {#each row as tile, columnIndex (columnIndex)}
           {#if tile.trim() !== ""}
             <g
               class="tile"
@@ -415,11 +441,6 @@
 <style>
   .tile-shape {
     cursor: pointer;
-  }
-  .tile-shape:hover,
-  .tile-shape.highlight {
-    stroke: var(--hover-stroke);
-    stroke-width: var(--hover-stroke-width);
   }
   .hover-fill .tile-shape:hover,
   .hover-fill .tile-shape.highlight {
