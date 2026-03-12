@@ -2,6 +2,8 @@
 
 ## Next
 
+## v2.2.0
+
 - Fix: tilemap tooltip no longer lingers after mouseout
 - Fix: tilemap strokes no longer cut off
 - Feat: tilemap supports "nodc" layout
