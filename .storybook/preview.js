@@ -46,7 +46,7 @@ const preview = {
       source: { language: "svelte", dark: true }
     },
     viewport: {
-      viewports: {
+      options: {
         small: {
           name: "Small",
           styles: {
