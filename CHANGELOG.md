@@ -1,7 +1,9 @@
 # @UrbanInstitute/dataviz-components Changelog
 
 ## Next
-
+## v2.2.1
+- Fix: npm publish bug
+  
 ## v2.2.1
 - Fix: urbanColors.magenta is now the correct color value
 
