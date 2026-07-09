@@ -2,6 +2,9 @@
 
 ## Next
 
+## v2.2.1
+- Fix: urbanColors.magenta is now the correct color value
+
 ## v2.2.0
 
 - Fix: tilemap tooltip no longer lingers after mouseout
