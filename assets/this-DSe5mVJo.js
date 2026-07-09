@@ -1,1 +1,0 @@
-import{M as S,N as h,A as k,O as A,S as M}from"./iframe-BSNeHIWM.js";function t(r,i){return r===i||(r==null?void 0:r[M])===i}function c(r={},i,a,O){return S(()=>{var f,s;return h(()=>{f=s,s=[],k(()=>{r!==a(...s)&&(i(r,...s),f&&t(a(...f),r)&&i(null,...f))})}),()=>{A(()=>{s&&t(a(...s),r)&&i(null,...s)})}}),r}export{c as b};
